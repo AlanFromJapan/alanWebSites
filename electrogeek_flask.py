@@ -41,22 +41,21 @@ def homepage():
 #serving page through template
 @app.route('/<page>.html')
 def serveTemplate(page):
-    t = None
-    year = datetime.now().strftime('%Y')
+    vBody = None
 
     #make sure this path is a *safe* path
     vFilePath = ROOTDIR + page.lower() + ".html"
 
     #caching or read from disk
     if Config.getboolean("WebConfig", "CACHING"):
-        t = getStatic(page.lower(), vFilePath)
+        vBody = getStatic(page.lower(), vFilePath)
     else:
     #read content of the static file
         with open(vFilePath, mode="r") as f:
-            t = f.read().decode("utf-8")
+            vBody = f.read().decode("utf-8")
 
-    #generate the output by injecting static page content and a couple of variables in the template page
-    return render_template(Config.get("Design", "Template"), pagename=page, pagecontent=t, year=year)
+    #renders
+    return renderPageInternal (pPageName=page, pBody=vBody)
 
 
 #Search page
@@ -64,7 +63,6 @@ def serveTemplate(page):
 def searchPage():
     searchstring = request.args.get('txbSearch')
     vBody = "<h1>All pages containing text '%s':</h1>" % (searchstring)
-    year = datetime.now().strftime('%Y')
 
     for filename in os.listdir(ROOTDIR):
 	if os.path.isfile(os.path.join(ROOTDIR, filename)) and filename.lower().endswith(".html"):
@@ -75,9 +73,17 @@ def searchPage():
                 if vCount > 0:
                     vBody = vBody + ('&#x2771; <a href="%s">%s</a> (%d occurences)<br/>' % (filename, filename[:-5], vCount))
 
+    #renders
+    return renderPageInternal (pPageName="Search results", pBody=vBody)
 
+
+
+#THE function that calls the page rendering and returns the result
+def renderPageInternal (pPageName, pBody):
+    vYear = datetime.now().strftime('%Y')
     #generate the output by injecting static page content and a couple of variables in the template page
-    return render_template(Config.get("Design", "Template"), pagename="Search results", pagecontent=vBody, year=year, isprod=Config.getboolean("WebConfig", "ISPROD"))
+    return render_template(Config.get("Design", "Template"), pagename=pPageName, pagecontent=pBody, year=vYear, isprod=Config.getboolean("WebConfig", "ISPROD"))
+
 
 
 ########################################################################################
