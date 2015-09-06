@@ -77,7 +77,7 @@ def searchPage():
 
 
     #generate the output by injecting static page content and a couple of variables in the template page
-    return render_template(Config.get("Design", "Template"), pagename="Search results", pagecontent=vBody, year=year)
+    return render_template(Config.get("Design", "Template"), pagename="Search results", pagecontent=vBody, year=year, isprod=Config.getboolean("WebConfig", "ISPROD"))
 
 
 ########################################################################################
