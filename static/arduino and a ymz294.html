@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and a YMZ294</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Tadaaaaa ♪"></a> Tadaaaaa ♪ </h1>
+<iframe width="560" height="344" src="//www.youtube.com/embed/IMvj-hAoPsg" frameborder="0" allowfullscreen></iframe><img src="files/ymz294.png" alt="ymz294.png" title="ymz294.png" align="right" /><br />
+<em>volume is low, you can see me in reflection ... I know ... hope you like it anyway.</em> <br />
+<span style="background-color: gold">See also how to generate tunes from MIDI files at <a class="wiki_link" href="MIDI%2C%20CSharp%20and%20Yamaha%20chips.html">MIDI, CSharp and Yamaha chips</a>.</span><br />
+<br />
+<h2 id="toc1"><a name="Tadaaaaa ♪-Documentation"></a> Documentation </h2>
+Suggested wiring hint here under. The bold pins are the difference between the YMZ294 and the YMZ284. You can wire it otherwise, but if you wire like that my samples will work directly :<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>&quot;Left side&quot;</strong><br />
+</td>
+        <td><strong>&quot;Right side&quot;</strong><br />
+</td>
+    </tr>
+    <tr>
+        <td><ul><li>/WR : Arduino pin 10</li><li>/CS : Arduino pin 11</li><li>A0 : Arduino pin 12</li><li>VDD : %205v</li><li>SO : SOund output, to the HP or amp</li><li>GND : ground</li><li>M : to the oscillator</li><li><strong>4/8 :</strong> High is 4MHz, Low is 8 MHz. Mine is connected to  Vcc (4Mhz crystal)</li><li>/IC : can leave floating or connect to VCC</li></ul></td>
+        <td><ul><li>D0 : Arduino pin 2</li><li>D1 : Arduino pin 3</li><li>...</li><li>...</li><li>...</li><li>...</li><li>...</li><li>D7 : Arduino pin 9</li><li><strong>/TEST :</strong> floating or VCC</li></ul></td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc2"><a name="Tadaaaaa ♪-Things to know"></a> Things to know </h2>
+<ul><li>Beware of short-circuits : the oscillator I got had its case connected to the ground, and one Vcc wire too long was short-circuiting because touching it.</li><li>You need 11 pins to drive it : 8 for data bus, 3 for control (WR, CS, A0)</li><li>Port TEST should be left un-connected</li><li>Port IC (reset) can also be left unconnected (it seems at least)</li></ul><br />
+<h2 id="toc3"><a name="Tadaaaaa ♪-Note about the oscillator"></a> Note about the oscillator </h2>
+Since many people asked me, you must use here an oscillator, and not a crystal. Reason is that you must feed your chip with a <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Square_wave" rel="nofollow" target="_blank">square signal</a>  on just one pin, so no crystal here (unlike what you would have next to your Atmel MCU). Anything that makes a square signal will do the trick, but must be in range 1MHz to 8Mhz.<br />
+<img src="files/squaresignal.png" alt="squaresignal.png" title="squaresignal.png" /><br />
+<br />
+<h1 id="toc4"><a name="Documentation"></a>Documentation</h1>
+<h2 id="toc5"><a name="Documentation-Datasheets"></a> Datasheets </h2>
+NONE on the net, not even on Yamaha website.<br />
+So, by reading the japanese documentation provided by Akizuki, I got it is the <em>same</em> as a YMZ284 (YMZ294 has 2 extra pins, one for test mode and the other one for choosing the crystal frequency 4/8 MHz). Wiring is the same as YMZ284 therefore.<br />
+And to me it looks like also its friend the YM2149. So I put these documentations here :<br />
+<ul><li><A  href="files/ymz284.pdf.html">ymz284.pdf</a> &lt;- you want this one (in english)</li><li><A  href="files/ym2149.pdf.html">ym2149.pdf</a> &lt;- FYI (in english)</li><li><A  href="files/ymz294.pdf.html">ymz294.pdf</a> &lt;- original documentation from Akizukidenshi (in Japanese)</li></ul><br />
+<h2 id="toc6"><a name="Documentation-Websites and tutorials"></a> Websites and tutorials </h2>
+<ul><li>Wikipedia : no datasheet but you've got an idea of what it does : <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/General_Instrument_AY-3-8910" rel="nofollow">http://en.wikipedia.org/wiki/General_Instrument_AY-3-8910</a></li></ul><em>Looks like everything is in japanese...</em><br />
+<ul><li>YMZ294で楽しむPSG音源 <a class="wiki_link_ext" href="http://hijiri3.s65.xrea.com/sorekore/develop/pic/PIC04_YMZ.htm" rel="nofollow">http://hijiri3.s65.xrea.com/sorekore/develop/pic/PIC04_YMZ.htm</a> (cabling details)</li><li><a class="wiki_link_ext" href="http://homepage2.nifty.com/sampodo/craft/psg.html" rel="nofollow">http://homepage2.nifty.com/sampodo/craft/psg.html</a></li><li>Arduino%20YMZ294で音をならしてみる <a class="wiki_link_ext" href="http://d.hatena.ne.jp/kazuya_a/20090625/1245926938" rel="nofollow">http://d.hatena.ne.jp/kazuya_a/20090625/1245926938</a> (<span style="color: #008000">sample code working 100% fine!</span>)</li><li><a class="wiki_link_ext" href="http://web.mac.com/kuwatay/morecat_lab./USB-PSG.html" rel="nofollow">http://web.mac.com/kuwatay/morecat_lab./USB-PSG.html</a></li><li>This guy is a genius <a class="wiki_link_ext" href="http://www.linusakesson.net/hardware/chiptune.php" rel="nofollow">http://www.linusakesson.net/hardware/chiptune.php</a></li><li>Wow a PSG shield ! Nice! <a class="wiki_link_ext" href="http://shield.io/psg" rel="nofollow">http://shield.io/psg</a></li><li>Hey some guy used my stuff : happy (^。^)v <a class="wiki_link_ext" href="http://blog.goo.ne.jp/jj1wkn/e/9b90832d25e8c5651572dd3ebbcceea8" rel="nofollow">http://blog.goo.ne.jp/jj1wkn/e/9b90832d25e8c5651572dd3ebbcceea8</a></li></ul><br />
+<h3 id="toc7"><a name="Documentation-Websites and tutorials-Midi music"></a> Midi music </h3>
+<ul><li>Final Fantasy<ul><li><a class="wiki_link_ext" href="http://www.thefinalfantasy.com/downloads/midi/" rel="nofollow">http://www.thefinalfantasy.com/downloads/midi/</a></li><li><a class="wiki_link_ext" href="http://www.midishack.net/ffmidi.htm" rel="nofollow">http://www.midishack.net/ffmidi.htm</a></li></ul></li><li>Super mario<ul><li><a class="wiki_link_ext" href="http://www.mariopiano.com/" rel="nofollow">http://www.mariopiano.com/</a></li></ul></li></ul><br />
+<h1 id="toc8"><a name="Code"></a> Code </h1>
+<ul><li>My &quot;library&quot;, just a .h file with all you need to pilot it, and a sample program <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FYMZ294_TestLib" rel="nofollow" target="_blank">on my google code account</a><ul><li>Wire it and you get Final Fantasy IV music !</li></ul></li><li>Other inspirations and precious help : <A  href="files/YMZ294_Test.pde.html">YMZ294_Test.pde</a> Directly taken<a class="wiki_link_ext" href="http://d.hatena.ne.jp/kazuya_a/20090625/1245926938" rel="nofollow" target="_blank"> from the link here above</a> , no change at all and worked just fine.</li></ul><span style="background-color: #FFFF00">See also how to generate tunes from MIDI files at <a class="wiki_link" href="MIDI%2C%20CSharp%20and%20Yamaha%20chips.html">MIDI, CSharp and Yamaha chips</a>.</span><br />
+<br />
+<img src="files/14355_196076518789_704343789_3042335_1672547_n.jpg" alt="14355_196076518789_704343789_3042335_1672547_n.jpg" title="14355_196076518789_704343789_3042335_1672547_n.jpg" /><br />
+<br />
+<h1 id="toc9"><a name="Shopping"></a> Shopping </h1>
+<ul><li>ヤマハ音源ＩＣ（ＹＭＺ２９４）(includes a 4MHz oscillator) for 500 ¥ <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-00181/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-00181/</a></li></ul>
+    </div>
+  </body>
+</html>

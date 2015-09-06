@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>kalshagar - ardRemote Table</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Why why why oh why ?"></a> Why why why oh why ? </h1>
+<br />
+Embed in the table next to my sofa a few touch zone (using capacitive sensing) to control basic functions of the TV and no more search for that very big remote. You basically need volume %20/-, channel %20/- and power. So in order to full fill that project, we need the following basics :<br />
+<ul><li><a class="wiki_link" href="Arduino%20and%20Capacitive%20sensor%20%28you%29.html">Capacitive sensing and how to do it</a>  (if possible without direct touch ?)</li><li><a class="wiki_link" href="Arduino%20and%20IR%20%28infrared%29.html">Read IR codes</a>  to be able to reproduce them and send them to the TV</li><li>Wood work to embed the touch zone in the table (cheap stuff since high probability of failure)</li></ul><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/ArdRemoteTable-room.png" alt="ArdRemoteTable-room.png" title="ArdRemoteTable-room.png" style="width: 400px;" /><br />
+</td>
+        <td><img src="files/ArdRemoteTable6.png" alt="ArdRemoteTable6.png" title="ArdRemoteTable6.png" style="width: 400px;" /><br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc1"><a name="Why why why oh why ?-Reviewed objectives"></a> Reviewed objectives</h2>
+Well, the wood work stuff was not possible due to bad sensitivity of my sensors. Direct touch work fine, through-wood wouldnt.<br />
+For the casing, a old SNES cartridge : 100 JPY, sufficient size, very easy to workout maleable plastic.<br />
+<span style="text-decoration: line-through">Bad surprise, distance of the IR is not sufficient for reaching tv from the furniture. Not much, like missing 40cm maybe but still out of reach :( Otherwise working just fine. Maybe I'll hook it somewhere else and put long wires to the IR emitter.</span><br />
+In fact after some checkings, it's weirder then first thought: it works perfectly fine from the distance I initially planned. Problem is that it can't startup the TV <em>the first time</em> or after a long inactivity time. If you start the TV with the usual remote, it works fine then and after and you can full control the TV, even start/stop it at will. But &quot;cold start&quot; seems not to work... weird, and no idea why... Oo;<br />
+<br />
+<h1 id="toc2"><a name="Images"></a> Images </h1>
+<img src="files/2010-07-03_17.37.59.jpg" alt="2010-07-03_17.37.59.jpg" title="2010-07-03_17.37.59.jpg" style="width: 600px;" /><br />
+<img src="files/2010-07-03_17.38.29.jpg" alt="2010-07-03_17.38.29.jpg" title="2010-07-03_17.38.29.jpg" style="width: 600px;" /><br />
+The naked truth. It has also 2 led for the debug purpose (I bought a 100 pack for 5 euro so lets us it)<br />
+<img src="files/2010-07-11_21.15.13.jpg" alt="2010-07-11_21.15.13.jpg" title="2010-07-11_21.15.13.jpg" style="width: 600px;" /><br />
+Cased in a old SNES cartridge (100 jpy somewhere in Akihabara or Higashi-Nakano)<br />
+<br />
+<h1 id="toc3"><a name="Material"></a> Material </h1>
+<br />
+<h1 id="toc4"><a name="Codes"></a> Codes </h1>
+<A  href="files/ArdRemoteTable.pde.html">ArdRemoteTable.pde</a> The sketch for Arduino IDE<br />
+<A  href="files/setfuses.Pololu.sh.html">setfuses.Pololu.sh</a> Set the fuses for 16MHz external quartz<br />
+<A  href="files/uploadArdRemoteTable.Pololu.sh.html">uploadArdRemoteTable.Pololu.sh</a> Upload the IDE compiled .hex file to the board<br />
+<A  href="files/IRrecord.pde.html">IRrecord.pde</a> Use this script to record IR info. You need the IRremote library and change it to have a longer buffer (#define RAWBUF 256)<br />
+<br />
+<h1 id="toc5"><a name="Links"></a> Links </h1>
+ <ul><li><a class="wiki_link_ext" href="http://www.instructables.com/id/350-DIY-TV-B-Gone-Mico/step5/Program-the-Chip-Part-2-Code/" rel="nofollow">http://www.instructables.com/id/350-DIY-TV-B-Gone-Mico/step5/Program-the-Chip-Part-2-Code/</a></li><li>TV B GONE</li></ul>
+    </div>
+  </body>
+</html>

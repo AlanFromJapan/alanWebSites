@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and a TV</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Why bother in fact ?"></a> Why bother in fact ? </h1>
+Just discovered this library, why bother in the end ... It has the nice touch to work with NTSC AND PAL (I need NTSC, I'm in Japan)<br />
+<ul><li><a class="wiki_link_ext" href="http://www.arduino.cc/playground/Main/TVout" rel="nofollow">http://www.arduino.cc/playground/Main/TVout</a></li><li>A killer one ! <a class="wiki_link_ext" href="http://code.google.com/p/arduino-tvout/" rel="nofollow">http://code.google.com/p/arduino-tvout/</a><ul><li>Used here <a class="wiki_link_ext" href="http://freegeekvancouver.blogspot.com/2012/02/dymaxion-auto-matic-buckminster-fuller.html" rel="nofollow">http://freegeekvancouver.blogspot.com/2012/02/dymaxion-auto-matic-buckminster-fuller.html</a></li></ul></li></ul><br />
+<h1 id="toc1"><a name="The DIY way - NTSC"></a> The DIY way - NTSC </h1>
+<h2 id="toc2"><a name="The DIY way - NTSC-The right stuff"></a> The right stuff </h2>
+<ul><li>Meochan aka Masami WATANABE &quot;Nabe&quot;-san, that very nicely shared his code with me (^_~)b<ul><li><a class="wiki_link_ext" href="http://homepage3.nifty.com/two_legs/neo/project/Arduino/proj_Arduino.htm" rel="nofollow">http://homepage3.nifty.com/two_legs/neo/project/Arduino/proj_Arduino.htm</a></li><li><a class="wiki_link_ext" href="http://www.youtube.com/watch?v=dZVFQIFUhwA" rel="nofollow">http://www.youtube.com/watch?v=dZVFQIFUhwA</a></li><li><a class="wiki_link_ext" href="http://picasaweb.google.co.jp/MeowJPN/ELJ09#" rel="nofollow">http://picasaweb.google.co.jp/MeowJPN/ELJ09#</a></li></ul></li></ul><br />
+Note about the circuit to use (on an Arduino 2009):<br />
+<ul><li>Pins A0-A3 : the data over 4 bit -&gt; 2^4 = 16 shades of gray possible</li><li>Pin 9 : PWM used for the carrier for VSync</li></ul><br />
+Another link :<br />
+<ul><li><a class="wiki_link_ext" href="http://www.batsocks.co.uk/readme/art_SerialVideo_1.htm" rel="nofollow">http://www.batsocks.co.uk/readme/art_SerialVideo_1.htm</a></li></ul><br />
+<h2 id="toc3"><a name="The DIY way - NTSC-Looks nice but doesn't work"></a> Looks nice but doesn't work </h2>
+<ul><li>The great AVGA <a class="wiki_link_ext" href="http://avga.prometheus4.com/index.php?p=0-0" rel="nofollow">http://avga.prometheus4.com/index.php?p=0-0</a><ul><li>... that doesn't compile on my WinAVR T_T Why oh why ???</li></ul></li><li>M. Lablonde (abandonned stuff, wrong timing on Arduino 2009 %20 recent Arduino IDE, should be rewritten in ASM or pure C)<ul><li><a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1188261175/0" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1188261175/0</a></li><li>v3 : <a class="wiki_link_ext" href="http://pastie.textmate.org/91536" rel="nofollow">http://pastie.textmate.org/91536</a></li><li>v2 : <a class="wiki_link_ext" href="http://pastie.textmate.org/91188" rel="nofollow">http://pastie.textmate.org/91188</a></li></ul></li></ul><br />
+<h2 id="toc4"><a name="The DIY way - NTSC-Misc information"></a> Misc information </h2>
+<img src="files/vinfo_da00.png" alt="vinfo_da00.png" title="vinfo_da00.png" /><br />
+<em>Image taken from <a class="wiki_link_ext" href="http://www.eyetap.org/ece385/vinfo_da00.png" rel="nofollow">http://www.eyetap.org/ece385/vinfo_da00.png</a></em> <br />
+These are the ideal values, however according some people on the net, 470 Ohm and 1 kOhm are ok.<br />
+<img src="files/sync-wf.gif" alt="sync-wf.gif" title="sync-wf.gif" /> <br />
+<em><a class="wiki_link_ext" href="http://www.ntsc-tv.com/images/tv/sync-wf.gif" rel="nofollow">http://www.ntsc-tv.com/images/tv/sync-wf.gif</a></em><br />
+<br />
+<h2 id="toc5"><a name="The DIY way - NTSC-PAL"></a> PAL </h2>
+<ul><li><a class="wiki_link_ext" href="http://sites.google.com/site/alastairparker/arduinopong" rel="nofollow">http://sites.google.com/site/alastairparker/arduinopong</a></li><li>Awesome version of Tetris from Ben Ryves <a class="wiki_link_ext" href="http://benryves.com/products/avrtvgame" rel="nofollow">http://benryves.com/products/avrtvgame</a></li><li><a class="wiki_link_ext" href="http://instruct1.cit.cornell.edu/courses/ee476/video/" rel="nofollow">http://instruct1.cit.cornell.edu/courses/ee476/video/</a></li><li><a class="wiki_link_ext" href="http://www.rickard.gunee.com/projects/video/pic/howto.php" rel="nofollow">http://www.rickard.gunee.com/projects/video/pic/howto.php</a></li></ul><h1 id="toc6"><a name="Just buy it"></a> Just buy it </h1>
+<ul><li>Telly mate (text mode)<ul><li><a class="wiki_link_ext" href="http://www.switch-science.com/products/detail.php?product_id=217" rel="nofollow">http://www.switch-science.com/products/detail.php?product_id=217</a></li><li><a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/product_info.php?products_id=9313" rel="nofollow">http://www.sparkfun.com/commerce/product_info.php?products_id=9313</a></li></ul></li></ul>
+    </div>
+  </body>
+</html>

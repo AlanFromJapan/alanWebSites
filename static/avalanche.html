@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>kalshagar - Avalanche</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Avalanche a la Ikea"></a> Avalanche a la Ikea</h1>
+<div style="float: right; margin-left: 1em;"><iframe width="420" height="315" src="//www.youtube.com/embed/Ysbj-0ZmN1g" frameborder="0" allowfullscreen></iframe></div> It was some stuff I saw in Ikea in France (means 8-10 years ago). It was a board, with bi-color red-blue leds array quite big, inside a semi-opaque white frame, and some leds were turning slowly on or off one by one, somewhere like in the game of life ... but quite slow. I found it so cool and wanted one but never made the step. Now I'm a full grown geek and I can make my own :P<br />
+<br />
+This project will use the <a class="wiki_link" href="RGBoard.html">RGBoard</a>, which is in fact the main <em>raison d'etre</em> of the board. The board is poorly designed, with big flaws but after a few acrobatic soldering it can do the job.<br />
+<br />
+<ul><li>PWM is done with a TLC5940 that drives the 8 ground pins (8 columns of led)</li><li>On/off is done by 3x 74HC595 in serial, each driving 8 rows, one SIPO per color</li></ul><br />
+<h2 id="toc1"><a name="Avalanche a la Ikea-Technical links"></a> Technical links </h2>
+<ul><li>Using 74HC595 to make extra IO <a class="wiki_link_ext" href="http://www.arduino.cc/en/Tutorial/ShiftOut" rel="nofollow">http://www.arduino.cc/en/Tutorial/ShiftOut</a></li><li>Doing soft PWM with shift registers <a class="wiki_link_ext" href="http://www.elcojacobs.com/shiftpwm/" rel="nofollow">http://www.elcojacobs.com/shiftpwm/</a><ul><li>Didn't use it, used a TLC5940 for the PWM. The shift registers are used but just to add extra IO pins</li></ul></li><li>Using the TLC5940 (expensive)<ul><li>Expensive, rare (ebay or digikey), current sink only ... If you can avoid it I recommend.</li></ul></li></ul><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/2012-10-17-23-35-56_deco.jpg" alt="2012-10-17-23-35-56_deco.jpg" title="2012-10-17-23-35-56_deco.jpg" style="width: 400px;" /> <br />
+The assembled version with a 10x10cm diffraction plastic layer<br />
+</td>
+        <td><img src="files/2012-10-20-18-39-21_deco.jpg" alt="2012-10-20-18-39-21_deco.jpg" title="2012-10-20-18-39-21_deco.jpg" style="width: 400px;" /> <br />
+<ul><li>On the left: the green board with a Atmega 328 and a TLC5940 10 bits PWM controlling the GND of the leds</li><li>On the right: the white board with 3x SIPO 8bits registers <a class="wiki_link" href="Arduino%20and%20Shift-registers.html">74HC595</a>  in serial, one for each color</li></ul></td>
+    </tr>
+    <tr>
+        <td><img src="files/2012-10-20-18-35-54_deco.jpg" alt="2012-10-20-18-35-54_deco.jpg" title="2012-10-20-18-35-54_deco.jpg" style="width: 400px;" /><br />
+The wiring mess, with acrobatic soldering and lots and lots of glue to keep everything together.<br />
+</td>
+        <td><img src="files/2012-10-20-18-35-18_deco.jpg" alt="2012-10-20-18-35-18_deco.jpg" title="2012-10-20-18-35-18_deco.jpg" style="width: 400px;" /> <br />
+The led solder face. On purpose some leds are not present to not have a regular pattern. And save cash.<br />
+</td>
+    </tr>
+</table>
+
+
+    </div>
+  </body>
+</html>

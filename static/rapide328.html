@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>kalshagar - Rapide328</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Rapide328 purpose"></a> Rapide328 purpose </h1>
+<img src="files/rapide328.png" alt="rapide328.png" title="rapide328.png" align="right" /> If you work like me, this PCB can be quite a time saver. I usually work with Atmega328 chip, the same as Arduino. I make my programs in the ArduinoIDE and compile it. Then I upload the .hex binary file to the card via a pololu ISP on the chip that is sitting in the arduino board (skip the bootloarder) or on the board it resides itself (but then I solder a 6pin ISP and that bores me to death). Most often I keep on putting the chip, moving the chip somewhere, put it back, program, take it out, put on the test board, ... over and over ... not really optimized.<br />
+What I wanted was a board that :<br />
+<ul><li>Allows me to program in place having already a ATmega--8 series compliant 6pins ISP</li><li>Allows me to access the chip pin for soldering to surrounding (a bit like a breadboard)</li><li>Allows me to not solder or solder easily those glue components (crystal, crystal caps, ...)</li><li>Has space around the chip to solder the other components</li><li>Has power rails easily accessible</li><li>Has no need for a serial or USB connection</li></ul>Well, if you agree with most of these points, Rapide328 might be a PCB for you.<br />
+In addition to that, it has a feature that is its strength and weakness : it's a 5x5cm board, very small! Good for small projects, less good for medium/large projects, you'll need a daughter board. Or you'll want to see the Rapide328 sister's board, the <a class="wiki_link" href="Veloce328.html">Veloce328</a> who is 5x10cm.<br />
+<br />
+And in case you wonder, yes, &quot;rapide&quot; means &quot;rapid&quot; or &quot;fast&quot;, and it's <em>French</em> like me :P It's a board made to help you make your projects more quickly.<br />
+I'm not following the trend of <em>-uino</em>-suffixing stuffs. <br />
+<br />
+<h2 id="toc1"><a name="Rapide328 purpose-Interrested in having some ?"></a> Interrested in having some ? </h2>
+You can do your own (Eagle code is right under) or mail me (on the left side of the page) I'd be delighted to provide it to you for 200-300 JPY %20 shipping depending where you live and how many you order. Please note that it's just the pcb naked I would send you, without any component. <br />
+<br />
+<h1 id="toc2"><a name="Schema"></a>Schema </h1>
+All on <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FRapide328%253Fstate%253Dclosed" rel="nofollow">google code repository</a>.<br />
+<h2 id="toc3"><a name="Schema-Anatomy"></a> Anatomy </h2>
+<img src="files/Rapide328-details.png" alt="Rapide328-details.png" title="Rapide328-details.png" style="width: 450px;" align="right" /><br />
+<ul><li>Through hole print for the micro controller Arduino ATmega88/168/328</li><li>Room for a crystal and its 2 caps</li><li>Additional 1uF cap close to the power of the uC</li><li>Power rail all around the circuit</li><li>Empty holes for adding your own components</li><li>3 mounting holes</li></ul><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1 id="toc4"><a name="Pictures"></a> Pictures </h1>
+<img src="files/rapide328real.JPG" alt="rapide328real.JPG" title="rapide328real.JPG" /><br />
+The real card (first batch, card v1.0)<br />
+<br />
+<h1 id="toc5"><a name="History"></a> History </h1>
+<strong>20111207:</strong> first batch of 10 pcb ordered to Seeedstudio. v1.0 was a good exercice in Eagle and took maybe 7 hours to be made (in multiple sessions of 1-2h). Now I could make the same in 3h I guess, that's the learning curve.
+    </div>
+  </body>
+</html>

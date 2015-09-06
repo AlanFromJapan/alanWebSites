@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <title>kalshagar - ardReveil v3</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Arduino vIII : it's credible(?) life"></a> Arduino vIII : it's credible(?) life </h1>
+<strong>2010-03-18 :</strong> It's alive, in only 3 evening of work. Step 1 was power, then step 2 was RTC and Infra Red sensor, step 3 was LCD with micro code and the programming connector. Works from the first try, isn't it great ? (NB: ok, I killed probably a ATmega 328 but hey...)<br />
+<br />
+<strong>Hall of fame:</strong><br />
+<ul><li>Thanks to Embedds.com : <a class="wiki_link_ext" href="http://www.embedds.com/clocks-can-be-fun/" rel="nofollow">http://www.embedds.com/clocks-can-be-fun/</a></li><li>Thanks to Hackaday.com : <a class="wiki_link_ext" href="http://hackaday.com/2010/04/15/clock-hides-time-until-youre-in-close-proximity/" rel="nofollow">http://hackaday.com/2010/04/15/clock-hides-time-until-youre-in-close-proximity/</a></li><li>Thanks to Electronics-lab.com <a class="wiki_link_ext" href="http://www.electronics-lab.com/blog/?p=4493" rel="nofollow">http://www.electronics-lab.com/blog/?p=4493</a></li></ul><br />
+<h1 id="toc1"><a name="Description"></a> Description </h1>
+<img src="files/IMG_3649.jpg" alt="IMG_3649.jpg" title="IMG_3649.jpg" style="width: 600px;" /><br />
+Still a clock, this time very simple, just shows time, nothing more. No alarm, no sound, no settings : just time. And no button at all, lighting is detecting by hovering the hand over the component : the IR reads the hand position and the closer you are the brighter it is. Final dot.<br />
+<br />
+Still a new RTC (never used twice the same) I went for the fantastic <strong>temperature compensated</strong> DS3232 of Maxim (thanks to them again for the 2 samples). 2 minutes change over a year : great toy. <br />
+Also, first use of the Sharp IR sensor, astonishingly simple and efficient. until 80 cm you have a nice, linear reading of the position. So cool.<br />
+To finish, there is <strong>no arduino in that</strong> : I use my Pololu programmer to upload the code done into the Arduino IDE. Just compile, hear it fail that no Arduino Duemillanove is connected, and upload the code via the 6 pin connector on the card. Save space, money and keep my Arduino for what it's needed : prototyping or perpetual USB connection.<br />
+<br />
+The whole toy is cased into a iPodTouch box (gave the iTouch, kept the box). Very happy with my casing, the nice internal paper cover hides nicely the electronic parts.<br />
+<br />
+<br />
+<h1 id="toc2"><a name="Schema, parts and code"></a> Schema, parts and code </h1>
+<h2 id="toc3"><a name="Schema, parts and code-Code"></a> Code </h2>
+<A  href="files/ARD_Reveil_v3.zip.html">ARD_Reveil_v3.zip</a><br />
+<br />
+No specific points of interrest. You might find useful the RTCDS3232.h that makes use of DS3232 easy in case, but there's no magic inside. If it can save you a few hours of job, feel free! <br />
+<br />
+<h2 id="toc4"><a name="Schema, parts and code-Uploading code"></a> Uploading code </h2>
+This might prove interresting : build your own 6 pins connector to upload the binary, have the Arduino IDE &quot;upload&quot; the code on a non connected COM port. It will successfully build the .hex file but fail to upload. So just pick the following command line that will upload that .hex file directly to the ATmega 328 (same as Arduino 2009). You save space (no bootloader) and money (way less expensive than embeding and Arduino 2009 inside this).<br />
+<br />
+NB: my pololu is on COM1 and the path should be full path to make sure it works fine.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos">D:\arduino-0015\hardware/tools/avr/bin/avrdude -CD:\arduino-0015\hardware/tools/avr/etc/avrdude.conf 
+-v -pm328p -c avrispv2 -P\\.\<span class="kw4">COM1</span>   
+&quot;-Uflash:w:C:\Documents and Settings\Alan\My Documents\Arduino\ARD_Reveil_v3\applet\ARD_Reveil_v3.hex:i&quot; </pre>
+
+<br />
+<h2 id="toc5"><a name="Schema, parts and code-Parts"></a> Parts </h2>
+Except especially mentionned, I bought everything from my favorites : Akizukidenshi.com<br />
+<ul><li>ATmega 328 : overkill but for 250 JPY why bother? And anyway I need analog input so ATtiny 2313 is out of competition so</li><li>LCD : parallel interface, small characters, white on blue 800 JPY</li><li>RTC : fantastic Maxim DS3232 temperature regulated clock, I love this thing. And thanks Maxim for sending me those 2 free samples, you got a new happy future customer. Just mind that it's small so you want a PCB that fits (Akizuki again).</li><li>IR Sensor : Sharp GP2Y0A21 YK 400 JPY, precise up to 80 cm (great inexpensive component!)</li><li>A few 10 uF and 0.1uF</li><li>A few resistors : I2C pullups (10 kO), contrast of LCD (2 kO) and LCD backlight current limiter 100 ohm</li><li>Coin battery %20 connector for the RTC</li><li>Power : LM7805, 100 uF and 47 uF capacitors, 250 mA PTC (resetable fuse), 12v/0.7 A wallwart with connector (200 JPY !!)</li></ul><br />
+<hr />
+<strong>Sum:</strong> 3000 JPY (or so), means 33 USD or 25 EUR. Fully assembled, programmed etc in 3 evenings (electronic part, not includes casing)<br />
+<br />
+<h2 id="toc6"><a name="Schema, parts and code-Schema"></a> Schema </h2>
+Not present on the schema : <br />
+<ul><li>ATmega 328 Ground are plugged to ground, and VCCs and AVcc also.</li><li>My realization has a 16MHz crystal and 2 22pF condesator, but I didn't set the fuse (except the prescaler) so it uses internal 8Mhz oscillator. More than sufficient for what it does.</li><li>The power part is the usual LM7805 %20 2 condensators (before/after) %20 PTC. Note that I used cheap 7805 and that it produces non-neglectable amount of heat (or it is due to the 12v wallwart).</li><li>SDA/SCL might be reversed, I'm too lazy to check the wires. Sorry. If it doesn't work in one way, it's the other one. Or RTFM. As you want.</li></ul><br />
+<img src="files/ardReveil.v3.png" alt="ardReveil.v3.png" title="ardReveil.v3.png" /><br />
+<br />
+<h1 id="toc7"><a name="Pictures"></a> Pictures </h1>
+<img src="files/26475_372923723789_704343789_3675484_4054952_n.jpg" alt="26475_372923723789_704343789_3675484_4054952_n.jpg" title="26475_372923723789_704343789_3675484_4054952_n.jpg" /> <br />
+<img src="files/26475_372924193789_704343789_3675485_2775056_n.jpg" alt="26475_372924193789_704343789_3675485_2775056_n.jpg" title="26475_372924193789_704343789_3675485_2775056_n.jpg" /> <br />
+<img src="files/26475_372924748789_704343789_3675486_1087488_n.jpg" alt="26475_372924748789_704343789_3675486_1087488_n.jpg" title="26475_372924748789_704343789_3675486_1087488_n.jpg" /> <br />
+<img src="files/IMG_3645.JPG" alt="IMG_3645.JPG" title="IMG_3645.JPG" style="width: 600px;" /> <br />
+<img src="files/IMG_3642.JPG" alt="IMG_3642.JPG" title="IMG_3642.JPG" style="width: 600px;" /> <br />
+<img src="files/IMG_3646.jpg" alt="IMG_3646.jpg" title="IMG_3646.jpg" style="width: 600px;" /> <br />
+Usual display (hand not hovering), seems like off. But one with good eyes can see the time is still faintly visible.<br />
+<img src="files/IMG_3648.jpg" alt="IMG_3648.jpg" title="IMG_3648.jpg" style="width: 600px;" /> <br />
+Hand hovering: display becomes readable (the closer you are, the brighter it is) <br />
+<img src="files/IMG_3651.jpg" alt="IMG_3651.jpg" title="IMG_3651.jpg" style="width: 600px;" /> <br />
+Hand hovering: display becomes readable (the closer you are, the brighter it is) <br />
+<img src="files/IMG_3652.jpg" alt="IMG_3652.jpg" title="IMG_3652.jpg" style="width: 600px;" /> <br />
+ <img src="files/IMG_3653.jpg" alt="IMG_3653.jpg" title="IMG_3653.jpg" style="width: 600px;" />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>kalshagar - cameleon</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+ <div style="float: right; margin-left: 1em;"><iframe width="420" height="315" src="//www.youtube.com/embed/wU5YAOoVJ28" frameborder="0" allowfullscreen></iframe></div><br />
+A novelty, a small item you put at some place and it detects the color of what it has been placed on and change its color accordingly. <br />
+<br />
+How it works : light something with 3 different color and measure how much light is reflected. If you have taken provision in advance (and stored in in the EEPROM memory) the answer to pure white and pure black in the red, green and blue color component, map your results to that interval, make it a ratio on [0;255] scale : you got your PWM value for that component.<br />
+<br />
+See it like a 2 parts item : bottom contains a CdS and a RGB led to light and &quot;read&quot; each color (R/G/B), a top part that would change color with a RGB led to &quot;show&quot; the color that was read. The bottom part would light up 1 sec every n sec to check the color and amend the RGB color at the top. <br />
+<br />
+<strong>Notabene :</strong> dam#### when you have a good idea, there's always <em>someone</em> who had the same just before ...<br />
+<ul><li><strong>The source of inspiration</strong>: read it, it's a very good one -&gt; <a class="wiki_link_ext" href="http://www.instructables.com/id/Color-Detection-Using-RGB-LED/" rel="nofollow">http://www.instructables.com/id/Color-Detection-Using-RGB-LED/</a></li><li><a class="wiki_link_ext" href="http://www.instructables.com/id/Magical-Chameleon-Lamp/" rel="nofollow">http://www.instructables.com/id/Magical-Chameleon-Lamp/</a></li><li>Ah, another one <a class="wiki_link_ext" href="http://www.richardosgood.com/2012/02/06/home-built-color-sensor/" rel="nofollow">http://www.richardosgood.com/2012/02/06/home-built-color-sensor/</a></li><li>Interresting Korean concept <a class="wiki_link_ext" href="http://www.designboom.com/weblog/cat/8/view/6853/color-picker-pen-by-jinsu-park.html" rel="nofollow">http://www.designboom.com/weblog/cat/8/view/6853/color-picker-pen-by-jinsu-park.html</a></li></ul><br />
+<strong>20111219 :</strong> one evening of this and that, I'got on my arduino (prototype) a reading of default balance saved in EEPROM. The readings now are not always consistent nor great but seem to go in the right direction however. A bit more tuning and maybe I'll have something working as a prototype.<br />
+<strong>201112xx:</strong> Now it's packed in a recycled salt tube, looks like a wand, it became a <strong>CameleonWand</strong> ! Working not too bad, except for the greenish stuffs. Reds are nicely detected, blue too, green aren't. I must have failed something somewhere for sure...<br />
+<strong>20120207:</strong> saw some other projects of that kind on the net today, but using a color detector instead of a simple inexpensive CdS.<a class="wiki_link_ext" href="http://www.richardosgood.com/2012/02/06/home-built-color-sensor/" rel="nofollow"> This is the site</a>. Should put a picture or video of mine someday...<br />
+<br />
+<h1 id="toc1"><a name="Component"></a> Component </h1>
+<ul><li>A ATmega328: needs at minimum 3 PWM (for the RGB &quot;show&quot; part) %20 1 analog input (to read the CdS) %20 3 digital out pin to light the R/G/B led at the bottom to see the color reflection.<ul><li>In fact I got lazy and just reimplemented what I made with my Arduino as a prototype. Yes, agreed, Atmega328 is an overkill .. maybe 100 JPY of overkill ... promise I'll be a better geek later.</li></ul></li><li>A <a class="wiki_link" href="Arduino%20and%20a%20photocell.html">CdS for the poor man color sensing</a></li><li>A RGB led to the CdS to &quot;see&quot; under him</li><li>A RGB led for the color to &quot;show&quot; the color it sees</li><li>A handful of resistors (2 in fact)</li><li>A homemade <a class="wiki_link" href="Rapide328.html">Rapide328</a> arduino minus usb clone for the board</li></ul><br />
+<h1 id="toc2"><a name="Code"></a>Code </h1>
+As usual, <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FcameleonWand" rel="nofollow">on google code</a>. This one is poorly documented I have to admit, sorry. But since it's not very complex, should be ok I hope. <br />
+You might (quite sure) want to change the values that are stored in the EEPROM that are my sample results to pure white and pure black, I think it's a key to a better result. Also I tried to rebalance the color roughly by affecting some wheight to the RGB components when I display the color, you might also want to reconsider that...<br />
+<br />
+<h1 id="toc3"><a name="Schema"></a> Schema </h1>
+<img src="files/cameleonWandSchema.png" alt="cameleonWandSchema.png" title="cameleonWandSchema.png" style="width: 800px;" /><br />
+Nothing complex here. <br />
+<br />
+<h1 id="toc4"><a name="Pictures &amp; Video"></a> Pictures &amp; Video </h1>
+<img src="files/IMG_6409.jpg" alt="IMG_6409.jpg" title="IMG_6409.jpg" /><br />
+<em>I: CdS and the reading led. II: Show led, also RGB. III: on switch (pushbutton). Board is a <a class="wiki_link" href="Rapide328.html">Rapide328</a>.</em>
+    </div>
+  </body>
+</html>

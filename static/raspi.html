@@ -1,0 +1,207 @@
+<html>
+  <head>
+    <title>kalshagar - RasPi</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+Official documentation : <a class="wiki_link_ext" href="http://elinux.org/R-Pi_Hub" rel="nofollow">http://elinux.org/R-Pi_Hub</a> <br />
+- Lots of tutorials : <a class="wiki_link_ext" href="http://elinux.org/RPi_Tutorials" rel="nofollow">http://elinux.org/RPi_Tutorials</a><br />
+- Troubleshooting commands : <a class="wiki_link_ext" href="http://elinux.org/RPI_vcgencmd_usage" rel="nofollow">http://elinux.org/RPI_vcgencmd_usage</a><br />
+<br />
+<h1 id="toc0"><a name="Projects and tips"></a> Projects and tips </h1>
+<br />
+<h2 id="toc1"><a name="Projects and tips-Startup setup"></a> Startup setup </h2>
+<ul><li>With the config tool: expand the disk size, set 16MB for the GPU, set the locale to something en_US.UTF8, change pi default password</li><li>Minimal tools:<ul><li>sudo apt-get install emacs</li></ul></li><li>Change machine name : <a class="wiki_link_ext" href="http://www.howtogeek.com/167195/how-to-change-your-raspberry-pi-or-other-linux-devices-hostname/" rel="nofollow">see here</a></li><li>Change SSH port: <a class="wiki_link_ext" href="http://www.raspians.com/Knowledgebase/how-to-change-ssh-port/" rel="nofollow">see here</a> and <a class="wiki_link_ext" href="http://www.raspians.com/Knowledgebase/how-to-change-ssh-port/" rel="nofollow">here</a></li><li>Router:<ul><li>IP reservation to the Pi mac</li></ul></li></ul><br />
+<h2 id="toc2"><a name="Projects and tips-Raspi web server with Flask"></a> Raspi web server with Flask </h2>
+<ul><li>Use <a class="wiki_link_ext" href="http://flask.pocoo.org/" rel="nofollow" target="_blank">Flask</a></li><li><strong>Very good</strong> manual <a class="wiki_link_ext" href="http://mattrichardson.com/Raspberry-Pi-Flask/" rel="nofollow">http://mattrichardson.com/Raspberry-Pi-Flask/</a></li></ul><br />
+<h2 id="toc3"><a name="Projects and tips-Raspi as a cloud [DONE!]"></a> Raspi as a cloud [DONE!] </h2>
+<ul><li>Use OwnCloud</li></ul><br />
+<h2 id="toc4"><a name="Projects and tips-Raspi as DLNA server [DONE!]"></a> Raspi as DLNA server [DONE!] </h2>
+<ul><li><a class="wiki_link_ext" href="http://pihomeserver.wordpress.com/2012/12/07/raspberry-pi-home-server-etape-8-installer-minidlna/" rel="nofollow">http://pihomeserver.wordpress.com/2012/12/07/raspberry-pi-home-server-etape-8-installer-minidlna/</a></li><li>Useful info:</li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="co0">#edit</span>
+<span class="kw2">sudo</span> <span class="kw2">vim</span> <span class="sy0">/</span>etc<span class="sy0">/</span>minidlna.conf
+<span class="co0">#restart the service after changes</span>
+<span class="kw2">sudo</span> service minidlna force-reload</pre>
+
+<br />
+<h2 id="toc5"><a name="Projects and tips-Raspi file share SAMBA [DONE!]"></a> Raspi file share SAMBA [DONE!] </h2>
+<ul><li><a class="wiki_link_ext" href="http://pihomeserver.wordpress.com/2012/12/09/raspberry-pi-home-server-etape-10-installer-samba/" rel="nofollow">http://pihomeserver.wordpress.com/2012/12/09/raspberry-pi-home-server-etape-10-installer-samba/</a></li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="co0">#edit</span>
+<span class="kw2">sudo</span> <span class="kw2">vim</span> <span class="sy0">/</span>etc<span class="sy0">/</span>samba<span class="sy0">/</span>smb.conf
+<span class="co0">#restart the service after changes</span>
+<span class="kw2">sudo</span> <span class="sy0">/</span>etc<span class="sy0">/</span>init.d<span class="sy0">/</span>samba restart</pre>
+
+<br />
+<h2 id="toc6"><a name="Projects and tips-Raspi mount a USB drive [DONE!]"></a> Raspi mount a USB drive [DONE!] </h2>
+Edit /etc/fstab<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="sy0">/</span>dev<span class="sy0">/</span>sda1       <span class="sy0">/</span>media<span class="sy0">/</span>usbhdd   ntfs    auto,user,rw,<span class="re2">uid</span>=smbguest,<span class="re2">gid</span>=smbguest,<span class="re2">umask</span>=<span class="nu0">0</span>  <span class="nu0">0</span> <span class="nu0">0</span></pre>
+
+<br />
+<h3 id="toc7"><a name="Projects and tips-Raspi mount a USB drive [DONE!]-Stop the HDD"></a> Stop the HDD </h3>
+<ul><li><a class="wiki_link_ext" href="http://info4admins.com/tips-to-spindown-your-hard-disk-in-debian-or-ubuntu/" rel="nofollow">http://info4admins.com/tips-to-spindown-your-hard-disk-in-debian-or-ubuntu/</a></li><li><a class="wiki_link_ext" href="http://hd-idle.sourceforge.net/" rel="nofollow">http://hd-idle.sourceforge.net/</a></li></ul><br />
+<h2 id="toc8"><a name="Projects and tips-Raspi as VLC server"></a> Raspi as VLC server </h2>
+<ul><li><a class="wiki_link_ext" href="http://www.esologic.com/?p=294" rel="nofollow">http://www.esologic.com/?p=294</a></li><li><a class="wiki_link_ext" href="http://wiki.videolan.org/Documentation:Streaming_HowTo_New" rel="nofollow">http://wiki.videolan.org/Documentation:Streaming_HowTo_New</a></li><li><a class="wiki_link_ext" href="http://www.videolan.org/doc/streaming-howto/fr/ch05.html" rel="nofollow">http://www.videolan.org/doc/streaming-howto/fr/ch05.html</a></li><li><a class="wiki_link_ext" href="http://www.xanetiz.com/vlc-lecteur-incontournable.html" rel="nofollow">http://www.xanetiz.com/vlc-lecteur-incontournable.html</a></li></ul><br />
+<h2 id="toc9"><a name="Projects and tips-Transform a Raspi in an arcade cabinet"></a> Transform a Raspi in an arcade cabinet </h2>
+<ul><li>The debian package of mame <a class="wiki_link_ext" href="http://blog.sheasilverman.com/" rel="nofollow">http://blog.sheasilverman.com/</a></li><li>A very well done project <a class="wiki_link_ext" href="http://www.kickstarter.com/projects/pimoroni/picade-the-arcade-cabinet-kit-for-your-raspberry-p" rel="nofollow">http://www.kickstarter.com/projects/pimoroni/picade-the-arcade-cabinet-kit-for-your-raspberry-p</a></li></ul><br />
+<h1 id="toc10"><a name="Raspberry Pi Hardware"></a> Raspberry Pi Hardware </h1>
+<h2 id="toc11"><a name="Raspberry Pi Hardware-Hardware details"></a> Hardware details </h2>
+<h3 id="toc12"><a name="Raspberry Pi Hardware-Hardware details-List of test points and usage"></a> List of test points and usage </h3>
+<a class="wiki_link_ext" href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=89522" rel="nofollow">http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=89522</a><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td>PP1 5V from micro-USB<br />
+PP2 5V from micro-USB<br />
+PP3 GND<br />
+PP4 GND<br />
+PP5 GND<br />
+PP6 GND<br />
+PP7 5V after polyfuse<br />
+PP8 3V3<br />
+PP9 1V8<br />
+PP10 Goes from 3V3 to 2V on brownout<br />
+PP11 DAC_2V5 (for composite video DAC)<br />
+PP12 AUD_2V5 (for PWM audio drivers)<br />
+PP13 Goes from 3V3 to 2V on ACT activity<br />
+PP14 SD_CLK<br />
+PP15 SD_CMD<br />
+PP16 SD_DAT0<br />
+PP17 SD_DAT1<br />
+PP18 SD_DAT2<br />
+PP19 SD_DAT13  <br />
+PP20 H5V<br />
+</td>
+        <td>PP21 RUN signal (reset)<br />
+PP22 Goes from 3V3 to 2V on activity of green (link) ethernet jack LED<br />
+PP23 Goes from 3V3 to 2V on activity of yellow (speed) ethernet jack LED<br />
+PP24 COMPVID<br />
+PP25 AUDIO_L<br />
+PP26 AUDI_R<br />
+PP27 VBUS (USB 5V power)<br />
+PP28 ETH_CLK (25.000 MHz)<br />
+PP29 VC_TMS<br />
+PP30 VC_TRST_N<br />
+PP31 VC_CLK<br />
+PP32 VC_TDI<br />
+PP33 VC_TDO<br />
+PP34 GND<br />
+PP35 GPIO6 of LAN9514<br />
+PP36 GPIO7 of LAN9514<br />
+PP37 CAM_GPIO0<br />
+PP38 CAM_GPIO1<br />
+PP39 SCL0<br />
+PP40 SDA0<br />
+</td>
+    </tr>
+</table>
+
+
+    </div>
+  </body>
+</html>

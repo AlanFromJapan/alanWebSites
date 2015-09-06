@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>kalshagar - Wikispaces to Flask hosting</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+Yes, I'm a tiny bit unhappy with wikispaces hosting: <br />
+<ul><li>I have to pay 50 USD per year for getting rid of the commercials</li><li>My other wikispaces about guitar and unix have been closed with their new policy</li><li>The editor is average (though I'm looking at doing self hosting and writing html in emacs so let's not get too regarding)</li><li>Their stupid restrictions on wiki, html, embedding things in their weird components</li><li>The css/template editor that is too restrictive, not simple to use at all (to my taste)</li></ul>So there we are, after a few years (3 or 4?) of good service -because let's be honnest service is good- I want to move to something else, self-hosted, on my DMZ that runs in my toilets in a Super Famicom box (<a class="wiki_link" href="SNES%20Pi%20Webserver.html">see this project</a>). And yes I thought of being hosted, yes I tried GoDaddy, and I ended up regretting every last dollar (poor service, sluggish, no control, ....).  So let's go: how to get out of Wikispaces and host yourself with Flask?<br />
+<br />
+<strong>Target: a simple HTML static website that will be as much as possible the same as what you have with Wikispaces. Then maybe take it further.</strong><br />
+<br />
+<h1 id="toc0"><a name="Export from Wikispaces"></a>Export from Wikispaces</h1>
+Simple: make an HTML export, download it and extract all somewhere.<br />
+<br />
+<h1 id="toc1"><a name="Preparing the files"></a>Preparing the files</h1>
+Ok your export will be broker unless you've sticked 100% percent with Wikispaces basic designs (which I didn't). So I made this script that fixes a few problems I had:<br />
+<ul><li>Path: full site is exported as a subfolder, which I don't want, so change all relative paths<ul><li>&lt;img src=&quot;files/jauger4.gif&quot;/&gt; &gt;&gt;&gt; &lt;img src=&quot;files/jauger4.gif&quot; /&gt;</li></ul></li><li>Page names: pages with spaces are exported with spaces in the name (huh?) or &quot;%20&quot; as Wikispaces format &gt;&gt; replace with %20 in the URL<ul><li>&lt;a href=&quot;Smokey%20amp&quot;&gt;link&lt;/a&gt; &gt;&gt;&gt; &lt;a href=&quot;Smokey%20amp.html&quot;&gt;link&lt;/a&gt;</li></ul></li></ul><br />
+Python script on my github: <a class="wiki_link_ext" href="https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/Wikispaces2Flask" rel="nofollow">https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/Wikispaces2Flask</a>
+    </div>
+  </body>
+</html>

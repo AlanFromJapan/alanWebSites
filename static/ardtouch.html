@@ -1,0 +1,243 @@
+<html>
+  <head>
+    <title>kalshagar - ardTouch</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="ardTouch"></a>ardTouch</h1>
+ 
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/ardTouchLogo.png" alt="ardTouchLogo.png" title="ardTouchLogo.png" /><br />
+</td>
+        <td>Make a side touch-screen for the PC. NOT animated (at least in the initial project), it will use buttons <em>a la</em> iPhone and allow user to do some quick-launch operations ... and more.<br />
+<br />
+<strong>Hall of fame:</strong><br />
+<ul><li>Article in Eleki-jack (I look sooo stupid on this picture) <a class="wiki_link_ext" href="http://shop.cqpub.co.jp/hanbai/books/MCQ/MCQZ201101.html" rel="nofollow">http://shop.cqpub.co.jp/hanbai/books/MCQ/MCQZ201101.html</a></li><li>The maker's page <a class="wiki_link_ext" href="http://www.liquidware.com/shop/show/TSL/TouchShield%20Slide" rel="nofollow">http://www.liquidware.com/shop/show/TSL/TouchShield%20Slide</a></li></ul><br />
+<strong>Nice other projects resembling or related:</strong><br />
+<ul><li>Ion's digital remote control <a class="wiki_link_ext" href="http://www.grozeaion.com/high-speed-photography/gvi-slide.html" rel="nofollow">http://www.grozeaion.com/high-speed-photography/gvi-slide.html</a></li></ul></td>
+    </tr>
+</table>
+
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Current version</strong><br />
+</td>
+        <td>0.5<br />
+</td>
+    </tr>
+    <tr>
+        <td><strong>Current version release date</strong><br />
+</td>
+        <td>19/07/2009<br />
+</td>
+    </tr>
+    <tr>
+        <td><strong>Current version release</strong><br />
+</td>
+        <td><ul><li>ardTouch to PC working ok</li><li>Software inside much cleaner and easier to develop</li><li>Every button classes are defined, auto location, click detection and forward to PC the 1 char unique code</li><li>TouchSlide sends 1 char to Arduino, and Arduino uses <a class="wiki_link" href="ARCPO.html">ARCPO</a> to forward a clean packet to PC</li><li>ardTouch connector (PC side) interpretes all &quot;run a command&quot; type message</li><li>Commands can be stored in a XML file for easily make your own</li><li>Communication problems fixed with ARCPO v0.3</li><li>Mail unread info displayed on the screen</li><li>Screensaver implemented with wakeup on message arrival</li><li>Uses library TouchSlide_Ext with big rewriting of the code (most of the gadget code moved to that library)</li></ul></td>
+    </tr>
+    <tr>
+        <td><strong>Current version bin/src</strong><br />
+</td>
+        <td><ul><li>Binary<ul><li>PC : <A  href="files/ardTouchConnector.bin.1.1.0.1.zip.html">ardTouchConnector.bin.1.1.0.1.zip</a></li><li>Arduino : <A  href="files/Slide_Arduino2PC.pde.html">Slide_Arduino2PC.pde</a></li><li>TouchSlide : <A  href="files/Slide_ARDTouch.0.5.zip.html">Slide_ARDTouch.0.5.zip</a></li><li>Lib : <A  href="files/TouchSlideExt.v0.1.zip.html">TouchSlideExt.v0.1.zip</a> <A  href="files/ARCPO_Lib.v0.3.zip.html">ARCPO_Lib.v0.3.zip</a></li></ul></li></ul></td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc1"><a name="ardTouch-Source code, explanation, binaries"></a> Source code, explanation, binaries </h2>
+For the C# command interpreter <a class="wiki_link" href="ardTouchConnector.html">ardTouchConnector</a> see its dedicated page.<br />
+<span style="background:yellow;">... all this is on a dedicated page here <strong><a class="wiki_link" href="ardTouch%20codes.html">ardTouch codes</a></strong>.</span><br />
+<br />
+<h2 id="toc2"><a name="ardTouch-Videos &amp; pictures"></a>Videos &amp; pictures </h2>
+ The full list of <a class="wiki_link" href="ardTouch%20videos.html">images and videos are here...</a><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><iframe width="560" height="344" src="//www.youtube.com/embed/1cwX6ctA_vI" frameborder="0" allowfullscreen></iframe><br />
+</td>
+        <td><img src="files/SN3B0101.jpg" alt="SN3B0101.jpg" title="SN3B0101.jpg" style="width: 400px;" /><br />
+In its aluminium case.<br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc3"><a name="ardTouch-Material"></a>Material</h2>
+ <ul><li>TouchShield Slide <a class="wiki_link_ext" href="http://www.liquidware.com/shop/show/TSL/TouchShield%20Slide" rel="nofollow">http://www.liquidware.com/shop/show/TSL/TouchShield%20Slide</a></li><li>Arduino 2009 (or other, but 2009 is my favorite for now)</li><li>the usual : iron, solder, leds, copper, finger, sweat, ...</li></ul><br />
+<h2 id="toc4"><a name="ardTouch-Feature list"></a>Feature list</h2>
+ <br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Feature</strong><br />
+</td>
+        <td><strong>Comment</strong><br />
+</td>
+        <td><strong>Priority</strong><br />
+</td>
+        <td><strong>Version Impl</strong><br />
+</td>
+        <td><strong>other</strong><br />
+</td>
+    </tr>
+    <tr>
+        <td>Display buttons<br />
+</td>
+        <td>Buttons are displayed and arranged like on a iPhone (landscape position). On touch, button gets &quot;activated&quot; (lightened/box?) and a command is sent to the Arduino that forwards it to the PC via USB that is interpreted by the ardTouch Connector on the PC<br />
+</td>
+        <td>High<br />
+</td>
+        <td>0.1<br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Multiple panel<br />
+</td>
+        <td>Buttons are groupped in panel and user can switch panel. One panel for work, one for music, one is a calculator ...<br />
+</td>
+        <td>Med<br />
+</td>
+        <td>0.5<br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>User defined buttons<br />
+</td>
+        <td>User can choose his buttons per panel (hard to implement, expecially the icons upload)<br />
+</td>
+        <td>Low<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Mail/info bar<br />
+</td>
+        <td>Like in the <a class="wiki_link" href="ardNotifier.html">ardNotifier</a> have a bar that displays latest received mail and unread mail<br />
+</td>
+        <td>Low<br />
+</td>
+        <td>0.3<br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Mood leds<br />
+</td>
+        <td>With a RGB led, implement a &quot;mood&quot; that could be customized per user or per message. ...ok, it's bling bling<br />
+</td>
+        <td>Low<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Calendar<br />
+</td>
+        <td>Add a button that displays the current calendar (service will have to tell the date to the box once in a while). I need to dig out my algorithm for calendar, but I wrote it somewhere... (requires panel implementation)<br />
+</td>
+        <td>Med<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Calculator<br />
+</td>
+        <td>Add a button to switch to calculator mode (requires panel implementation)<br />
+</td>
+        <td>Low<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Temperature<br />
+</td>
+        <td>Use some analog port to read outside temperature (stick the component outside the box !)<br />
+</td>
+        <td>Low<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Boxing<br />
+</td>
+        <td>Find a nice box for baby and if possible don't cut it too poorly for I won't have many failure options<br />
+</td>
+        <td>Med<br />
+</td>
+        <td>0.2<br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Media player<br />
+</td>
+        <td>Make a special panel (need the panel evol) to display buttons for WMP commands<br />
+<ul><li><a class="wiki_link_ext" href="http://social.msdn.microsoft.com/forums/en-US/Vsexpressvb/thread/95dda957-cb8c-4f9a-93a7-ad132b081c7a/" rel="nofollow">http://social.msdn.microsoft.com/forums/en-US/Vsexpressvb/thread/95dda957-cb8c-4f9a-93a7-ad132b081c7a/</a></li><li><a class="wiki_link_ext" href="http://www.codeproject.com/KB/cs/wmp_pinvoke.aspx" rel="nofollow">http://www.codeproject.com/KB/cs/wmp_pinvoke.aspx</a></li></ul></td>
+        <td>Med<br />
+</td>
+        <td>1.0.0.1<br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Screen-saver<br />
+</td>
+        <td>Aim to save power ... and not kill the screen with a 24/7 identical display. Different options :<br />
+<ol><li>the simple turnoff and then on when touched</li><li>more sexy : black random marching ants</li></ol></td>
+        <td>Med<br />
+</td>
+        <td>0.3<br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td><br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc5"><a name="ardTouch-Issues"></a>Issues</h2>
+ <ul><li>Touch detection is ... not perfect (to say politely). I don't know if it's just my model, but sometimes there is strong misreading of the touch position (like 1~2 cm away). This is ok if the touch lands on nothing, but if you click on &quot;notepad&quot; icon and it interprets as &quot;reboot the pc&quot; it could be more annoying. I have a spare DS touch screen, I'll cross check the LiquidWare code vs. some other guys code... in case.</li><li>I though for long time the SoftwareSerial lib was not ok so I changed to NewSoftSerial, but the problem was caused by the here above issue. So not really an issue...</li><li>The TouchShield is ... a shield. Which is great for prototyping, but kinda annoying for setting the whole stuff in a box, or if you want to use other pins (covered by the shield) ! I'll use a vanilla board to redirect some pins to allow myself to play with it and design the box to my idea.</li></ul>
+    </div>
+  </body>
+</html>

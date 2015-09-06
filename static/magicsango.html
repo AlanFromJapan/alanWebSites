@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>kalshagar - MagicSango</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Idea"></a> Idea </h1>
+<br />
+I found a nice piece of coral on the beach in the southern islands of Japan. This one was funny because the big holes inside the piece of coral itself. <br />
+Apart this natural curiosity (plus in one of these cavities a sea snail that became locked in because it grew too big to go out and its shell remains now), it gave me the idea that one might conceal inside a RGB led to have it react to volumne/frequence, or even just change randomly and doing nice shades.<br />
+<br />
+<img src="files/2010-07-11_23.57.53.jpg" alt="2010-07-11_23.57.53.jpg" title="2010-07-11_23.57.53.jpg" style="width: 600px;" /><br />
+<br />
+<h1 id="toc1"><a name="What you should never do"></a> What you should never do </h1>
+Never misread the documentation and plug your <a class="wiki_link" href="Regulated%20or%20unregulated%20power.html">unregulated 9V power plug</a> on the Vcc input or the Arduino Mini Pro, which in my case was expecting 3.3v. In the end I ended up giving it something like 15V where it was expecting 3 and something, killing it forever. It didn't blink or made sparks, just it went <em>very</em> hot, and then refuses forever whatever action of any kind. If you plug it correctly with the nice FTDI adapter, the power red led is on, but it also starts overheating! Meaning complete death... and to make it even more fun, it killed my FTDI connector that now can still transfer power to the board, but no more data !<br />
+Result : 2,100 JPY (Arduino Mini Pro) %20 1,680 JPY (FTDI board) wasted T_T<br />
+<br />
+This is the good way to plug it :<br />
+<img src="files/ArduinoMiniRAW.png" alt="ArduinoMiniRAW.png" title="ArduinoMiniRAW.png" /><br />
+<br />
+<h1 id="toc2"><a name="What you need"></a> What you need </h1>
+<ul><li>A nice piece of coral (or whatever you want)</li><li>Arduino Pro mini (no super power required here, the 3.3V at 8MHz is sufficient)</li><li>FTDI breakout (5V or 3.3V) from Sparkfun.com to be able to plug your arduino to your pc (at least to program it)</li><li>RGB led (Sparfun has some)</li><li>Sand paper (to make the RGB led unpolished and glow instead of emiting light in just one direction)</li><li>Microphone</li><li>90 degrees 6 pin connector (to plug the board and the FTDI connector)</li><li>Usual wires, iron, patience, ...</li></ul><br />
+<h1 id="toc3"><a name="Schema"></a> Schema </h1>
+ <em>soon</em><br />
+<br />
+<h1 id="toc4"><a name="Code"></a> Code </h1>
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co2">#define RAND_STEP 5</span>
+&nbsp;
+<span class="co2">#define LED_R 3                          // light connected to digital pin 9</span>
+<span class="co2">#define LED_G 5                            // light connected to digital pin 9</span>
+<span class="co2">#define LED_B 6                           // light connected to digital pin 9</span>
+&nbsp;
+<span class="kw4">void</span> setup<span class="br0">&#40;</span><span class="br0">&#41;</span> 
+<span class="br0">&#123;</span> 
+  <span class="co1">// nothing for setup </span>
+<span class="br0">&#125;</span> 
+&nbsp;
+byte newRand<span class="br0">&#40;</span><span class="kw4">int</span> pV<span class="br0">&#41;</span><span class="br0">&#123;</span>
+  <span class="kw4">int</span> vRand <span class="sy0">=</span> random<span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">*</span>RAND_STEP<span class="sy0">%20</span><span class="nu0">1</span><span class="br0">&#41;</span> <span class="sy0">-</span> RAND_STEP<span class="sy0">;</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span>vRand <span class="sy0">%20</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span>pV <span class="sy0">&lt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+  <span class="kw1">else</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>vRand <span class="sy0">%20</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span>pV <span class="sy0">&gt;</span> <span class="nu0">255</span><span class="br0">&#41;</span> <span class="kw1">return</span> <span class="nu0">255</span><span class="sy0">;</span>
+    <span class="kw1">else</span>
+      <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span>pV <span class="sy0">%20</span> vRand<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> loop<span class="br0">&#40;</span><span class="br0">&#41;</span> 
+<span class="br0">&#123;</span> 
+  byte vR<span class="sy0">,</span> vG<span class="sy0">,</span> vB<span class="sy0">;</span>
+  vR<span class="sy0">=</span><span class="nu0">255</span><span class="sy0">;</span>
+  vG<span class="sy0">=</span><span class="nu0">255</span><span class="sy0">;</span>
+  vB<span class="sy0">=</span><span class="nu0">255</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">while</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>
+  <span class="br0">&#123;</span> 
+    analogWrite<span class="br0">&#40;</span>LED_R<span class="sy0">,</span> vR<span class="sy0">/</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>           <span class="co1">// sets the value (range from 0 to 255) </span>
+    analogWrite<span class="br0">&#40;</span>LED_G<span class="sy0">,</span> vG<span class="sy0">/</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="sy0">;</span>           <span class="co1">// sets the value (range from 0 to 255) </span>
+    analogWrite<span class="br0">&#40;</span>LED_B<span class="sy0">,</span> vB<span class="br0">&#41;</span><span class="sy0">;</span>           <span class="co1">// sets the value (range from 0 to 255) </span>
+    delay<span class="br0">&#40;</span><span class="nu0">50</span><span class="br0">&#41;</span><span class="sy0">;</span>                            <span class="co1">// waits for 30 milli seconds to see the dimming effect</span>
+&nbsp;
+    vR <span class="sy0">=</span> newRand<span class="br0">&#40;</span>vR<span class="br0">&#41;</span><span class="sy0">;</span> 
+    vG <span class="sy0">=</span> newRand<span class="br0">&#40;</span>vG<span class="br0">&#41;</span><span class="sy0">;</span> 
+    vB <span class="sy0">=</span> newRand<span class="br0">&#40;</span>vB<span class="br0">&#41;</span><span class="sy0">;</span> 
+  <span class="br0">&#125;</span>  
+<span class="br0">&#125;</span>
+&nbsp;</pre>
+
+
+    </div>
+  </body>
+</html>

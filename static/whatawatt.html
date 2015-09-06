@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>kalshagar - WhatAWatt</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Foreword and purpose"></a> Foreword and purpose </h1>
+<img src="files/currentsensorseed.jpg" alt="currentsensorseed.jpg" title="currentsensorseed.jpg" align="right" /><span style="background-color: #ffd400;">Basically, this is just a clone of the <strong>excellent</strong> project done by the 2 following students Cliff Jao and Xi Guo. Thanks to them for sharing : <a class="wiki_link_ext" href="http://instruct1.cit.cornell.edu/courses/ee476/FinalProjects/s2008/cj72_xg37/cj72_xg37/index.html" rel="nofollow">http://instruct1.cit.cornell.edu/courses/ee476/FinalProjects/s2008/cj72_xg37/cj72_xg37/index.html</a></span><br />
+<br />
+Idea is to have a small plug that tells you how much power you are currently drawing from the wall. No need of PC interface, no need of crazy design, no need of sub-millisecond precision. <br />
+<br />
+It will use the board for 7segments <a class="wiki_link" href="Rapide7seg.html">Rapide7seg</a> I made recently (it has on a ATmega xx8), and a current sensor from Seeedstudio (<a class="wiki_link_ext" href="http://www.seeedstudio.com/depot/grove-electricity-sensor-p-777.html?cPath=144_154" rel="nofollow" target="_blank">buy</a> / <a class="wiki_link_ext" href="http://www.seeedstudio.com/wiki/index.php?title=Twig_-_Electricity_Sensor" rel="nofollow" target="_blank">doc wiki</a>). That should do the trick, right ?<br />
+<br />
+<strong>Result :</strong> working not bad at all! According my tests it's slightly underestimating the consumption, but nothing crazy. Didn't found the reason why, but the box is still reprogrammable because of the accessible ISP so in case one day... <br />
+<h1 id="toc1"><a name="Schema"></a> Schema </h1>
+Nothing formal : just plug the current sensor before the output plug (wire it to GND and ADC5) to the ATmega88, use the formula in the <a class="wiki_link_ext" href="http://www.seeedstudio.com/wiki/index.php?title=Twig_-_Electricity_Sensor" rel="nofollow" target="_blank">seeedstudio wiki</a> and use the Rapide7seg.h to display. Very straightforward.<br />
+<br />
+<br />
+<h1 id="toc2"><a name="Code"></a> Code </h1>
+All is here : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAtmegaxx8%2FWhatAWatt" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAtmegaxx8%2FWhatAWatt</a><br />
+<img src="files/rapide7seg.png" alt="rapide7seg.png" title="rapide7seg.png" style="width: 400px;" align="right" /><br />
+The main loop just take care of initializing the different parts and then displays the value on the 7seg (using POV, you can drive just one 7 seg at a time).<br />
+The real interresting job is done with a timer interrupt : TIM0 a 8 bit counter running on a 8MHz CPU with a 256 prescaler will timeout every 8ms or so.<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td>Clock<br />
+</td>
+        <td>8,000,000<br />
+</td>
+        <td><br />
+</td>
+        <td>Hz<br />
+</td>
+    </tr>
+    <tr>
+        <td>Prescaler<br />
+</td>
+        <td>256<br />
+</td>
+        <td>31,250<br />
+</td>
+        <td>Hz<br />
+</td>
+    </tr>
+    <tr>
+        <td>Timer bits (till overflow)<br />
+</td>
+        <td>256<br />
+</td>
+        <td>122<br />
+</td>
+        <td>Hz<br />
+</td>
+    </tr>
+    <tr>
+        <td>Overflow period<br />
+</td>
+        <td>1s<br />
+</td>
+        <td>8<br />
+</td>
+        <td>ms<br />
+</td>
+    </tr>
+</table>
+
+<br />
+So you have your TIM0 overflow interrupt running at 122 Hz (means triggered every 8ms). According <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem" rel="nofollow" target="_blank">Mr Shannon</a> , that should be enough to find local maximum of a sine at 50-60 Hz AC (according Japan power company). So read a bunch of values, make an average and there you go, you have your max AC over the period. You can then average it with a few other values and you'll have an acceptable estimation of you AC consumption.<br />
+Use then the <a class="wiki_link_ext" href="http://www.seeedstudio.com/wiki/index.php?title=Twig_-_Electricity_Sensor" rel="nofollow" target="_blank">seeedstudio wiki</a> to get the current equivalent, multiply by the AC voltage and you get the power (Watt) consumption.<br />
+<br />
+<br />
+<h1 id="toc3"><a name="Pictures"></a> Pictures </h1>
+<img src="files/2012-12-16-21-59-47_deco.jpg" alt="2012-12-16-21-59-47_deco.jpg" title="2012-12-16-21-59-47_deco.jpg" style="width: 400px;" /><br />
+<em>Tada ! ... yes I know the hole for the ISP was a big fail. Once again, blunt force is </em>not<em> the solution.</em><br />
+<img src="files/2012-12-16-22-00-54_deco.jpg" alt="2012-12-16-22-00-54_deco.jpg" title="2012-12-16-22-00-54_deco.jpg" style="width: 400px;" /><br />
+<em>The box opened with the wallwart internals on the left and the board back on the right.</em><br />
+<img src="files/2012-12-16-22-02-22_deco.jpg" alt="2012-12-16-22-02-22_deco.jpg" title="2012-12-16-22-02-22_deco.jpg" style="width: 400px;" /><br />
+<em>The box showing 13W consumption</em><br />
+<br />
+<h2 id="toc4"><a name="Pictures-Links and inspiration"></a> Links and inspiration </h2>
+<ul><li>Just buy it :<ul><li>the Kill A Watt <a class="wiki_link_ext" href="http://www.p3international.com/products/special/P4400/P4400-CE.html" rel="nofollow">http://www.p3international.com/products/special/P4400/P4400-CE.html</a></li><li>Killawatt hacked with xbee <a class="wiki_link_ext" href="http://hackaday.com/2009/01/24/wattcher-twittering-kill-a-watt-plans-posted/" rel="nofollow">http://hackaday.com/2009/01/24/wattcher-twittering-kill-a-watt-plans-posted/</a></li></ul></li><li>PowerBox: The Safe AC Power Meter (the holy graal) <a class="wiki_link_ext" href="http://instruct1.cit.cornell.edu/courses/ee476/FinalProjects/s2008/cj72_xg37/cj72_xg37/index.html" rel="nofollow">http://instruct1.cit.cornell.edu/courses/ee476/FinalProjects/s2008/cj72_xg37/cj72_xg37/index.html</a></li><li>A $5 DIY Power Meter (easy but not accurate) <a class="wiki_link_ext" href="http://www.silentpcreview.com/article19-page1.html" rel="nofollow">http://www.silentpcreview.com/article19-page1.html</a></li><li>A PIC-Based AC Power Meter <a class="wiki_link_ext" href="http://www.circuitcellar.com/library/print/0798/May96/index.htm" rel="nofollow">http://www.circuitcellar.com/library/print/0798/May96/index.htm</a></li><li>Portable simple version <a class="wiki_link_ext" href="http://www.electronics-diy.com/70v_pic_voltmeter_amperemeter.php" rel="nofollow">http://www.electronics-diy.com/70v_pic_voltmeter_amperemeter.php</a></li><li>A version with a old style meter <a class="wiki_link_ext" href="http://www.electronics-diy.com/electronic_schematic.php?id=929" rel="nofollow">http://www.electronics-diy.com/electronic_schematic.php?id=929</a></li><li>More complex (much more):<ul><li><a class="wiki_link_ext" href="http://www.edcheung.com/automa/power.htm" rel="nofollow">http://www.edcheung.com/automa/power.htm</a></li><li><a class="wiki_link_ext" href="http://www.stahlke.org/dan/powermeter/" rel="nofollow">http://www.stahlke.org/dan/powermeter/</a></li></ul></li></ul>
+    </div>
+  </body>
+</html>

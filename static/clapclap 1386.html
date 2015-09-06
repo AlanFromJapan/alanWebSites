@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>kalshagar - Clapclap 1386</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<img src="files/clapclap1386board.png" alt="clapclap1386board.png" title="clapclap1386board.png" style="width: 400px;" align="right" /><span style="
+background-color: whitesmoke;
+text-align: center;
+display: block;
+border-radius:10px;
+padding:10px;
+border: solid 2px grey;
+">This is the ATtiny13 and LM386 version. You can check also the <strong><a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a></strong> which is based on ATtiny2313 and a Holtek HT82V739, or if you're really curious the original one <strong><a class="wiki_link" href="Clapclap.html">Clapclap</a></strong> with ATmega328.<br />
+</span><br />
+<br />
+<h1 id="toc0"><a name="Changes compared to previous versions"></a> Changes compared to previous versions </h1>
+Compared to the original <a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a> here are the main changes:<br />
+<ul><li>Components change of course :<ul><li><a class="wiki_link" href="Attiny2313.html">Attiny2313</a> ⇒ <a class="wiki_link" href="Attiny13.html">Attiny13</a> : 8 pins package, just enough, but needs a few jumpers if you want to program it (see below)</li><li>HT82V739 ⇒ <a class="wiki_link" href="Signal%20amplification%20%28OpAmp%29.html#LM386 : sound (the classic, mono) ">LM386</a> : easier to source over the world but requires a few additional caps</li></ul></li><li>Added reverse polarity protection on 5v VCC (can bypass, just put a wire)</li><li>Added a cheap Zener diode voltage ref to protect from overvoltage (can be ignored, leave open)</li><li>Added a fuse/resettable fuse on the HOT side (can bypass, just put a wire)</li><li>Larger trace for main but still keeping distance between traces (can drive more power more safely, still keep it under 100W)</li><li>Leds can be SMD leds instead (both through hole and SMD are available)</li><li>Microphone is now on the farthest side of the main, to minimize the EMI</li><li>Adjustment potentiometers are on the side of the board, easier to adjust if you put vertical potentiometers</li><li>NPN transistor pinout on the board (E-C-B), easier to identify equivalent part</li></ul><br />
+<br />
+<h1 id="toc1"><a name="What's inside / Parts list"></a> What's inside / Parts list </h1>
+<ul><li>ATtiny13</li><li>LM386 opamp</li><li>A electret microphone</li><li>A relay (my case <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-01214/" rel="nofollow" target="_blank">5v that drives up to 5A/220V</a>)</li><li>A NPN transistor to drive the relay　<a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02732/" rel="nofollow" target="_blank">２ＳＣ２１２０－Ｙ</a><ul><li>Can be replaced by any NPN transistor with pinout [E-C-B] (front view, left to right)</li></ul></li><li>A flyback diode and a few reverse polarity diodes</li><li>A few resistors, caps, potentiometers,...<ul><li>C1 : 1uF</li><li>C2 : &gt;= 1uF</li><li>C3 : &gt;= 0.1uF (optional cap, just leave open is ok)</li><li>C4 : &gt;= 4.7uF power rail stabilizer, can go as big as 470uF no problem (optional cap but strongly recommended)</li><li>R1,R2 : 100ohm-1kOhm to limit current for the leds</li></ul></li></ul><br />
+<h1 id="toc2"><a name="Assembly"></a> Assembly </h1>
+By default you should program your <a class="wiki_link" href="Attiny13.html">Attiny13</a> and then put it into its IC socket, and you're done. <br />
+<br />
+<h2 id="toc3"><a name="Assembly-No programming after assembly"></a> No programming after assembly </h2>
+If you don't plan to program the <a class="wiki_link" href="Attiny13.html">Attiny13</a> <em>after</em> you put it in the board:<br />
+<ul><li>Solder (close) all the surface mount jumpers J1, J2 and J3</li><li>No need to fill the ISP programmer or the jumpers J1, J2 and J3</li></ul><br />
+<h2 id="toc4"><a name="Assembly-Programming after assembly"></a> Programming after assembly </h2>
+You put everything into place, and then you decide to change the timing of claps, or you want 3 on the row, or you want to make an auto-turn off ... whatever, you want to change the code, and you want to do it on the board ('cause you're cheap like me and you skipped the IC socket). How do you do that ?<br />
+<ul><li><em>Open</em> the SMD jumpers J1 and J2 if you closed them (a piece of solder wick and iron and you're done)<ul><li>J3 can be left closed or soldered</li></ul></li><li>Solder the ISP programmer and the jumpers J1, J2 and J3</li><li>Plug your programmer on the ISP and <em>remove</em> the jumper J1-J2-J3 if any<ul><li>Do the programming magic</li><li>In order for the circuit to work you must close the jumpers J1-J2-J3 (permamently by soldering the SMD or temporarily by puting a jumper on the connector)</li></ul></li></ul><br />
+Putting and removing the jumpers is a pain in the neck, but that's the price to pay of having a small micro controller, I had to share pins for many functions. Is there a better way to design this ? I'd be happy to hear that so please teach me.<br />
+<br />
+<h1 id="toc5"><a name="Code"></a> Code </h1>
+Google code <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAttiny13%2FClapclap1386" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAttiny13%2FClapclap1386</a><br />
+<ul><li>It's a <em>AVR Studio 6</em> project, but you can easily adapt it to the tool of your choice I'm sure</li></ul><br />
+<h1 id="toc6"><a name="Board"></a> Board </h1>
+Google code <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FClapclap2313" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FClapclap2313</a><br />
+<ul><li>Look at files <em>Clapclap1386.*</em></li></ul><br />
+<h1 id="toc7"><a name="Points of interrest"></a> Points of interrest </h1>
+<ul><li>Compared to the <a class="wiki_link" href="Clapclap2313.html">Clapclap2313</a> version, a generous part of the code was rewritten, such as the general logic of the program.</li><li>All the job is done with interrupts, main code is just an empty loop:<ul><li>One interrupt counts hundredth of seconds and keep a rough idea of time passing (so it can validate that 2 claps happen in the predefined timespan)</li><li>One interrupt is triggered when the comparator detects that the mic input (post amplification) goes higher than reference voltage (MIN_LVL potentiometer) and saves the clap time</li></ul></li></ul><br />
+<h1 id="toc8"><a name="Pictures"></a> Pictures </h1>
+<img src="files/2014-03-09-22-04-59_deco.jpg" alt="2014-03-09-22-04-59_deco.jpg" title="2014-03-09-22-04-59_deco.jpg" /><br />
+<em>Board assembled without the relay though. Working fine, just J1 and J2 needed to program it.</em>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and a laser</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Laser diodes"></a> Laser diodes </h1>
+<img src="files/Laser-symbol-text.svg" alt="Laser-symbol-text.svg" title="Laser-symbol-text.svg" style="width: 200px;" align="right" />Lasers are <strong>dangerous</strong>. <strong>VERY dangerous</strong>. Especially the power ones or the IR ones you can't see. I found a scarry formula on the net that resumes this very well : &quot;<em>put gogles or you will get blind before you understand something wrong happened</em>&quot;. Scarry right ? So go and buy those cheapo 5 USD goggles or topnotch 50 USD multi class goggles on eBay.<br />
+<br />
+<h2 id="toc1"><a name="Laser diodes-Laser 101 : readme"></a> Laser 101 : readme </h2>
+First things first : laser diodes work generally with low voltage and high current. But when they get hot their resistance drop, so the current raise, so they get hotter ... and it ends with magic smoke if you don't control the current. To avoid the <strong>thermal runaway</strong> of laser diodes, one <strong>must</strong> use a <strong>constant current driver</strong>.<br />
+<br />
+<h3 id="toc2"><a name="Laser diodes-Laser 101 : readme-Constant current driver"></a> Constant current driver </h3>
+Different options : eBay (as usual) if you have a few extra cash in the pocket, or hand made.<br />
+For the hand made way, you can use dedicated chips (Maxim ????) or use a LM317 voltage regulator(!) :<br />
+<ul><li>LM317<ul><li>The fantastic Dave Jones explains with a LM317 but limited to 1A <a class="wiki_link_ext" href="https://www.youtube.com/watch?v=CIGjActDeoM" rel="nofollow">https://www.youtube.com/watch?v=CIGjActDeoM</a></li><li>To output <em>I</em> amps, you need a resistor of <em>R = 1.25 / I</em> ohm, and it will dissipate <em>1.25 * R watts</em></li><li>Nice and clear explanation <a class="wiki_link_ext" href="http://users.telenet.be/davshomepage/current-source.htm" rel="nofollow">http://users.telenet.be/davshomepage/current-source.htm</a></li><li>Simple explanation and simple formula <a class="wiki_link_ext" href="http://www.ledfantastic.com/knowledge/advanced/LM317current.html" rel="nofollow">http://www.ledfantastic.com/knowledge/advanced/LM317current.html</a></li><li>Another one with more details <a class="wiki_link_ext" href="http://theparanoidtroll.com/electronics/primers-and-tutorials/other/constant-current-sourceload-lm317/" rel="nofollow">http://theparanoidtroll.com/electronics/primers-and-tutorials/other/constant-current-sourceload-lm317/</a></li><li><a class="wiki_link_ext" href="http://www.jensign.com/opto/ledlaserdrivers/" rel="nofollow">http://www.jensign.com/opto/ledlaserdrivers/</a></li></ul></li><li>Other circuit<ul><li><a class="wiki_link_ext" href="http://www.opencircuits.com/Basic_Circuits_and_Circuit_Building_Blocks#Current_Limit_or_Constant_Current_.28_Transistor_Based_.29" rel="nofollow">http://www.opencircuits.com/Basic_Circuits_and_Circuit_Building_Blocks#Current_Limit_or_Constant_Current_.28_Transistor_Based_.29</a></li></ul></li></ul><br />
+<h1 id="toc3"><a name="Links"></a> Links </h1>
+<h2 id="toc4"><a name="Links-Tutorials"></a> Tutorials </h2>
+<ul><li><a class="wiki_link_ext" href="http://pulsed.tumblr.com/post/10358383271/diy-laser-show-from-discarded-electronics" rel="nofollow">http://pulsed.tumblr.com/post/10358383271/diy-laser-show-from-discarded-electronics</a></li></ul>
+    </div>
+  </body>
+</html>

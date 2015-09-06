@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>kalshagar - ardColorLamp</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-Feature list"></a> Feature list </h2>
+<br />
+<strong>See the page <a class="wiki_link" href="How%20to%20generate%20a%20colormixer.html">How to generate a colormixer</a></strong> about how to make that nice color mixer.<br />
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Feature</strong><br />
+</td>
+        <td><strong>Comment</strong><br />
+</td>
+        <td><strong>Priority</strong><br />
+</td>
+        <td><strong>Version Impl</strong><br />
+</td>
+        <td><strong>other</strong><br />
+</td>
+    </tr>
+    <tr>
+        <td>Select color from HSL/HSV<br />
+</td>
+        <td>Behind the touchscreen, set a image (printed) with a HSL/HSV space and transform this to RGB according position. I just need the formula to draw a HSL/HSV space...<br />
+</td>
+        <td>Med<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Sensitive to sound<br />
+</td>
+        <td>Add a mic and make the stuff sensitive to sound (easy : average volumne, hard : color according frequencies)<br />
+</td>
+        <td>Low<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td>Add modes accessible by buttons<br />
+</td>
+        <td><ul><li>Sine : around the selected color, make the brightness evolve slowly like a sine</li><li>Random : like the <a class="wiki_link" href="MagicSango.html">MagicSango</a>, from the start color, evolve randomly</li><li>Flame : make the brightness evolve randomly while keeping the base color (little amplitude but quite fast to emulate a flame pulse)</li><li>Stable : nothing (but you need it)</li><li>1 hour fade out : light will slowly turn off for 1h and the stop the whole arduino and led completely</li></ul></td>
+        <td>Med/High<br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+    <tr>
+        <td><br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc1"><a name="x-Pictures"></a> Pictures </h2>
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/bgColorLamp.png" alt="bgColorLamp.png" title="bgColorLamp.png" /><br />
+</td>
+        <td><ul><li>Top part : Color for the lamp.</li><li>Bottom part : brightness.</li></ul></td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc2"><a name="x-Interesting links"></a> Interesting links </h2>
+<h3 id="toc3"><a name="x-Interesting links-RGB colors and HSV"></a> RGB colors and HSV </h3>
+<ul><li><a class="wiki_link_ext" href="http://www.johngineer.com/blog/?p=1022" rel="nofollow">http://www.johngineer.com/blog/?p=1022</a></li><li><a class="wiki_link_ext" href="http://academe.co.uk/2012/04/arduino-cycling-through-colours-of-the-rainbow/" rel="nofollow">http://academe.co.uk/2012/04/arduino-cycling-through-colours-of-the-rainbow/</a></li><li><a class="wiki_link_ext" href="http://julioterra.com/journal/2011/08/hsb-to-rgb-arduino-library/" rel="nofollow">http://julioterra.com/journal/2011/08/hsb-to-rgb-arduino-library/</a></li></ul><h3 id="toc4"><a name="x-Interesting links-Leds light effects"></a> Leds light effects </h3>
+<ul><li>Candle like led effect <a class="wiki_link_ext" href="http://fightpc.blogspot.com/2008/03/arduino-mood-light.html" rel="nofollow">http://fightpc.blogspot.com/2008/03/arduino-mood-light.html</a></li></ul><h3 id="toc5"><a name="x-Interesting links-Leds"></a> Leds </h3>
+<ul><li>BlinkM MaxM RGB superpower led <a class="wiki_link_ext" href="http://www.switch-science.com/products/detail.php?product_id=104" rel="nofollow">http://www.switch-science.com/products/detail.php?product_id=104</a> <a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/product_info.php?products_id=9000" rel="nofollow">http://www.sparkfun.com/commerce/product_info.php?products_id=9000</a><ul><li>ThingM Forum <a class="wiki_link_ext" href="http://getsatisfaction.com/thingm" rel="nofollow">http://getsatisfaction.com/thingm</a></li></ul></li><li>... or leds one by one ? <a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/product_info.php?products_id=9000" rel="nofollow">http://www.sparkfun.com/commerce/product_info.php?products_id=9000</a></li></ul><h3 id="toc6"><a name="x-Interesting links-DS Touchscreen and colorpicker"></a> DS Touchscreen and colorpicker </h3>
+<ul><li>Touchscreen : see my dedicated page here <a class="wiki_link" href="Arduino%20and%20a%20Nintendo%20DS%20touch%20screen.html">Arduino and a Nintendo DS touch screen</a></li><li>C%20%20 Color picker with HSL 2 RGB explanation <a class="wiki_link_ext" href="http://www.codeproject.com/KB/miscctrl/CPicker.aspx" rel="nofollow">http://www.codeproject.com/KB/miscctrl/CPicker.aspx</a></li><li>Color wheel formula <a class="wiki_link_ext" href="http://www.codeproject.com/KB/miscctrl/colorwheelv1.aspx" rel="nofollow">http://www.codeproject.com/KB/miscctrl/colorwheelv1.aspx</a></li><li><em>A la</em> Photoshop with a color hexagon <a class="wiki_link_ext" href="http://www.codeproject.com/KB/miscctrl/colorspace.aspx" rel="nofollow">http://www.codeproject.com/KB/miscctrl/colorspace.aspx</a></li><li><a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/HSL_color_space" rel="nofollow">http://en.wikipedia.org/wiki/HSL_color_space</a></li></ul>
+    </div>
+  </body>
+</html>

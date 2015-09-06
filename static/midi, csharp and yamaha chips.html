@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>kalshagar - MIDI, CSharp and Yamaha chips</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="How to transform a MIDI file to Yamaha's chip command ?"></a> How to transform a MIDI file to Yamaha's chip command ? </h1>
+That was my question since in addition to be lame with electronics, I am lame at music. So, how could I revamp a not-too-complex tune from a MIDI file to <a class="wiki_link" href="Arduino%20and%20a%20YMZ294.html">something Yamaha's chip</a>  can understand.<br />
+<br />
+After little search I found on <strong><a class="wiki_link_ext" href="http://www.codeproject.com" rel="nofollow" target="_blank">CodeProject</a></strong> (heaven for C# developpers) a <strong>very good</strong> tool for MIDI : <a class="wiki_link_ext" href="http://www.codeproject.com/KB/audio-video/MIDIToolkit.aspx" rel="nofollow" target="_blank">CSharpMidiToolkit</a>  from Mr. Leslie Sanford. This man has passion for MIDI, and his code is quite nice. And also it can replay a midi tune and interprete it ... and show it on a visual piano by getting the MIDI key code... WAIT A SEC : that's exactly what I need!<br />
+<br />
+So after a little peep at the code one can easily manage to retrieve the keys (on the piano) that are pressed (just listen to the good event and you're done, code is very clear). Problem comes with MIDI structure: it has many channel that are playing in parallel.<br />
+Indeed, our Yamaha YMZ294 (or whatever of its siblings) has also many channel... but no way to program it parallely. We have to do <em>time-multiplexing of the notes</em> to be able to program the chip. No worries, it's IT engineering school classics, and anyway a chronogram and a little logic can lead you through.<br />
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/MIDI_Chronogramme1.png" alt="MIDI_Chronogramme1.png" title="MIDI_Chronogramme1.png" /><br />
+</td>
+        <td>We have 3 primitives only available : <em>play(channel, note)</em> that starts playing a note, <em>stop(channel)</em> that mutes a channel and <em>sleep (duration)</em> that makes the cpu sleep.<br />
+Good thing is that the implementation of MIDI intepretation in Mr Sanford's code is based on events. Play note, stop note are the 2 only events we're interrested in. <br />
+<br />
+So in both our chronograms, we start playing a note on channel A (<em>play(A, note1)</em>) and save time as T.<br />
+Then comes an even :  <br />
+<ul><li>Stop A : cpu should have slept now - T, and then stop channel A<ul><li>sleep(Now - T)</li><li>stop(A)</li><li>T = Now</li></ul></li><li>Play B : cpu should have slept now - T, and then play channel B<ul><li>sleep(Now - T)</li><li>play(B, Note2)</li><li>T = Now</li></ul></li></ul><br />
+So logic is simple in fact : at each event, sleep for duration since latest even, do the event, save the time... that's all...<br />
+</td>
+    </tr>
+</table>
+
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/MidiSequencerToYMZ.PNG" alt="MidiSequencerToYMZ.PNG" title="MidiSequencerToYMZ.PNG" /><br />
+</td>
+        <td>Tadaaaa ♪ You can see at the bottom the &quot;arduino %20 YMZ294&quot; version. It's not perfect but with the few parameters and depending on the tune it might give a quite nice output (especially this Final Fantasy IV tune that sounds like the real stuff!). Enjoy.<br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h1 id="toc1"><a name="Codes"></a> Codes </h1>
+<A  href="files/CSharpMidiToolkitV5_demo.zip.html">CSharpMidiToolkitV5_demo.zip</a> This is the Leslie Sanford excellent application that I scavenged. Please have a look to latest version on <a class="wiki_link_ext" href="http://www.codeproject.com/KB/audio-video/MIDIToolkit.aspx" rel="nofollow" target="_blank">Codeproject</a>. Thanks again to him!.<br />
+<A  href="files/Form1.SequencerDemo.zip.html">Form1.SequencerDemo.zip</a> the 3 files I've changed to allow <a class="wiki_link" href="Arduino%20and%20a%20YMZ294.html">generating YMZ294 compatible tune</a>  from midi (in the SequencerDemo project, the main form in fact).<br />
+<A  href="files/SequencerDemoPlusVamp.zip.html">SequencerDemoPlusVamp.zip</a> last but not least, the precompiled application (C# 2.0)
+    </div>
+  </body>
+</html>

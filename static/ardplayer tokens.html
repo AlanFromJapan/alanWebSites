@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>kalshagar - ardPlayer tokens</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+<h2 id="toc1"><a name="Purpose-Why why why oh why ?"></a> Why why why oh why ? </h2>
+<img src="files/SANY0010.small.jpg" alt="SANY0010.small.jpg" title="SANY0010.small.jpg" style="width: 400px;" align="right" /><br />
+So nice to play music without turning on the screen and opening WMPlayer and picking tunes ... especially if the screen of the PC is in fact my big fat LCD TV (which I love). Just put some token on the sensitive area and music starts, remove it and it stops, or even drop the killer tokens that will shutdown the pc (damn small hard to press button beneath the table). Oh and also because I'm a curious geek in search of new toyes, yeah (but it was obvious).<br />
+<br />
+<strong>Hall of fame:</strong><br />
+<ul><li>Thanks to PcbHeaven.com : <a class="wiki_link_ext" href="http://pcbheaven.com/opendir/index.php?show=9680gj9801hkd024260a" rel="nofollow">http://pcbheaven.com/opendir/index.php?show=9680gj9801hkd024260a</a></li></ul><img src="files/2010-06-13_14.27.46.small.jpg" alt="2010-06-13_14.27.46.small.jpg" title="2010-06-13_14.27.46.small.jpg" /><br />
+<img src="files/2010-06-13_14.29.14.small.jpg" alt="2010-06-13_14.29.14.small.jpg" title="2010-06-13_14.29.14.small.jpg" /><br />
+<br />
+<h2 id="toc2"><a name="Purpose-Important foreword"></a> Important foreword </h2>
+<span style="background-color: gold">Please note that this project is based and very strongly inspired (who said &quot;plagiat&quot;?) from the very nice work made here : <strong><a class="wiki_link_ext" href="http://www.trileet.com/node/34" rel="nofollow">http://www.trileet.com/node/34</a></strong></span><br />
+The guy made a very nice work, and all the benefit of the idea is for him only. Thanks for sharing mate.<br />
+<br />
+<br />
+Main differences will be :<br />
+<ul><li>No Squeezebox involved, it will be plugged to the PC that sits in the living room which is my goal (opposite of the original project)<ul><li>... therefore no need for Ethernet shield or connectivity, we'll use the USB cable</li><li>... therefore we'll pilot the Windows Media player or whatever other tool (I'll try to have something that can run any command, even shutdown pc maybe ...)</li></ul></li><li>Everything will be written in C#</li><li>It won't play albums but playlists (I barely never listen to an album)</li><li>It will use an Arduino; not a difference, but since I need the USB connection, I have to. I would have prefered saving it and making a homemade arduino but can't win all time.</li><li>I won't use the Parallax items (expensive and looks like having a not-so-fine review), I'll go to the <a class="wiki_link_ext" href="http://www.seeedstudio.com/depot/rfid-c-40.html" rel="nofollow" target="_blank">SeeedStudio</a>  solution<ul><li>Cheaper 12.5 USD for a serial reader (vs 40 USD)</li><li>Cheper 2.5 USD set of 5 tokens (2 card, 3 key holders) (vs 2 USD per item)</li><li>Located in HK so not far from me and having free sending fees over 50 USD (my case)</li></ul></li></ul><br />
+<h2 id="toc3"><a name="Purpose-Parts"></a> Parts </h2>
+<ul><li>Arduino 3200 JPY</li><li>RFID reader 1100 JPY (12.5 usd)</li><li>RFID tokens 300 JPY (per 5)</li><li>Some holders for the tokens (&quot;in the 100 yen shop down the street we trust&quot;) or some recycled 100 jpy NES/SNES cartridge?</li><li>Case from Tokyu Hands 515 JPY</li><li>Vanilla shield from Switch-Science 600 JPY</li></ul><hr />
+<ul><li>Sum around 6000 JPY</li></ul><br />
+<h1 id="toc4"><a name="Pictures"></a> Pictures </h1>
+<iframe width="480" height="385" src="//www.youtube.com/embed/INUdUC5kUyo" frameborder="0" allowfullscreen></iframe><br />
+<img src="files/SANY0012.small.jpg" alt="SANY0012.small.jpg" title="SANY0012.small.jpg" style="width: 400px;" /> <img src="files/SANY0013.small.jpg" alt="SANY0013.small.jpg" title="SANY0013.small.jpg" style="width: 400px;" /><br />
+<img src="files/SANY0014.small.jpg" alt="SANY0014.small.jpg" title="SANY0014.small.jpg" style="width: 400px;" /> <table class="captionBox"><tr><td class="captionedImage"><img src="files/EditPlaylistScreenshot.JPG" alt="EditPlaylistScreenshot.JPG" title="EditPlaylistScreenshot.JPG" /></td></tr><tr><td class="imageCaption">Playlist editor in ardTouch Connector</td></tr></table><br />
+<br />
+<h1 id="toc5"><a name="Schema"></a> Schema </h1>
+Text mode :<br />
+<ul><li>RFID token Pin TX connected to Pin 2 of Arduino</li><li>Led %20 470 Ohm resistor on Pin 12</li><li>%20 Vcc and Ground (but you guessed this one)</li></ul><br />
+<h1 id="toc6"><a name="Code"></a> Code </h1>
+<h2 id="toc7"><a name="Code-Arduino side"></a> Arduino side </h2>
+No real fantastic thing here. <br />
+You will need the <strong>NewSoftSerial</strong> library available here <a class="wiki_link_ext" href="http://arduiniana.org/libraries/newsoftserial/" rel="nofollow">http://arduiniana.org/libraries/newsoftserial/</a> (used to communicate between RFID reader and Arduino). <br />
+It uses the <strong><a class="wiki_link" href="ARCPO.html">ARCPO</a></strong> library I wrote so feel free to use also. <br />
+<A  href="files/RFID_PlayerToken.pde.html">RFID_PlayerToken.pde</a><br />
+<br />
+<h2 id="toc8"><a name="Code-PC side"></a> PC side </h2>
+It will use my previously created library <a class="wiki_link" href="ARCPO.html">ARCPO</a> and the Windows software associated <a class="wiki_link" href="ardTouchConnector.html">ardTouchConnector</a>.<br />
+Changes to be done to the <a class="wiki_link" href="ardTouchConnector.html">ardTouchConnector</a> :<br />
+<ul><li>Can understand those new ID commands (should be nearly ok already)</li><li>Can start WMPLayer if not loaded</li><li>Can shutdown PC</li></ul><br />
+<h3 id="toc9"><a name="Code-PC side-Windows Media Player"></a> Windows Media Player </h3>
+<ul><li><strong>wmplayer /Playlist NameOfPlayList</strong> <a class="wiki_link_ext" href="http://www.tech-recipes.com/rx/1389/windows-media-player-wmp-11-command-line-options/" rel="nofollow">http://www.tech-recipes.com/rx/1389/windows-media-player-wmp-11-command-line-options/</a></li><li><strong>wmplayer.exe /Playlist plylst1.wpl</strong> <a class="wiki_link_ext" href="http://www.eggheadcafe.com/software/aspnet/31762245/window-media-player-playl.aspx" rel="nofollow">http://www.eggheadcafe.com/software/aspnet/31762245/window-media-player-playl.aspx</a></li><li><strong>MSDN - WMP Command Line Parameters</strong> <a class="wiki_link_ext" href="http://msdn.microsoft.com/en-us/library/dd562624%28VS.85%29.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/library/dd562624%28VS.85%29.aspx</a></li></ul><br />
+<br />
+<h1 id="toc10"><a name="Links"></a> Links </h1>
+<ul><li>In french, OMG they had the same idea as me ... but they made it real (good for them) <a class="wiki_link_ext" href="http://nouvellestechnos.science-et-vie.com/informatique/le-premier-lecteur-dobjet-rfid-pour-tous/" rel="nofollow">http://nouvellestechnos.science-et-vie.com/informatique/le-premier-lecteur-dobjet-rfid-pour-tous/</a></li></ul>
+    </div>
+  </body>
+</html>

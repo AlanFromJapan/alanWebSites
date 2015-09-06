@@ -1,0 +1,215 @@
+<html>
+  <head>
+    <title>kalshagar - How to generate a colormixer</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Version 1"></a> Version 1 </h1>
+A good start ...<br />
+<br />
+<h1 id="toc1"><a name="Version 2"></a> Version 2 </h1>
+Not too bad ... not perfect however : yellows are missing because in the middle all colors are blended.<br />
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/bgColorLampv2.png" alt="bgColorLampv2.png" title="bgColorLampv2.png" /><br />
+</td>
+        <td>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp  {font-family:monospace;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+-->
+</style><pre class="csharp">        <span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">double</span> GREEN_PCT <span class="sy0">=</span> <span class="nu0">0.90</span><span class="sy0">;</span>
+        <span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">double</span> BLUE_PCT <span class="sy0">=</span> <span class="nu0">0.90</span><span class="sy0">;</span>
+&nbsp;
+        <span class="kw1">private</span> <span class="kw4">void</span> Form1_Load<span class="br0">&#40;</span><span class="kw4">object</span> sender, EventArgs e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            Bitmap vBmp <span class="sy0">=</span> <span class="kw3">new</span> Bitmap<span class="br0">&#40;</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            Graphics vG <span class="sy0">=</span> Graphics<span class="sy0">.</span><span class="me1">FromImage</span><span class="br0">&#40;</span>vBmp<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+            <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> x <span class="sy0">&lt;</span> vBmp<span class="sy0">.</span><span class="me1">Width</span><span class="sy0">;</span> x<span class="sy0">%20%20</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> y <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> y <span class="sy0">&lt;</span> vBmp<span class="sy0">.</span><span class="me1">Height</span><span class="sy0">;</span> y<span class="sy0">%20%20</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                    <span class="co1">//green</span>
+                    <span class="kw4">double</span> vGreen <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+                    vGreen <span class="sy0">=</span> <span class="nu0">255.0</span> <span class="sy0">-</span> <span class="nu0">255.0</span> <span class="sy0">*</span> Math<span class="sy0">.</span><span class="me1">Min</span><span class="br0">&#40;</span><span class="nu0">1.0</span>, <span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>y <span class="sy0">/</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>vBmp<span class="sy0">.</span><span class="me1">Height</span> <span class="sy0">*</span> GREEN_PCT<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="kw1">if</span> <span class="br0">&#40;</span>x <span class="sy0">&lt;</span> vBmp<span class="sy0">.</span><span class="me1">Width</span> <span class="sy0">*</span> <span class="nu0">0.5</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                        <span class="co1">//use height</span>
+&nbsp;
+                    <span class="br0">&#125;</span>
+                    <span class="kw1">else</span> <span class="br0">&#123;</span>
+                        <span class="co1">//use width</span>
+                        vGreen <span class="sy0">=</span> Math<span class="sy0">.</span><span class="me1">Min</span><span class="br0">&#40;</span>vGreen,
+                            <span class="nu0">255.0</span> <span class="sy0">-</span> <span class="nu0">255.0</span> <span class="sy0">*</span> Math<span class="sy0">.</span><span class="me1">Min</span><span class="br0">&#40;</span><span class="nu0">1.0</span>, <span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>x <span class="sy0">-</span> vBmp<span class="sy0">.</span><span class="me1">Width</span> <span class="sy0">*</span> <span class="nu0">0.5</span><span class="br0">&#41;</span> <span class="sy0">/</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>vBmp<span class="sy0">.</span><span class="me1">Width</span> <span class="sy0">*</span> <span class="nu0">0.5</span> <span class="sy0">*</span> GREEN_PCT<span class="br0">&#41;</span><span class="br0">&#41;</span>
+                            <span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="br0">&#125;</span>
+&nbsp;
+                    <span class="co1">//blue</span>
+                    <span class="kw4">double</span> vBlue <span class="sy0">=</span> <span class="nu0">255.0</span> <span class="sy0">-</span> <span class="nu0">255.0</span> <span class="sy0">*</span> Math<span class="sy0">.</span><span class="me1">Min</span><span class="br0">&#40;</span><span class="nu0">1.0</span>, <span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span><span class="br0">&#40;</span>vBmp<span class="sy0">.</span><span class="me1">Height</span> <span class="sy0">-</span> y<span class="br0">&#41;</span> <span class="sy0">/</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>vBmp<span class="sy0">.</span><span class="me1">Height</span> <span class="sy0">*</span> BLUE_PCT<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="kw1">if</span> <span class="br0">&#40;</span>x <span class="sy0">&lt;</span> vBmp<span class="sy0">.</span><span class="me1">Width</span> <span class="sy0">*</span> <span class="nu0">0.5</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                        <span class="co1">//use height</span>
+&nbsp;
+                    <span class="br0">&#125;</span>
+                    <span class="kw1">else</span> <span class="br0">&#123;</span>
+                        <span class="co1">//use width</span>
+                        vBlue <span class="sy0">=</span> Math<span class="sy0">.</span><span class="me1">Min</span><span class="br0">&#40;</span>vBlue,
+                            <span class="nu0">255.0</span> <span class="sy0">-</span> <span class="nu0">255.0</span> <span class="sy0">*</span> Math<span class="sy0">.</span><span class="me1">Min</span><span class="br0">&#40;</span><span class="nu0">1.0</span>, <span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>x <span class="sy0">-</span> vBmp<span class="sy0">.</span><span class="me1">Width</span> <span class="sy0">*</span> <span class="nu0">0.5</span><span class="br0">&#41;</span> <span class="sy0">/</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>vBmp<span class="sy0">.</span><span class="me1">Width</span> <span class="sy0">*</span> <span class="nu0">0.5</span> <span class="sy0">*</span> BLUE_PCT<span class="br0">&#41;</span><span class="br0">&#41;</span>
+                            <span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="br0">&#125;</span>
+&nbsp;
+                    <span class="co1">//red</span>
+                    <span class="co1">//Point vRedCenter = new Point(vBmp.Width, vBmp.Height / 2);</span>
+                    <span class="co1">//double vRed = 255.0 - 255.0 * Math.Min(1.0, Math.Sqrt(Math.Pow((double)(vRedCenter.Y - y), 2) %20 Math.Pow((double)(vRedCenter.X - x), 2)) / ((double)vBmp.Height));</span>
+                    <span class="kw4">double</span> vRed <span class="sy0">=</span> <span class="nu0">255.0</span> <span class="sy0">-</span> <span class="nu0">255.0</span> <span class="sy0">*</span> Math<span class="sy0">.</span><span class="me1">Min</span><span class="br0">&#40;</span><span class="nu0">1.0</span>, <span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>x<span class="br0">&#41;</span> <span class="sy0">/</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>vBmp<span class="sy0">.</span><span class="me1">Width</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                    vBmp<span class="sy0">.</span><span class="me1">SetPixel</span><span class="br0">&#40;</span>x, y, Color<span class="sy0">.</span><span class="me1">FromArgb</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span>vRed, <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span>vGreen, <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span>vBlue<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="br0">&#125;</span>            
+            <span class="br0">&#125;</span>
+&nbsp;
+            vG<span class="sy0">.</span><span class="me1">Dispose</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            vG<span class="sy0">=</span> <span class="kw1">null</span><span class="sy0">;</span>
+            pictureBox1<span class="sy0">.</span><span class="me1">Image</span> <span class="sy0">=</span> vBmp<span class="sy0">;</span>
+        <span class="br0">&#125;</span></pre>
+
+</td>
+    </tr>
+</table>
+
+<br />
+<h1 id="toc2"><a name="Version 3 : RGB from HSB"></a> Version 3 : RGB from HSB </h1>
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp  {font-family:monospace;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+-->
+</style><pre class="csharp">        <span class="kw1">private</span> <span class="kw4">void</span> FrmHSB_Load<span class="br0">&#40;</span><span class="kw4">object</span> sender, EventArgs e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            Bitmap vBmp <span class="sy0">=</span> <span class="kw3">new</span> Bitmap<span class="br0">&#40;</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            Graphics vG <span class="sy0">=</span> Graphics<span class="sy0">.</span><span class="me1">FromImage</span><span class="br0">&#40;</span>vBmp<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+            <span class="co1">//http://en.wikipedia.org/wiki/HSL_color_space</span>
+&nbsp;
+            <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> x <span class="sy0">&lt;</span> vBmp<span class="sy0">.</span><span class="me1">Width</span><span class="sy0">;</span> x<span class="sy0">%20%20</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> y <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> y <span class="sy0">&lt;</span> vBmp<span class="sy0">.</span><span class="me1">Height</span><span class="sy0">;</span> y<span class="sy0">%20%20</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                    <span class="kw4">double</span> vBrightenss <span class="sy0">=</span> <span class="nu0">0.4</span><span class="sy0">;</span>
+                    <span class="kw4">double</span> vHue <span class="sy0">=</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>x <span class="sy0">*</span> <span class="nu0">360.0</span><span class="br0">&#41;</span> <span class="sy0">/</span> <span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>vBmp<span class="sy0">.</span><span class="me1">Width</span><span class="br0">&#41;</span> <span class="sy0">/</span> <span class="nu0">360.0</span><span class="sy0">;</span>
+                    <span class="kw4">double</span> vSat <span class="sy0">=</span> y <span class="sy0">/</span> <span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>vBmp<span class="sy0">.</span><span class="me1">Height</span><span class="sy0">;</span>
+&nbsp;
+                    <span class="kw4">double</span> q <span class="sy0">=</span> <span class="nu0">0.0</span><span class="sy0">;</span>
+                    <span class="kw1">if</span> <span class="br0">&#40;</span>vBrightenss <span class="sy0">&lt;</span> <span class="nu0">0.5</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                        q <span class="sy0">=</span> vBrightenss <span class="sy0">*</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">%20</span> vSat<span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="br0">&#125;</span>
+                    <span class="kw1">else</span> <span class="br0">&#123;</span>
+                        q <span class="sy0">=</span> vBrightenss <span class="sy0">%20</span> vSat <span class="sy0">-</span> <span class="br0">&#40;</span>vBrightenss <span class="sy0">*</span> vSat<span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="br0">&#125;</span>
+&nbsp;
+                    <span class="kw4">double</span> p <span class="sy0">=</span> <span class="nu0">2.0</span> <span class="sy0">*</span> vBrightenss <span class="sy0">-</span> q<span class="sy0">;</span>
+                    <span class="kw4">double</span> tr <span class="sy0">=</span> vHue <span class="sy0">%20</span> <span class="nu0">1.0</span> <span class="sy0">/</span> <span class="nu0">3.0</span><span class="sy0">;</span>
+                    <span class="kw4">double</span> tg <span class="sy0">=</span> vHue<span class="sy0">;</span>
+                    <span class="kw4">double</span> tb <span class="sy0">=</span> vHue <span class="sy0">-</span> <span class="nu0">1.0</span><span class="sy0">/</span><span class="nu0">3.0</span><span class="sy0">;</span>
+&nbsp;
+                    vBmp<span class="sy0">.</span><span class="me1">SetPixel</span> <span class="br0">&#40;</span>x, y, Color<span class="sy0">.</span><span class="me1">FromArgb</span> <span class="br0">&#40;</span>
+                        GetCompo<span class="br0">&#40;</span>p, q, tr<span class="br0">&#41;</span>,
+                        GetCompo<span class="br0">&#40;</span>p, q, tg<span class="br0">&#41;</span>,
+                        GetCompo<span class="br0">&#40;</span>p, q, tb<span class="br0">&#41;</span>
+                    <span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                <span class="br0">&#125;</span>
+            <span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+            pictureBox1<span class="sy0">.</span><span class="me1">Image</span> <span class="sy0">=</span> vBmp<span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">private</span> <span class="kw4">int</span> GetCompo<span class="br0">&#40;</span><span class="kw4">double</span> p, <span class="kw4">double</span> q, <span class="kw4">double</span> tc<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw4">double</span> vVal <span class="sy0">=</span> <span class="nu0">0.0</span><span class="sy0">;</span>
+            tc <span class="sy0">=</span> <span class="br0">&#40;</span>tc <span class="sy0">&lt;</span> <span class="nu0">0</span> <span class="sy0">?</span> tc <span class="sy0">%20</span> <span class="nu0">1.0</span> <span class="sy0">:</span> <span class="br0">&#40;</span>tc <span class="sy0">&gt;</span> <span class="nu0">1</span> <span class="sy0">?</span> tc <span class="sy0">-</span> <span class="nu0">1.0</span> <span class="sy0">:</span> tc<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+            <span class="kw1">if</span> <span class="br0">&#40;</span>tc <span class="sy0">&lt;</span> <span class="nu0">1.0</span> <span class="sy0">/</span> <span class="nu0">6.0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                vVal <span class="sy0">=</span> p <span class="sy0">%20</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>q <span class="sy0">-</span> p<span class="br0">&#41;</span> <span class="sy0">*</span> <span class="nu0">6.0</span> <span class="sy0">*</span> tc<span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+            <span class="kw1">else</span> <span class="br0">&#123;</span>
+                <span class="kw1">if</span> <span class="br0">&#40;</span>tc <span class="sy0">&lt;</span> <span class="nu0">0.5</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                    vVal <span class="sy0">=</span> q<span class="sy0">;</span>
+                <span class="br0">&#125;</span>
+                <span class="kw1">else</span> <span class="br0">&#123;</span>
+                    <span class="kw1">if</span> <span class="br0">&#40;</span>tc <span class="sy0">&lt;</span> <span class="nu0">2.0</span> <span class="sy0">/</span> <span class="nu0">3.0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                        vVal <span class="sy0">=</span> p <span class="sy0">%20</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>q <span class="sy0">-</span> p<span class="br0">&#41;</span> <span class="sy0">*</span> <span class="nu0">6.0</span> <span class="sy0">*</span> <span class="br0">&#40;</span><span class="nu0">2.0</span> <span class="sy0">/</span> <span class="nu0">3.0</span> <span class="sy0">-</span> tc<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="br0">&#125;</span>
+                    <span class="kw1">else</span> <span class="br0">&#123;</span>
+                        vVal <span class="sy0">=</span> p<span class="sy0">;</span>
+                    <span class="br0">&#125;</span>
+                <span class="br0">&#125;</span>
+&nbsp;
+            <span class="br0">&#125;</span>
+            <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#40;</span>vVal <span class="sy0">*</span> <span class="nu0">255.0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span></pre>
+
+<br />
+<br />
+<h1 id="toc3"><a name="Version 4"></a> Version 4 </h1>
+The holly Graal as done in Gimp.<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/bgColorLamp.png" alt="bgColorLamp.png" title="bgColorLamp.png" /><br />
+</td>
+    </tr>
+</table>
+
+???<br />
+||
+    </div>
+  </body>
+</html>

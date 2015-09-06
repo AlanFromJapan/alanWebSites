@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <title>kalshagar - Laser cutter</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Forces in presence"></a> Forces in presence </h1>
+ <img src="files/Laser-cutter%20High%20level%20breakdown.svg" alt="Laser-cutter High level breakdown.svg" title="Laser-cutter High level breakdown.svg" style="width: 500px;" align="right" /><h2 id="toc1"><a name="Forces in presence-Electronic"></a> Electronic </h2>
+<ul><li>Arduino/<a class="wiki_link" href="Arduino%20without%20arduino.html">Arduino clone</a>  of course : the net is full of look-alike projects</li></ul><h2 id="toc2"><a name="Forces in presence-Power"></a> Power </h2>
+<ul><li>The alim of the printer</li></ul><h2 id="toc3"><a name="Forces in presence-Laser"></a> Laser </h2>
+<ul><li>Ebay help me!</li></ul><h2 id="toc4"><a name="Forces in presence-Bearings and moving stuffs"></a> Bearings and moving stuffs </h2>
+<ul><li>A scavenged bed scanner or inkjet printer ? Get ripped off by Tokyu Hands or some guy in Akiba ?<ul><li>Yahoo auctions -&gt; bought a combo Epson printer/scanner</li></ul></li></ul><h2 id="toc5"><a name="Forces in presence-General construction"></a> General construction </h2>
+<ul><li>Wood and MDF because it's cheap and I don't have tools to work metal.</li></ul><h2 id="toc6"><a name="Forces in presence-Software"></a> Software </h2>
+<ul><li><strong>GRBL</strong> seems to be a easy solution with arduino so let's check it<ul><li><a class="wiki_link_ext" href="https://github.com/grbl/grbl" rel="nofollow">https://github.com/grbl/grbl</a></li></ul></li></ul><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1 id="toc7"><a name="Making process"></a> Making process </h1>
+<h2 id="toc8"><a name="Making process-1- Scavenging the printer"></a> 1- Scavenging the printer </h2>
+<img src="files/PM-A700small.jpg" alt="PM-A700small.jpg" title="PM-A700small.jpg" align="right" />From the <a class="wiki_link_ext" href="http://www.epson.jp/products/back/hyou/printer/pma700.htm" rel="nofollow" target="_blank">Epson PM-A700</a>  I scavenged the print head rail and motor (looks good and strong DC motor and position combo), the scanner motor and rail (Stepper motor but look not quite strong though), the paper moving motor (DC motor) and the alim (spits %2040v with no load ... need to check that)<br />
+<h2 id="toc9"><a name="Making process-2- Taming the Printer head motor"></a> 2- Taming the Printer head motor </h2>
+<h3 id="toc10"><a name="Making process-2- Taming the Printer head motor-2.1- Printer head position"></a> 2.1- Printer head position </h3>
+ It's a big strong DC motor that looks like to work nice with 35 V (<a class="wiki_link_ext" href="http://www.mabuchi-motor.co.jp/cgi-bin/catalog/e_catalog.cgi?CAT_ID=rs_445papd" rel="nofollow" target="_blank">Mabuchi RS-445PA (14233)</a>). The position can be checked using a transparent stripped band that runs along the motor belt and a small circuit that reads the &quot;position&quot; or more precisely the movements (counts the dark bars). The circuit has a VCC &amp; GND input and 2 bipolar output. <br />
+<table class="captionBox"><tr><td class="captionedImage"><a href="http://www.electronics-tutorials.ws/io/io_2.html" rel="nofollow"><img src="http://www.electronics-tutorials.ws/io/io4.gif" alt="Simple Incremental Encoder (not exactly what we have here but close enough)" title="Simple Incremental Encoder (not exactly what we have here but close enough)" /></a></td></tr><tr><td class="imageCaption">Simple Incremental Encoder (not exactly what we have here but close enough)</td></tr></table><br />
+The 2 output wires return high or low when the head moves and the stripes goes in front of the reader chip. But easier is that each wire is in fact TTL level. It is a positional code type &quot;Simple incremental encoder&quot; <a class="wiki_link_ext" href="http://www.electronics-tutorials.ws/io/io_2.html" rel="nofollow">http://www.electronics-tutorials.ws/io/io_2.html</a><br />
+<br />
+The setup is that when the head moves the position reader generate state change each time it moves. Just wire the position head to a external interrupt of the Arduino and &quot;count&quot; the plus or minus on each state change of the pin depending of which direction you go. The main code while moving moves and check the &quot;position counter&quot; and stops when you're arrived. Not perfect, but okay for a beta version. FYI I use just one of the two position counter which is sufficient for now.<br />
+<br />
+<img src="files/20130720_220926.jpg" alt="20130720_220926.jpg" title="20130720_220926.jpg" /><br />
+<h3 id="toc11"><a name="Making process-2- Taming the Printer head motor-2.2- Power the printer head DC motor with a H-Bridge"></a> 2.2- Power the printer head DC motor with a H-Bridge </h3>
+I will use this eBay baby (4 USD <a class="wiki_link_ext" href="http://www.ebay.com/itm/110953019447" rel="nofollow">http://www.ebay.com/itm/110953019447</a>) but any H-Bridge configuration should be ok. I finally decyphered what was written on the motor, it's a <strong><a class="wiki_link_ext" href="http://www.mabuchi-motor.co.jp/cgi-bin/catalog/e_catalog.cgi?CAT_ID=rs_445papd" rel="nofollow" target="_blank">Mabuchi RS-445PA (14233)</a></strong> that works in the 12-40v range (!) (Specs are <a class="wiki_link_ext" href="http://www.mabuchi-motor.co.jp/cgi-bin/catalog/e_catalog.cgi?CAT_ID=rs_445papd" rel="nofollow">http://www.mabuchi-motor.co.jp/cgi-bin/catalog/e_catalog.cgi?CAT_ID=rs_445papd</a>) which is &quot;ok&quot; with the H-Bridge module that works on the 5-35V (specs says 46V but...). I will just need to provide the 5v since the maker advise to not use the on-board 7805 if fed more than 12v.<br />
+<br />
+<img src="files/Motor-driver-printer-head-wiring.jpg" alt="Motor-driver-printer-head-wiring.jpg" title="Motor-driver-printer-head-wiring.jpg" /><div style="float: right; margin-left: 1em;"><iframe width="420" height="315" src="//www.youtube.com/embed/ByHPCU16xX8" frameborder="0" allowfullscreen=""></iframe></div><br />
+Setup is the following : reuse the 40v alim from the printer, reduce it around 35v with a serie of diodes, use a DC-DC converter to make it 5v to feed the logic (arduino) and 35v to feed the motor. <br />
+<ul><li>The IN1 and IN2 are linked to the PWM capables pins 9 and 3 of the Arduino (in that order).</li><li>Nota-bene: the GND of the driver must be linked to the GND of the Arduino (otherwise because the level of GND are different the driver can't understand properly the PWM).</li><li>The stopper contacter must be linked to GND one side and to Arduino pin 2 (pin D2).</li><li>The position reader must be wired to GND-ADC0-VCC-xxx (GND side has a black marker).</li></ul><br />
+<br />
+<h3 id="toc12"><a name="Making process-2- Taming the Printer head motor-2.3- Replacing the DC motor by a Stepper ?"></a> 2.3- Replacing the DC motor by a Stepper ? </h3>
+<img src="files/mxl-drive-pulley-20t-200.jpg" alt="mxl-drive-pulley-20t-200.jpg" title="mxl-drive-pulley-20t-200.jpg" style="width: 150px;" align="right" />It's just a question now, I've not done it. Problem is that maybe due to my inexperience but also to DC motors, it's hard to drive them precisely. Stepper motors without any headbanging archieve a 1/6th or 1/10th of mm precision. But thoses DC motors move via a belt and a drive pulley and need to fight the original inertia. Problem is that the thin (and random) limit between the energy to move the head and the inertia that will push the head too far. Experimentally (hum hum) I found a PWM value that looks ok but I'm concerned with the precision.<br />
+<br />
+In case I change that later, the ebay magic keyworks to get the part to put on top of the stepper to drive the belt are <em>pulley teeth stepper</em> (just a reminder, I spent 1 h searching how the rest of the world call these things).<br />
+<br />
+<br />
+<h2 id="toc13"><a name="Making process-3- Taming the scanner Bed motor"></a> 3- Taming the scanner Bed motor </h2>
+Scavenged from the scanner part of the Epson PM-A700, the motor is a stepper motor running at 12v : <a class="wiki_link_ext" href="http://www.mitsumi.co.jp/Catalog/pdf/motor_m35sp_11nk_e.pdf" rel="nofollow" target="_blank">Mitsumi M35SP-11NK</a>. <br />
+Color code of the connector is : coil1 [<span style="color: orange;font-weight:bold;">orange</span>-<span style="color: brown;font-weight:bold;">brown</span>] and coil2 [<span style="font-weight:bold;">black</span>-<span style="color: gold;font-weight:bold;">yellow</span>].<br />
+Coils read 40 ohm, sheet says 25 ohm, <a class="wiki_link_ext" href="http://laser530.blogspot.jp/2010/10/computer-setup.html" rel="nofollow" target="_blank">one guy says 8ohm</a>  ... well. It works with 5v (not much torque) and 12v (feels more like it boy!) <em>but</em> at 12v the motor itself and driver get hot quickly. Can still touch it though, we're clearly less than 50C but maybe I'll put a current limiting resistor ? Will depend on real life result.<br />
+<br />
+For memory, here's how the wiring works with the sample program bipolar_stepper.ino :<br />
+<ul><li>Coil 1 : arduino 6-7 → driver board IN 1-2. Wires on connector A are (farthest from radiator first) black and yellow</li><li>Coil 2 : arduino 11-12 → driver board IN 3-4. Wires on connector B are (farthest from radiator first) brown and orange</li></ul><img src="files/Motor-driver-mutsumi-stepper-wiring.jpg" alt="Motor-driver-mutsumi-stepper-wiring.jpg" title="Motor-driver-mutsumi-stepper-wiring.jpg" /><div style="float: right; margin-left: 1em;"><iframe width="420" height="315" src="//www.youtube.com/embed/QyOw4gRdWa4" frameborder="0" allowfullscreen=""></iframe></div><br />
+<em>Wiring for the bipolar stepper. Motor VCC is 5v (see more below). </em><br />
+<br />
+The stepper motor does 3.75 degrees per step means 96 steps for 1 full turn. I noticed however that it was not enough to make one turn of the final wheel (there's 2 intermediate wheels). In fact experimentally I found that there's a reduction factor of 2/3 means you need 96 * 1.5 = 144 steps to do one turn with the wheel that drives the rubber band.<br />
+<strong>Notabene</strong> : as per experiment, one needs <strong>6 steps</strong> to make the bed move <strong>1mm</strong>.<br />
+<br />
+<h3 id="toc14"><a name="Making process-3- Taming the scanner Bed motor-3.1 - stepper motor voltage"></a> 3.1 - stepper motor voltage </h3>
+When I feed it with 5v it works fine but gets quite hot. It's hot but you can keep your hand on it, means it's <em>not hot</em> per the standard of stepper motors. I'd like to give a try with a higher voltage (and lesser current). Currently anyway there's not limiting current and that could be a very bad idea on long term or under load. Let's do some calculations.<br />
+<br />
+Links:<br />
+<ul><li><a class="wiki_link_ext" href="http://www.parkermotion.com/dmxreadyv2/faqsmanager/faqsmanager.asp?question=965" rel="nofollow">http://www.parkermotion.com/dmxreadyv2/faqsmanager/faqsmanager.asp?question=965</a></li><li><a class="wiki_link_ext" href="http://forum.allaboutcircuits.com/showthread.php?t=64116" rel="nofollow">http://forum.allaboutcircuits.com/showthread.php?t=64116</a></li><li><a class="wiki_link_ext" href="http://homepage.divms.uiowa.edu/~jones/step/current.html" rel="nofollow">http://homepage.divms.uiowa.edu/~jones/step/current.html</a></li></ul><h3 id="toc15"><a name="Making process-3- Taming the scanner Bed motor-3.2 - bed plateau"></a> 3.2 - bed plateau </h3>
+<div style="float: right; margin-left: 1em;"><iframe width="420" height="315" src="//www.youtube.com/embed/UQ1fpkUFWJs" frameborder="0" allowfullscreen=""></iframe></div>I need a flat area -the plateau- to move but at the origin I have only a 2cm plastic bar  (formerly the holder of the scanner head). I made 2 skates for the bar to give it more stability and forbid any tilt of the bar. Thee the plateau (a 200x300x0.8mm aluminium plate) is carefully centered and fixed to the now very stable bar. So the plateau itself if not ultra stable <em>but</em> if the weight of the to-be-cut material is centered enough, that should work fine at the beginning.<br />
+The both skates rely on small metal ball encased in blue plastic pyramids and the &quot;track&quot; they follow is carefully greased with cheap lithium grease.<br />
+<br />
+<img src="files/2013-09-15-20-43-30_deco.jpg" alt="2013-09-15-20-43-30_deco.jpg" title="2013-09-15-20-43-30_deco.jpg" style="width: 400px;" /><br />
+<em>The first skate installed : along the blue axis the skates forbid tilt on the green and red axis</em><br />
+<img src="files/2013-09-15-23-30-49_deco.jpg" alt="2013-09-15-23-30-49_deco.jpg" title="2013-09-15-23-30-49_deco.jpg" style="width: 400px;" /><img src="files/2013-09-15-20-44-18_deco.jpg" alt="2013-09-15-20-44-18_deco.jpg" title="2013-09-15-20-44-18_deco.jpg" style="width: 400px;" /><br />
+<em>The blue pyramid are those cheap metal ball mounted in plastic to move your small furnitures around</em><br />
+<br />
+<h2 id="toc16"><a name="Making process-4- Axis assembly"></a> 4- Axis assembly </h2>
+Put both axis at 90 degrees angle and wired all to a Arduino shield.<div style="float: right; margin-left: 1em;"><iframe width="420" height="315" src="//www.youtube.com/embed/rrXn6TJtvPc" frameborder="0" allowfullscreen=""></iframe></div><br />
+<img src="files/2013-10-06-21-27-50_deco.jpg" alt="2013-10-06-21-27-50_deco.jpg" title="2013-10-06-21-27-50_deco.jpg" style="width: 400px;" /><br />
+<em>Setup : 40v printer power supply (green), transformer to 5v/12v/35v (purple), 2 motor driver (in cyan), an Arduino with a vanilla shield and wire-orgy (in red) and the stopper position of the bed (in yellow)</em><br />
+<br />
+<img src="files/2013-10-08-00-05-22_deco.jpg" alt="2013-10-08-00-05-22_deco.jpg" title="2013-10-08-00-05-22_deco.jpg" style="width: 400px;" /><br />
+<em>The first star drawn with a pen thanks to a quick Bresenham algo and after tuning of the head PWM ... not bad as a start</em><br />
+<br />
+<h2 id="toc17"><a name="Making process-5- LCD module"></a> 5- LCD module </h2>
+Display is a cheap knockoff Nokia 5110 LCD. To drive it easily I put a <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a> for the display and status led control. Communication between the main Arduino and the display module is done over I2C. This removes the burden of unnecesary code on the Arduino main controller side, and was a good occasion to play with other micro-controllers and I2C as slave.<br />
+<br />
+<h2 id="toc18"><a name="Making process-6- Laser"></a> 6- Laser </h2>
+<strong>Main page : <a class="wiki_link" href="Arduino%20and%20a%20laser.html">Arduino and a laser</a></strong>. <br />
+<br />
+<h2 id="toc19"><a name="Making process-7- Source code"></a> 7- Source code </h2>
+<h3 id="toc20"><a name="Making process-7- Source code-Prototype version"></a> Prototype version </h3>
+Prototype is done with Arduino IDE (which is a punition to use), Arduino libs etc ... not a big fan but for prototype it's still one of the best option.<br />
+On Google SVN <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FLaserCutterController" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FLaserCutterController</a><br />
+<br />
+For the LCD module see the project <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAttiny2313" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAttiny2313</a> ⇒ <em>LaserCutterDisplayController</em> project.<br />
+<h3 id="toc21"><a name="Making process-7- Source code-Release version"></a> Release version </h3>
+I plan rewrite everything with ATmel studio 6, nice and sexy and possibly get rid of the Arduino. That's for later.<br />
+<h3 id="toc22"><a name="Making process-7- Source code-About G Code"></a> About G Code </h3>
+G Code, the universal language of the CNCs and in extenso the Laser cutters. Options : reimplement a subset of G Code for my cutter or reuse an existing library...<br />
+<br />
+Some doc :<br />
+<ul><li>Aide memoire G Code <a class="wiki_link_ext" href="http://linuxcnc.org/docs/html/gcode_fr.html" rel="nofollow">http://linuxcnc.org/docs/html/gcode_fr.html</a></li><li>How it was implemented for another laser cutter <a class="wiki_link_ext" href="http://www.shapeoko.com/wiki/index.php/Laser_Cutter" rel="nofollow">http://www.shapeoko.com/wiki/index.php/Laser_Cutter</a></li><li><strong>GRBL</strong> seems to be a easy solution with arduino so let's check it <a class="wiki_link_ext" href="https://github.com/grbl/grbl" rel="nofollow">https://github.com/grbl/grbl</a></li></ul><br />
+<h1 id="toc23"><a name="Documentation"></a> Documentation </h1>
+<h2 id="toc24"><a name="Documentation-General making"></a> General making </h2>
+<ul><li>A very good one with many many explanation and tutorial <a class="wiki_link_ext" href="http://www.buildyourcnc.com" rel="nofollow">http://www.buildyourcnc.com</a></li><li>A guy made a extra nice one here, let's get inspiration <a class="wiki_link_ext" href="http://www.cnczone.com/forums/benchtop_machines/157385-ryans_g0704-16.html#post1228914" rel="nofollow">http://www.cnczone.com/forums/benchtop_machines/157385-ryans_g0704-16.html#post1228914</a></li><li>Another realisation, less detailed but using the Mutsumi motor <a class="wiki_link_ext" href="http://laser530.blogspot.jp/2010/10/computer-setup.html" rel="nofollow">http://laser530.blogspot.jp/2010/10/computer-setup.html</a></li></ul><h2 id="toc25"><a name="Documentation-Laser related"></a> Laser related </h2>
+<ul><li><a class="wiki_link_ext" href="http://laserpointerforums.com/f51/i-want-build-laser-thread-52972.html#post740462" rel="nofollow">http://laserpointerforums.com/f51/i-want-build-laser-thread-52972.html#post740462</a></li><li>In french <a class="wiki_link_ext" href="http://xtrem-experiences.com/categories/electro/104-coilgun-railgun-taser-laser/137-briquet-laser-2w" rel="nofollow">http://xtrem-experiences.com/categories/electro/104-coilgun-railgun-taser-laser/137-briquet-laser-2w</a></li></ul><h2 id="toc26"><a name="Documentation-Controller"></a> Controller </h2>
+<ul><li>A very nice shield build ! <a class="wiki_link_ext" href="http://blog.protoneer.co.nz/arduino-cnc-shield/" rel="nofollow">http://blog.protoneer.co.nz/arduino-cnc-shield/</a></li></ul><h1 id="toc27"><a name="Shopping"></a> Shopping </h1>
+<h2 id="toc28"><a name="Shopping-Shopping list"></a> Shopping list </h2>
+<ul><li>Mechanic<ul><li>Combo printer scanner from Epson : 1 JPY from yahoo auctions (%201500 JPY shipping fees ... (-_-;))</li><li>Aluminium sheet 200x300x0.8mm : 590 JPY</li><li><span style="text-decoration:line-through;">Drawer slides : 633 JPY </span> <em>didn't use it in the end</em></li></ul></li><li>Motors<ul><li>Motor drivers double H drive from eBay : 2x 4 USD</li></ul></li><li>Electronic<ul><li>Arduino UNO 2,000 JPY</li><li>Arduino vanilla shield 300 JPY</li><li>DC/DC converter to 5v/12v 300 JPY (<a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gM-02044/" rel="nofollow">http://akizukidenshi.com/catalog/g/gM-02044/</a>)</li><li>IR detector for bed position 50 JPY</li><li>Stopper tact switch for head 0 JPY (taken from an old CD reader)</li><li>Caps, resistors, wires, ... &lt;1000 JPY</li></ul></li><li>Laser<ul><li>2W 445nm laser with copper enclosure and focusing lens 75 USD (eBay)</li><li>2W Laser%20fan TTL driver 8 USD (won eBay auction)</li></ul></li><li>Box<ul><li>2 cleats of pine 2.4x3cm : 2x 420 JPY</li><li>A box of screws : 252 JPY</li><li>Plywood 450x450mm : 509 JPY</li></ul></li></ul><br />
+<h2 id="toc29"><a name="Shopping-Just buy it ?"></a> Just buy it ? </h2>
+<ul><li>A laser<ul><li><a class="wiki_link_ext" href="http://www.aixiz.com/store" rel="nofollow">http://www.aixiz.com/store</a></li></ul></li><li>A full laser cutter<ul><li><a class="wiki_link_ext" href="http://www.laser-velocity.jp/" rel="nofollow">http://www.laser-velocity.jp/</a></li><li>Yahoo Auctions Japan : search 「レーザー加工機」</li></ul></li></ul>
+    </div>
+  </body>
+</html>

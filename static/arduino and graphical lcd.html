@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and graphical LCD</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Shopping"></a> Shopping </h1>
+<ul><li><a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/product_info.php?products_id=710" rel="nofollow">http://www.sparkfun.com/commerce/product_info.php?products_id=710</a></li><li><a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-02159/" rel="nofollow">http://akizukidenshi.com/catalog/g/gP-02159/</a></li><li><a class="wiki_link_ext" href="http://shop.4dsystems.com.au/" rel="nofollow">http://shop.4dsystems.com.au/</a></li></ul><br />
+<h1 id="toc1"><a name="Monochrome LCD"></a> Monochrome LCD </h1>
+<h2 id="toc2"><a name="Monochrome LCD-Tutorials and doc"></a> Tutorials and doc </h2>
+<ul><li><a class="wiki_link_ext" href="http://www.arduino.cc/playground/Code/GLCDks0108" rel="nofollow">http://www.arduino.cc/playground/Code/GLCDks0108</a> <img src="files/heart.gif" alt="heart.gif" title="heart.gif" /><ul><li>Very well document and works from the very start (provided you make the pins right). Used in that project: <a class="wiki_link" href="KitchenTimer.html">KitchenTimer</a></li></ul></li><li><a class="wiki_link_ext" href="http://jormungand.net/dev/avrlcd/" rel="nofollow">http://jormungand.net/dev/avrlcd/</a></li><li><a class="wiki_link_ext" href="http://www.semifluid.com/?p=16" rel="nofollow">http://www.semifluid.com/?p=16</a></li><li>A little program that transform bitmap into something the lcd can display (C code) <a class="wiki_link_ext" href="http://embedded-lab.com/blog/?p=3934" rel="nofollow">http://embedded-lab.com/blog/?p=3934</a></li><li>Same same but different <a class="wiki_link_ext" href="http://embedded-lab.com/blog/?p=2398&amp;mid=55" rel="nofollow">http://embedded-lab.com/blog/?p=2398&amp;mid=55</a></li></ul><br />
+<h1 id="toc3"><a name="Color screens"></a> Color screens </h1>
+<h2 id="toc4"><a name="Color screens-Nokia screens 5110"></a> Nokia screens 5110 </h2>
+It's a 84x48 pixels display, cheap and easy to use. Ready to run for the text with <a class="wiki_link_ext" href="http://code.google.com/p/pcd8544/" rel="nofollow" target="_blank">libs here under</a>, and if you want to draw know this : the screen is a 84 (cols) x (6 bytes = 48 rows) in readonly mode. You must store in memory the representation of what you draw (84*6=504 bytes), switch the status of the pixel and push back the whole 8pixel(byte) part of line.<br />
+<br />
+<ul><li>Connecting to Arduino <a class="wiki_link_ext" href="http://www.avdweb.nl/arduino/hardware-interfacing/nokia-5110-lcd.html" rel="nofollow">http://www.avdweb.nl/arduino/hardware-interfacing/nokia-5110-lcd.html</a></li><li><a class="wiki_link_ext" href="http://skyduino.wordpress.com/2012/01/24/tutoriel-arduino-ecran-de-nokia-5110/" rel="nofollow">http://skyduino.wordpress.com/2012/01/24/tutoriel-arduino-ecran-de-nokia-5110/</a></li><li>THE library for Arduino <a class="wiki_link_ext" href="http://code.google.com/p/pcd8544/" rel="nofollow">http://code.google.com/p/pcd8544/</a><ul><li>And the tutorial from SPF <a class="wiki_link_ext" href="https://www.sparkfun.com/tutorials/300" rel="nofollow">https://www.sparkfun.com/tutorials/300</a></li></ul></li></ul><br />
+<ul><li><a class="wiki_link_ext" href="http://thomaspfeifer.net/" rel="nofollow">http://thomaspfeifer.net/</a><ul><li>HOWTO connect that damn screen when the connector is dead <a class="wiki_link_ext" href="http://thomaspfeifer.net/nokia_6100_display_en.htm" rel="nofollow">http://thomaspfeifer.net/nokia_6100_display_en.htm</a></li></ul></li><li><a class="wiki_link_ext" href="http://andybrown.me.uk/ws/2012/03/06/reverse-engineering-the-nokia-2730-qvga-lcd/" rel="nofollow">http://andybrown.me.uk/ws/2012/03/06/reverse-engineering-the-nokia-2730-qvga-lcd/</a></li></ul><br />
+Could we use it to do some nice FFT ? <a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1286718155" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1286718155</a><br />
+<br />
+<h2 id="toc5"><a name="Color screens-Scavenged screens"></a> Scavenged screens </h2>
+<ul><li>A sample scavenged and successfully reused screen : <a class="wiki_link_ext" href="http://www.waitingforfriday.com/index.php/Reverse_Engineering_a_1.5_inch_Photoframe" rel="nofollow">http://www.waitingforfriday.com/index.php/Reverse_Engineering_a_1.5_inch_Photoframe</a></li></ul><br />
+<h2 id="toc6"><a name="Color screens-Cheap eBay LCD screens"></a> Cheap eBay LCD screens </h2>
+Bought one the other day, let's give a try. Lots of pins and 3.3v but worth the tryout.<br />
+<ul><li>A guy who made a nice sample board with level convertion and buffer to reduce pin number <a class="wiki_link_ext" href="http://andybrown.me.uk/wk/2013/06/08/a-generic-16-bit-lcd-adaptor-for-the-arduino/" rel="nofollow">http://andybrown.me.uk/wk/2013/06/08/a-generic-16-bit-lcd-adaptor-for-the-arduino/</a></li></ul><br />
+<h1 id="toc7"><a name="x4G LCD and OLED"></a> 4G LCD and OLED </h1>
+<ul><li>The Holy Graal : displayshield4d library (from Oscar Gonzalez, initial contributor of here under link) <a class="wiki_link_ext" href="https://code.google.com/p/displayshield4d/" rel="nofollow">https://code.google.com/p/displayshield4d/</a></li><li>Tutorial (outdated but easily fixable I think) <a class="wiki_link_ext" href="http://jennylc.com/4d/" rel="nofollow">http://jennylc.com/4d/</a></li><li>A bit of help because this stupid screen doesn't work !!! <a class="wiki_link_ext" href="http://blog.littlebirdelectronics.com/tutorial-arduino-and-tft-lcd" rel="nofollow">http://blog.littlebirdelectronics.com/tutorial-arduino-and-tft-lcd</a></li></ul>
+    </div>
+  </body>
+</html>

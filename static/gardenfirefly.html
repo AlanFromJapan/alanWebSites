@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>kalshagar - GardenFirefly</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Idea"></a> Idea </h1>
+I have solar panes, transistors, leds and maybe some high capacity capacitor ... why not load the cap during the day and make a led glow at night ... can be nice on the balcony, no?<br />
+<br />
+Idea is not new and some guys already did that, let's see how they did it:<br />
+<ul><li>a video with the schema <a class="wiki_link_ext" href="http://www.youtube.com/watch?v=wV1fWMsi8Ew" rel="nofollow">http://www.youtube.com/watch?v=wV1fWMsi8Ew</a></li><li>an explanation on how to use a transistor as a switch when some resistance (light resistor) gets low <a class="wiki_link_ext" href="http://www.kpsec.freeuk.com/trancirc.htm" rel="nofollow">http://www.kpsec.freeuk.com/trancirc.htm</a></li><li>1 or 2 things to take on that schema to not kill the solar panel <a class="wiki_link_ext" href="http://www.instructables.com/id/Solar-powered-nocturnal-personal-fan/" rel="nofollow">http://www.instructables.com/id/Solar-powered-nocturnal-personal-fan/</a></li><li>A more complex but more elegant solution <a class="wiki_link_ext" href="http://www.greencheck.nl/index.php?/archives/839-Zero-Energy-Device-Challenge.html" rel="nofollow">http://www.greencheck.nl/index.php?/archives/839-Zero-Energy-Device-Challenge.html</a></li></ul><br />
+<strong>2011/10/02 :</strong> 1 h to have it work on breadboard, 1h soldering and working just fine. Take care of the PNP pinout, on my diagram I reversed it left-right and mislead me. Now I wrote the BCE pinout, easier to read. It will be set on my balcony or in my toilet, dunno yet... just have to case it in something nice.<br />
+<strong>2011/10/21 :</strong> well well well, not so much of a success. It works fine, loads fine, lights itself fine... that's ok. But if not in direct light, doesnt charge that much, and for the same reason turns on quite early. Conclusion, I never see it turned on, because it doesn't have so much autonomy. The 1F cap is too few maybe, the 470 ohm current limiter toward the led too light, the white led too greedy and the whole device shall be put more directly to the light. It works, but not as good as expected.<br />
+<strong>2011/10/31 :</strong> ok, so after adding an additional resistor before the led and changing the white led (forward voltage of 2.7v ?) by a red one (1.5v ?) it's glowing muuuuch longer.<br />
+<br />
+<h1 id="toc1"><a name="Pictures"></a> Pictures </h1>
+ <img src="files/2011-11-12_10.10.56b.jpg" alt="2011-11-12_10.10.56b.jpg" title="2011-11-12_10.10.56b.jpg" /><br />
+<em>With a red led, facing south, over Tokyo (now loading...)</em><br />
+<img src="files/2011-10-02_14.06.59b.jpg" alt="2011-10-02_14.06.59b.jpg" title="2011-10-02_14.06.59b.jpg" /><br />
+<em> The GardenFireFly works very nicely, breadboard or soldered, also in your toilet. Just take care of the pinout of the transistor. </em><br />
+<br />
+<h1 id="toc2"><a name="Circuit"></a> Circuit </h1>
+<img src="files/gardenfirefly-circuit.png" alt="gardenfirefly-circuit.png" title="gardenfirefly-circuit.png" /><br />
+<em> D3 is not necessary and can be replaced by a wire (in my case). Still not sure of the purpose of th 10 Mohm resistor, seems like a pulldown but isn't it a bit big for a pulldown ? (my case it's a 5.1 Mohm)</em><br />
+<em> EDIT: I augmented the current limiter resistor to 100 %20 470 (serial) to have it light a bit longer. We'll see...</em><br />
+<br />
+<a class="wiki_link_ext" href="http://www.falstad.com/circuit/#%24%201%205.0E-6%2010.20027730826997%2050%205.0%2050%0Ad%20176%20224%20272%20224%201%200.805904783%0Ad%20272%20224%20336%20224%201%200.805904783%0Ac%20336%20224%20336%20288%200%201.0%202.9918741843691996%0At%20432%20288%20432%20240%201%20-1%20-0.7402412010127475%20-0.7408939992343195%20100.0%0Aw%20448%20224%20448%20240%200%0Aw%20176%20224%20128%20224%200%0Aw%20128%20368%20400%20368%200%0Aw%20400%20368%20400%20288%200%0Aw%20400%20288%20432%20288%200%0Ar%20432%20288%20432%20368%200%201.0E7%0A162%20480%20192%20544%20192%201%202.1024259%201.0%200.0%200.0%0Aw%20432%20368%20544%20368%200%0A172%20176%20224%20176%20160%200%206%201.47%207.0%200.0%200.0%200.5%20Voltage%0Ag%20336%20288%20336%20304%200%0Ag%20432%20368%20432%20384%200%0Ax%20204%20206%20354%20209%200%2012%20voltage%20drop%20from%207v%20to%205.5V%0Ax%20203%20188%20306%20191%200%2012%20D1%20%26%20D2%20%3A%202%20diodes%0Ax%2031%20272%20128%20275%200%2012%20D3%20not%20mandatory%0Aw%20448%20192%20448%20224%200%0Aw%20336%20224%20416%20224%200%0Aw%20416%20224%20416%20240%200%0Aw%20448%20192%20480%20192%200%0Ax%20447%20169%20597%20172%200%2012%20led%20lights%20when%20voltage%20%3C%203v%0Ax%20451%20263%20476%20266%200%2012%20PNP%0Ax%20263%20277%20330%20280%200%2012%20rated%205v%20min%0Ax%2079%2073%20445%2077%200%2014%20Credits%20to%20http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DwV1fWMsi8Ew%0Ax%20444%20351%20569%20354%200%2012%20resistor%20is%20a%20pulldown%3F%0Ax%20404%20239%20411%20242%200%2010%20E%0Ax%20455%20237%20462%20240%200%2010%20C%0Ax%20422%20268%20429%20271%200%2010%20B%0Ad%20128%20368%20128%20224%201%200.805904783%0Ar%20544%20192%20544%20368%200%20100.0%0Ax%20559%20303%20634%20306%200%2012%20current%20limiter%0Ao%202%2064%200%2035%2010.0%203276.8%200%20-1%0A" rel="nofollow" target="_blank">See as a falstad circuit !</a> <br />
+<br />
+<img src="files/luciolle_jardin.JPG" alt="luciolle_jardin.JPG" title="luciolle_jardin.JPG" style="width: 600px;" /><a href="http://kalshagar.wikispaces.com/file/view/luciolle_jardin.JPG">click for higher res</a>
+    </div>
+  </body>
+</html>

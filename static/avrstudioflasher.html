@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>kalshagar - AVRStudioFlasher</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+This is a small tool I made since I didn't find the thing I wanted. If there is an easy way to do it instead of this software, run for it but just send me a mail before so I can do the same!<br />
+<ul><li>Oups, apparently there is a quite elegant way of doing that <a class="wiki_link_ext" href="http://www.engblaze.com/tutorial-using-avr-studio-5-with-arduino-projects/" rel="nofollow" target="_blank">explained here</a>. Still 1 advantage for my tool, it gets itself the type of mcu, you don't have to change it. But for memory :</li><li>External tools &gt;<ul><li>Command = &quot;C:/arduino-0022/hardware/tools/avr/bin/avrdude.exe&quot;</li><li>Params = &quot;-CC:/arduino-0022/hardware/tools/avr/etc/avrdude.conf -v -v -patmega328p -cavrispv2 -P\.COM1 -b57600 -D -Uflash:w:&quot;$(ProjectDir)Debug$(ItemFileName).hex&quot;:i&quot;</li></ul></li></ul><br />
+Moving out from <strong><a class="wiki_link_ext" href="http://winavr.sourceforge.net/" rel="nofollow">WinAVR</a></strong> (a great distribution) and its Programmer's Notepad a kinda limited software (... and I'm staying polite) to <strong>AVR Studio 5</strong> embedded in Visual Studio Shell. So great, nice, integrated and it's Visual Studio, the tool I use at work everyday of the week. Installation is fine, a few simple tutorials on how to use and you're in within minutes. <br />
+Ok, now how do I upload this magnificent blink code to my micro controller ? I do what ? <em>Tools &gt; AVR Programming &gt; Apply &gt; Memories &gt; Choose a file &gt; Program</em> ? And the window is modal ? You want me to do that each time ? No really, you're kidding, right ? Not Ctrl%20Shit%20P or simple shortcut ? I searched a little and seems it's not a trivial question since there's no nice answer that I could find. So let's open Visual Studio C#...<br />
+<br />
+<ul><li>Howto use AVR Studio 5 <a class="wiki_link_ext" href="http://10rem.net/blog/2011/11/05/getting-started-with-avr-studio-5" rel="nofollow">http://10rem.net/blog/2011/11/05/getting-started-with-avr-studio-5</a></li><li>Pololu my friend to befriend AVR Studio 5 <a class="wiki_link_ext" href="http://www.pololu.com/docs/0J36/3.b" rel="nofollow">http://www.pololu.com/docs/0J36/3.b</a></li></ul><br />
+<h1 id="toc0"><a name="Download"></a> Download </h1>
+<h2 id="toc1"><a name="Download-Binary file %20 config file"></a> Binary file %20 config file </h2>
+<a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FC_Sharp%2FArduino_Tools%2FAvrStudioFlasher%2FBinaries" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FC_Sharp%2FArduino_Tools%2FAvrStudioFlasher%2FBinaries</a><br />
+or <A  href="files/AvrStudioFlasher.v1.0.0.0.zip.html">AvrStudioFlasher.v1.0.0.0.zip</a><br />
+<br />
+<h2 id="toc2"><a name="Download-Source code"></a> Source code </h2>
+<a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FC_Sharp%2FArduino_Tools%2FAvrStudioFlasher" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FC_Sharp%2FArduino_Tools%2FAvrStudioFlasher</a><br />
+<br />
+<h1 id="toc3"><a name="How does it work ?"></a> How does it work ? </h1>
+<ol><li>Write your code</li><li><strong>Compile</strong> (important since the shortcut does <strong>NOT</strong> recompile before uploading)</li><li>If it compiled fine, press <em>Ctrl%20Shift%20P</em> (or the shortcut you chose) and AvrStudioFlasher will run avrdude for you</li></ol><br />
+The program is launched with as a parameter the path to the Visual Studio project (where the .avrgccproj is located). Once there, it will fetch the <em>makefile</em> located in <em>Debug\</em> subdirectory. Inside it will find the name of the <em>.hex</em> to search for and the type of MCU you're using in that project. Based on that info plus COM port and protocol (these are defined in the AvrStudioFlasher.exe.config) it runs avrdude (path to avrdude is also defined in the .config file).<br />
+<br />
+<h2 id="toc4"><a name="How does it work ?-Cant find avrdude"></a> Cant find avrdude </h2>
+Says it can't find avrdude ? Well, I guess it's not in your PATH environment variable. If you understand this comment you most likely know how to fix it. Otherwise, just give the full path to avrdude in the config file. You might have to install the WinAVR tool chain to have the avrdude installed. XML config file will look like something like:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml">...
+    <span class="sc3"><span class="re1">&lt;add</span> <span class="re0">key</span>=<span class="st0">&quot;UploaderExe&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;C:\WinAVR\bin\avrdude&quot;</span><span class="re2">/&gt;</span></span>
+...</pre>
+
+<br />
+<h2 id="toc5"><a name="How does it work ?-Config file ?"></a> Config file ? </h2>
+An xml file named AvrStudioFlasher.exe.config that must be in the same directory as AvrStudioFlasher.exe. This is what it looks like by default:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.xml  {font-family:monospace;}
+.xml .imp {font-weight: bold; color: red;}
+.xml .es0 {color: #000099; font-weight: bold;}
+.xml .br0 {color: #66cc66;}
+.xml .sy0 {color: #66cc66;}
+.xml .st0 {color: #ff0000;}
+.xml .sc-1 {color: #808080; font-style: italic;}
+.xml .sc0 {color: #00bbdd;}
+.xml .sc1 {color: #ddbb00;}
+.xml .sc2 {color: #339933;}
+.xml .sc3 {color: #009900;}
+.xml .re0 {color: #000066;}
+.xml .re1 {color: #000000; font-weight: bold;}
+.xml .re2 {color: #000000; font-weight: bold;}
+.xml span.xtra { display:block; }
+
+-->
+</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;utf-8&quot;</span> <span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;appSettings<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;add</span> <span class="re0">key</span>=<span class="st0">&quot;ProgrammerProtocol&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;avrispv2&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;add</span> <span class="re0">key</span>=<span class="st0">&quot;COMport&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;COM1&quot;</span><span class="re2">/&gt;</span></span>
+&nbsp;
+    <span class="sc3"><span class="re1">&lt;add</span> <span class="re0">key</span>=<span class="st0">&quot;UploaderExe&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;avrdude&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;add</span> <span class="re0">key</span>=<span class="st0">&quot;Params&quot;</span> <span class="re0">value</span>=<span class="st0">&quot;-p {mcu} -P {comport}  -c {protocol} -U flash:w:&amp;quot;{hexfile}&amp;quot;:i &quot;</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/appSettings<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
+
+<br />
+<h1 id="toc6"><a name="HOWTO install ?"></a> HOWTO install ? </h1>
+<table class="captionBox" style="float: right;"><tr><td class="captionedImage"><img src="files/flashersceenshot1.png" alt="flashersceenshot1.png" title="flashersceenshot1.png" style="width: 400px;" align="right" /></td></tr><tr><td class="imageCaption">The External tools window</td></tr></table>You need .NET Framework 3.5 to make this run. It's a basic console app, so you can recompile it in .NET 1.0 if needed I guess, knock yourself out.<br />
+<ol><li>Put the files in some folder, say c:\Flasher</li><li>Open AVR Studio 5</li><li><em>Tools &gt; External tools ...</em><ol><li>Pick a nice name</li><li>The command is the path to the AvrStudioFlasher.exe</li><li>Param is $(ProjectDir)</li><li>Check the <em>Use output console</em> item</li></ol></li><li>Now you have a command you can run by clicking the new menu item you created in the <em>Tools</em> menu. Let's add a shortcut</li><li><em>Tools &gt; Options ... &gt; Environment &gt; Keyboard</em><ol><li>Pick the command <em>Tools.ExternalCommand1</em> (1 is because it is the first on my computer, if you have 2 it's the second,...)</li><li>In the Press shortcut key zone, press the shortcut you want (my case I press <em>Ctrl%20Shift%20P</em>)</li></ol></li><li>You're done!</li></ol>
+    </div>
+  </body>
+</html>

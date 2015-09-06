@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>kalshagar - Rapide2313</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<img src="files/rapide2313.png" alt="rapide2313.png" title="rapide2313.png" align="right" /><br />
+<h1 id="toc0"><a name="Rapide 2313 small project board"></a> Rapide 2313 small project board </h1>
+It's the same idea as the <a class="wiki_link" href="Rapide328.html">Rapide328</a> : replace a minimum cost for small projects the mess of wiring your Attiny2313 on a generic pcb. You won't have to solder that annoying ISP port, crystal, etc... it's here already. Keep the complexity low.<br />
+<br />
+For this design that is quite different from the <a class="wiki_link" href="Rapide328.html">Rapide328</a> I put the uC on the side with 2 rows of access to the pins. Then there is 2 power rails surrounded by 2 rows of pins, in case you will solder another IC on the board. The rest is left free for use, 5 rows only howerver. Good idea or not ? I'll judge by using it.<br />
+<br />
+All the schematics are on the SVN : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FRapide2313" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FRapide2313</a><br />
+<br />
+<h3 id="toc1"><a name="Rapide 2313 small project board--Version 1.0"></a> Version 1.0 </h3>
+Received from Seeedstudio on 2012/08/21. One minor failure : on the back side I put a solder pad switch to enable the front side LED to shine. However I made a mistake and the pad is covered with green non conductive layer. A little sandpaper or some air-wiring will fix the stuff. <br />
+Another medium failure is the placement of the ISP pins : too close to the uC, you can't plug the programmer. I had to solder over it another ISP pin to make the whole stuff taller. Honnestly, this was one of the most expected feature (make programming easy) but now, even if easier than soldering the whole thing by hand, it's still a failure.<br />
+The more I see the more I think that instead of having kept the pins in the order of the chip I might have wanted to group the portd D (now there is A0-A1 right in the middle). But maybe it's just being maniac...<br />
+<br />
+Overall grade : 5/10. Still better than doing everything by hand but all those small mistakes make it no so much worthy. As the purpose was to make things easier, it's definately a partial failure (-_-;)<br />
+<br />
+Revised grade : 7/10. (Jan2013) That ISP stuff, just put L shaped headers and it works fine. And the back side led it's not that dramatic, it can be overcome easily. Works fine, it's used in <a class="wiki_link" href="Guitar%20Rod%20of%20Command.html">Guitar Rod of Command</a>. But definately I must <strong>remove the unnecessary silk screen around the free zone</strong> it just make the board unreadable and messes all the purpose of a quick prototyping board.
+    </div>
+  </body>
+</html>

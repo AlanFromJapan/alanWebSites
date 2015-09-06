@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <title>kalshagar - atmega328</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<div style="background-color:lightgrey;position:absolute; right:0px; width:300px;"><img src="file/view/rapide328.png/283276766/rapide328.png" /> See also the project <A  href="Rapide328.html" rel="nofollow">Rapide328</a> : a lightweight alternative to Arduino if you don't need usb</div><br />
+<h1 id="toc0"><a name="ATmega 328"></a>ATmega 328 </h1>
+<em>... or simply using only ATmel µC and let the Arduino what it's made for : a wonderful prototyping tool.</em><br />
+<br />
+<h2 id="toc1"><a name="ATmega 328-Memo fact sheet"></a> Memo fact sheet </h2>
+<ul><li><strong>Code</strong> : 32k Bytes / <strong>EEPROM</strong> : 1024 Bytes / <strong>RAM</strong> : 2048 Bytes</li></ul><br />
+ATmega328p is the core of an Arduino. You can build any Arduino compatible board by yourself, <br />
+for cheap if you discard the Serial-over-USB IC. <br />
+Receipe (bare minimum):<br />
+<ul><li>Quartz 16 MHz %20 2x 20pF condensator</li><li>Voltage regulation : LM7805 %20 100uF condensator (wallwart side) %20 10uF condensator (cirtcuit side)</li><li>...and the official Arduino duemillanove schematic <A  href="files/arduino-duemilanove-schematic.pdf.html">arduino-duemilanove-schematic.pdf</a></li></ul><br />
+Afterward, code can be uploaded via a programmer (Pololu AVR Programmer for me) by soldering a nice 6pins connector OR by putting the chip onto an Arduino board. Just remove <em>carefully</em> the original Arduino chip and put it somewhere else. Put the blank chip in the correct place, connect the ISP programmer and upload a bootloader.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="co0">#!/bin/bash</span>
+avrdude <span class="re5">-c</span> avrispv2 <span class="re5">-p</span> m328p <span class="re5">-D</span> <span class="re5">-P</span> <span class="sy0">/</span>dev<span class="sy0">/</span>ttyACM0 <span class="re5">-U</span> flash:w:ATmegaBOOT_168_atmega328.hex</pre>
+
+Then, you can upload code using Arduino IDE, or you could just directly burn the image you created (search the .hex file). You now have a chip that can run code exactly as is doing your Arduino for something like 1/3rd of the price. Note that I'm talking of the minimal version, excluding the Serial-over-USB, and that of course you will spend time soldering. That's a tradeoff, so up to you. But Arduino is not a end in itself, it's a wonderful prototyping tool; unless you want a perpetual USB connection and don't bother with USB power, Arduino is an overkill. Spend 2 hours preparing your Home-made-Arduino, you'll learn a lot.<br />
+<br />
+You can make a &quot;in place&quot; programmer that you put over your cpu. I loooove the design, I have to make one (I always found that soldering that 6pin connector was a waste of time).<br />
+<ul><li><a class="wiki_link_ext" href="http://elm-chan.org/works/avrx/report.html" rel="nofollow">http://elm-chan.org/works/avrx/report.html</a> (in japanese)</li></ul>Another programmer, breadboard oriented. Not piggiback, not program in place but still quite elegant and useful.<br />
+<ul><li><a class="wiki_link_ext" href="http://quinndunki.com/blondihacks/?p=550" rel="nofollow">http://quinndunki.com/blondihacks/?p=550</a></li></ul><br />
+<br />
+<h2 id="toc2"><a name="ATmega 328-Pins and legs of an ATmega328"></a> Pins and legs of an ATmega328 </h2>
+<img src="files/pinout328color.png" alt="pinout328color.png" title="pinout328color.png" align="right" /><img src="files/atmega328.png" alt="atmega328.png" title="atmega328.png" /><br />
+On this schema, you can see the chip with its legs (outer figures with no color) and how it is mapped to Arduino's pins. The 3 groups of pins are displayed with colors : <br />
+<ul><li><span style="background-color: #e95ef3">0-7 digital</span>,</li><li><span style="background-color: #f38035">8-13 digital</span> and</li><li><span style="background-color: #f28ca8">0-5 analog/digital</span>.</li></ul><h3 id="toc3"><a name="ATmega 328-Pins and legs of an ATmega328-How to get 2 extra pins ?"></a> How to get 2 extra pins ? </h3>
+Simple but you have to think of it : if you don't need precise clock nor speed &gt; 8MHz, just use the internal oscillator and recycle the two crystal pins ! They are PB6 and PB7 and are just waiting for you ! How simple ... (<a class="wiki_link_ext" href="http://www.spikenzielabs.com/blog/?p=434" rel="nofollow" target="_blank">source</a> )<br />
+<br />
+<h2 id="toc4"><a name="ATmega 328-Fuses"></a> Fuses </h2>
+Setting up the fuse is necessary (and potentially risky) to tell the uC to use a 16MHz crystal with slow startup (?), which speed, make read-only, ... It's not black magic, just be a little careful. There is a wondeful site for preparing the command line for you : <a class="wiki_link_ext" href="http://www.engbedded.com/fusecalc/" rel="nofollow">http://www.engbedded.com/fusecalc/</a><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="co0">#WRITE a value of the LOW fuse</span>
+<span class="co0">#avrdude -v -v -p m328p -c avrispv2 -P /dev/ttyACM0 -U lfuse:w:0xE1:m</span>
+avrdude <span class="re5">-v</span> <span class="re5">-v</span> <span class="re5">-c</span> avrispv2 <span class="re5">-p</span> m328p <span class="re5">-P</span> <span class="sy0">/</span>dev<span class="sy0">/</span>ttyACM0 <span class="re5">-U</span> lfuse:w:0xd7:m
+&nbsp;
+<span class="co0">#READ low fuse value and store in file lofuz.txt in binary (ie: B01001010)</span>
+avrdude <span class="re5">-v</span> <span class="re5">-v</span> <span class="re5">-p</span> m328p <span class="re5">-c</span> avrispv2 <span class="re5">-P</span> <span class="sy0">/</span>dev<span class="sy0">/</span>ttyACM0 <span class="re5">-U</span> lfuse:r:lofuz.txt:b
+&nbsp;
+<span class="co0">#SET fuses to use a 16MHz crystal (sends an error in the end but just worked fine ... mystery)</span>
+avrdude <span class="re5">-v</span> <span class="re5">-v</span> <span class="re5">-p</span> m328p <span class="re5">-c</span> avrispv2 <span class="re5">-P</span> COM1 <span class="re5">-U</span> lfuse:w:0xf7:m <span class="re5">-U</span> hfuse:w:0xd9:m <span class="re5">-U</span> efuse:w:0xff:m</pre>
+
+<ul><li><a class="wiki_link_ext" href="http://blog.louic.nl/?p=161" rel="nofollow">http://blog.louic.nl/?p=161</a></li></ul><br />
+<h2 id="toc5"><a name="ATmega 328-Power consumption"></a> Power consumption </h2>
+Veeeeery low, like 1 mA when turned on (? to be confirmed). <br />
+Here's a link on how to make the power consumption go ultra low : <a class="wiki_link_ext" href="http://news.jeelabs.org/2009/05/16/power-consumption-more-savings/" rel="nofollow">http://news.jeelabs.org/2009/05/16/power-consumption-more-savings/</a><br />
+<br />
+<h2 id="toc6"><a name="ATmega 328-USB connection"></a> USB connection </h2>
+Misc links:<br />
+<ul><li>V-USB the trendy one <a class="wiki_link_ext" href="http://www.obdev.at/products/vusb/index.html" rel="nofollow">http://www.obdev.at/products/vusb/index.html</a></li><li>USBasp a concurrent <a class="wiki_link_ext" href="http://www.fischl.de/usbasp/" rel="nofollow">http://www.fischl.de/usbasp/</a></li><li>Project using USBasp <a class="wiki_link_ext" href="http://www.ladyada.net/make/usbtinyisp/download.html" rel="nofollow">http://www.ladyada.net/make/usbtinyisp/download.html</a></li><li>Project using USBasp <a class="wiki_link_ext" href="http://quinndunki.com/blondihacks/?paged=3" rel="nofollow">http://quinndunki.com/blondihacks/?paged=3</a></li><li>USART usage <a class="wiki_link_ext" href="http://www.embedds.com/adc-on-atmega328-part-2/" rel="nofollow">http://www.embedds.com/adc-on-atmega328-part-2/</a></li></ul><br />
+<h2 id="toc7"><a name="ATmega 328-I2C"></a> I2C </h2>
+<ul><li>The hard way : <a class="wiki_link_ext" href="http://www.embedds.com/programming-avr-i2c-interface/" rel="nofollow">http://www.embedds.com/programming-avr-i2c-interface/</a></li></ul><br />
+<h2 id="toc8"><a name="ATmega 328-Interrupts"></a> Interrupts </h2>
+<h3 id="toc9"><a name="ATmega 328-Interrupts-Timers"></a> Timers </h3>
+<ul><li>Timer2 interrupt to reuse as millis() ? <a class="wiki_link_ext" href="http://www.embedds.com/avr-timer2-asynchronous-mode/" rel="nofollow">http://www.embedds.com/avr-timer2-asynchronous-mode/</a></li><li><a class="wiki_link_ext" href="http://www.avrbeginners.net/architecture/timers/timers.html" rel="nofollow">http://www.avrbeginners.net/architecture/timers/timers.html</a></li><li><a class="wiki_link_ext" href="http://www.protostack.com/blog/2010/09/timer-interrupts-on-an-atmega168/" rel="nofollow">http://www.protostack.com/blog/2010/09/timer-interrupts-on-an-atmega168/</a></li><li><a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=50106" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=50106</a></li></ul><br />
+<h3 id="toc10"><a name="ATmega 328-Interrupts-Watchdog"></a> Watchdog </h3>
+<ul><li><a class="wiki_link" href="Watchdog%20as%20interrupt.html">Watchdog as interrupt</a></li></ul><br />
+<h3 id="toc11"><a name="ATmega 328-Interrupts-External interrupt and Pin Change interrupt"></a> External interrupt and Pin Change interrupt </h3>
+<ul><li>Very good tutorial here <a class="wiki_link_ext" href="https://sites.google.com/site/qeewiki/books/avr-guide/external-interrupts-on-the-atmega328" rel="nofollow">https://sites.google.com/site/qeewiki/books/avr-guide/external-interrupts-on-the-atmega328</a></li></ul><br />
+<h2 id="toc12"><a name="ATmega 328-Power considerations"></a> Power considerations </h2>
+<ul><li>Clear example to use the watchdog to force the component to sleep for 8sec <a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1258212686" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1258212686</a></li><li><a class="wiki_link_ext" href="http://www.seanet.com/~karllunt/atmegapowerdown.html" rel="nofollow">http://www.seanet.com/~karllunt/atmegapowerdown.html</a></li><li><a class="wiki_link_ext" href="http://www.sparkfun.com/tutorials/309" rel="nofollow">http://www.sparkfun.com/tutorials/309</a></li><li><a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1270615640" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1270615640</a></li><li><a class="wiki_link_ext" href="http://interface.khm.de/index.php/lab/experiments/sleep_watchdog_battery/" rel="nofollow">http://interface.khm.de/index.php/lab/experiments/sleep_watchdog_battery/</a></li></ul><br />
+<h2 id="toc13"><a name="ATmega 328-$h!t I #&amp;$!ed my Atmega's fuses"></a> $h!t I #&amp;$!ed my Atmega's fuses </h2>
+That happens to EVERYONE ... and to some more than to others.<br />
+<br />
+<ul><li><a class="wiki_link_ext" href="http://www.larsen-b.com/Article/260.html" rel="nofollow">http://www.larsen-b.com/Article/260.html</a></li><li><a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=86180" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=86180</a></li><li><a class="wiki_link_ext" href="http://www.edaboard.com/thread131804.html" rel="nofollow">http://www.edaboard.com/thread131804.html</a></li></ul><br />
+<h2 id="toc14"><a name="ATmega 328-PWM"></a> PWM </h2>
+<ul><li>Without Arduino IDE (using Winavr) <a class="wiki_link_ext" href="https://sites.google.com/site/qeewiki/books/avr-guide/pwm-on-the-atmega328" rel="nofollow">https://sites.google.com/site/qeewiki/books/avr-guide/pwm-on-the-atmega328</a></li></ul><br />
+<h1 id="toc15"><a name="Samples project"></a> Samples project </h1>
+<ul><li>Playing with IKEA leds (Tiny2313) <a class="wiki_link_ext" href="http://cauldrondevelopment.com/blog/2009/12/29/a-real-ikea-dioder-hack/" rel="nofollow">http://cauldrondevelopment.com/blog/2009/12/29/a-real-ikea-dioder-hack/</a></li><li>Breadboard arduino <a class="wiki_link_ext" href="http://arduino.cc/en/Main/StandaloneAssembly" rel="nofollow">http://arduino.cc/en/Main/StandaloneAssembly</a></li><li>Standalone Arduino<ul><li><a class="wiki_link_ext" href="http://www.instructables.com/id/Standalone-Arduino-ATMega-chip-on-breadboard/" rel="nofollow">http://www.instructables.com/id/Standalone-Arduino-ATMega-chip-on-breadboard/</a></li><li><a class="wiki_link_ext" href="http://www.instructables.com/id/Perfboard-Hackduino-Arduino-compatible-circuit/" rel="nofollow">http://www.instructables.com/id/Perfboard-Hackduino-Arduino-compatible-circuit/</a></li></ul></li></ul><br />
+<h2 id="toc16"><a name="Samples project-Interrupts"></a> Interrupts </h2>
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">void setup() {
+  //D2 is input
+  DDRD &amp;= ~(1 &lt;&lt; 2);
+  //pullup on D2
+  PORTD |= (1 &lt;&lt; 2);
+&nbsp;
+  //interrupt on falling hedge of INT0
+  EICRA |= (1 &lt;&lt; ISC01);
+  //INT0 enabled
+  EIMSK |= (1 &lt;&lt; INT0);
+&nbsp;
+  //Go interrupts !!
+  sei();  
+&nbsp;
+  pinMode(13, OUTPUT);  
+}
+&nbsp;
+void loop() {
+  // put your main code here, to run repeatedly: 
+&nbsp;
+}
+volatile int ledState = LOW;
+&nbsp;
+ISR (INT0_vect) {
+      // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW)
+      ledState = HIGH;
+    else
+      ledState = LOW;
+&nbsp;
+    // set the LED with the ledState of the variable:
+    digitalWrite(13, ledState);
+}</pre>
+
+
+    </div>
+  </body>
+</html>

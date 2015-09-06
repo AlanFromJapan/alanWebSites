@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and Aques-Talk ICs</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="LSI ATP3011"></a> LSI ATP3011 </h1>
+This IC is in fact a ATmega328 with a custom firmware. Homepage is here : <a class="wiki_link_ext" href="http://www.a-quest.com/products/aquestalkpicolsi.html" rel="nofollow">http://www.a-quest.com/products/aquestalkpicolsi.html</a><br />
+<br />
+<h2 id="toc1"><a name="LSI ATP3011-With Arduino"></a> With Arduino </h2>
+<h3 id="toc2"><a name="LSI ATP3011-With Arduino-Instead of an Arduino"></a> Instead of an Arduino </h3>
+If you happen to have a Arduino 2009 or Uno under your hand, just remove the ATmega 328, put the AquesTalk IC in place, link the output DIGITAL 6 to your opamp (<a class="wiki_link" href="Signal%20amplification%20%28OpAmp%29.html">Signal amplification (OpAmp)</a>). Then open your arduino IDE or whatever Terminal software, connect to the right COM port, use settings 9600 bauds and end of line = Carriage Return.<br />
+<ol><li>Type '?' %20 &lt;ENTER&gt;<ol><li>This is mandatory. It tells the chip to initialize and get ready.</li></ol></li><li>Type 'konnichiwa.'  %20 &lt;ENTER&gt; and listen...</li></ol><br />
+<h3 id="toc3"><a name="LSI ATP3011-With Arduino-Using an Arduino"></a> Using an Arduino </h3>
+After some research, appears the recommended way to make the 2 talk is via I2C. There is some nice sample on the boss's (of AquesTalk) blog. They even made a Arduino library.<br />
+In 2 words :<br />
+<ul><li>Wire Arduino A5 to LSI's PC5 (same pin on both in fact)</li><li>Wire Arduino A4 to LSI's PC4 (same pin on both in fact)</li><li>Pull UP both lines with 1 resistor of 10kOhm for each line</li><li>Pull DOWN the SMOD0 (aka PD2) with a simple wire : it tells the LSI that the communication will be done via I2C (default is UART, both pins SMOD0 &amp; SMOD1 are pulled up internally)</li></ul><br />
+<A  href="files/Arduino_AquesTalk_Library.zip.html">Arduino_AquesTalk_Library.zip</a><br />
+<ul><li>Library <a class="wiki_link_ext" href="http://www.a-quest.com/download/package/Arduino_AquesTalk_Library.zip" rel="nofollow">http://www.a-quest.com/download/package/Arduino_AquesTalk_Library.zip</a></li><li>Wiring schema and code sample <a class="wiki_link_ext" href="http://blog-yama.a-quest.com/?eid=970151" rel="nofollow">http://blog-yama.a-quest.com/?eid=970151</a></li><li><a class="wiki_link_ext" href="http://blog-yama.a-quest.com/?eid=970150" rel="nofollow">http://blog-yama.a-quest.com/?eid=970150</a></li></ul><br />
+A sample PC echo : type something in the terminal application, it will be spoken aloud by the LSI.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.cpp  {font-family:monospace;}
+.cpp .imp {font-weight: bold; color: red;}
+.cpp .kw1 {color: #0000ff;}
+.cpp .kw2 {color: #0000ff;}
+.cpp .kw3 {color: #0000dd;}
+.cpp .kw4 {color: #0000ff;}
+.cpp .co1 {color: #666666;}
+.cpp .co2 {color: #339900;}
+.cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp .es0 {color: #000099; font-weight: bold;}
+.cpp .es1 {color: #000099; font-weight: bold;}
+.cpp .es2 {color: #660099; font-weight: bold;}
+.cpp .es3 {color: #660099; font-weight: bold;}
+.cpp .es4 {color: #660099; font-weight: bold;}
+.cpp .es5 {color: #006699; font-weight: bold;}
+.cpp .br0 {color: #008000;}
+.cpp .sy0 {color: #008000;}
+.cpp .sy1 {color: #000080;}
+.cpp .sy2 {color: #000040;}
+.cpp .sy3 {color: #000040;}
+.cpp .sy4 {color: #008080;}
+.cpp .st0 {color: #FF0000;}
+.cpp .nu0 {color: #0000dd;}
+.cpp .nu6 {color: #208080;}
+.cpp .nu8 {color: #208080;}
+.cpp .nu12 {color: #208080;}
+.cpp .nu16 {color:#800080;}
+.cpp .nu17 {color:#800080;}
+.cpp .nu18 {color:#800080;}
+.cpp .nu19 {color:#800080;}
+.cpp .me1 {color: #007788;}
+.cpp .me2 {color: #007788;}
+.cpp span.xtra { display:block; }
+
+-->
+</style><pre class="cpp"><span class="co2">#include &lt;AquesTalk.h&gt;</span>
+<span class="co2">#include &lt;Wire.h&gt; </span>
+&nbsp;
+<span class="co1">//A serial PC-speech echo</span>
+<span class="co1">// based on Hello Talk - AquesTalk pico LSI</span>
+AquesTalk atp<span class="sy4">;</span>
+<span class="kw4">void</span> setup<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+  Serial.<span class="me1">begin</span><span class="br0">&#40;</span><span class="nu0">9600</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co2">#define BUFF_SIZE 64</span>
+<span class="kw4">void</span> loop<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+  <span class="kw4">char</span> vBuff<span class="br0">&#91;</span>BUFF_SIZE<span class="br0">&#93;</span><span class="sy4">;</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span>Serial.<span class="me1">available</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    byte vRead <span class="sy1">=</span> Serial.<span class="me1">readBytesUntil</span><span class="br0">&#40;</span><span class="nu0">13</span>, vBuff, BUFF_SIZE<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    vBuff<span class="br0">&#91;</span>min<span class="br0">&#40;</span>vRead, BUFF_SIZE<span class="sy2">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="st0">'.'</span><span class="sy4">;</span>
+    vBuff<span class="br0">&#91;</span>min<span class="br0">&#40;</span>vRead<span class="sy2">%20</span><span class="nu0">1</span>, BUFF_SIZE<span class="sy2">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+&nbsp;
+    Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;Read x char : &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> Serial.<span class="me1">println</span><span class="br0">&#40;</span>vRead, DEC<span class="br0">&#41;</span><span class="sy4">;</span>
+    Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;message : &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> Serial.<span class="me1">println</span><span class="br0">&#40;</span>vBuff<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    atp.<span class="me1">Synthe</span><span class="br0">&#40;</span>vBuff<span class="br0">&#41;</span><span class="sy4">;</span>
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+
+    </div>
+  </body>
+</html>

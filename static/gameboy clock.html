@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <title>kalshagar - Gameboy clock</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+<h1 id="toc0"><a name="Summary"></a> Summary </h1>
+<img src="files/gameboy_256.png" alt="gameboy_256.png" title="gameboy_256.png" align="right" />Idea is to use a gameboy to display time. If possible, even allow the gameboy to still play games (would be great). Why? Well... because it's nice, vintage, unique. And if you're fed up with my nth project with clock (I won't blame you) as long as we control the screen you can connect to internet and read the news, tweets, or show the weather info  (though looking by the window works too). That's most likely how it would end up anyway. But you can't deny the definite geekiness and uniqueness (at last a good argument) of the result.<br />
+<br />
+<h2 id="toc1"><a name="Summary-How to"></a> How to </h2>
+Among the multiple options that exist I see two, and I will most likely try them in the following order:<br />
+<h3 id="toc2"><a name="Summary-How to-(1) Hacking the screen signal"></a> (1) Hacking the screen signal </h3>
+That might sound a bit convoluted but even without a cartridge the gameboy shows the black boc and the does the da-ling sound. Means cpu runs, does a bit of ROM magic and what we want: it displays stuff on the screen. Means it draws the screen at 60Hz! There are a few signals involved, but basically:<br />
+<ul><li>Data0 and Data1: because each pixel is a 4 color pixel</li><li>Clock: for the pace</li><li>Horizsyn: when you change line</li><li>Vertsyn: when you change page</li></ul>Talking about the protocole there is one link that talks about it <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2009/11/23/how-to-patch-your-dmg-to-use-a-biverted-palette/" rel="nofollow">here</a>. I will just hijack the data lines and inject my video signal.<br />
+<h3 id="toc3"><a name="Summary-How to-(2) Making my own &quot;game&quot;"></a> (2) Making my own &quot;game&quot; </h3>
+Hardware is doable, I saw some samples. You need a pcb with the correct padding (can be found on internet or made with eagle), put an eeprom on it (like <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2014/05/14/furrteks-airaki-quick-game-review-and-rom-dump-download/#more-451" rel="nofollow">here</a>), setup a tool chain and uploader and write a small program. That looks doable, but requires much more preparation than the bitbanging approach of injecting signal.<br />
+<h1 id="toc4"><a name="x[Option 1] Hacking the screen signal"></a> [Option 1] Hacking the screen signal </h1>
+<h2 id="toc5"><a name="x[Option 1] Hacking the screen signal-Theory"></a> Theory </h2>
+Invaluable resource : <a class="wiki_link_ext" href="https://flashingleds.wordpress.com/2010/10/26/intercepting-the-gameboy-lcd/" rel="nofollow">https://flashingleds.wordpress.com/2010/10/26/intercepting-the-gameboy-lcd/</a><br />
+<img src="files/gameboyconnector_pinout.png" alt="gameboyconnector_pinout.png" title="gameboyconnector_pinout.png" /><br />
+Another one <a class="wiki_link_ext" href="http://www.bradsprojects.com/gameboy-to-vga-converter-in-progress/" rel="nofollow">http://www.bradsprojects.com/gameboy-to-vga-converter-in-progress/</a><br />
+And special thanks to this gentleman who inversed his gameboy display and kindly shared his technique <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/category/mods/" rel="nofollow">http://blog.gg8.se/wordpress/category/mods/</a><br />
+Some other guys who did again (so much for my hoped originality):<br />
+<ul><li><a class="wiki_link_ext" href="http://www.robotdialogs.com/search/label/gameboy" rel="nofollow">http://www.robotdialogs.com/search/label/gameboy</a></li><li><a class="wiki_link_ext" href="http://community.arduboy.com/t/arduboy-classic/293" rel="nofollow">http://community.arduboy.com/t/arduboy-classic/293</a></li></ul><h3 id="toc6"><a name="x[Option 1] Hacking the screen signal-Theory-Screen details"></a> Screen details </h3>
+
+
+<table class="wiki_table">
+    <tr>
+        <td>lines<br />
+</td>
+        <td>160     px<br />
+</td>
+    </tr>
+    <tr>
+        <td>pixels per line<br />
+</td>
+        <td>144     px<br />
+</td>
+    </tr>
+    <tr>
+        <td>freq<br />
+</td>
+        <td>60     Hz<br />
+</td>
+    </tr>
+    <tr>
+        <td>lines per sec<br />
+</td>
+        <td>9,600     lines/sec<br />
+</td>
+    </tr>
+    <tr>
+        <td>pixels per sec<br />
+</td>
+        <td>1,382,400     px/sec<br />
+</td>
+    </tr>
+    <tr>
+        <td>image size<br />
+</td>
+        <td>23,040     px<br />
+</td>
+    </tr>
+    <tr>
+        <td>one pixel info<br />
+</td>
+        <td>2     bits<br />
+</td>
+    </tr>
+    <tr>
+        <td>one image size in mem<br />
+</td>
+        <td>5,760     bytes<br />
+</td>
+    </tr>
+</table>
+
+<h3 id="toc7"><a name="x[Option 1] Hacking the screen signal-Theory-Modus operandi"></a> Modus operandi </h3>
+<ol><li>Begining of screen: every 60, sacrifice one to do background job (get latest time info, prepare the display somewhere in memory). Other 59 times:</li><li>Start of line : get ready to spit the line data: get the memory point at the right place, get the first byte</li><li>For each pixel of the line: change the status of D0/D1 and fetch next byte of data when needed</li></ol><br />
+<h2 id="toc8"><a name="x[Option 1] Hacking the screen signal-Hardware"></a> Hardware </h2>
+<h3 id="toc9"><a name="x[Option 1] Hacking the screen signal-Hardware-Gameboy side"></a> Gameboy side </h3>
+(The connector for the screen ribbon is <a class="wiki_link_ext" href="http://jp.rs-online.com/web/p/products/6883246/" rel="nofollow" target="_blank">this one</a>)<br />
+<ul><li>Cut <strong>carefully</strong> the data0 and data1 lines (add image here), and get 4 wires : 2 original ins from the CPU, 2 outs to the screen</li><li>Solder wires to get the clock, vsync an hsync signals (should be all for now)</li><li>Redirect all the signal outside the GB for the time being and avoid stress on the connectors. I will be easier to connect to the development display module.</li></ul><img src="files/gameboy_pins_timing1.PNG" alt="gameboy_pins_timing1.PNG" title="gameboy_pins_timing1.PNG" /><br />
+<em>Sample of <span style="color: #ff0000;">Data1</span>, <span style="color: #ff8c00;">Data0</span>, <span style="color: #ffd600;">Clock </span>and <span style="color: #008000;">hSync</span></em><br />
+<img src="files/gbscreen_vsync.PNG" alt="gbscreen_vsync.PNG" title="gbscreen_vsync.PNG" /><br />
+<em>Sample of one VSync: vsync is up for a looooong time (the whole first line) and you can detect as when the Clock ↓ AND HSync up AND VSync up</em><br />
+<img src="files/gbscreen_scanoneline.PNG" alt="gbscreen_scanoneline.PNG" title="gbscreen_scanoneline.PNG" /><br />
+<em>Top-bottom: hsync, data0, data1, clock. That's one line of the black box displayed when Gameboy is on with no cartridge. Look at data lines: a little white, all black, and 2 black pixels (part of the ® symbol). </em><br />
+<br />
+<h3 id="toc10"><a name="x[Option 1] Hacking the screen signal-Hardware-Display control module"></a> Display control module </h3>
+<span style="font-weight:bold; color:grey;font-style:italic;">Speed</span><br />
+We need a bare minimum of give or take1.5 Mhz (60 Hz x 160 lines x 144 px/lines = 1,382,400 instructions). But each instructions will require preparation, just to get the pixel color out of memory if we put a static image, some control logic and yes, read the time from the RTC. Let's say that we sacrifice the last image per second to read the RTC and do some magic preparation, it gives us 16 ms of time to do background tasks. At 4Mhz that's more than 66k%20 instructions, that's more than enough. So we can start with an internal oscillators RC of 8MHz.<br />
+<span style="font-weight:bold; color:grey;font-style:italic;">CPU</span><br />
+Hum, you guessed it, it will be an ATmel because (1) that's the one I feel more comfortable with, plus I have lots of them (2) I just need 3 interrupts input and 2 pins output, that sounds like a mission for <a class="wiki_link" href="attiny2313.html">attiny2313</a>. Since I won't be able to reuse the VRAM of the gameboy, I will wether generate the image on the fly or use a bit of RAM on the side : generate and store during the 60th frame and just fetch and draw the rest of the time.<br />
+One image in 4 levels of gray is  5,760 bytes.<br />
+Maybe this RAM chip: 300 JPY for 5 of them holding 256kb <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-01461/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-01461/</a><br />
+<br />
+<h2 id="toc11"><a name="x[Option 1] Hacking the screen signal-Software"></a> Software </h2>
+Let's work with interrupts: clock, hsync, vsync. What crystal speed required? We saw earlier it needs 1.5 Mhz min, so let's go with 16Mhz and we'll check how to optimize later. Main point here is to go with interrupts so that the program can do other stuffs while it still paints the screen in the background. We could wire the buttons, the sound and even make games (everybody catches the irony of such a convoluted solution just to avoid writing a Gameboy game?)... so we'll go with a simple &quot;read the RTC&quot; as a start. We'll need also to generate the image in memory and store it there.<br />
+<br />
+[After theory now experimentation]<br />
+... and that's where things go south. You saw it coming? Not me, though I should have had since I had the same problem with my <a class="wiki_link" href="Around%20a%20SNES.html">SNES cabinet</a> when I emulated the controllers: I don't have enough cycles! <br />
+We need to spit pixels at 1.5 MHz, let's say 2 for the calculation. CPU runs at 16 MHz so means I have a luxurious 8 cycle per pixel... FYI just going IN and OUT of an interrupt if 4 cycles, leaving 4 cycles per pixel... that's very short. I tried a hybrid version that is an interrupt for the line start and after is just timed as fast as possible, I get an image but &quot;stretched&quot; horizontally. Of course, I can't keep up so the screen reads many time the same data on the D0/D1 lines.<br />
+Not 100% dead end, but a big bump though. <br />
+<br />
+<br />
+TODO code on google code<br />
+<br />
+<h1 id="toc12"><a name="x[Option 2] Making my own game"></a> [Option 2] Making my own game </h1>
+<em>See dedicated project : <a class="wiki_link" href="Gameboy%20homebrew%20cartridge.html">Gameboy homebrew cartridge</a>.</em><br />
+<br />
+<h1 id="toc13"><a name="Links"></a> Links </h1>
+<h2 id="toc14"><a name="Links-Internal"></a> Internal </h2>
+<ul><li><a class="wiki_link" href="Gameboy%20screen.html">Gameboy screen</a> has details about the technicalities around the gameboy screen (hardware wise)</li><li><a class="wiki_link" href="Gameboy%20guts%20and%20programming.html">Gameboy guts and programming</a> in case I change my mind and just make a custom cartridge.</li></ul><h2 id="toc15"><a name="Links-External"></a> External </h2>
+<ul><li><strong>Gameboy Pandocs <a class="wiki_link_ext" href="http://problemkaputt.de/pandocs.htm" rel="nofollow">http://problemkaputt.de/pandocs.htm</a></strong></li></ul>Hackaday :<br />
+<ul><li><a class="wiki_link_ext" href="http://dhole.github.io/post/gameboy_cartridge_emu_1/" rel="nofollow">http://dhole.github.io/post/gameboy_cartridge_emu_1/</a></li><li>Hackaday category <a class="wiki_link_ext" href="http://hackaday.com/category/nintendo-gameboy-hacks" rel="nofollow">http://hackaday.com/category/nintendo-gameboy-hacks</a></li><li><a class="wiki_link_ext" href="https://www.insidegadgets.com/2011/04/23/emulating-the-nintendo-logo-on-the-gameboy/" rel="nofollow">https://www.insidegadgets.com/2011/04/23/emulating-the-nintendo-logo-on-the-gameboy/</a></li></ul>
+    </div>
+  </body>
+</html>

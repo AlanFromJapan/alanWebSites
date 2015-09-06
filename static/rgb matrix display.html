@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>kalshagar - RGB matrix display</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+<img src="files/pixmatrix-lowq.gif" alt="pixmatrix-lowq.gif" title="pixmatrix-lowq.gif" align="right" />Use the RGB led matrix bought for 5 USD on eBay the other day. Using the board special for the Atmega64a <a class="wiki_link" href="Rapide64a.html">Rapide64a</a> and show time, temperature, random display, ... whatever crosses your mind.<br />
+<br />
+The design is not bad (quite happy<br />
+<h1 id="toc1"><a name="Code"></a> Code </h1>
+Google code SVN as usual : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAtmegaxxA%2FRGBMatrix" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAtmegaxxA%2FRGBMatrix</a><br />
+<br />
+I designed it to be interruption based: you have a memory buffer (one per color) that you update at your will, and the &quot;show&quot; routine is called every x ms to paint current buffer display. We're talking a 8x8 dot matric so no &quot;wait for vsync&quot; or things like that involved. Just look at the code, it's simple to add any image logic you want without caring of how to display it... <br />
+<br />
+<h1 id="toc2"><a name="Pictures"></a> Pictures </h1>
+<img src="files/pixmatrix-lowq.gif" alt="pixmatrix-lowq.gif" title="pixmatrix-lowq.gif" /> Showing time every minutes ...<br />
+<img src="files/pixmatrix-lowq2.gif" alt="pixmatrix-lowq2.gif" title="pixmatrix-lowq2.gif" /> Star field<br />
+<img src="files/pixmatrix-lowq3.gif" alt="pixmatrix-lowq3.gif" title="pixmatrix-lowq3.gif" /> Snake (changes color each time it bounces walls)<br />
+XXX Drops<br />
+XXX Random patterns
+    </div>
+  </body>
+</html>

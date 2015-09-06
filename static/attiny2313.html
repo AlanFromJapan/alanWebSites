@@ -1,0 +1,491 @@
+<html>
+  <head>
+    <title>kalshagar - attiny2313</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="ATtiny 2313"></a> ATtiny 2313 </h1>
+<h2 id="toc1"><a name="ATtiny 2313-Memo fact sheet"></a> Memo fact sheet </h2>
+<ul><li><strong>Code</strong> : 2048 Bytes / <strong>EEPROM</strong> : 128 Bytes / <strong>RAM</strong> : 128 Bytes</li><li>It has <strong>no</strong> Analog to Digital Converter, but the AIN1/AIN0 pair is an analog comparator</li><li>Homepage <a class="wiki_link_ext" href="http://www.atmel.com/dyn/Products/Product_card.asp?part_id=3229" rel="nofollow">http://www.atmel.com/dyn/Products/Product_card.asp?part_id=3229</a></li></ul><h2 id="toc2"><a name="ATtiny 2313-Projects using Attiny2313"></a> Projects using Attiny2313</h2>
+<a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a>, <a class="wiki_link" href="Home%20Presence%20Detector.html">Home Presence Detector</a>, <a class="wiki_link" href="Guitar%20Rod%20of%20Command.html">Guitar Rod of Command</a>, ...<br />
+<h2 id="toc3"><a name="ATtiny 2313-Pin Layout"></a> Pin Layout </h2>
+<img src="files/pinout2313.png" alt="pinout2313.png" title="pinout2313.png" align="right" /><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">// ATMEL ATTINY2313(このマイコンにはA/D入力ピンはありません)
+//                        %20-\/-%20
+//       RESET      PA2  1|    |29  VCC
+//       RX   (D 0) PD0  2|    |19  PB7 (D 16)(SCK)
+//       TX   (D 1) PD1  3|    |18  PB6 (D 15)(MISO)
+//            (D 2) PA1  4|    |17  PB5 (D 14)(MOSI)
+//            (D 3) PA0  5|    |16  PB4 (D 13) (PWM OC1B)
+//       INT0 (D 4) PD2  6|    |15  PB3 (D 12) (PWM OC1A)
+//       INT1 (D 5) PD3  7|    |14  PB2 (D 11) (PWM OC0A)
+//            (D 6) PD4  8|    |13  PB1 (D 10) (AIN1) [Comparator-]
+//  (PWM OC0B)(D 7) PD5  9|    |12  PB0 (D 9) (AIN0)  [Comparator%20]
+//                  GND 10|    |11  PD6 (D 8)
+//                        %20----%20</pre>
+
+<br />
+<h2 id="toc4"><a name="ATtiny 2313-Pin configuration"></a> Pin configuration </h2>
+Taken from Atmel Attiny 2313 pdf page 48 - Switching between input and output<br />
+<img src="files/attiny2313-pinconfig.png" alt="attiny2313-pinconfig.png" title="attiny2313-pinconfig.png" /><br />
+<br />
+<h2 id="toc5"><a name="ATtiny 2313-Alternate development tool : WinAVR"></a> Alternate development tool : WinAVR </h2>
+Means, you get bored of trying to make that 2313 work with Arduino software, or you get desperate that the &quot;blink&quot; program once buit is 790 bytes%20 (while max is 2048)!! Ok, then you have to turn to assembler, not big deal. FYI the same program is archieved in 100 bytes%20, means roughly a factor 7 in size ... wow.<br />
+<ul><li><a class="wiki_link_ext" href="http://www.chip45.com/info/Portable-WinAVR.html" rel="nofollow">http://www.chip45.com/info/Portable-WinAVR.html</a></li><li><a class="wiki_link_ext" href="http://winavr.sourceforge.net/index.html" rel="nofollow">http://winavr.sourceforge.net/index.html</a> Check the portable version if you don't feel like installing it, works very fine. Editor is so-so but ok, I'm too much used to professional tools (spoiled by everyday job)</li></ul><br />
+<h2 id="toc6"><a name="ATtiny 2313-Programmer"></a> Programmer </h2>
+Pololu, half the price of the official ATmel tool (1995 JPY at Switch-science.com).<br />
+Things to know:<br />
+<ul><li>Doc <a class="wiki_link_ext" href="http://www.pololu.com/catalog/product/1300" rel="nofollow">http://www.pololu.com/catalog/product/1300</a></li><li>You must have XP SP3. Installing it was not an quick task (it's veeeeeeery long) but worked fine in the end. Didn't worked with SP2, works very fine with SP3, I tried.</li><li>You must use a single digit COM port (force it in case). Note that I didn't had problem but just followed the documentation.</li><li>Tou must provide the micro chip with a good 5V if you don't want to brick it. A triple AA cells pack is NOT sufficient, just use your PC USB solid 5V.</li><li>Use communication speed of 200 KHz (default setting) that's waaaaay sufficient to upload the maximum 2048 bytes of your program in the blink of an eye (or so).</li><li>Tips for uploading code from Sparkfun tutorials <a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=142" rel="nofollow">http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=142</a></li></ul><br />
+<h2 id="toc7"><a name="ATtiny 2313-Things to know when programming your ATtiny 2313"></a> Things to know when programming your ATtiny 2313 </h2>
+<ul><li>If you don't use a crystal (often the case with this small chip), you use the internal 8 MHz %20/- 10% oscillator which is the factory settings, and it's cool. But by default it use factor 8 speed divider and runs at 1MHz which is not cool. So just tell the chip to be a good boy and not downscale.</li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c">    <span class="co1">//factor settings is to divide internal clock 8MHz by 8.</span>
+    <span class="co1">//don't, and just run at 8 MHz (set the clock divider to 1 so no effect)</span>
+    CLKPR <span class="sy0">=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>CLKPCE<span class="br0">&#41;</span><span class="sy0">;</span>
+    CLKPR <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="co1">// Divide by 1 </span></pre>
+
+<br />
+<h2 id="toc8"><a name="ATtiny 2313-Sample codes"></a> Sample codes </h2>
+<br />
+<h3 id="toc9"><a name="ATtiny 2313-Sample codes-Timer interrupt"></a> Timer interrupt </h3>
+<ul><li><a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;p=216769" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;p=216769</a></li><li><a class="wiki_link_ext" href="http://paste.factorcode.org/paste?id=358" rel="nofollow">http://paste.factorcode.org/paste?id=358</a></li><li><a class="wiki_link_ext" href="http://www.daqq.eu/index.php?show=prj_sanity_nullifier" rel="nofollow">http://www.daqq.eu/index.php?show=prj_sanity_nullifier</a></li><li><a class="wiki_link_ext" href="http://pichonjulien.blogspot.com/2009/10/pwm-avec-un-attiny2313.html" rel="nofollow">http://pichonjulien.blogspot.com/2009/10/pwm-avec-un-attiny2313.html</a></li></ul><br />
+Pretty long example but it shows a simple PWM AND TIMER at the same time (uses the 2 timers in the end). It was <strong>REALLY</strong> hard to find a simple example of timer interrupt on the net, the &quot;hello world&quot; sort of. Here I made it from info of here and there and of course the not-so-clear documentation of AVR (but when you know what you search, ok it's a good one).<br />
+<strong>Note:</strong> timer0 is 8bit and timer1 is 16bits, and when using the overflow interrupt (time it takes to become 0xFFFF) timer1 is 256 times longer than timer0 ! Obvious but hey, I had to think a little to understand it.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co1">//</span>
+<span class="co1">// test of timed interrupt on attiny 2313</span>
+<span class="co1">// AlanFromJapan http://kalshagar.wikispaces.com/</span>
+<span class="co1">//</span>
+<span class="co1">// Inspirations :</span>
+<span class="co1">// http://cappels.org/dproj/1_kHz_Signal_Source/1_KHz_Sine_Wave_Generator.html</span>
+<span class="co1">// http://www.daqq.eu/index.php?show=prj_sanity_nullifier</span>
+<span class="co1">// http://pichonjulien.blogspot.com/2009/10/pwm-avec-un-attiny2313.html</span>
+<span class="co1">//</span>
+&nbsp;
+<span class="co1">// includes</span>
+<span class="co2">#include &lt;avr/io.h&gt;</span>
+<span class="co2">#include &lt;util/delay.h&gt;</span>
+<span class="co2">#include &lt;avr/interrupt.h&gt;</span>
+&nbsp;
+<span class="co1">//use this trick to &quot;&quot;adjust&quot;&quot; the timer1 and subscale it</span>
+<span class="co2">#define TIMER_DIVIDER 1</span>
+<span class="kw4">volatile</span> <span class="kw4">uint16_t</span> mTimerCounter <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+ISR<span class="br0">&#40;</span>TIMER1_OVF_vect<span class="br0">&#41;</span><span class="br0">&#123;</span>
+    mTimerCounter<span class="sy0">%20%20;</span>
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>mTimerCounter <span class="sy0">&gt;=</span> TIMER_DIVIDER<span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="co1">//first thing, reset</span>
+        mTimerCounter <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+        <span class="co1">//then do the interrupt job</span>
+&nbsp;
+        <span class="co1">//blink B1</span>
+        PORTB <span class="sy0">^=</span> <span class="nu12">0x02</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">//inits timer 1 to do interrupt on overflow (calls ISR(TIMER1_OVF_vect))</span>
+<span class="kw4">void</span> init_timer1_OVF<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">//timer 1 prescaler : makes clock / 64  -&gt; tick every 1/4 sec roughly</span>
+    TCCR1B<span class="sy0">=</span><span class="nu12">0x03</span><span class="sy0">;</span>
+    <span class="co1">//trigger the interrupt vector TIMER1_OVF_vect when timer 1 is overflow</span>
+    TIMSK <span class="sy0">=</span> <span class="nu12">0x80</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">//sets the interruptions to enabled</span>
+    sei<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="co1">//Inits timer 0 to do PWM on pin B2</span>
+<span class="kw4">void</span> init_timer0_PWM<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* Set Fast PWM mode. */</span>
+    TCCR0A <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>WGM00<span class="br0">&#41;</span> <span class="sy0">|</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>WGM01<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="coMULTI">/* Clear 0C0A on compare. */</span>
+    TCCR0A <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>COM0A1<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="coMULTI">/* Start timer, no prescaling. */</span>
+    TCCR0B <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>CS00<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="coMULTI">/* Duty cycle 0% */</span>
+    OCR0A <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="co1">//</span>
+<span class="co1">// main function</span>
+<span class="co1">//</span>
+<span class="kw4">void</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="co1">//factory settings is to divide internal clock 8MHz by 8.</span>
+    <span class="co1">//don't, and just run at 8 MHz (set the clock divider to 1 so no effect)</span>
+    CLKPR <span class="sy0">=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>CLKPCE<span class="br0">&#41;</span><span class="sy0">;</span>
+    CLKPR <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="co1">// Divide by 1 </span>
+&nbsp;
+    <span class="co1">//all ports of bank B goes output PB6~0 is output</span>
+    DDRB <span class="sy0">=</span> <span class="nu12">0xFF</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">//will be used to re-divide the TIMER0 (too fast)</span>
+    mTimerCounter <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">//init for PWM</span>
+    init_timer0_PWM<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="co1">//init for timer interrupt</span>
+    init_timer1_OVF<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">while</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="co1">//Blink B0 on or off</span>
+        PORTB <span class="sy0">^=</span> <span class="nu12">0x01</span><span class="sy0">;</span>
+&nbsp;
+        <span class="co1">//pulse led on B3</span>
+        <span class="kw4">unsigned</span> <span class="kw4">char</span> i <span class="sy0">;</span>
+        <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> <span class="nu0">255</span><span class="sy0">;</span> i<span class="sy0">%20%20</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            OCR0A <span class="sy0">=</span> i<span class="sy0">;</span>
+            _delay_ms<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">255</span><span class="sy0">;</span> i <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">--</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            OCR0A <span class="sy0">=</span> i<span class="sy0">;</span>
+            _delay_ms<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>        
+        OCR0A <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+&nbsp;
+        _delay_ms<span class="br0">&#40;</span><span class="nu0">300</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="co1">////////////////////////////////////////////////////////////</span></pre>
+
+<br />
+<br />
+<h3 id="toc10"><a name="ATtiny 2313-Sample codes-PWM with ATTiny2313"></a> PWM with ATTiny2313 </h3>
+<a class="wiki_link_ext" href="http://pichonjulien.blogspot.com/2009/10/pwm-avec-un-attiny2313.html" rel="nofollow">http://pichonjulien.blogspot.com/2009/10/pwm-avec-un-attiny2313.html</a><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdint.h&gt;</span>
+<span class="co2">#include &lt;avr/io.h&gt;</span>
+&nbsp;
+<span class="co2">#define    F_CPU    1000000UL</span>
+<span class="co2">#include &lt;util/delay.h&gt;</span>
+&nbsp;
+<span class="kw4">void</span> init_timer<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+<span class="coMULTI">/* Set Fast PWM mode. */</span>
+TCCR0A <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>WGM00<span class="br0">&#41;</span> <span class="sy0">|</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>WGM01<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="coMULTI">/* Clear 0C0A on compare. */</span>
+TCCR0A <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>COM0A1<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="coMULTI">/* Start timer, no prescaling. */</span>
+TCCR0B <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>CS00<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="coMULTI">/* Duty cycle 0% */</span>
+OCR0A <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> init_led<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+DDRB <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>PB2<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc<span class="sy0">,</span> <span class="kw4">char</span> <span class="sy0">*</span>argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+<span class="kw4">int</span> i<span class="sy0">;</span>
+&nbsp;
+init_led<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+init_timer<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">while</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> <span class="nu0">255</span><span class="sy0">;</span> i<span class="sy0">%20%20</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+      OCR0A <span class="sy0">=</span> i<span class="sy0">;</span>
+      _delay_ms<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">255</span><span class="sy0">;</span> i <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">--</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+      OCR0A <span class="sy0">=</span> i<span class="sy0">;</span>
+      _delay_ms<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<br />
+<h1 id="toc11"><a name="Basic sample : interrupt comparator hello world on attiny2313"></a> Basic sample : interrupt comparator hello world on attiny2313 </h1>
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co1">//Minimal sample of Comparator interrupt on attiny2313</span>
+<span class="co1">// includes</span>
+<span class="co2">#include &lt;avr/io.h&gt;</span>
+<span class="co2">#include &lt;util/delay.h&gt;</span>
+<span class="co2">#include &lt;avr/interrupt.h&gt;</span>
+&nbsp;
+&nbsp;
+<span class="co1">//B3 is 0x08 = b00001000</span>
+<span class="kw4">void</span> test_blinkB3<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    PORTB <span class="sy0">^=</span> <span class="nu12">0x08</span><span class="sy0">;</span> <span class="co1">//led on</span>
+    _delay_ms<span class="br0">&#40;</span><span class="nu0">50</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    PORTB <span class="sy0">^=</span> <span class="nu12">0x08</span><span class="sy0">;</span> <span class="co1">// led off</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="co1">//B2 is 0x04 = b00000100</span>
+<span class="kw4">void</span> test_blinkB2<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    PORTB <span class="sy0">^=</span> <span class="nu12">0x04</span><span class="sy0">;</span> <span class="co1">//led on</span>
+    _delay_ms<span class="br0">&#40;</span><span class="nu0">100</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    PORTB <span class="sy0">^=</span> <span class="nu12">0x04</span><span class="sy0">;</span> <span class="co1">// led off</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">//Interrupt code of the comparator</span>
+<span class="co1">// Our settings is interrupt on rising edge. Meaning no 2 consequent interrupt if stays high. It is rose when comparator output goes from 0 to 1 only.</span>
+<span class="co1">// NB  : AIN0 is POSITIVE pin, AIN1 is NEGATIVE pin</span>
+<span class="co1">// NB2 : you need to stabilize the power rail with a capacitor (otherwise you'll have ripples and misreading). With AIN1=Comp-=0v a 200uF is fine.</span>
+ISR<span class="br0">&#40;</span>ANA_COMP_vect<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="co1">//with this test, ensure that indeed the interrupt result is 1 = V(AIN0) &gt; V(AIN1)</span>
+    <span class="co1">//(double check ?)</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span> <span class="br0">&#40;</span>ACSR <span class="sy0">&amp;</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> ACO<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="sy0">!=</span> <span class="nu0">0</span> <span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        test_blinkB2<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>    
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">//</span>
+<span class="co1">// main function</span>
+<span class="co1">//</span>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">//factory settings is to divide internal clock 8MHz by 8.</span>
+    <span class="co1">//don't, and just run at 8 MHz (set the clock divider to 1 so no effect)</span>
+    CLKPR <span class="sy0">=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>CLKPCE<span class="br0">&#41;</span><span class="sy0">;</span>
+    CLKPR <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="co1">// Divide by 1 </span>
+&nbsp;
+    <span class="co1">//port B pins 7-2 go output, 1-0 go input(it's the comparator)</span>
+    DDRB <span class="sy0">=</span> <span class="nu12">0xFC</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">//needed it seems. </span>
+    <span class="co1">//One need also a pulldown on the AIN0 (Comparator%20) to avoid having it floating (if you use a switch for instance)</span>
+    PORTB <span class="sy0">&amp;=</span> ~<span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>PB0<span class="br0">&#41;</span><span class="sy0">;</span>    <span class="co1">// no Pull-up on PB0</span>
+&nbsp;
+    ACSR  <span class="sy0">|=</span>  <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>ACI<span class="br0">&#41;</span><span class="sy0">;</span>    <span class="co1">// clear Analog Comparator interrupt</span>
+    ACSR  <span class="sy0">|=</span>
+        <span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">&lt;&lt;</span>ACD<span class="br0">&#41;</span>   <span class="sy0">|</span>         <span class="co1">// Comparator ON</span>
+        <span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">&lt;&lt;</span>ACBG<span class="br0">&#41;</span>  <span class="sy0">|</span>         <span class="co1">// Disconnect 1.23V reference from AIN0 (use AIN0 and AIN1 pins)</span>
+        <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>ACIE<span class="br0">&#41;</span>  <span class="sy0">|</span>         <span class="co1">// Comparator Interrupt enabled</span>
+        <span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">&lt;&lt;</span>ACIC<span class="br0">&#41;</span>  <span class="sy0">|</span>         <span class="co1">// input capture disabled</span>
+        <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>ACIS1<span class="br0">&#41;</span> <span class="sy0">|</span>         <span class="co1">// set interrupt bit on rising edge</span>
+        <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">&lt;&lt;</span>ACIS0<span class="br0">&#41;</span><span class="sy0">;</span>          <span class="co1">//    (ACIS1 and ACIS0 == 11)</span>
+&nbsp;
+&nbsp;
+    sei<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>                 <span class="co1">// enable global interrupts</span>
+&nbsp;
+    <span class="kw1">while</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="coMULTI">/*all the job is done in the interrupt */</span>
+        <span class="co1">// a little &quot;is alive&quot; debug trick that blink another led every second or so</span>
+        test_blinkB3<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> _delay_ms<span class="br0">&#40;</span><span class="nu0">1000</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;</pre>
+
+<br />
+<h1 id="toc12"><a name="I2C TWI"></a> I2C TWI </h1>
+<h2 id="toc13"><a name="I2C TWI-As a master"></a> As a master </h2>
+<em>Used in the <a class="wiki_link" href="Guitar%20Rod%20of%20Command.html">Guitar Rod of Command</a> project.</em><br />
+Holy Graal <a class="wiki_link_ext" href="http://www.instructables.com/id/I2C_Bus_for_ATtiny_and_ATmega/" rel="nofollow">http://www.instructables.com/id/I2C_Bus_for_ATtiny_and_ATmega/</a><br />
+Note the following :<br />
+<ul><li>ATtiny2313 use USI not pure internal TWI, so can't wake on TWI interrupt</li><li>ATtiny2313 must then use the <strong>USI_I2C</strong> library which works just fine out of the box</li></ul><br />
+<h2 id="toc14"><a name="I2C TWI-As a slave"></a> As a slave </h2>
+<em>Used in the <a class="wiki_link" href="Laser%20cutter.html">Laser cutter</a> project as the LCD controller.</em><br />
+<ul><li>The library to use <a class="wiki_link_ext" href="http://playground.arduino.cc/Code/USIi2c" rel="nofollow">http://playground.arduino.cc/Code/USIi2c</a></li><li>A working sample <a class="wiki_link_ext" href="http://pastebin.com/96emhzKi" rel="nofollow">http://pastebin.com/96emhzKi</a></li></ul><br />
+Things to know :<br />
+<ul><li>you can skip the external pullups if you use Attiny's internals</li><li>don't forget to call <span style="font-family:monospace;">sei();</span> after initializing the USI client ! (did cost me 4 hours that one stupid miss)</li></ul><br />
+<h1 id="toc15"><a name="Infrared"></a> Infrared </h1>
+<a class="wiki_link_ext" href="http://openlgtv.org.ru/wiki/index.php/Using_a_generic_microcontroller_board_as_an_LG_service_remote" rel="nofollow">http://openlgtv.org.ru/wiki/index.php/Using_a_generic_microcontroller_board_as_an_LG_service_remote</a><br />
+<br />
+<h2 id="toc16"><a name="Infrared-With Arduino IDE"></a> With Arduino IDE </h2>
+<ul><li>Use with ARDUINO IDE (drop it, compiler is not optimized enough, should use WinAVR)<ul><li><em><a class="wiki_link_ext" href="http://www-ice.yamagata-cit.ac.jp/ken/senshu/sitedev/index.php?AVR%2Fnews46#u4db8215" rel="nofollow">http://www-ice.yamagata-cit.ac.jp/ken/senshu/sitedev/index.php?AVR%2Fnews46#u4db8215</a></em></li><li><a class="wiki_link_ext" href="http://d.hatena.ne.jp/OGURAM/20091013/1255393597" rel="nofollow">http://d.hatena.ne.jp/OGURAM/20091013/1255393597</a></li><li><a class="wiki_link_ext" href="http://d.hatena.ne.jp/OGURAM/20091012" rel="nofollow">http://d.hatena.ne.jp/OGURAM/20091012</a></li><li><a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1189970096/6" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1189970096/6</a></li><li><a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1247267779" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1247267779</a></li><li><a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1236434254/52#52" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1236434254/52#52</a></li></ul></li></ul><h3 id="toc17"><a name="Infrared-With Arduino IDE-Core"></a> Core </h3>
+Here <a class="wiki_link_ext" href="http://hci.rwth-aachen.de/tiki-download_wiki_attachment.php?attId=769&amp;page=luminet" rel="nofollow">http://hci.rwth-aachen.de/tiki-download_wiki_attachment.php?attId=769&amp;page=luminet</a><br />
+<h3 id="toc18"><a name="Infrared-With Arduino IDE-Boards.txt"></a> Boards.txt </h3>
+Append following text:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">##############################################################
+attiny2313.name=My Arduino w/ ATTINY2313
+attiny2313.upload.protocol=hidspx,-d1
+attiny2313.upload.maximum_size=2048
+attiny2313.upload.speed=19200
+attiny2313.bootloader.low_fuses=0xe4
+attiny2313.bootloader.high_fuses=0x9d
+attiny2313.bootloader.extended_fuses=0xff
+attiny2313.bootloader.path=attiny2313
+attiny2313.bootloader.unlock_bits=0xFF
+attiny2313.bootloader.lock_bits=0xCF
+attiny2313.build.mcu=attiny2313
+attiny2313.build.f_cpu=8000000L
+attiny2313.build.core=attiny2313</pre>
+
+
+    </div>
+  </body>
+</html>

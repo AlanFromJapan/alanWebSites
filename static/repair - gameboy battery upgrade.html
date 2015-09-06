@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>kalshagar - Repair - Gameboy battery upgrade</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+<h1 id="toc0"><a name="Gameboy and Li-ion recycling"></a> Gameboy and Li-ion recycling </h1>
+<img src="files/gameboy-battery-0001.jpg" alt="gameboy-battery-0001.jpg" title="gameboy-battery-0001.jpg" style="width: 300px;" align="right" />I bought recently on yahoo auctions a set of 4 gameboys (1 brick, 2 colors and 1 pocket 1st gen) because I had <a class="wiki_link" href="Gameboy%20clock.html">a plan to hack them</a>  and I needed some guinea pigs. I have already 2 at home but ... well, it was a total of 1,500 JPY (10 euro w/ delivery) so. Got them yesterday morning, quick check: all working modulo the inevitable sticky buttons or gunk that went everywhere after 15 years. Dismantle, wash (water &amp; soap), remove glue (ugly pokemon stickers) and marker (acetone), dry, reassemble. Working fine, nice looking and that vomiting man-sweat smell is gone (previous owner must have had <em>very</em> sweaty hands).<br />
+<br />
+One of the GB color had one battery electrode completely corroded by leaking battery (thanks &quot;sweaty palms&quot; for sending me the leaking battery too, appreciated). So I replaced it with one of the other GB color, worked like a charm. Then I saw that abandonned GB color without its original battery connector destined to inactivity ... unless ... hey, I was playing with some Li-Ion battery from old cellphone the other day, I even plugged one to those 2USD ebay Li-Ion charger. Hum, 3.7v &amp; 1,100 mAh looks good that could power the GB, but 3.7v is too much, I need 3v. Wish I had some way to regulate that, but buying or making a buck converter looks boring, and buying on eBay takes time. If I could just drop those 0.7v it would be perfe... 0.7v drop? Hey, silicium diodes do that! %20 reverse polarity protection! Eureka!<br />
+<br />
+For those who are curious, the battery has a massive lifespan, like more than 10h straight. I did the test: turn on the GB, start a game or let the tetris demo run, I never saw it run out of battery even after 10 or 12h straight... impressive.<br />
+<br />
+By the way a good video about Li-Ion battery from Mr. Dave Jones <a class="wiki_link_ext" href="http://www.youtube.com/watch?v=A6mKd5_-abk" rel="nofollow">http://www.youtube.com/watch?v=A6mKd5_-abk</a><br />
+<em>Thank you Hackaday for featuring this page (^_^) <a class="wiki_link_ext" href="http://hackaday.com/2015/01/01/game-boy-with-lithium-batteries-and-usb/" rel="nofollow">http://hackaday.com/2015/01/01/game-boy-with-lithium-batteries-and-usb/</a> </em><br />
+<h1 id="toc1"><a name="Build"></a> Build </h1>
+<h2 id="toc2"><a name="Build-Parts"></a> Parts </h2>
+<ul><li><strong>GameBoy color</strong> or <strong>pocket</strong> or <strong>light</strong> : any of the 3v/0.6 Wh GB. For the original brick you'll need a boost converter but since there's looooots of free space (remember it's a AAAx4 battery pack) I'm not worried for you.</li><li><strong>Li-Ion battery</strong>: I hereby forbid you to buy one. Just open your closet you can find minimum 2 or 3 unused. That old cell phone (that was meant to work 2 years only anyway), an old spare cell phone battery, old creepy camera,... Keyword here is <strong>REUSE</strong>, save a few bucks and help nature (she needs it).<ul><li>3.7v is what you want and is most likely what you'll get.</li><li>1,000 mAh is a good start (typical old cellphone battery), but the mAh won't change much except how often you'll have to reload.</li></ul></li><li><strong>Silicium diode</strong>: no characteristic special, the cheapass ones are perfect. Just don't pick a Schotky or a Zener or a germanium, classicissim 1N4148 is perfect.</li><li><strong>USB Li-Ion battery charger</strong>: eBay is your friend. ~2 USD shipping included.</li></ul><h2 id="toc3"><a name="Build-Schema"></a>Schema </h2>
+<img src="files/2014-12-27-15-57-51_deco.jpg" alt="2014-12-27-15-57-51_deco.jpg" title="2014-12-27-15-57-51_deco.jpg" /><br />
+<br />
+Very simple, the diode does the drop of 0.7v meaning you'll feed your GB ~3v which is what she needs. Li-Ion charger goes also before the diode.<br />
+<span style="color:red">WARNING:</span> Don't try to play <em>and</em> charge at the same time, not sure what will happen, but nothing good I fear.<br />
+<br />
+<h2 id="toc4"><a name="Build-Assemble"></a> Assemble </h2>
+<span style="
+display: block;
+border:solid 2px black;
+margin-left: 20px;
+margin-right: 20px;
+padding:20px;"><strong>Foreword about the soldering on battery connectors:</strong> I soldered directly on the battery connector. I do not recommend newbies to do that, use a connector or something else. But if you wanna do it, here's my receipe:<br />
+<ul><li>A little acid paste on the battery leads : the solder will melt quicker so less heating of the battery itself</li><li>A blob of solder on %20 and - of the battery (and on the wire of course)</li><li>A fast and steady hand, all must be done in &quot;one mississipi&quot; (~1-1.5 sec): warm up the blob of solder on the battery, bring the wire you already warmed, beware of cold joins (no shaking and good heating are the rules). If it takes ore than 2 sec: STOP, you'll damage something, and remember that Li-Ion battery are disaster waiting to happen, a modern version of the hand grenade. Wait 1 minute and retry. That's nothing hard really, just be quick.</li></ul></span><br />
+Steps to assembly:<br />
+<ol><li>Take your dremel and remove the battery pack, all that dangles inside the GB body</li><li>Dremel out the battery cover tongue, you won't need it anymore</li><li>Super-glue the battery cover in place and let dry</li><li>You can fix your li-ion charger board like you want, I for myself used one of the existing GB screw for fixation and also one of the screw that was holding the back or the GB from the bottom of the battery case (now gone). Fixation is so-so, one of the screw &quot;holds&quot; the board and the other one just fobids it to move when you plug the USB so be gentle when plugging.</li><li>Make a hole for the USB cable. You might have to polish a bit the surroundings of the USB hole you made, the GB plastic is thick and my USB micro plug was barely long enough to make contact. A little dremel magic with those &quot;industrial diamond&quot; head to remove half a mm of plastic and now contact is perfect. A bit of acetone wiping to soften the connector hole is a nice touch.</li><li>Assemble, try to put things in a way it won't move or shortcut, vinyl tape or hot-snort to discretion, accept the fact that now GB bottom got juuuuuuust a little loose and voila!</li><li>Enjoy hours of game, knowing you reuse a battery, save money and the earth of all the batteries NiCd/NiMh you would buy.</li></ol><br />
+PS: go easy with the acetone. Gameboy plastic melts with acetone, which can be what you want to do (to remove the rough aspect of a piece of plastic you sawed or sandpapered) or it might lead you to unpleasant effects. Indeed, GB plastic is not flat like a sheet of paper but has a fine grain. Wiping your GB with acetone will remove that grain, so know it before starting, or you might end up having to polish the whole baby with nail polish remover (the cheaper the more acetone there is inside).<br />
+<br />
+<h1 id="toc5"><a name="Pictures"></a> Pictures </h1>
+<img src="files/2014-12-27-11-58-30_deco.jpg" alt="2014-12-27-11-58-30_deco.jpg" title="2014-12-27-11-58-30_deco.jpg" /><br />
+<em>Thank you Mr. Sweaty-palms, that's a nice acid-eaten battery connector here.</em><br />
+<img src="files/gameboy-battery-0001.jpg" alt="gameboy-battery-0001.jpg" title="gameboy-battery-0001.jpg" /><br />
+<em>Prototype: wires soldered on the battery, and ad'hoc soldering on the GB back. Worked fine.</em><br />
+<img src="files/gameboy-battery-0002.jpg" alt="gameboy-battery-0002.jpg" title="gameboy-battery-0002.jpg" /><br />
+<em>Prototype: some details of the back. Notice which screw were reused to secure the USB charger.</em><br />
+<img src="files/gameboy-battery-0005.jpg" alt="gameboy-battery-0005.jpg" title="gameboy-battery-0005.jpg" /><br />
+<em>Now on to the real thing: red circle is the diode, blue circle is the USB Li-Ion charger</em><br />
+<img src="files/gameboy-battery-0004.jpg" alt="gameboy-battery-0004.jpg" title="gameboy-battery-0004.jpg" /><img src="files/gameboy-battery-0006.jpg" alt="gameboy-battery-0006.jpg" title="gameboy-battery-0006.jpg" /><br />
+<img src="files/gameboy-battery-0007.jpg" alt="gameboy-battery-0007.jpg" title="gameboy-battery-0007.jpg" /><br />
+<em>Cut, drill, glue, ...</em><br />
+<img src="files/gameboy-battery-0008.jpg" alt="gameboy-battery-0008.jpg" title="gameboy-battery-0008.jpg" /><br />
+<img src="files/gameboy-battery-0009.jpg" alt="gameboy-battery-0009.jpg" title="gameboy-battery-0009.jpg" /><br />
+<em>While charging you get the red light, blue one when charged.</em>
+    </div>
+  </body>
+</html>

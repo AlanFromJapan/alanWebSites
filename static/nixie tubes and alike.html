@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <title>kalshagar - Nixie tubes and alike</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="background-color: lightyellow;
+text-align: center;
+display: block;
+border: 1px solid gold;
+vertical-align:middle;"><br />
+<img src="files/eaglecadsoft%20icon.png" alt="eaglecadsoft icon.png" title="eaglecadsoft icon.png" />All the Eagle models are in my library <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FLBR" rel="nofollow" target="_blank">kalshagar.lbr</a><br />
+<br />
+</span><br />
+<h1 id="toc0"><a name="IV-16 tiny numitron"></a>IV-16 tiny numitron </h1>
+ A bit less than 3cm high, nice 7 segment working between 2.8-4.5 V, 17-22mA. <br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/LINEcamera_share_2012-10-23-23-36-54.jpg" alt="LINEcamera_share_2012-10-23-23-36-54.jpg" title="LINEcamera_share_2012-10-23-23-36-54.jpg" style="width: 400px;" /> <br />
+<ul><li>Sample code <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FTinyNumitron" rel="nofollow" target="_blank">is here (for Arduino .ino file)</a></li></ul></td>
+        <td><img src="files/numitron-tiny-iv16.jpg" alt="numitron-tiny-iv16.jpg" title="numitron-tiny-iv16.jpg" style="width: 200px;" align="right" /> <u><strong>BOTTOM VIEW</strong></u><br />
+<ul><li>1 : VCC (this pin is in front)</li><li>2 : NC (you can see it's connected to nothing, find this one first)</li><li>3 : top right vertical</li><li>4 : bottom right vertical</li><li>5 : top</li><li>6 : top left vertical</li><li>7 : middle</li><li>8 : bottom</li><li>9 : bottom left vertical</li></ul><br />
+The Eagle models are in my library <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FLBR" rel="nofollow" target="_blank">kalshagar.lbr</a><br />
+</td>
+    </tr>
+    <tr>
+        <td><img src="files/20120819_204737.jpg" alt="20120819_204737.jpg" title="20120819_204737.jpg" style="width: 400px;" /><br />
+</td>
+        <td><img src="files/tinynumitronboard-10.png" alt="tinynumitronboard-10.png" title="tinynumitronboard-10.png" /><br />
+My TinyNumitronBoard, with space for a led SMD or through hole behind each numitron.<br />
+<ul><li><a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FTinyNumitronBoard" rel="nofollow" target="_blank">Source is here</a>.</li><li>I have a few left so if interrested mail me</li><li>1 small bug in v1.0: the GND of the leds is not connected to GND in fact (whatever Eagle says). You need to wire one of the GND of the led (the outmost SMD) to one of the GND pins of the 74HC595. A little wire on the back on the board and done.</li><li>Recommended resistors : 100 ohm for the numitron, 240%20 ohm for the led</li></ul></td>
+    </tr>
+</table>
+
+<br />
+<h1 id="toc1"><a name="IV-9 tiny numitron"></a>IV-9 tiny numitron </h1>
+ A bit more than 3cm high, nice 7 %20 dot segment working between 2.8-4.5 V, 17-22mA. Basically it's the same as a IV-16 but a bit taller and with a dot.<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/LINEcamera_share_2012-10-23-23-36-54.jpg" alt="LINEcamera_share_2012-10-23-23-36-54.jpg" title="LINEcamera_share_2012-10-23-23-36-54.jpg" style="width: 400px;" /> <br />
+<ul><li>Sample code <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FTinyNumitron" rel="nofollow" target="_blank">is here (for Arduino .ino file)</a></li></ul></td>
+        <td><img src="files/numitron-tiny-iv16.jpg" alt="numitron-tiny-iv16.jpg" title="numitron-tiny-iv16.jpg" style="width: 200px;" align="right" /> <u><strong>BOTTOM VIEW</strong></u><br />
+<ul><li>1 : VCC (this pin is in front)</li><li>2 : <em>dot (only difference with IV-16)</em></li><li>3 : top right vertical</li><li>4 : bottom right vertical</li><li>5 : top</li><li>6 : top left vertical</li><li>7 : middle</li><li>8 : bottom</li><li>9 : bottom left vertical</li></ul><br />
+The Eagle models are in my library (use the IV-16 model) <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FLBR" rel="nofollow" target="_blank">kalshagar.lbr</a><br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h1 id="toc2"><a name="IV-6 Numitron"></a> IV-6 Numitron </h1>
+<img src="files/iv6%20nixie%20schema.png" alt="iv6 nixie schema.png" title="iv6 nixie schema.png" align="right" />Need a bit more voltage (from 12 to 25-30V), but less amps, has a dot too. VFD style blue glow... nice. It was very hard to find documentation about thoses tubes on the net, but finally thanks to the 2 top links here under I could make it work. So I made a <em>for-dummies</em> (that includes me) pinout graph. Hope this helps. The Eagle models are in my library <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FLBR" rel="nofollow" target="_blank">kalshagar.lbr</a>.<br />
+<ul><li>Project <a class="wiki_link_ext" href="http://mintelectronics.wordpress.com/2012/08/05/iv-6-vintage-sovietnumitron-tubes/" rel="nofollow">http://mintelectronics.wordpress.com/2012/08/05/iv-6-vintage-sovietnumitron-tubes/</a></li><li>Project <a class="wiki_link_ext" href="http://www.electronixandmore.com/projects/vfdclock/index.html" rel="nofollow">http://www.electronixandmore.com/projects/vfdclock/index.html</a></li><li>General stuff about VFD <a class="wiki_link_ext" href="http://www.techtir.ie/technical/vfd" rel="nofollow">http://www.techtir.ie/technical/vfd</a></li><li>Other site (Japanese) <a class="wiki_link_ext" href="https://sites.google.com/site/likipong/kitto-lei/vfd-ying-guang-biao-shi-guan" rel="nofollow">https://sites.google.com/site/likipong/kitto-lei/vfd-ying-guang-biao-shi-guan</a></li></ul><br />
+Things to know about the IV-6 pinout:<br />
+<ul><li>There are 12 pins, 11 being used and 1 not connected (the short one)</li><li>Filament (pins 7 and 8)<ul><li>No polarity, voltage 1-2v: if more than 1v (ie. 1.3v) the filament will slightly glow orange, maybe you want to avoid.</li><li>One of the pin must be connected to the high voltage GND. Making both Fil- and GND same seems good sense.</li></ul></li><li>Grid (pins 9 and 7 or 8)<ul><li>Wire pin 9 to VCC high voltage (12-25v)</li><li>GND must be connected to one of the filament pin (see above) to act as a comon cathode</li></ul></li><li>The short wire is not connected</li><li>Any other wire if connected to VCC high voltage will start glowing nicely</li></ul><br />
+<h2 id="toc3"><a name="IV-6 Numitron-Note on high(er) voltage"></a> Note on high(er) voltage </h2>
+&quot;High&quot; -30v, 6x more than TTL- voltage so drive with transistor or dedicated IC, not directly from uC<br />
+<ul><li>Sample here <a class="wiki_link_ext" href="http://renaud.schleck.free.fr/nixie.php" rel="nofollow">http://renaud.schleck.free.fr/nixie.php</a></li></ul>Falstad circuit :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">$ 1 5.0E-6 10.20027730826997 50 5.0 50
+t 368 272 400 272 0 1 -24.331758705484845 0.5553715775756665 100.0
+t 448 240 496 240 0 -1 -0.4999403492132366 -0.668681313163944 100.0
+R 416 128 416 96 0 0 40.0 30.0 0.0 0.0 0.5
+r 400 128 400 240 0 100000.0
+r 368 272 272 272 0 100.0
+w 416 128 400 128 0
+w 416 128 496 128 0
+w 496 128 496 224 0
+w 448 240 400 240 0
+w 400 240 400 256 0
+w 496 256 496 288 0
+s 272 272 208 272 0 0 false
+R 208 272 160 272 0 0 40.0 5.0 0.0 0.0 0.5
+r 400 288 400 352 0 10000.0
+g 400 352 400 384 0
+r 496 288 496 368 0 730.0
+g 496 368 496 384 0
+o 15 64 0 35 40.0 0.05 0 -1</pre>
+
+<h2 id="toc4"><a name="IV-6 Numitron-Links"></a> Links </h2>
+<ul><li>Nice clock from Akafugu <a class="wiki_link_ext" href="http://www.akafugu.jp/posts/products/vfd-modular-clock/assembly-base/" rel="nofollow">http://www.akafugu.jp/posts/products/vfd-modular-clock/assembly-base/</a></li></ul><br />
+<br />
+<h1 id="toc5"><a name="Shopping"></a> Shopping </h1>
+<ul><li>The very good <a class="wiki_link_ext" href="http://www.tubes-store.com/" rel="nofollow">http://www.tubes-store.com/</a> : bought some tubes from them, fast, clean, no problem. Will use them again for sure.</li><li>In Japan (but is it still working?) <a class="wiki_link_ext" href="http://nixie-tube.com/shop/index.html" rel="nofollow">http://nixie-tube.com/shop/index.html</a></li></ul>
+    </div>
+  </body>
+</html>

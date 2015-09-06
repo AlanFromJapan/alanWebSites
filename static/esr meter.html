@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>kalshagar - ESR meter</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Theory"></a> Theory </h1>
+In a perfect world, a capacitor has only capacitance. In the real life, a capacitor (same goes for inductors and resistors) has a capacitance, a resistance and an inductance value. Of course, capacitor companies minimize the resistance and inductance to be the closest possible to the &quot;ideal case&quot;.<br />
+<br />
+One important thing to note is that a capacitor can retain its capacitance intact but buid up a resistance 100 times its original design and lead to different failures (circuit stops working, capacitor explodes, capacitor shorts, ...). <br />
+Conclusion: measuring capacitance is not the key to measure a failed capacitor (and anyway you can't do it with the resistor in place in the circuit).<br />
+<br />
+ESR (Equivalent Serie Resistance) is the measure of the resistance of that component. As per the litterature on the net it is typically :<br />
+<ul><li>For electrolytic capacitors :<ul><li>Big capacitance low voltage (ie. 470 uF 10v) : [0.01-0.1] ohm</li><li>Low capacitance high voltage (ie. 4.7uF 400v) : [1-3] ohm</li></ul></li><li>For ceramic, tantalum,... : &lt;&lt; 0.01 ohm, meaning nothing really measurable</li></ul>When the capacitor goes bad the ESR value goes up, and that's where the problems start.<br />
+<br />
+<h2 id="toc1"><a name="Theory-How to measure ESR ?"></a> How to measure ESR ? </h2>
+<em>I'm basing my design on what's explained here : all credits go to them <a class="wiki_link_ext" href="http://ludens.cl/Electron/esr/esr.html" rel="nofollow">http://ludens.cl/Electron/esr/esr.html</a></em><br />
+According litterature, facing an AC at high frequency (&gt;= 50kHz) a capacitor will basically behave like a resistor only (other coponents become neglectable).<br />
+<br />
+Build a circuit with the capacitor C and a 10 ohm resistor R in serie. Feed the circuit with a square wave signal with f &gt;= 50 kHz and amplitude = 200mV and measure the voltage difference around the resistor R.<br />
+<br />
+<h1 id="toc2"><a name="Links"></a> Links </h1>
+ <ul><li>Just buy it<ul><li><a class="wiki_link_ext" href="http://www.ebay.com/sch/i.html?_sacat=0&amp;_nkw=esr%20meter&amp;_sop=15" rel="nofollow">http://www.ebay.com/sch/i.html?_sacat=0&amp;_nkw=esr%20meter&amp;_sop=15</a></li><li><a class="wiki_link_ext" href="http://www.ebay.com/itm/NEW-TRANSISTOR-TESTER-CAPACITOR-ESR-INDUCTANCE-NPN-PNP-MOSFET-RESISTOR-METER-/160943358553?pt=LH_DefaultDomain_0&amp;hash=item2578f8c259" rel="nofollow">http://www.ebay.com/itm/NEW-TRANSISTOR-TESTER-CAPACITOR-ESR-INDUCTANCE-NPN-PNP-MOSFET-RESISTOR-METER-/160943358553?pt=LH_DefaultDomain_0&amp;hash=item2578f8c259</a></li></ul></li><li>A simple to understand explanation <a class="wiki_link_ext" href="http://ludens.cl/Electron/esr/esr.html" rel="nofollow">http://ludens.cl/Electron/esr/esr.html</a></li><li>The Arduino version (a bit messy to read) <a class="wiki_link_ext" href="http://forum.arduino.cc/index.php?topic=80357.0" rel="nofollow">http://forum.arduino.cc/index.php?topic=80357.0</a><ul><li>The &quot;base&quot; of the Arduino version, with a very nice documentation worth reading <a class="wiki_link_ext" href="http://members.upc.hu/lethanh.hung/LCFESRmero/en/documentation.htm" rel="nofollow">http://members.upc.hu/lethanh.hung/LCFESRmero/en/documentation.htm</a></li></ul></li><li><a class="wiki_link_ext" href="http://members.shaw.ca/swstuff/esrmeter.html" rel="nofollow">http://members.shaw.ca/swstuff/esrmeter.html</a></li><li><a class="wiki_link_ext" href="http://www.eevblog.com/forum/projects/building-an-esr-meter/" rel="nofollow">http://www.eevblog.com/forum/projects/building-an-esr-meter/</a></li><li><a class="wiki_link_ext" href="http://kripton2035.free.fr/esr-repository.html" rel="nofollow">http://kripton2035.free.fr/esr-repository.html</a><ul><li><a class="wiki_link_ext" href="http://kripton2035.free.fr/digital%20esr/esr-arduino.html" rel="nofollow">http://kripton2035.free.fr/digital%20esr/esr-arduino.html</a></li></ul></li><li><a class="wiki_link_ext" href="http://hackaday.com/2013/03/16/testing-caps-with-a-diy-esr-meter/" rel="nofollow">http://hackaday.com/2013/03/16/testing-caps-with-a-diy-esr-meter/</a><ul><li><a class="wiki_link_ext" href="http://paulorenato.com/joomla/index.php?option=com_content&amp;view=article&amp;id=94:building-an-esr-meter&amp;catid=4:projects&amp;Itemid=4" rel="nofollow">http://paulorenato.com/joomla/index.php?option=com_content&amp;view=article&amp;id=94:building-an-esr-meter&amp;catid=4:projects&amp;Itemid=4</a></li></ul></li></ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>kalshagar - Clapclap 2313</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Summary"></a> Summary </h1>
+<img src="files/Clapclapsimple.png" alt="Clapclapsimple.png" title="Clapclapsimple.png" style="width: 300px;" align="right" />This is a re-edition of one of my previous project, the <a class="wiki_link" href="Clapclap.html">Clapclap</a> switch. However this one is different by two main aspects :<br />
+<ol><li>It uses a <a class="wiki_link" href="Arduino%20without%20arduino.html">ATtiny 2313</a>  and detection is therefore based on a comparator rising hedge instead of polling infinately the ADC and searching for peaks. The comparison sensitivity will be managed through different voltage, itself tuned via potentiometers. A bit more &quot;getho&quot; execution compared to the overkill of the atmega328 and the ADC polling.</li><li>Since using a <a class="wiki_link" href="Arduino%20without%20arduino.html">ATtiny 2313</a> it will be developped with free tool <a class="wiki_link_ext" href="http://winavr.sourceforge.net/" rel="nofollow" target="_blank">WinAVR</a> and not with the more than convenient Arduino API. It spices up the job and is a better training to whom wants to level up in terms of uController programming.</li></ol><br />
+<br />
+<span style="
+background-color:Goldenrod ;
+display: block;
+border: solid 2px gold;
+text-align:left;
+border-radius:10px;
+padding:10px;
+width:500px;
+"><span style="font-size:200%;">☞</span> You may also like the <strong><a class="wiki_link" href="Clapclap%201386.html">Clapclap 1386</a></strong> which is an ulterior iteration of this project using easier to source components : <strong>Attiny13</strong> and <strong>LM386</strong>, and also an even better PCB. <br />
+<a class="wiki_link" href="Clapclap%201386.html">See for yourself!</a></span><br />
+<br />
+<strong>Hall of fame :</strong><br />
+<ul><li>My daily favorite reading : Hackaday <a class="wiki_link_ext" href="http://hackaday.com/2011/12/20/diy-clapper-is-the-ideal-gift-for-the-laziest-person-in-your-life/" rel="nofollow">http://hackaday.com/2011/12/20/diy-clapper-is-the-ideal-gift-for-the-laziest-person-in-your-life/</a><ul><li>Indeed, that's for lazy ass (lol)</li></ul></li><li>Lifehacker (US) : <a class="wiki_link_ext" href="http://lifehacker.com/5869655/build-your-own-clapper-for-about-6" rel="nofollow">http://lifehacker.com/5869655/build-your-own-clapper-for-about-6</a></li></ul><br />
+<span style="background-color: whitesmoke;
+border: solid 2px black;
+text-align: center;
+border-radius:10px;
+display: block;
+padding:10px;"> <strong>Where to buy one ?</strong> Contact me by email (it'is on the left ←) : just the board or the DIY kit, I can provide both. 日本人の客様はメールでご注文お願いします。<br />
+<br />
+<strong>How to build one ?</strong> Please see this page  <a class="wiki_link" href="Clapclap2313%20-%20Assembly%20instruction.html">Clapclap2313 - Assembly instruction</a></span><br />
+<br />
+<h1 id="toc1"><a name="Schema"></a> Schema </h1>
+<img src="files/clapclap2313_schema.png" alt="clapclap2313_schema.png" title="clapclap2313_schema.png" style="width: 800px;" /><br />
+<em>Eagle version, files are on the <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FClapclap2313" rel="nofollow">google code repository</a></em><br />
+<img src="files/clapclap2313.png" alt="clapclap2313.png" title="clapclap2313.png" style="width: 600px;" /><br />
+<em>Original piece of sh... art made with Dia</em><br />
+<ul><li>The variable resistor plugged on PB1 is used to control the voltage of Comp-, in our case the threshold of detection.</li><li>The variable resistor plugged before the microphone can (will? is ?) be replaced by 2 fixed resistors (1k for both works ok according my tests). It might be useful to control the source volume, but since we have a control on the threshold of detection, the benefit gets limited if one can pick adapted values for the resistors...</li><li>There is a typo as I've been kindly notified by [Girts], the amp is a HT<em>82</em>V739, not a HT<em>28</em>V739 (^^;)</li></ul><br />
+<h1 id="toc2"><a name="Pictures"></a> Pictures </h1>
+<img src="files/Clapclap2313-Fredo-Outside.jpg" alt="Clapclap2313-Fredo-Outside.jpg" title="Clapclap2313-Fredo-Outside.jpg" style="width: 450px;" /><img src="files/Clapclap2313-Fredo-Inside.jpg" alt="Clapclap2313-Fredo-Inside.jpg" title="Clapclap2313-Fredo-Inside.jpg" style="width: 450px;" /><br />
+<em>The latest iterations : am I getting good at this or what? </em><br />
+<img src="files/2011-11-12_10.13.31b.jpg" alt="2011-11-12_10.13.31b.jpg" title="2011-11-12_10.13.31b.jpg" style="width: 600px;" /><br />
+<em>First version. Box closed, with its stylish vinyl tape-because-I've-not-hot-glued-everything-yet</em><br />
+<img src="files/2011-11-17_08.30.30b.jpg" alt="2011-11-17_08.30.30b.jpg" title="2011-11-17_08.30.30b.jpg" style="width: 600px;" /><br />
+<em> Hot glued version for things to stick in place and also isolation.</em><br />
+<em> Notice the legs ot the power adapter : it's AC, cable is held via a screw and a bolt (plugs in japan are flat with often a hole in it), then soldered (as much as possible) and glued for physical resistance and more than this isolation (!)</em><br />
+<img src="files/2011-12-05_12.05.51b.jpg" alt="2011-12-05_12.05.51b.jpg" title="2011-12-05_12.05.51b.jpg" style="width: 600px;" /><br />
+<em> First batch of pcb printed via Seeedstudio offer. Nice, cheap, fast ... I think I'm in love...</em><br />
+<img src="files/2011-12-05_22.37.48b.jpg" alt="2011-12-05_22.37.48b.jpg" title="2011-12-05_22.37.48b.jpg" style="width: 600px;" /> <br />
+<em> Voila : the first pcb version, working just fine. </em><br />
+<img src="files/clapclap2313-wiring.png" alt="clapclap2313-wiring.png" title="clapclap2313-wiring.png" /><br />
+<em>How to wire with the power plug : I have to redraw it each time, now it's done once and for all</em><br />
+<br />
+<br />
+<h1 id="toc3"><a name="Code"></a> Code </h1>
+<ul><li><a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny2313_Clapclap" rel="nofollow" target="_blank">WinAVR version : Free to reuse, all on GoogleCode!</a></li><li><a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny2313" rel="nofollow" target="_blank">AVR Studio version : Free to reuse, all on GoogleCode!</a></li></ul>Good to know :<br />
+<ul><li>You don't need to change the attiny2313 fuses, factory settings are good</li><li>I must admit to my great shame that there is an issue with the code : if you keep the good rythme, you can turn on off without an end. Don't know why, it should not do that, it should detect the third clap-clap-<em>clap</em> and ignore it (second clap resets the last clap counter) but it doesn't. Any idea, I'm taking. Really. Sure it's a stupid miss, just can't see it.</li></ul><br />
+<h1 id="toc4"><a name="What's inside / Parts list"></a> What's inside / Parts list </h1>
+<ul><li>ATtiny2313</li><li><a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02796/" rel="nofollow" target="_blank">Holtek audio amp HT82V739</a></li><li>A electret microphone</li><li>A relay (my case <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-01214/" rel="nofollow" target="_blank">5v that drives up to 5A/220V</a>)</li><li>A NPN transistor to drive the relay　<a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02732/" rel="nofollow" target="_blank">２ＳＣ２１２０－Ｙ</a></li><li>A flyback diode</li><li>A few resistors, caps, potentiometers,...</li></ul><br />
+Give or take, you should have it running for 500-600 JPY (6 USD ?). You'll need an additional 5v power source (a scavenged cell phone charger/iphone/usb charger/... is fine) and a electrical cable.<br />
+<br />
+<h1 id="toc5"><a name="Points of interrests and errors to avoid"></a> Points of interrests and errors to avoid </h1>
+<ul><li>AIN0 is the positive input of the comparator, AIN1 is the negative. They are referred as PB0 and PB1</li><li>If you breadboard this and instead of microphone (post amplification) you use a switch:<ul><li>You want to pull down the AIN0 with a big (&gt;10 kOhm) resistor, otherwise the input will be floating and subject to EMI resulting in random on/off</li><li>The switch will not be debounced, so you might have multiple click</li><li>You want to stabilize the power lines, otherwise you might end up again with false readings if you drive anything else, even a led. Use any 47uF%20 cap between %20 and - rails, as usual.</li></ul></li><li>You want to disable the internal pullup of AIN0 : <strong>PORTB &amp;= ~(1&lt;&lt;PB0);</strong></li><li>PortB pins 0 &amp; 1 must be input mode : <strong>DDRB = 0xFC;</strong></li><li>Setup properly the comparator and its interrupt (see the code)</li><li>Once in the box, avoid having the microphone wires too close to the AC wires. It will generate so much perturbation that it will be detected as 50 Hz clap-clap and your system will get crazy. Hence you can see on my pictures the wires (yellow and black) of the mic going under the pcb, avoiding AC parasites.</li></ul><br />
+<h1 id="toc6"><a name="Links"></a> Links </h1>
+<ul><li>The source, a clear and well explained usage of comparator of attiny2313 <a class="wiki_link_ext" href="http://www.tvbgone.com/mfaire/bugbot/bugbot.c" rel="nofollow" target="_blank">Source</a>  <A  href="files/bugbot.c.html">bugbot.c</a></li><li>A short but interresting introduction to interrupts on ATmega processors <a class="wiki_link_ext" href="http://www.engblaze.com/2011/10/we-interrupt-this-program-to-bring-you-a-tutorial-on-arduino-interrupts/" rel="nofollow">http://www.engblaze.com/2011/10/we-interrupt-this-program-to-bring-you-a-tutorial-on-arduino-interrupts/</a><ul><li>Keep in mind : while in an interrupt, main code don't run, timers don't tick, delay() and millis() dont work ...</li></ul></li><li>A gentleman made a more evoluted version with PWM dimming capability. A nice addition indeed! <a class="wiki_link_ext" href="http://petemills.blogspot.com/2012/01/clever-clapper.html" rel="nofollow">http://petemills.blogspot.com/2012/01/clever-clapper.html</a></li><li>Now I got where the name was coming from The Clapper : <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/The_Clapper" rel="nofollow">http://en.wikipedia.org/wiki/The_Clapper</a></li><li>A nice one : Pushing the idea further, detect clap patterns on the wall and RF to your RF-powered house applicances : <a class="wiki_link_ext" href="http://www.limpkin.fr/index.php?post/2012/02/29/Introducing-the-toktoktok-project" rel="nofollow">http://www.limpkin.fr/index.php?post/2012/02/29/Introducing-the-toktoktok-project</a></li></ul>
+    </div>
+  </body>
+</html>

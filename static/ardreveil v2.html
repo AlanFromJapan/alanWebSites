@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>kalshagar - ardReveil v2</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-ardReveil vII, its credible life"></a> ardReveil vII, its credible life </h2>
+<strong>2010-01-02</strong>: case is 30% finished, with holes for button plus card. Card is in fact made in a old Super Famicom cartridge I bought 105 JPY. Big button comes from Akizukideshi (as usual). Transparent box from Tokyu Hands. ... I love Japan. Circuit itself is finished except power part. Code is tested separately, miss assembling only.<br />
+<strong>2010-01-11</strong>: case finished, added 2 extra buttons to the rear (for going to menu mode, setting time etc), plus one led for the funk when alarm is running. However I'm facing few problems:<br />
+<ul><li>32k (well 30k because of the bootloader) is not enough for having all songs, unless I move to assembler.</li><li>Because memory is filled and I use function pointers, the code goes awry and gets crazy and crash</li><li>Playing music is not made to be &quot;multithreaded&quot; so it can't hook the button press for stop. Hell. And using Timer1 library takes too much memory and eats the PWM used for the LCD backlight. I will need to be inventive.</li></ul><strong>2010-01-12</strong>: no more problems:<br />
+<ul><li>Crashes : I noticed that my function pointer array and the constant that was declaring its size were not coherent ... hehehe my bad. Now works fine.</li><li>Space : changed from &quot;little songs&quot; to jingle, so saves a few kB, enough for adding the missing funcs. Over time maybe better to have many jingles rather than 3 mini-songs is better.</li><li>Music : since music is jingle, I'll set a 5 sec break between each song for user to be able to press the button, with the led blink etc...</li></ul><strong>2010-01-22</strong>: voila, c'est fini. Working, boxed, lots of menu to configure time, alarm, background light, music ... Took me around 2 months of work, but I've learnt a LOT of things. <br />
+<strong>2010-03-03</strong>: it's working ... so-so. When I touch it it crashes, but when my girlfriend does it works ok ... pfff, Life sucks.<br />
+<strong>FULL SOURCE CODE</strong> <A  href="files/ARD_Reveil_v2.zip.html">ARD_Reveil_v2.zip</a><br />
+<br />
+<h2 id="toc1"><a name="x-Circuit"></a> Circuit </h2>
+Note1 : power is not presented : it's the classical wallwart %20 PTC 250 mA %20 a 7805 (or alike) for stepdown to 5V. All the components are powered by the Arduino (important I think for the I2C communication with the RTC), only the Arduino gets the power from the 7805.<br />
+<ul><li>Arduino Mini Pro 16MHz 5V</li><li>RTC-8564NB (Epson Toyocom) <a class="wiki_link" href="Arduino%20and%20a%20Real%20Time%20Clock%20%28RTC%29.html">Arduino and a Real Time Clock (RTC)</a> <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-00233/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-00233/</a></li><li>Yamaha YMZ294 %20 its 4MHz crystal <a class="wiki_link" href="Arduino%20and%20a%20YMZ294.html">Arduino and a YMZ294</a>  <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-00181/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-00181/</a></li><li>LCD character screen <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-02985/" rel="nofollow">http://akizukidenshi.com/catalog/g/gP-02985/</a></li><li>Speaker 8W 8ohm <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-03285/" rel="nofollow">http://akizukidenshi.com/catalog/g/gP-03285/</a></li><li>Snooze button (big) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-02049/" rel="nofollow">http://akizukidenshi.com/catalog/g/gP-02049/</a></li><li>2 pushbuttons (namely Red and Black)</li><li>One pink led for effects</li><li>1 PTC 250 mA</li><li>1 voltage regulator 5V (LM7508) %20 2 condensator before/after</li></ul><br />
+All buttons are pulled up, like the big pushbutton. Red is used to go in or out of the menu (or means - in some menus), Black is used for changing menu, Big is used for validating or %20.<br />
+<br />
+<img src="files/ardReveil.v2.png" alt="ardReveil.v2.png" title="ardReveil.v2.png" /> <br />
+<strong>Notabene:</strong> a few modifications on this schema :<br />
+<ul><li>SIPO is moved to pins 2-3, backlight (PWM) of the LCD from pin 3 to pin 10</li><li>Pins 0-1 are left unconnected</li><li>Pins A0 = Big, A1 = Pink led, A2 = Red, A3 = Black</li></ul><br />
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/19670_228935338789_704343789_3188428_6608848_n.jpg" alt="19670_228935338789_704343789_3188428_6608848_n.jpg" title="19670_228935338789_704343789_3188428_6608848_n.jpg" style="width: 400px;" /><br />
+Left-right, top-bottom : YMZ294 chiptune, CD4015 shift register, RTC, 3v coin battery for the RTC to keep time, 4MHz crystal for the Yamaha chip, Arduino Mini Pro 16Mhz/5V<br />
+</td>
+        <td><img src="files/19670_230020948789_704343789_3194843_4854653_n.jpg" alt="19670_230020948789_704343789_3194843_4854653_n.jpg" title="19670_230020948789_704343789_3194843_4854653_n.jpg" style="width: 400px;" /><br />
+</td>
+    </tr>
+    <tr>
+        <td><img src="files/DSC06009.JPG" alt="DSC06009.JPG" title="DSC06009.JPG" style="width: 400px;" /><br />
+</td>
+        <td><img src="files/DSC06010.JPG" alt="DSC06010.JPG" title="DSC06010.JPG" style="width: 400px;" /><br />
+</td>
+    </tr>
+    <tr>
+        <td><img src="files/DSC06011.JPG" alt="DSC06011.JPG" title="DSC06011.JPG" style="width: 400px;" /><br />
+</td>
+        <td><img src="files/DSC06012.JPG" alt="DSC06012.JPG" title="DSC06012.JPG" style="width: 400px;" /><br />
+</td>
+    </tr>
+    <tr>
+        <td><img src="files/DSC06013.JPG" alt="DSC06013.JPG" title="DSC06013.JPG" style="width: 400px;" /><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+</table>
+
+
+    </div>
+  </body>
+</html>

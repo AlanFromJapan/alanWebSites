@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>kalshagar - Power considerations</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Voltage Regulator"></a> Voltage Regulator </h1>
+Why because the Arduino has one ? Well, the Arduino 2009 has a good one, to my personal experience. The arduino pro has a lame one ... meaning it dies by iteself if you feed it with 9V. So better pre-regulate the voltage before feeding it.<br />
+<br />
+<h2 id="toc1"><a name="Voltage Regulator-LM7805"></a> LM7805 </h2>
+THE voltage regulator. Feed it with something over 5V and below 12V (depends on the model, can get much higher), you get 5V out. <br />
+<br />
+<h2 id="toc2"><a name="Voltage Regulator-LM317"></a> LM317 </h2>
+Variable output voltage regulator. Give it a few resistors, and you get whatever voltage you want!<br />
+Formula is Vout = 1.25 * (1 %20 R1 / R2)<br />
+Schema and explanation here... <br />
+<ul><li><a class="wiki_link_ext" href="http://electrossama.ifrance.com/electro/C6.htm" rel="nofollow">http://electrossama.ifrance.com/electro/C6.htm</a></li><li><a class="wiki_link_ext" href="http://www.onsemi.com/PowerSolutions/product.do?id=LM317" rel="nofollow">http://www.onsemi.com/PowerSolutions/product.do?id=LM317</a></li></ul><br />
+<h1 id="toc3"><a name="Constant current"></a> Constant current </h1>
+ <ul><li>Simple design and explanation for a constant current constant voltage by the fantastic Dave Jones <a class="wiki_link_ext" href="https://www.youtube.com/watch?v=CIGjActDeoM" rel="nofollow">https://www.youtube.com/watch?v=CIGjActDeoM</a></li></ul><br />
+<h1 id="toc4"><a name="Battery life"></a> Battery life </h1>
+<ul><li><a class="wiki_link_ext" href="http://oregonembedded.com/batterycalc.htm" rel="nofollow">http://oregonembedded.com/batterycalc.htm</a></li><li><a class="wiki_link_ext" href="http://jamesrbass.com/batterylife.htm" rel="nofollow">http://jamesrbass.com/batterylife.htm</a></li></ul><br />
+<h1 id="toc5"><a name="Power consumption"></a> Power consumption </h1>
+<h2 id="toc6"><a name="Power consumption-... of batteries or IC (low power modes)"></a> ... of batteries or IC (low power modes) </h2>
+<ul><li>A very good tutorial and simple <a class="wiki_link_ext" href="http://www.surprisingedge.com/low-power-atmegatiny-with-watchdog-timer/" rel="nofollow">http://www.surprisingedge.com/low-power-atmegatiny-with-watchdog-timer/</a></li><li><a class="wiki_link_ext" href="http://interface.khm.de/index.php/lab/experiments/sleep_watchdog_battery/" rel="nofollow">http://interface.khm.de/index.php/lab/experiments/sleep_watchdog_battery/</a></li><li><a class="wiki_link_ext" href="http://fightpc.blogspot.com/2008/10/low-power-arduino.html" rel="nofollow">http://fightpc.blogspot.com/2008/10/low-power-arduino.html</a></li><li>With the atmega family, seems one of the keys is to replace the _delay_ms() with the watchdog interrupt<ul><li>A very good site with lots of articles (search by tag <em>lowpower</em>) <a class="wiki_link_ext" href="http://jeelabs.org/tag/lowpower/" rel="nofollow">http://jeelabs.org/tag/lowpower/</a><ul><li><a class="wiki_link_ext" href="http://jeelabs.org/2009/05/16/power-consumption-more-savings/" rel="nofollow">http://jeelabs.org/2009/05/16/power-consumption-more-savings/</a></li></ul></li></ul></li></ul><br />
+<h2 id="toc7"><a name="Power consumption-... of AC or wallwart"></a> ... of AC or wallwart </h2>
+<ul><li><a class="wiki_link_ext" href="http://www.picobay.com/projects/2009/01/real-time-web-based-power-charting.html" rel="nofollow">http://www.picobay.com/projects/2009/01/real-time-web-based-power-charting.html</a></li></ul><br />
+<h1 id="toc8"><a name="Optocoupler / フォトカプラ"></a> Optocoupler / フォトカプラ </h1>
+<ul><li>Shopping <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/c/cphcap/" rel="nofollow">http://akizukidenshi.com/catalog/c/cphcap/</a></li><li>Doc<ul><li><a class="wiki_link_ext" href="http://www.sonelec-musique.com/electronique_theorie_optocoupleur.html" rel="nofollow">http://www.sonelec-musique.com/electronique_theorie_optocoupleur.html</a></li><li><a class="wiki_link_ext" href="http://www.materiel-informatique.be/optocoupleur.php" rel="nofollow">http://www.materiel-informatique.be/optocoupleur.php</a></li></ul></li></ul><br />
+<h1 id="toc9"><a name="Voltage doubler / Step-up converter"></a> Voltage doubler / Step-up converter </h1>
+<h2 id="toc10"><a name="Voltage doubler / Step-up converter-Boost converter"></a> Boost converter </h2>
+<ul><li>Sample circuit calculator ! <a class="wiki_link_ext" href="http://www.ladyada.net/library/diyboostcalc.html" rel="nofollow">http://www.ladyada.net/library/diyboostcalc.html</a></li><li>Theory <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Boost_converter" rel="nofollow">http://en.wikipedia.org/wiki/Boost_converter</a></li><li>For nixies <a class="wiki_link_ext" href="http://bleuchez.wordpress.com/2011/09/05/a-low-cost-nixie-tube-power-supply/" rel="nofollow">http://bleuchez.wordpress.com/2011/09/05/a-low-cost-nixie-tube-power-supply/</a></li></ul><br />
+<br />
+<h2 id="toc11"><a name="Voltage doubler / Step-up converter-Joule Thief"></a> Joule Thief </h2>
+<ul><li>What seems to be the inspiration of many others <a class="wiki_link_ext" href="http://www.emanator.demon.co.uk/bigclive/joule.htm" rel="nofollow">http://www.emanator.demon.co.uk/bigclive/joule.htm</a></li><li>An application <em>en francais</em> <a class="wiki_link_ext" href="http://lafamillecreative.blogspot.com/2011/12/une-lampe-de-poche-immortelle.html" rel="nofollow">http://lafamillecreative.blogspot.com/2011/12/une-lampe-de-poche-immortelle.html</a></li><li>A more serious implementation but on the same idea <a class="wiki_link_ext" href="http://rayshobby.net/?page_id=1383" rel="nofollow">http://rayshobby.net/?page_id=1383</a></li><li>Another one with an IC <a class="wiki_link_ext" href="http://www.dr-iguana.com/prj_5VBoostRegulator/" rel="nofollow">http://www.dr-iguana.com/prj_5VBoostRegulator/</a></li><li><br />
+</li></ul><br />
+<h2 id="toc12"><a name="Voltage doubler / Step-up converter-With an IC"></a> With an IC </h2>
+<ul><li>Maxim MAX668 (but looks like to need lots of additional components)</li><li>Maxim MAX662 (but low output current)</li><li>This works with AC. And DC ? <a class="wiki_link_ext" href="http://www.thescienceforum.com/Any-one-know-how-i-can-build-a-Step-Up-transformer-16557t.php#img_82" rel="nofollow">http://www.thescienceforum.com/Any-one-know-how-i-can-build-a-Step-Up-transformer-16557t.php#img_82</a></li><li>With IC MAX756 <a class="wiki_link_ext" href="http://www.ladyada.net/make/mintyboost/icharge.html" rel="nofollow">http://www.ladyada.net/make/mintyboost/icharge.html</a></li></ul><br />
+<h1 id="toc13"><a name="Wall wart"></a> Wall wart </h1>
+A common problem is the power source for my projects. Nearly all need their 5v regulated power source. Not such a burden when it's anyway plugged to USB or meant to be fed by a wallwart. But when it comes to the projects like <a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a> for instance that drives already a power plug, it forces me to do some complex, annoying and questionnably safe operations &quot;ghetto style&quot;. One good solution I wander around for some time is to open one of thoses small wallwart and connect directly to the right pins (as much for the AC and the DC). The following tutorial is not so much a surprise (kinda guessed what I would find or at least how to use what's inside a wallwart) but it's the &quot;red berry experience&quot; (as Dr. House explained) : seeing someone doing makes you see that <em>you</em> can do it too...<br />
+<ul><li>Open a wallwart <a class="wiki_link_ext" href="http://www.instructables.com/id/Hack-a-Toaster-Oven-for-Reflow-Soldering/step5/USB-Wall-Charger-Hack/" rel="nofollow">http://www.instructables.com/id/Hack-a-Toaster-Oven-for-Reflow-Soldering/step5/USB-Wall-Charger-Hack/</a></li><li>Another interresting article <a class="wiki_link_ext" href="http://www.arcfn.com/2012/03/inside-cheap-phone-charger-and-why-you.html" rel="nofollow">http://www.arcfn.com/2012/03/inside-cheap-phone-charger-and-why-you.html</a></li></ul><br />
+The best thing : scavenge the trash bin. Here in Japan we sort stuff, electronic devices go to a special bin in my building threw away once a week... I already got more than 10 wallwart, 2 cd player (lots of good stuff inside), one dvd player, etc etc ... RE-CY-CLE ! It's worthless for you but so much fun for me.<br />
+<br />
+<h1 id="toc14"><a name="Protection : how to stay safe"></a> Protection : how to stay safe </h1>
+<br />
+<ul><li>Some very nice ideas and different options with pros and cons here : <a class="wiki_link_ext" href="http://digital-diy.com/general-electronics/419-power-protection-circuits.html" rel="nofollow">http://digital-diy.com/general-electronics/419-power-protection-circuits.html</a></li></ul><br />
+<h1 id="toc15"><a name="AC : Dimmers"></a> AC : Dimmers </h1>
+<ul><li><a class="wiki_link_ext" href="http://sound.westhost.com/lamps/dimmers.html" rel="nofollow">http://sound.westhost.com/lamps/dimmers.html</a></li><li><a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gK-00098/" rel="nofollow">http://akizukidenshi.com/catalog/g/gK-00098/</a></li></ul><br />
+<h1 id="toc16"><a name="Batteries Lithium ion : use them without exploding"></a> Batteries Lithium ion : use them without exploding </h1>
+We all have some of thoses laying around ... let's give a try.<br />
+<ul><li><a class="wiki_link_ext" href="http://circuitsdiy.com/simple-lm358-op-amp-based-usb-li-ion-charger" rel="nofollow">http://circuitsdiy.com/simple-lm358-op-amp-based-usb-li-ion-charger</a></li></ul><br />
+<h1 id="toc17"><a name="Transfer info over the AC wires"></a> Transfer info over the AC wires </h1>
+<ul><li>UPB clone <a class="wiki_link_ext" href="http://mrx23dot.blogspot.com/2012/01/cloning-upb-home-automation-system.html" rel="nofollow">http://mrx23dot.blogspot.com/2012/01/cloning-upb-home-automation-system.html</a></li></ul><br />
+<h1 id="toc18"><a name="Energy harvesting"></a> Energy harvesting </h1>
+From solar cells, wind, water flow... See also <strong>Voltage doubler / Step-up converter</strong> here above and <a class="wiki_link" href="Solar%20panel%20power.html">Solar panel power</a>.<br />
+<ul><li><a class="wiki_link_ext" href="http://www.digikey.com/us/en/techzone/energy-harvesting/resources/articles/step-up-micropower-voltage-boosters.html" rel="nofollow">http://www.digikey.com/us/en/techzone/energy-harvesting/resources/articles/step-up-micropower-voltage-boosters.html</a>?</li></ul><br />
+<h1 id="toc19"><a name="Current sensing"></a> Current sensing </h1>
+<ul><li>Low side detection<ul><li><a class="wiki_link_ext" href="http://www.maximintegrated.com/app-notes/index.mvp/id/746" rel="nofollow">http://www.maximintegrated.com/app-notes/index.mvp/id/746</a></li><li><a class="wiki_link_ext" href="http://www.planetanalog.com/document.asp?doc_id=527795&amp;site=planetanalog" rel="nofollow">http://www.planetanalog.com/document.asp?doc_id=527795&amp;site=planetanalog</a></li><li><a class="wiki_link_ext" href="http://www.power-eetimes.com/en/a-current-sensing-tutorial-part-ii-devices.html?cmp_id=71&amp;news_id=222904138" rel="nofollow">http://www.power-eetimes.com/en/a-current-sensing-tutorial-part-ii-devices.html?cmp_id=71&amp;news_id=222904138</a></li></ul></li></ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <title>kalshagar - Remote controlling Windows media player in C</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Remote controlling Windows media player in C#"></a>Remote controlling Windows media player in C#</h1>
+<em>I mean C# but this wiki doesnt accept # sign in the page name... anyway it is also true in C what I will say.</em><br />
+Thing is to use the message WM_APPCOMMAND that is the one used by all those recent keyboards with extra keys for sending mail, controlling volume, rebooting your pc on one click ... etc. Good thing is that even if you have less power than with the usual WM_COMMAND, the following code is the same with Windows media player, Media player classic, ...and should not change soon. (the current <a class="wiki_link" href="ardTouchConnector.html">ardTouchConnector</a> works with both the before-mentionned softwares) <br />
+<br />
+<h1 id="toc1"><a name="Code sample"></a> Code sample </h1>
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp  {font-family:monospace;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+-->
+</style><pre class="csharp"><span class="kw1">using</span> <span class="co3">System.Runtime.InteropServices</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System</span><span class="sy0">;</span>
+&nbsp;
+<span class="br0">&#91;</span>DllImport<span class="br0">&#40;</span><span class="st0">&quot;User32.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#93;</span>
+<span class="kw1">public</span> <span class="kw1">static</span> <span class="kw1">extern</span> <span class="kw4">int</span> FindWindow<span class="br0">&#40;</span><span class="kw4">string</span> strClassName, <span class="kw4">string</span> strWindowName<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#91;</span>DllImport<span class="br0">&#40;</span><span class="st0">&quot;User32.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#93;</span>
+<span class="kw1">public</span> <span class="kw1">static</span> <span class="kw1">extern</span> Int32 SendMessage<span class="br0">&#40;</span>
+    <span class="kw4">int</span> hWnd,               <span class="co1">// handle to destination window</span>
+    <span class="kw4">int</span> Msg,                <span class="co1">// message</span>
+    <span class="kw4">int</span> wParam,             <span class="co1">// first message parameter</span>
+    <span class="kw4">int</span> lParam<span class="br0">&#41;</span><span class="sy0">;</span>            <span class="co1">// second message parameter</span>
+&nbsp;
+<span class="kw1">private</span> <span class="kw1">const</span> <span class="kw4">int</span> WM_APPCOMMAND <span class="sy0">=</span> 0x0319<span class="sy0">;</span>
+<span class="kw1">private</span> <span class="kw5">System</span><span class="sy0">.</span><span class="me1">Int32</span> mWindowHandle <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//get the win handle</span>
+mWindowHandle <span class="sy0">=</span> FindWindow<span class="br0">&#40;</span><span class="st0">&quot;WMPlayerApp&quot;</span>, <span class="st0">&quot;Windows Media Player&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//the command, an int32 that has a small value usually </span>
+<span class="kw4">int</span> pCommand <span class="sy0">=</span> APPCOMMAND_MEDIA_PLAY_PAUSE<span class="sy0">;</span>
+&nbsp;
+<span class="coMULTI">/*
+ How to call the WM_APPCOMMAND:
+ * 1- Find the window handle and send the message (usual stuff)
+ * 2- 1st parameter of WM_COMMAND (aka the 3rd in the call here under) is 0 (zero)
+ * 3- The second parameter (4th in the call) is the constant value having been shifted left by 16 bite (or * 65536, that's the same) 
+ * 4- Returns 1 when happy, 0 when not happy
+ */</span>
+<span class="kw4">int</span> vCallReturn <span class="sy0">=</span> SendMessage<span class="br0">&#40;</span>mWindowHandle, WM_APPCOMMAND, 0x00000000, pCommand <span class="sy0">&lt;&lt;</span> <span class="nu0">16</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<br />
+<h2 id="toc2"><a name="Code sample-A painfully long list of constants"></a> A painfully long list of constants </h2>
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp  {font-family:monospace;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+-->
+</style><pre class="csharp"><span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BROWSER_BACKWARD    <span class="sy0">=</span>  <span class="nu0">1</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BROWSER_FORWARD     <span class="sy0">=</span>  <span class="nu0">2</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BROWSER_REFRESH     <span class="sy0">=</span>  <span class="nu0">3</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BROWSER_STOP        <span class="sy0">=</span>  <span class="nu0">4</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BROWSER_SEARCH      <span class="sy0">=</span>  <span class="nu0">5</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BROWSER_FAVORITES   <span class="sy0">=</span>  <span class="nu0">6</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BROWSER_HOME        <span class="sy0">=</span>  <span class="nu0">7</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_VOLUME_MUTE         <span class="sy0">=</span>  <span class="nu0">8</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_VOLUME_DOWN         <span class="sy0">=</span>  <span class="nu0">9</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_VOLUME_UP           <span class="sy0">=</span>  <span class="nu0">10</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_NEXTTRACK     <span class="sy0">=</span>  <span class="nu0">11</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_PREVIOUSTRACK <span class="sy0">=</span>  <span class="nu0">12</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_STOP          <span class="sy0">=</span>  <span class="nu0">13</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_PLAY_PAUSE    <span class="sy0">=</span>  <span class="nu0">14</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_LAUNCH_MAIL         <span class="sy0">=</span>  <span class="nu0">15</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_LAUNCH_MEDIA_SELECT <span class="sy0">=</span>  <span class="nu0">16</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_LAUNCH_APP1         <span class="sy0">=</span>  <span class="nu0">17</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_LAUNCH_APP2         <span class="sy0">=</span>  <span class="nu0">18</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BASS_DOWN           <span class="sy0">=</span>  <span class="nu0">19</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BASS_BOOST          <span class="sy0">=</span>  <span class="nu0">20</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_BASS_UP             <span class="sy0">=</span>  <span class="nu0">21</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_TREBLE_DOWN         <span class="sy0">=</span>  <span class="nu0">22</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_TREBLE_UP           <span class="sy0">=</span>  <span class="nu0">23</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MICROPHONE_VOLUME_MUTE <span class="sy0">=</span> <span class="nu0">24</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MICROPHONE_VOLUME_DOWN <span class="sy0">=</span> <span class="nu0">25</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MICROPHONE_VOLUME_UP <span class="sy0">=</span>  <span class="nu0">26</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_HELP                <span class="sy0">=</span>  <span class="nu0">27</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_FIND                <span class="sy0">=</span>  <span class="nu0">28</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_NEW                 <span class="sy0">=</span>  <span class="nu0">29</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_OPEN                <span class="sy0">=</span>  <span class="nu0">30</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_CLOSE               <span class="sy0">=</span>  <span class="nu0">31</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_SAVE                <span class="sy0">=</span>  <span class="nu0">32</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_PRINT               <span class="sy0">=</span>  <span class="nu0">33</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_UNDO                <span class="sy0">=</span>  <span class="nu0">34</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_REDO                <span class="sy0">=</span>  <span class="nu0">35</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_COPY                <span class="sy0">=</span>  <span class="nu0">36</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_CUT                 <span class="sy0">=</span>  <span class="nu0">37</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_PASTE               <span class="sy0">=</span>  <span class="nu0">38</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_REPLY_TO_MAIL       <span class="sy0">=</span>  <span class="nu0">39</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_FORWARD_MAIL        <span class="sy0">=</span>  <span class="nu0">40</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_SEND_MAIL           <span class="sy0">=</span>  <span class="nu0">41</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_SPELL_CHECK         <span class="sy0">=</span>  <span class="nu0">42</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_DICTATE_OR_COMMAND_CONTROL_TOGGLE  <span class="sy0">=</span> <span class="nu0">43</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MIC_ON_OFF_TOGGLE   <span class="sy0">=</span>  <span class="nu0">44</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_CORRECTION_LIST     <span class="sy0">=</span>  <span class="nu0">45</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_PLAY          <span class="sy0">=</span>  <span class="nu0">46</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_PAUSE         <span class="sy0">=</span>  <span class="nu0">47</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_RECORD        <span class="sy0">=</span>  <span class="nu0">48</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_FAST_FORWARD  <span class="sy0">=</span>  <span class="nu0">49</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_REWIND        <span class="sy0">=</span>  <span class="nu0">50</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_CHANNEL_UP    <span class="sy0">=</span>  <span class="nu0">51</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">const</span> <span class="kw4">int</span> APPCOMMAND_MEDIA_CHANNEL_DOWN  <span class="sy0">=</span>  <span class="nu0">52</span><span class="sy0">;</span></pre>
+
+<br />
+<br />
+<h1 id="toc3"><a name="Thanks"></a> Thanks </h1>
+This is all inspired from :<br />
+<a class="wiki_link_ext" href="http://www.codeproject.com/KB/cs/wmp_pinvoke.aspx" rel="nofollow">http://www.codeproject.com/KB/cs/wmp_pinvoke.aspx</a><br />
+<a class="wiki_link_ext" href="http://www.eventghost.org/forum/viewtopic.php?f=2&amp;t=319" rel="nofollow">http://www.eventghost.org/forum/viewtopic.php?f=2&amp;t=319</a><br />
+<a class="wiki_link_ext" href="http://msdn.microsoft.com/en-us/library/bb417079.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/library/bb417079.aspx</a><br />
+<a class="wiki_link_ext" href="http://msdn.microsoft.com/en-us/library/ms646275%28VS.85%29.aspx" rel="nofollow">http://msdn.microsoft.com/en-us/library/ms646275%28VS.85%29.aspx</a><br />
+<a class="wiki_link_ext" href="http://www.codeguru.com/cpp/w-p/system/keyboard/article.php/c5655/" rel="nofollow">http://www.codeguru.com/cpp/w-p/system/keyboard/article.php/c5655/</a>
+    </div>
+  </body>
+</html>

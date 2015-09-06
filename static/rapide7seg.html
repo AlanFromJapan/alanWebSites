@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>kalshagar - Rapide7seg</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<img src="files/rapide7seg.png" alt="rapide7seg.png" title="rapide7seg.png" align="right" />A small 5x5cm board to quickly use up to 4 small sized 7 segments. They are for sell for 150 JPY a pack of ten at Japan's top shop Akizuki Denshi : <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-01492/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-01492/</a><br />
+<br />
+Some points of interrests :<br />
+<ul><li>Works with a footprint for a ATmegaxxx8 family, with an ISP and crystal and power rail cap</li><li>There's 4 x 7segs, common anode, and it's planned to work with POV (you can light just one at a time)</li><li>The 7segs (%201 dot) 8 segments are driven by the PORTC entirely, PORTD controlls which 7seg you talk to.</li><li>There's room for through holes resistors (one for each pin) that can be replaced by a wire or a solder pad, same for the control resistors</li><li>The 7 segs CAN be driven by a transistor (in case you want a nice, stable, not related to the number of leds used luminosity)<ul><li>Use this if you want bright reading even in daylight : 1 transistor per 7 seg, 1 resistor to command the transistor and 7 resistor to limit current</li></ul></li><li>The 7 segs CAN be driven direclty from the uC which requires less components BUT means you short the B-E of the transistor (there's a line on the board) .<ul><li>The luminosity of the 7segs will vary according the number of segments ligthened : since current is constant and provided by the uC and you should cap it to 20-30 mA, you will have bright 1's (2 segments) and pale 8's (7 segments so 20mA /7 = 3 mA per led). Just 1 resistor per 7seg.</li></ul></li></ul><br />
+<img src="files/skull-crossbones1.gif" alt="skull-crossbones1.gif" title="skull-crossbones1.gif" />As usual, there are some things to fix:<br />
+<ul><li>Only one error but quite annoying : when I made the solder pins fields I used vias instead of the sparkfun pins... bad idea, the vias have their border covered with the resin, can't be easily soldered. You can still access the pins of the ATmega, but can't use that little space in from of it to solder other few components. Quite annoying, you have to make some wires to some other board or &quot;air wire&quot; the components on the other side of the board. Works but uncool...</li></ul>
+    </div>
+  </body>
+</html>

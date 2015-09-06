@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and a thermometer</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-Connect to a thermometer"></a> Connect to a thermometer </h2>
+Best and most common choice (for non highly demanding applications) is the <a class="wiki_link_ext" href="http://www.national.com/mpf/LM/LM35.html" rel="nofollow">LM35 from National</a> (Panasonic electronic branch).<br />
+Feed the baby with anything between 0 and 35 V (!), you get a reading between -1 and %206V on the Vout pin (in basic mode, most likely what you need; see pdf for other possibilities).<br />
+Reading returns %200.01v per degree above 0. Convert to Celsius degrees like that :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c">val <span class="sy0">=</span> analogRead<span class="br0">&#40;</span>potPin<span class="br0">&#41;</span><span class="sy0">;</span>             <span class="co1">//read the value of sensor</span>
+temperature <span class="sy0">=</span> <span class="br0">&#40;</span><span class="nu0">5</span><span class="sy0">*</span>val<span class="sy0">*</span><span class="nu0">100</span><span class="sy0">/</span><span class="nu0">1024</span><span class="br0">&#41;</span><span class="sy0">;</span>         <span class="co1">//convert voltage to temperature</span></pre>
+
+<br />
+<img src="files/LM35_TO92.PNG" alt="LM35_TO92.PNG" title="LM35_TO92.PNG" /><br />
+<br />
+<h2 id="toc1"><a name="x-Documentation"></a> Documentation </h2>
+Official documentation from National: <A  href="files/LM35.pdf.html">LM35.pdf</a><br />
+<br />
+<h2 id="toc2"><a name="x-Links"></a> Links </h2>
+<ul><li>Sample program on the Arduino forum <a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1203159459" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1203159459</a></li></ul>
+    </div>
+  </body>
+</html>

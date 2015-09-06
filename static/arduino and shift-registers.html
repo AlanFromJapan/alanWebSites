@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and Shift-registers</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="General documentation"></a> General documentation </h1>
+<ul><li><a class="wiki_link_ext" href="http://www.allaboutcircuits.com/vol_4/chpt_12/4.html" rel="nofollow">http://www.allaboutcircuits.com/vol_4/chpt_12/4.html</a></li><li><a class="wiki_link_ext" href="http://www.electronics-tutorials.ws/sequential/seq_5.html" rel="nofollow">http://www.electronics-tutorials.ws/sequential/seq_5.html</a></li><li>A nice article about 74-595 8bits SR <a class="wiki_link_ext" href="http://bildr.org/2011/02/74hc595/" rel="nofollow">http://bildr.org/2011/02/74hc595/</a></li></ul><br />
+<h2 id="toc1"><a name="General documentation-ON 74LS164 - 8bit Serial-in / Parallel-out"></a> ON 74LS164 - 8bit Serial-in / Parallel-out </h2>
+<A  href="files/74LS164.pdf.html">74LS164.pdf</a><br />
+<br />
+<h2 id="toc2"><a name="General documentation-74HC595 - 8bit Serial-in / Parallel-out (with output latch)"></a> 74HC595 - 8bit Serial-in / Parallel-out (with output latch) </h2>
+<ul><li>Can be driven with 3 pins (and use the latch function) or just 2 (no latch)<ul><li>Sample of the 2-wire mode here <a class="wiki_link_ext" href="http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html" rel="nofollow">http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html</a></li></ul></li><li>Arduino doc here : <a class="wiki_link_ext" href="http://www.arduino.cc/en/Tutorial/ShiftOut" rel="nofollow">http://www.arduino.cc/en/Tutorial/ShiftOut</a></li><li>Doing soft PWM with 74HC595 <a class="wiki_link_ext" href="http://www.elcojacobs.com/shiftpwm/" rel="nofollow">http://www.elcojacobs.com/shiftpwm/</a></li></ul><br />
+<h2 id="toc3"><a name="General documentation-TI SN74198 - 8 bit Serial-in Parallel-in / Parallel-out"></a> TI SN74198 - 8 bit Serial-in Parallel-in / Parallel-out </h2>
+<A  href="files/SN74198.pdf.html">SN74198.pdf</a><br />
+<br />
+<h2 id="toc4"><a name="General documentation-Fairchild CD4014 - 8 bits shift register"></a> Fairchild CD4014 - 8 bits shift register </h2>
+Accepts parallel or serial in, and gives parallel or serial out<br />
+<ul><li><a class="wiki_link_ext" href="http://www.doctronics.co.uk/4014.htm" rel="nofollow">http://www.doctronics.co.uk/4014.htm</a></li></ul><br />
+<h2 id="toc5"><a name="General documentation-Fairchild CD4015 - Dual 4 bits shift register"></a> Fairchild CD4015 - Dual 4 bits shift register </h2>
+ <A  href="files/CD4015.pdf.html">CD4015.pdf</a><br />
+<ul><li><a class="wiki_link_ext" href="http://www.doctronics.co.uk/4015.htm" rel="nofollow">http://www.doctronics.co.uk/4015.htm</a></li></ul><br />
+For the CD4015, make it a 8 bit by simply linking 4bit SIPO A &amp; B:<br />
+<ul><li>Link Output A4 to Data B</li><li>Link the clock A &amp; B together and reset A &amp; B together</li><li>Push data only through Data A</li><li>Read 8 bit A1 A2 A3 A4 B1 B2 B3 B4</li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co1">//Shift register write method</span>
+<span class="kw4">void</span> shiftReg_Write <span class="br0">&#40;</span>byte pByte<span class="br0">&#41;</span><span class="br0">&#123;</span>
+  <span class="co1">//i must be a int, if you put a byte if crash on the uC</span>
+  <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">7</span> <span class="sy0">;</span> i <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">--</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    byte v <span class="sy0">=</span> <span class="br0">&#40;</span>pByte <span class="sy0">&gt;&gt;</span> i<span class="br0">&#41;</span> <span class="sy0">&amp;</span> B00000001<span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>v <span class="sy0">==</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+      digitalWrite<span class="br0">&#40;</span>CD4015_DATA<span class="sy0">,</span> HIGH<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="br0">&#123;</span>
+      digitalWrite<span class="br0">&#40;</span>CD4015_DATA<span class="sy0">,</span> LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    digitalWrite<span class="br0">&#40;</span>CD4015_CLOCK<span class="sy0">,</span> LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+    delayMicroseconds<span class="br0">&#40;</span><span class="nu0">15</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//needs average of 15us</span>
+    digitalWrite<span class="br0">&#40;</span>CD4015_CLOCK<span class="sy0">,</span> HIGH<span class="br0">&#41;</span><span class="sy0">;</span>
+    delayMicroseconds<span class="br0">&#40;</span><span class="nu0">15</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//needs average of 15us //&lt;- IMPORTANT!</span>
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+
+    </div>
+  </body>
+</html>

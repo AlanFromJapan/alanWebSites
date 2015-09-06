@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino programmer</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+I have a nice <strong>AVR ISP mkII</strong> and I'm living a happy relation ship with it, a nice <em>menage a trois</em> with <strong>Atmel Studio 6</strong>. But recently (2014/01/13) I bought a <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Fukubukuro" rel="nofollow" target="_blank">lucky bag</a> at one of my favorites shop Akizukidenshi in Akihabara. Inside there was a handful of old discontinued ATmel chips like <a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?module=Freaks%20Devices&amp;func=displayDev&amp;objectid=48" rel="nofollow" target="_blank">AT90S4414</a>  or Attiny26L that can not be programmed with Atmel Studio 6. <br />
+<br />
+Ok so solution is to use avrdude and the avg-gcc solution. So far so good. But to use the AVR ISP mkII I need to install alternate drivers, which I did try. <br />
+And there started problems: both drivers can't work <em>at the same time</em> (of course) means that I can use my programmer with Atmel Studio 6 or with avrdude, not both (unless some driver switching magic). So let's dig in that pile of various Arduinos I have and make something useful.<br />
+<br />
+<h2 id="toc1"><a name="Purpose-Documentations"></a> Documentations </h2>
+<ul><li>Some guys having the same issue <a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=printview&amp;t=132953&amp;start=20" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=printview&amp;t=132953&amp;start=20</a></li><li>A nice explanation of how to do this <a class="wiki_link_ext" href="http://letsmakerobots.com/node/35649" rel="nofollow">http://letsmakerobots.com/node/35649</a></li><li>Firmware <a class="wiki_link_ext" href="http://arduino.cc/en/Tutorial/ArduinoISP" rel="nofollow">http://arduino.cc/en/Tutorial/ArduinoISP</a></li></ul>
+    </div>
+  </body>
+</html>

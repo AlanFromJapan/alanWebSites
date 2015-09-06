@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>kalshagar - Fixing a gameboy</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+<h1 id="toc0"><a name="Why fixing a gameboy"></a> Why fixing a gameboy </h1>
+Recently I went to <strong>Super Potato</strong> <a class="wiki_link_ext" href="http://www.superpotato.com/" rel="nofollow">http://www.superpotato.com/</a> and bought a original Gameboy for 300 JPY (roughly 2.5 euro) marked as junk. It means wether it works or not, they don't care (most likely something is awry).<br />
+Well, mine has a few issues:<br />
+<ul><li>A few dead columns on the left hand (let say 3-4)</li><li>Screen protector lid fell</li><li>Dirty</li></ul><br />
+<h1 id="toc1"><a name="How to fix dead columns"></a> How to fix dead columns </h1>
+Seems it can be fixed by applying pressure or quick reflow on the connector. Tried, works <strong>PERFECTLY</strong>. <br />
+Basically, <br />
+<ol><li>Open up, get access to the screen, put some battery at the back or wallwart, you must do this with power ON</li><li>Remove the black rubber sticker over the screen connector, just at the bottom of the screen. Be nice and don't rip off the connector itself.</li><li>Apply heat with a 30w iron. Don't worry for the brown connector, it won't melt, it's kapton. Don't try to burn it neither. Use moderate strength, but use it.</li><li>While heating, check for the other columns that will go blinking. In my case at first everything seemed worse, but when cooling and remounting, it all went fine.</li></ol><br />
+It just works fine (do it with gameboy on to check the result). It's quite scarry because while doing it lots of other columns seem to die too and looks like a fool's job, but no worries, in the end you have your gameboy back (with a bit of luck). See the pointers here under for operation details, all credits go to them.<br />
+Documentation is here :<br />
+<ul><li><a class="wiki_link_ext" href="http://8bc.org/forums/viewtopic.php?id=5679&amp;p=1" rel="nofollow">http://8bc.org/forums/viewtopic.php?id=5679&amp;p=1</a></li><li><a class="wiki_link_ext" href="http://wiki.answers.com/Q/How_do_you_fix_invincible_lines_on_original_game_boy_screen" rel="nofollow">http://wiki.answers.com/Q/How_do_you_fix_invincible_lines_on_original_game_boy_screen</a></li><li>Hall of fame <a class="wiki_link_ext" href="http://hackaday.com/2011/04/10/hackaday-links-april-10-2011/" rel="nofollow">http://hackaday.com/2011/04/10/hackaday-links-april-10-2011/</a></li></ul><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/2011-04-02_11.27.30c.jpg" alt="2011-04-02_11.27.30c.jpg" title="2011-04-02_11.27.30c.jpg" /><br />
+</td>
+        <td><img src="files/2011-04-02_12.41.31b.jpg" alt="2011-04-02_12.41.31b.jpg" title="2011-04-02_12.41.31b.jpg" /><br />
+</td>
+    </tr>
+    <tr>
+        <td>Before : you can clearly see vertical dead pixel columns on the left. The rubber is already removed, apply heat and moderate strength on the left side.<br />
+</td>
+        <td>After: perfect! When I finished the heat-resolder part, 2 columns were still dead, but after mounting everything back (and don't ask me why), everything is as brand new (^_~)b<br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h1 id="toc2"><a name="Fix the screen lid"></a> Fix the screen lid </h1>
+Remove the remaining glue (acetone and/or sandpaper), but don't overdo it like me or the gray border will vanish (T_T) I will have to polish it and remove completely to fix my mistake.<br />
+<br />
+<img src="files/2011-04-02_12.03.57b.jpg" alt="2011-04-02_12.03.57b.jpg" title="2011-04-02_12.03.57b.jpg" /><br />
+When unpolishing the screen, stick it to the table with nylon tape so you can work safe, and sand-paper it.<br />
+<br />
+<h1 id="toc3"><a name="Clean it up"></a> Clean it up </h1>
+Open the gameboy, take the cover to the sink and brush ! Soap and sponge, acetone and toothbrush, you can get something quite ok as a result.<br />
+<br />
+<h1 id="toc4"><a name="Change the led color"></a> Change the led color </h1>
+<h2 id="toc5"><a name="Change the led color-Low voltage forward leds : red, green, blue"></a> Low voltage forward leds : red, green, blue </h2>
+Veeeery easy, you just replace the led <em>to the condition that your led will shine with 2.7v</em> : <br />
+<ol><li>Open the gameboy</li><li>locate the front pcb with the screen</li><li>Unsolder the through-hole red led. I just used some copper solder wick, remove the solder, remove the led</li><li>Put a 3mm led instead (blue for me) and care for the polarity<ol><li>You might need a resistor to limit the current though the led. I didn't measure it, but led made lots of progress of the last 20 years in terms of efficiency and my blue led is waaaay too bright, you can't look the screen in front. A small resistor or depolishing the led with sandpaper might do the trick. Maybe both. (<strong>edit:</strong> my option was the depolishing with sandpaper and it works very nicely)</li></ol></li><li>Cut the legs and reassemble : tadaaa♪ you have your custom gameboy</li></ol><br />
+<h2 id="toc6"><a name="Change the led color-Higher voltage forward : white"></a> Higher voltage forward : white </h2>
+You will have to add an additional step to the end of the here above procedure : you need to augment the voltage by diminishing the value of the led resistor (labelled R8 on a gameboy pocket). By the way gameboy is a 5v device, there's a buck booster inside.<br />
+By default value is 46 kOhm (which is a lot) and cause a red led (lowest voltage forward) to shine ok (specially seen from front) but will cause your white led to barely light up. <br />
+Two options :<br />
+<ul><li>The hard way : replace the led with another SMD led. Careful it's extra small, you need a sure hand to solder it : hard but doable. As I said, name is R8 on a gameboy pocket and value is 46 kOhm =&gt; label says &quot;463&quot;</li><li>The easy way : hey, you noticed that just above and just under that resistor there are 2 vias? And did you noticed that they have just the width of a 1/4 watt resistor leg? Well I did. Stick the led in those holes, solder the vias (there's a small border, it's doable, no worries) and you have just made a nice parallel resistor !<ul><li>Explanation : 2 resistor in parallel become a resistor with value R = (R1 x R2) / (R1 %20 R2). Hint : if you put a big resistor and a smaller resistor, the result will be around the smallest one value.</li><li>My case : I tested on a breadboard with a potentiometer to find the approximate resistance I needed : about 3 kOhm give a dim yet nice brightness with my white led (remember it will be right in your face, don't make it too bright). I found a 2.4 kOhm resistor in my box, a little math says that R = (R1 x R2) / (R1 %20 R2) with R1 = 46,000 and R2 = 2,400 makes R = 2,280. Soldered, measured : results are according theory for once! Works nicely, maybe a little dim but better that then too bright, no?</li></ul></li></ul><br />
+<img src="files/2014-01-15-23-53-12_deco.jpg" alt="2014-01-15-23-53-12_deco.jpg" title="2014-01-15-23-53-12_deco.jpg" /><br />
+<em>Surrounding <strong>R8</strong> resistor, the 2 vias have just the right size to welcome a parallel resistor...</em><br />
+<img src="files/2014-02-04-23-43-35_deco.jpg" alt="2014-02-04-23-43-35_deco.jpg" title="2014-02-04-23-43-35_deco.jpg" /><br />
+<em>Pink led on a Silver Gameboy pocket. Not bad right? Used a <strong>1.5kOhm</strong> resistor in parallel of <strong>R8</strong> for this pink led that would not even light with default resistor. </em>
+    </div>
+  </body>
+</html>

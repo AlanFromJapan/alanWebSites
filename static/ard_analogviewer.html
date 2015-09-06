@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>kalshagar - ARD_AnalogViewer</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-Input"></a> Input </h2>
+Connects to the COM port and reads LINE PER LINE (in other works, expects a new line between each values) a STRING (1023, 289, 2) that is interpreted as an int and displayed. Better have your value between 0..1024, don't know the result if you put something else...<br />
+<br />
+Nota bene :<br />
+<ul><li>Port is fixed (sorry, I'm lazy) COM16 ... I'll make it changeable soon</li><li>Baudrate is fixed (same excuse) 115200</li></ul><br />
+The graph is done with the wonderful component zedGraph written in c# and fully free : please use it. <br />
+<ul><li><a class="wiki_link_ext" href="http://www.codeproject.com/KB/graphics/zedgraph.aspx" rel="nofollow">http://www.codeproject.com/KB/graphics/zedgraph.aspx</a></li><li><a class="wiki_link_ext" href="http://zedgraph.org/wiki/index.php?title=Main_Page" rel="nofollow">http://zedgraph.org/wiki/index.php?title=Main_Page</a></li></ul><br />
+<h2 id="toc1"><a name="x-Download"></a> Download </h2>
+
+
+<table class="wiki_table">
+    <tr>
+        <td>Version<br />
+</td>
+        <td>23/06/2009<br />
+</td>
+    </tr>
+    <tr>
+        <td>Bin (C# \ .NET 2.0 \ Windows)<br />
+</td>
+        <td><A  href="files/ARD_AnalogView.bin.zip.html">ARD_AnalogView.bin.zip</a><br />
+</td>
+    </tr>
+    <tr>
+        <td>Src (C# \ .NET 2.0 \ Windows)<br />
+</td>
+        <td><A  href="files/ARD_AnalogView.src.zip.html">ARD_AnalogView.src.zip</a><br />
+</td>
+    </tr>
+</table>
+
+<br />
+<br />
+<h2 id="toc2"><a name="x-Pictures"></a> Pictures </h2>
+<img src="files/analogViewerScreenshot.jpg" alt="analogViewerScreenshot.jpg" title="analogViewerScreenshot.jpg" />
+    </div>
+  </body>
+</html>

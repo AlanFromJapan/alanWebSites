@@ -1,0 +1,215 @@
+<html>
+  <head>
+    <title>kalshagar - TouchSlideExt</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="TouchSlideExt library"></a> TouchSlideExt library </h1>
+Adds some functionalities to my TouchSlide project without changing the kernel or coding in your program again and again.<br />
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Current version</strong><br />
+</td>
+        <td>0.1<br />
+</td>
+    </tr>
+    <tr>
+        <td><strong>Current version release date</strong><br />
+</td>
+        <td>19/07/2009<br />
+</td>
+    </tr>
+    <tr>
+        <td><strong>Current version release</strong><br />
+</td>
+        <td><ul><li>Many stuffs (see under)<ul><li>Image utility</li><li>Screen saver</li><li>Buttons management</li></ul></li><li>...</li><li>Works fine (^o^)v</li></ul></td>
+    </tr>
+    <tr>
+        <td><strong>Current version bin/src</strong><br />
+</td>
+        <td><strong>Source</strong> <br />
+<ul><li><A  href="files/TouchSlideExt.v0.1.zip.html">TouchSlideExt.v0.1.zip</a></li></ul></td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc1"><a name="TouchSlideExt library-Structure"></a> Structure </h2>
+<ul><li><span style="font-family: 'Courier New', Courier, monospace">TouchSlideExt.h</span> : types and signatures<ul><li><span style="font-family: 'Courier New', Courier, monospace">TouchSlideExt.cpp</span> : some functions for images in the memory (list known, show one by one, show by index,...)</li><li><span style="font-family: 'Courier New', Courier, monospace">ScreenSaver_Bees.cpp</span> : a screen saver with bees (little flying '%20')</li><li><span style="font-family: 'Courier New', Courier, monospace">ScreenSaver_Boxes.cpp</span> : a screen saver with bouncing boxes</li><li><span style="font-family: 'Courier New', Courier, monospace">ARDTButtons.cpp</span> : TouchSlide button management, drawing, definition... (see under)</li><li><span style="font-family: 'Courier New', Courier, monospace">ARDTButtonsPanels.cpp</span> : extension of the above, manages the Panels (set of buttons) and add MVC (Model-View-Controlled) like navigation, plus confirmation screens and all the panels definitions (see under)</li></ul></li></ul><br />
+<h2 id="toc2"><a name="TouchSlideExt library-ARDTButtons.cpp"></a> <span style="font-family: 'Courier New', Courier, monospace">ARDTButtons.cpp</span> </h2>
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co1">///////////////////////////////////////////////////////////////////////////////////</span>
+<span class="co1">// Structures</span>
+<span class="co1">//ARDTButton struct definition</span>
+<span class="co1">//uses char* to save space : no need to copy the text here, referencing it in the string zone is sufficient (no change)</span>
+<span class="kw4">typedef</span> <span class="kw4">struct</span> <span class="br0">&#123;</span>
+  byte attributes<span class="sy0">;</span> <span class="co1">//see under</span>
+  RECT rect<span class="sy0">;</span> <span class="co1">//wether fixed or not, this is where the button has been drawn</span>
+  <span class="kw4">char</span><span class="sy0">*</span> label<span class="sy0">;</span> <span class="co1">//label of the button (displayed in info bar)</span>
+  <span class="kw4">char</span> code<span class="sy0">;</span> <span class="co1">//code that will be sent to the PC</span>
+  <span class="kw4">long</span> bgcolor<span class="sy0">;</span> <span class="co1">//background color (coded on a long)</span>
+  <span class="kw4">long</span> forecolor<span class="sy0">;</span> <span class="co1">//text color (coded on a long)</span>
+  byte imageIndex<span class="sy0">;</span> <span class="co1">//255: it's a text button, 254 : image by name, otherwise the index of the image</span>
+  <span class="kw4">char</span><span class="sy0">*</span> imageName<span class="sy0">;</span> <span class="co1">//if it is a image button by name, the name of the image</span>
+<span class="br0">&#125;</span> ARDTButton<span class="sy0">;</span>
+&nbsp;
+<span class="co2">#define BUTTON_ATTRIBUTE_AUTOPOSITION 1</span>
+<span class="co2">#define BUTTON_ATTRIBUTE_HASBORDER 2</span>
+<span class="co2">#define BUTTON_ATTRIBUTE_HASCONFIRMATION 4</span>
+<span class="co2">#define BUTTON_ATTRIBUTE_BGGRADIENT 8</span>
+<span class="co2">#define BUTTON_ATTRIBUTE_NOPADDING 16 //dont make smaller to keep some space around the button</span>
+&nbsp;
+<span class="co1">//Buttons management</span>
+<span class="co2">#define BUTTONS_COUNT 20 //max number of buttons allowed on one screen</span></pre>
+
+<br />
+Each button has the following structure. CURRENT buttons are kept in a array of BUTTONS_COUNT length. Some functions give you the number of buttons, access to the array, etc. Buttons can be with an image or with color and text. One button can be defined as DisplayLabel : use this one to display text or message on the screen instead of writing somewhere: use the showMessage().<br />
+Most useful functions :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co1">///////////////////////////////////////////////////////////////////////////////////</span>
+<span class="co1">// Buttons</span>
+ARDTButton<span class="sy0">*</span> getAllButtons <span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+ARDTButton<span class="sy0">*</span> getDisplayLabel <span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+byte getAllButtonsCount <span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//Draws a button</span>
+<span class="kw4">void</span> drawARDTButton <span class="br0">&#40;</span>ARDTButton<span class="sy0">&amp;</span> pButton<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="co1">//draw all</span>
+<span class="kw4">void</span> drawAllButtons<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="co1">//Shows a text in the text zone</span>
+<span class="kw4">void</span> showMessage<span class="br0">&#40;</span><span class="kw4">char</span><span class="sy0">*</span> pS<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw4">void</span> showMessage<span class="br0">&#40;</span><span class="kw4">char</span><span class="sy0">*</span> pS<span class="sy0">,</span> byte pFontSize<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//Returns the button that is at a given coordinate</span>
+ARDTButton<span class="sy0">*</span> getButtonAt <span class="br0">&#40;</span>Point p<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<br />
+<h2 id="toc3"><a name="TouchSlideExt library-ARDTButtonsPanels.cpp"></a> <span style="font-family: 'Courier New', Courier, monospace">ARDTButtonsPanels.cpp</span> </h2>
+Panel is a set of buttons that work together. Each panel has a unique id. You can navigate by asking to go to a special panel. Some special panel exist such as the PANEL_YESNO that is used to ask for confirmation by showConfirmMessage().<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co1">///////////////////////////////////////////////////////////////////////////////////</span>
+<span class="co1">// Panels</span>
+<span class="co1">//moves to a defined panel</span>
+<span class="kw4">void</span> gotoPanel<span class="br0">&#40;</span>byte pPanelId<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="co1">//moves to a defined panel</span>
+bool showConfirmMessage<span class="br0">&#40;</span><span class="kw4">char</span><span class="sy0">*</span> pMessage<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="co1">//gets the id of the current panel</span>
+byte getCurrentPanel<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">;</span></pre>
+
+
+    </div>
+  </body>
+</html>

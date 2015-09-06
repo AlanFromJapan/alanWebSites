@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>kalshagar - Auto USB power box</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+<img src="files/thumb_UsbPowBox.jpg" alt="thumb_UsbPowBox.jpg" title="thumb_UsbPowBox.jpg" align="right" />When the pc starts up (<a class="wiki_link" href="ardPlayer%20tokens.html">the one under the TV that plays music with RFID</a>) I'd like the power of the 2.1 speaker system to turn on. Same, when I turn the pc off, I'd like the power of the speaker system to stop. Indeed, there is a manual power switch and lazy as I am, I can't not forget it...<br />
+<br />
+<strong>20101208:</strong> 1h hour of job, it's done. Problem, I picked the wrong wallwart, the one I wanted to command spits 12V/3A which is too much for the 2A rated SSR. I have to go for a bigger relay. Still, this one turns on some <a class="wiki_link" href="MagicSango.html">nice ambient light thing</a> .<br />
+<strong>20111122:</strong> OMG I just discovered it is a wellknown concept in Denmark! (not <em>my</em> stuff, I mean the idea) There is something great in the kingdom of Denmark ... <a class="wiki_link_ext" href="https://sites.google.com/site/rasmusprojects/standby-0w" rel="nofollow">link</a><br />
+<br />
+<h1 id="toc1"><a name="Schema"></a> Schema </h1>
+USB powered, when the PC is on, 5V (max 500 mA) is sourced and turns on a little relay (maybe Solid State Relay). Stick between power and the relay command a diode (avoid short circuits). I initially wanted to put a resistor also but one I measured the current going through it was only 20mA anyway. So I let it like that with the big diode protecting the %20 pin.<br />
+The 2 leds %20 resistor are here only for the bling-bling. They are not in serial with the relay command, but it forms another loop around the USB power.<br />
+<img src="files/Auto_USB_power_box.png" alt="Auto_USB_power_box.png" title="Auto_USB_power_box.png" /><br />
+<em>Version 1 schema (basically also version 2 since it's quite trivial)</em><br />
+<em>Edit: this schema could use a small 100 ohm resistor before the diode to command the SSD, I never thought at the time to check the current consumption...</em><br />
+<br />
+<br />
+<h2 id="toc2"><a name="Schema-Parts"></a> Parts </h2>
+<img src="http://akizukidenshi.com/img/goods/L/I-03236.JPG" alt="external image I-03236.JPG" title="external image I-03236.JPG" align="right" /><br />
+<h3 id="toc3"><a name="Schema-Parts-Version 1 : Solid State Relay, max 2A"></a> Version 1 : Solid State Relay, max 2A </h3>
+<ul><li>One electric cable 1m : 100 JPY</li><li>One usb cable : 100 JPY</li><li><a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-03236/" rel="nofollow" target="_blank">Solid State Relay 240V/2A</a>  : 250 JPY</li><li>1 diode 1N4007, 2 leds, 100 ohm resistor : 100 JPY</li></ul>Total : around 500 JPY<br />
+<br />
+<h3 id="toc4"><a name="Schema-Parts-Version 2 : Solid State Relay kit from Akizukidenshi , max 25A"></a> Version 2 : Solid State Relay kit from <a class="wiki_link_ext" href="http://akizukidenshi.com/" rel="nofollow" target="_blank">Akizukidenshi</a> , max 25A </h3>
+<ul><li>One electric cable 1m : 100 JPY</li><li>One usb cable : 100 JPY</li><li><a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gK-00203/" rel="nofollow" target="_blank">Solid State Relay kit 100V/20A</a>  : 250 JPY</li></ul>Total : around 500 JPY<br />
+<br />
+In this version, no protection nothing before the Optocoupler, just plugged to USB. There is a 300 ohm serial resistor, around 10mA will flow to trigger it.<br />
+<br />
+<h1 id="toc5"><a name="Pictures"></a> Pictures </h1>
+<h2 id="toc6"><a name="Pictures-Version 1 : Solid State Relay, max 2A"></a> Version 1 : Solid State Relay, max 2A </h2>
+<img src="files/2010-12-08_00.12.23.jpg" alt="2010-12-08_00.12.23.jpg" title="2010-12-08_00.12.23.jpg" style="width: 500px;" /><br />
+<em>In yellow, the Solid State Relay. In green, 2 green leds %20 a 100 ohm resistor in serial</em><br />
+<img src="http://lh6.ggpht.com/_guyITpquorQ/TP5QlVNKiuI/AAAAAAAAIJ8/ihWi4mUjA7c/s912/2010-12-08%2000.17.30.jpg" alt="external image 2010-12-08%2000.17.30.jpg" title="external image 2010-12-08%2000.17.30.jpg" style="width: 500px;" /><br />
+<em>Everything in the box when the USB is on (yeah yeah bling bling, I know, but I have 100 leds to use so...)</em>
+    </div>
+  </body>
+</html>

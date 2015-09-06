@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>kalshagar - Rapide64a</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Rapide64a"></a> Rapide64a </h1>
+A quick board for using the <a class="wiki_link" href="atmega64a.html">atmega64a</a> a cheap and full of pins atmega series micro controller. The board has such a shape to be plugged on a recently acquired 8x8 RGB led matrix.<br />
+<br />
+<strong>Eagle files</strong> : <a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FRapide64a" rel="nofollow">https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FRapide64a</a><br />
+<br />
+<h2 id="toc1"><a name="Rapide64a-Projects using it"></a> Projects using it </h2>
+<ul><li><a class="wiki_link" href="RGB%20matrix%20display.html">RGB matrix display</a> using the matrix to display time</li></ul><br />
+<span style="
+display: block;
+border:solid 2px black;
+margin-left: 20px;
+margin-right: 20px;
+padding:20px;"><strong>README how to fix the bug on board v1.0</strong><br />
+There's an error on the v1.0 version : the SPI programming pins are NOT the labelled MISO/MOSI ones (see <a class="wiki_link" href="atmega64a.html">atmega64a</a>). To use that version, <strong>cut the 2 traces on the top side of the board</strong> (the <span style="color: #ff0000;">red </span>lines circled in <span style="color: #daa420;">yellow</span>) and put 2 <a class="wiki_link_ext" href="http://www.catb.org/jargon/html/B/blue-wire.html" rel="nofollow" target="_blank">blue wires</a>  from PE0 and PE1 to the SPI programmer.<br />
+</span><br />
+<img src="files/rapide64a-errorfix.png" alt="rapide64a-errorfix.png" title="rapide64a-errorfix.png" />
+    </div>
+  </body>
+</html>

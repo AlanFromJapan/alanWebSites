@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>kalshagar - Around a SNES</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Found a SNES in the garbage"></a> Found a SNES in the garbage </h1>
+<img src="files/20120829_082512.jpg" alt="20120829_082512.jpg" title="20120829_082512.jpg" style="width: 200px;" align="right" /> <strong>2011-10-11 :</strong> everything is said, found a SNES in the garbage. I might reuse it as a SNES, although there is the emulator on my Wii, or (insert mad scientist laugh) use the case of the SNES for my <a class="wiki_link" href="ardPowerSwitch.html">ardPowerSwitch</a> project and case the SNES (if working) in something else !<br />
+<strong>2012-04-11 :</strong> auction on Yahoo, got a junk SNES with 2 pads and cable for about 2000 JPY (around 20 euro). A bit expensive but if I can make it revive I can sell back one of the two on internet... I can start thinking of the arcade pad... expecially since I found a small flat portable TV/DVD player in the garbage (it's working of course, I love Japan).<br />
+<strong>2012-04-27 :</strong> bought an extra video cable for 2.5 USD on ebay working fine. Bought the arcade style buttons and joystick, tested the connection to the TV (works ok)... now just have to make an arcade controller as proof of concept and we'll think of the arcade design.<br />
+<strong>2012-07-31 :</strong> well ... I left it on the side but it's not working much for now. My problem is to answer in a timely fashion to the SNES it think.<br />
+<strong>2012-08-01 :</strong> key is 1) 2 signal so use 2 interrupts pins and 2) for reading the button input status it's PINB not PORTB (used for <em>writing</em> status) ... (sigh) Things should move much faster now.<br />
+<strong>2012-08-02 :</strong> yeah indeed, now it's working just fine. One thing to know, doing bit masks with 16bits value can confuse the compiler. Force it to work 16bits in that case with an explicit cast. my16bit ^= (uint16_t)(1 &lt;&lt; 7); Now I can send nicely <em>start</em> and <em>right</em>, I'll start building the housing cabinet and we're just a few solder away of the result!<br />
+<strong>2012-10-10 :</strong> finally it's working. Main issue was timing so I rewrote everything in ASM. However I had still a few issues fixed with the <a class="wiki_link_ext" href="http://www.zeroplus.com.tw/logic-analyzer_en/products.php?pdn=1&amp;product_id=252" rel="nofollow" target="_blank">logic analyzer</a>  bought this week (couldn't have without it). Final error was the attiny2313 that was finally dead and did weird things all the time. Replaced with another one, it's working nicely now (^^)<br />
+<br />
+<h1 id="toc1"><a name="Controller : SNES controller emulator with a ATtiny2313"></a> Controller : SNES controller emulator with a ATtiny2313 </h1>
+<img src="files/snescontroller.png" alt="snescontroller.png" title="snescontroller.png" align="right" />I'll make my own one <em>without</em> scavenging an existing one. Finally found one guy who did it, and decided to make it my way. Controller is a <a class="wiki_link" href="Attiny2313.html">Attiny2313</a>, internal oscillator 8MHz, code in assembler.<br />
+It took lots of trial and errors : with the right method took only a couple hours, but it took me months on and off to figure it out : use <u>interrupts</u> ! I won't detail SNES controller protocol here, check the links for that but let's settle this once and for all : the <strong>SNES reads on RISING hedge of CLOCK</strong>. My controller uses 2 interrupts plugged on LATCH (INT1 - PD3) and CLOCK (INT0 - PD2) pins, matching the following chronogram :<br />
+<ol><li>LATCH goes UP then DOWN (for 12 uS) :<ol><li>uC push the first button status on the DATA wire, so that when the SNES will read, the value is already here. (on RISING hedge)</li></ol></li><li>CLOCK goes DOWN (warning to the controller to get reading):<ol><li>SNES notifies that it will read on the CLOCK RISING hedge in 6uS : do nothing (value are written on RISING in my code)</li></ol></li><li>CLOCK goes UP (SNES reads value pin):<ol><li>SNES has just read what was on the DATA</li><li>INT0 : by the time uC reacts, reading by SNES is finished, so set the value of the next button (will take btw 4 to 9 uS : you have 12 uS before next clock rising hedge)</li><li>do that 16x and loop 60 times a minute</li></ol></li></ol><br />
+Why not just redo and copy summary <a class="wiki_link_ext" href="http://www.flickr.com/photos/daniel_ericka/5399245118/in/set-72157625933226212/" rel="nofollow" target="_blank">another guy's job</a>  ? It wouldn't have bothered me to do so if I could have said I understood what the other guy did (used chip internal USI, smart move). But honnestly that was not some job I could have redone myself, so I took the pretext to work on asm and interrupts and build up my own competence one step at a time. Now you have another way to do it, less elegant but not ugly, and working nicely. <br />
+<br />
+The code is in summary reading the button status and storing the result in a word (16 bits). At the start of the sending session, use a cursor from 0 to 15, create a bit mask (1 &lt;&lt; n) and send the status. Agreed, a few weeks after, it all seem to me a non optimized way of doing the job (not wrong, yet not appropriate with my time constraint). That's how I wrote it in C and I tried to translate it to asm... which I did, but painfully.<br />
+<br />
+Just to point it out, the main challenge here was the timing. Running at about 8MHz you have 8 cycle every 1us, and between each front of the clock 6 uS (double if you cheat like I did), so it gives you at maximum 48 cycles, minus the interruption, jump, ... you better think ahead your data structure to make things fast. I learnt a lot of with that relatively simple exercise and there is still a lot to learn to make it super optimized (there's plenty of room for improvement in my code). Maybe if I make another SNES cabinet...<br />
+<br />
+<span style="
+text-align:left;
+background-color:whitesmoke;
+display: block;
+padding-left:1cm;"><br />
+<span style="font-size:28pt;font-weight:bold;">➮</span> About the timing issue, to gain a few cycle an alternative was to precalculate some data, store in SRAM, load it from SRAM. Mainly for the shifting of bit mask, since you can shift only one rank at a time (and it eats your precisous cycles). Even better, the whole status of the buttons could have been stored in a byte array in memory and read one by one too (super fast I think). But you only have those ideas once you have banged your head for weeks on the wall and finaly got it work the way you imagined at first (sigh). Next time I write such a controller, I'll use this solution (way better).<br />
+<br />
+</span><br />
+<br />
+<img src="files/snes%20timing.jpg" alt="snes timing.jpg" title="snes timing.jpg" /><br />
+<em>Sample chronogram : A0 is the value pin (top brown), A1 is clock (2nd from top red), A6 is latch (bottom pink)</em><br />
+<h2 id="toc2"><a name="Controller : SNES controller emulator with a ATtiny2313-Schematics"></a> Schematics </h2>
+Wire like this :<br />
+<ul><li>DATA to PA1 (but could be whatever pin you want)</li><li>LATCH to PD3 (INT1)</li><li>CLOCK to PD2 (INT0)</li><li>Buttons and joystick wired to other pins and GND (use the Attiny's pullups)</li></ul>It makes extensive use of the internal pullups of the <a class="wiki_link" href="Attiny2313.html">Attiny2313</a> and that's a blessing that saves me from soldering about 10%20 pullup resistors. 2 interrupts are working for doing the job done, listening to CLOCK and LATCH wires. Power is provided by the SNES, uC runs with internal oscillator at 8MHz. Nothing more to say.<br />
+<br />
+<img src="files/2012-10-11-00-08-09_deco.jpg" alt="2012-10-11-00-08-09_deco.jpg" title="2012-10-11-00-08-09_deco.jpg" /><br />
+<em>How I wired it, so feel free to do it your way. In blue the buttons, in red the SNES connections, the figures on the sides are in which order the data must be sent (start at 0)</em><br />
+<br />
+<h2 id="toc3"><a name="Controller : SNES controller emulator with a ATtiny2313-Source code"></a> Source code </h2>
+Source asm code is here : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny2313%2FAsmSNESPad" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny2313%2FAsmSNESPad</a><br />
+<br />
+<em>(deprecated - the C version that has wrong timing <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny2313%2FAttinySNESPad" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny2313%2FAttinySNESPad</a>)</em><br />
+<br />
+<br />
+<h2 id="toc4"><a name="Controller : SNES controller emulator with a ATtiny2313-Links"></a> Links </h2>
+<ul><li><u>The</u> answer by some guy (thanks for sharing !) :<ul><li><a class="wiki_link_ext" href="http://hackaday.com/2011/01/30/snes-arcade-controller/" rel="nofollow">http://hackaday.com/2011/01/30/snes-arcade-controller/</a></li><li><a class="wiki_link_ext" href="http://www.flickr.com/photos/daniel_ericka/5399245118/in/set-72157625933226212/" rel="nofollow">http://www.flickr.com/photos/daniel_ericka/5399245118/in/set-72157625933226212/</a></li><li><a class="wiki_link_ext" href="http://electronics.stackexchange.com/questions/8924/does-anyone-have-code-to-emulate-a-16-bit-input-shift-register-with-an-attiny231/8988#8988" rel="nofollow">http://electronics.stackexchange.com/questions/8924/does-anyone-have-code-to-emulate-a-16-bit-input-shift-register-with-an-attiny231/8988#8988</a></li><li>Help on interrupts :<ul><li><a class="wiki_link_ext" href="http://www.nongnu.org/avr-libc/user-manual/group__avr__interrupts.html" rel="nofollow" target="_blank">GNU documentation on AVR interrupts</a></li><li><a class="wiki_link_ext" href="http://www.windmeadow.com/node/19" rel="nofollow">http://www.windmeadow.com/node/19</a></li><li><a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=55347" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=55347</a></li></ul></li></ul></li></ul><br />
+<ul><li>Howto make a controller <em>without</em> scavenging an existing one<ul><li>Explanation (might have an error it seems) <a class="wiki_link_ext" href="http://www.gamesx.com/controldata/nessnes.htm" rel="nofollow">http://www.gamesx.com/controldata/nessnes.htm</a></li><li>Details on the protocol <a class="wiki_link_ext" href="http://www.gamesx.com/controldata/snesdat.htm" rel="nofollow">http://www.gamesx.com/controldata/snesdat.htm</a></li><li>A guy saying that link 1 has an error <a class="wiki_link_ext" href="http://brainlubeonline.com/Futaba2SNES/Hardware_and_Pinout.html" rel="nofollow">http://brainlubeonline.com/Futaba2SNES/Hardware_and_Pinout.html</a></li><li>Again <a class="wiki_link_ext" href="http://pinouts.ru/Game/snescontroller_pinout.shtml" rel="nofollow">http://pinouts.ru/Game/snescontroller_pinout.shtml</a></li></ul></li></ul><br />
+<ul><li><a class="wiki_link_ext" href="http://hackaday.com/2011/01/30/snes-arcade-controller/" rel="nofollow">http://hackaday.com/2011/01/30/snes-arcade-controller/</a></li><li><a class="wiki_link_ext" href="http://forums.benheck.com/viewtopic.php?t=35526" rel="nofollow">http://forums.benheck.com/viewtopic.php?t=35526</a></li><li><a class="wiki_link_ext" href="http://brainlubeonline.com/Futaba2SNES/CODE.html" rel="nofollow">http://brainlubeonline.com/Futaba2SNES/CODE.html</a></li><li>Inside <a class="wiki_link_ext" href="http://forums.benheck.com/viewtopic.php?f=23&amp;t=35450" rel="nofollow">http://forums.benheck.com/viewtopic.php?f=23&amp;t=35450</a></li></ul><br />
+<h1 id="toc5"><a name="Sound"></a> Sound </h1>
+Need to plug those 2 RCA red and white sound to 2 speakers.<a class="wiki_link" href="Signal%20amplification%20%28OpAmp%29.html">Use a ＮＪＭ２０７３Ｄ double amplifier</a> .<br />
+<br />
+<ul><li>A 8pin IC with 2 amplifier <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-03594/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-03594/</a></li><li>Sample schematic <a class="wiki_link_ext" href="http://www.interfacebus.com/opamp-stereo-amp-circuit-design-schematic.html" rel="nofollow">http://www.interfacebus.com/opamp-stereo-amp-circuit-design-schematic.html</a></li></ul><br />
+<img src="files/20120816_082525.jpg" alt="20120816_082525.jpg" title="20120816_082525.jpg" /><br />
+<em>Sound diagram - the wiring of just one channel is drawn, it's same for both.</em><br />
+<br />
+<h1 id="toc6"><a name="Cabinet"></a> Cabinet </h1>
+<span style="
+text-align:center;
+background-color:gold;
+display: block;"><br />
+The cabinet details and building photos are at <strong><a class="wiki_link" href="Around%20a%20SNES%20-%20cabinet%20photoroman.html">Around a SNES - cabinet photoroman</a></strong>.<br />
+<br />
+</span><br />
+7 pieces of 45x45x0.5 cm of plywood (<em>contreplaque</em> in French), 3 pieces of 3x2.5x200 cm of cleat (<em>tasseau</em> in French), some putty (mastic), sand paper, jigsaw, hammer, sweat, imagination and a few spare hours.<br />
+<br />
+<h2 id="toc7"><a name="Cabinet-Schematics"></a> Schematics </h2>
+<ul><li>Buttons layout dedicated site : sweeet !!! <a class="wiki_link_ext" href="http://www.slagcoin.com/joystick/layout.html" rel="nofollow">http://www.slagcoin.com/joystick/layout.html</a><ul><li>We used one of the suggestion of the site and arranged it slightly according my local video game expert (aka the Wife)</li></ul></li><li><img src="files/speaker-hole.png" alt="speaker-hole.png" title="speaker-hole.png" style="width: 200px;" align="right" /> Holes for the speaker : noticed that nice pattern 8-16-20-20-20-... ? Doing it with a compas is a pain but python and high school trigonometry are here for you!</li></ul><A  href="files/speaker-hole.py.html">speaker-hole.py</a><br />
+<br />
+<br />
+<h2 id="toc8"><a name="Cabinet-Links"></a> Links </h2>
+Maaaaaaaany people made their own, I just keep here a few reference of some of them:<br />
+<ul><li>Reuse of a netbook <a class="wiki_link_ext" href="http://www.edsjunk.net/Blog/Entries/2010/12/24_Mini_Mame_Cab_from_NetBook.html" rel="nofollow">http://www.edsjunk.net/Blog/Entries/2010/12/24_Mini_Mame_Cab_from_NetBook.html</a></li><li>Make an arcade controller (just the buttons) <a class="wiki_link_ext" href="http://x2jiggy.com/blog/2012/1/1/xbox-pc-arcade-joystick.html" rel="nofollow">http://x2jiggy.com/blog/2012/1/1/xbox-pc-arcade-joystick.html</a></li></ul><br />
+<h1 id="toc9"><a name="About the power"></a> About the power </h1>
+This is valid only about the Japanese version of the SNES or Super Famicom as it's called here. It was not present with my discovery in the garbage, so I had to find one. Can grab it for 1000 jpy second hand, or make your own :<br />
+<ul><li>Power consumption 18 VA</li><li>Output : DC 10 V 850 mA (can be anything 9-12V as long as it can spit 1A)</li><li>Plug is <strong>center negative</strong></li></ul><br />
+<h3 id="toc10"><a name="About the power--Edit 1 : with the LM317"></a> Edit 1 : with the LM317 </h3>
+For the record, I made my alim with a LM317 and my first version was a failure. Although the output should have been 10 v I had something like 12v and using a faulty game made the console blow its fuse (I seem cool by speaking of it now but believe me I was afraid). Replaced the fuse (the black stuff right next to the alim) by a PTC with roughly same characteristics (it's not as good but it will do the trick) taught me also that it's good ol' 5v inside thanks a little 7805 well visible next to the fuse. And I'm using a creepy wallwart full of spikes but it's also something I got from the garbage so let's continue in the recycle mood. Just limit the voltage and add big <em>fat</em> caps before and after the LM317 to smooth the output.<br />
+I fixed my alim adding 2 serial diodes, now I'v 10.5 v input and the console is working just fine (never put that faulty game again inside).<br />
+Oh and it's getting quite hot ! The radiator is a must.<br />
+<br />
+<h3 id="toc11"><a name="About the power--Edit 2 : with a L7809"></a> Edit 2 : with a L7809 </h3>
+I thought that using a L7809 instead of a LM317 will give me a better voltage, less power loss, less components and less heat. Well, for sure there's less components and a very nice 9V but OMG what the F%%% how the regulator is hot !! I put <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-05050/" rel="nofollow" target="_blank">a big radiator</a>  on it and still it's barely touchable after 5 minutes. According reading on the net it must go up to maybe 50-60 C (after that you can't touch/stay touching).... I think I will add a few holes for air to go through the case. <br />
+<br />
+<h1 id="toc12"><a name="Various links"></a> Various links </h1>
+<h2 id="toc13"><a name="Various links-Shopping"></a> Shopping </h2>
+<ul><li>THE site in Japan to buy arcade style buttons (189 JPY each, 1.7 euro) <a class="wiki_link_ext" href="http://www.rakuten.co.jp/sanwadenshi/" rel="nofollow">http://www.rakuten.co.jp/sanwadenshi/</a></li></ul><br />
+<h2 id="toc14"><a name="Various links-Misc"></a> Misc </h2>
+<ul><li>Make it white again ! <a href="http://retr0bright.wikispaces.com/">http://retr0bright.wikispaces.com/</a></li><li>How to open it without buying the skewdrivers <a class="wiki_link_ext" href="http://www.engadget.com/2006/11/18/mini-how-to-make-a-tool-to-breach-nintendos-security-screws/" rel="nofollow">http://www.engadget.com/2006/11/18/mini-how-to-make-a-tool-to-breach-nintendos-security-screws/</a></li><li>Open it <a class="wiki_link_ext" href="http://edramatech.wordpress.com/how-to-open-an-snes-or-other-nintendo-console/" rel="nofollow">http://edramatech.wordpress.com/how-to-open-an-snes-or-other-nintendo-console/</a></li><li>General lots of tips about console modding <a class="wiki_link_ext" href="http://kyorune.com/modding/showcat.php?cat=snes_modding" rel="nofollow">http://kyorune.com/modding/showcat.php?cat=snes_modding</a></li></ul>
+    </div>
+  </body>
+</html>

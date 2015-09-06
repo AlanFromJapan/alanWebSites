@@ -1,0 +1,208 @@
+<html>
+  <head>
+    <title>kalshagar - WordClock</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Summary"></a> Summary </h1>
+ <h2 id="toc1"><a name="Summary-The origin of an idea, jibberjabber and don't do it 3 times"></a> The origin of an idea, jibberjabber and don't do it 3 times </h2>
+<table class="captionBox" style="float: right;"><tr><td class="captionedImage"><img src="files/IMG_6473.JPG" alt="IMG_6473.JPG" title="IMG_6473.JPG" align="right" /></td></tr><tr><td class="imageCaption">The Japanese v1 version. Much more samples at the bottom!</td></tr></table>Originally, a present for my father-in-law, kind of rare stuff ... hope it will be appreciated! &quot;Word clock&quot; : 워드 클럭. You will find some on the internet, credits for the idea goes to them and can be found a bit here under. <br />
+Then I thought a bit further: often a nice project to starting tinkerers is to make some clock : not basic yet not over complex, a nice present, it has a visual side (Hey mum, look what I did!) and it is useful... In other words one could say that the clocks are the holly graal of beginner tinkerers (and I'm counting myself in this group). Having myself made already a few clocks (<a class="wiki_link" href="ardReveil.html">ardReveil</a>, <a class="wiki_link" href="ardReveil%20v2.html">ardReveil v2</a>,  <a class="wiki_link" href="ardReveil%20v3.html">ardReveil v3</a>, ...) I kind of have a good idea of the pros anc cons of doing it this way or that way. <br />
+What is the purpose of making the clock? Soldering a SMD RTC component on a separately bought pcb with a ad'hoc trace, then make a spaghetti plate of wires to reach the micro controller ? If it's an interresting experience to do once, it is a burden to those who did it many times and all those who don't care. Why? Because their goal is <em>not</em> to bother with the time keeping part (the common part between all those clock, a task that is redundant) but to make their clock glow in the dark, keep track of ISS, drive a VFD, make some 8bit music, show time in binary or klingon, ... whatever makes them thrill and their idea unique!<br />
+So, let's apply the principle of &quot;never do things thrice manually&quot; : eg in my job, my boss asks me an export of data, I make it manually. He comes again one month later ? I make a script to do it and store it somewhere. He comes again a few month later? I make a nice report, with parameters, automatized that he can do it by himself and never bother me again. Applied to the current case, let's make a 2 part solution:<br />
+<ul><li><strong>The main board</strong> : a board, an Arduino clone minus the USB, that can have a RTC (if possible 2 different types, choose your weapon), embeds a voltage regulator and that could drive without any external component the led board in its basic format and be extended a minimum at least.</li><li><strong>The led board</strong> : a 5x5 leds board that can be used as is or chained with others (vertically, horizontally) to make more detailed boards</li></ul>By using this solution you have then different options :<br />
+<ul><li><strong>You just want to make a clock ?</strong> ok, use the &quot;main board&quot; : you already have an arduino clone and a pad for your RTC. All the pins are accessible so plug the free ones to drive your <em>&lt;fill in the blank with something cool&gt;</em> !</li><li><strong>You want to make a WordClock 5x5 ?</strong> Use the main and the led board, put one on top of the other: tada !</li><li><strong>You want to make a Binary clock ?</strong> Use the main and the led board, put one on top of the other: tada ! Just pick different led colors and change how you display the time in the in-memory table. Leave the microcode do the drawing, it knows how to.</li><li><strong>You want to make a 5x10 clock that shows on the left the dates on the right the time ?</strong> Solder 2 led boards together and use the main board</li><li>... and so on, limit is your imagination</li></ul><br />
+<br />
+<br />
+<span style="background-color: whitesmoke;
+text-align: justify;
+display: block;
+font-size: 100%;
+padding-left:2cm;
+padding-right:2cm;"><br />
+If you want some of those PCB, please contact me by mail for I have quite few spares (you have to order by 10), so I'm sure we can find a way to make us both happy. Otherwise feel free to do your own : the source codes for eagle and the arduino code, everything is in that page and free to reuse (a little credit and a hint to your page are however much appreciated).<br />
+<br />
+</span><br />
+<table class="captionBox" style="float: right;"><tr><td class="captionedImage"><img src="files/2013-01-17-00-50-04_deco.jpg" alt="2013-01-17-00-50-04_deco.jpg" title="2013-01-17-00-50-04_deco.jpg" style="width: 300px;" align="right" /></td></tr><tr><td class="imageCaption">Windmill version</td></tr></table><table class="captionBox" style="float: right;"><tr><td class="captionedImage"><img src="files/2012-12-09-17-30-56_deco.jpg" alt="2012-12-09-17-30-56_deco.jpg" title="2012-12-09-17-30-56_deco.jpg" style="width: 300px;" align="right" /></td></tr><tr><td class="imageCaption">Low voltage Nixie tube version ardReveil v5 Tubed</td></tr></table><br />
+<h2 id="toc2"><a name="Summary-Credits and thanks"></a> Credits and thanks  </h2>
+<ul><li>The first inspiration (thanks for sharing) :<ul><li><a class="wiki_link_ext" href="http://www.instructables.com/id/The-Word-Clock-Arduino-version/" rel="nofollow">http://www.instructables.com/id/The-Word-Clock-Arduino-version/</a></li><li>Improved one <a class="wiki_link_ext" href="http://www.instructables.com/id/The-Wordclock-Grew-Up/" rel="nofollow">http://www.instructables.com/id/The-Wordclock-Grew-Up/</a></li></ul></li><li>The exact stuff I wanted to do ... I have to change my project from unique to rare ... I hate that guy...<ul><li><a class="wiki_link_ext" href="http://www.youtube.com/watch?v=Y5HIMbGajp0" rel="nofollow">http://www.youtube.com/watch?v=Y5HIMbGajp0</a></li><li><a class="wiki_link_ext" href="http://www.youtube.com/watch?v=CJosltwJq8s" rel="nofollow">http://www.youtube.com/watch?v=CJosltwJq8s</a></li><li><a class="wiki_link_ext" href="https://github.com/suapapa/HangulClock" rel="nofollow">https://github.com/suapapa/HangulClock</a></li><li><a class="wiki_link_ext" href="https://picasaweb.google.com/118040095502884745897/KoreanWordClockWithArduino" rel="nofollow">https://picasaweb.google.com/118040095502884745897/KoreanWordClockWithArduino</a></li></ul></li></ul><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1 id="toc3"><a name="Schema"></a> Schema </h1>
+<h2 id="toc4"><a name="Schema-Led board"></a> Led board </h2>
+<img src="files/wordclockpcb.png" alt="wordclockpcb.png" title="wordclockpcb.png" align="right" /><br />
+Instead of soldering x leds, in a fixed pattern just for this project, I used the Seeedstudio service I became fan to make the following : a small board 5x5 that you can attache to sister cards. Basically it's just a grid of line x column of %20 and - with leds at the intersection. Just it will make the soldering easy, there's at max 25 leds (put only the ones you want!) and provision for resistor (you have to solder-bridge the pads to make contact otherwise circuit is opened). <br />
+<a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FWordclock" rel="nofollow">Eagle files on google code SVN.</a><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2 id="toc5"><a name="Schema-Controller board"></a> Controller board </h2>
+<table class="captionBox" style="float: right;"><tr><td class="captionedImage"><img src="files/wordclock-main.png" alt="wordclock-main.png" title="wordclock-main.png" align="right" /></td></tr><tr><td class="imageCaption">Main board v1.0 (Jan2012)</td></tr></table>I decided to go for a custom board, 5x5 that would fit the other <strong>led board</strong>. Plus that board has space for 2 different kind of RTC (DS3231 and DS3234) that are easily available in Japan and are not too expensive. The board could then drive a 5x5 leds daughter board with no extra component (close the solder pad to have direct access to atmega pins). Both RTC being SMT component, the basic boards to solder it are already 80 JPY ... with the price of 1 custom board being 100 JPY, no need to think twice.<br />
+<a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FWordclock" rel="nofollow">Eagle files on google code SVN.</a><br />
+On the board :<br />
+<ul><li>Atmega 328 (or compatible)</li><li>ISP pins</li><li>Crystal and its pair of caps</li><li>Footprint for DS3231 and DS3234</li><li>CR2320 button battery connector</li><li>LM7805 voltage regulator</li><li>Pinout compatible with led board with solderpad to enable<ul><li>This means if you solder the solderpads, you can drive the leds directly through the atmega pins (5x5 pins) without any other wiring nor shift register. I should add a schema to make it clear ... 'cause it's a really good idea I think!</li><li>Arduino's pins 0-4 (PD0-PD4) control the rows A-E, Arduino's pins 9-5 (PB1-PB0,PD7-PD5) control the rows 1-5. And yes columns are in reverse order, no there's no specific design idea under this state of fact.</li></ul></li></ul><br />
+<h3 id="toc6"><a name="Schema-Controller board-Instructions for v1.0"></a> Instructions for v1.0 </h3>
+See the captain's log for details but main facts are:<br />
+<ul><li>Works only with DS3234</li><li>You must solder the wire to /CS to pin 10, and on the solder pad link it to ground</li><li>You must add a battery CR2032 otherwise it won't work</li><li>Cap C3 is not necessary if you don't use voltage regulator</li></ul><table class="captionBox" style="float: right;"><tr><td class="captionedImage"><img src="files/wordclock-main.v1.1.png" alt="wordclock-main.v1.1.png" title="wordclock-main.v1.1.png" align="right" /></td></tr><tr><td class="imageCaption">Main board v1.1 (Feb2012)</td></tr></table><img src="files/wordclockpcb-white2.png" alt="wordclockpcb-white2.png" title="wordclockpcb-white2.png" style="width: 350px;" align="right" /><br />
+<h3 id="toc7"><a name="Schema-Controller board-Instructions for v1.1"></a> Instructions for v1.1 </h3>
+<ul><li>Works with DS3231 (corrected footprint)</li><li>Bug with DS3234 : the pin 19 must NOT be soldered to the pad (it will ground it), but air-wired to pin 18 of the MCU (PB4 MISO)</li><li>You must add a battery CR2032 otherwise it won't work</li><li>Cap C3 is not necessary if you don't use voltage regulator</li></ul><br />
+<h3 id="toc8"><a name="Schema-Controller board-Instructions for v1.2"></a> Instructions for v1.2 </h3>
+<ul><li>Works with DS3231 and DS3234 this time (!)</li></ul><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1 id="toc9"><a name="Code and instructions"></a> Code and instructions </h1>
+<h2 id="toc10"><a name="Code and instructions-The source"></a> The source </h2>
+The target toolchain is <strong>Arduino 1.0 IDE</strong> with the integrated (and blessed) function to upload with a programmer (Ctrl%20Shift%20U). So the file extension is .ino and imported .h files changed (hello Arduino.h).<br />
+As usual, everything is on <strong>Google code</strong> : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FWordclock" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FWordclock</a><br />
+You have the latest version, including the library for DS3234 (I reused Sparfun's one, they did the hard part of the job)<br />
+<br />
+<span style="background-color: #ffd600;
+text-align: center;
+display: block;
+border: solid 1px black;"><strong>Update 20141125</strong>: long time I wanted to do it, now it's a reality: I rewrote the code in a real IDE, ATmel Studio 6. Bye bye ugly Arduino IDE! I have to rewrite/adapt some libraries, so it's done step by step, but now I already ported a big part of the code. I used the occasion to fix a few things I didn't like in the original Arduino version, more logical architecture, cleaner. Have a look!<br />
+<a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAtmegaxx8%2FMultiClockManager" rel="nofollow">https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAtmegaxx8%2FMultiClockManager</a></span><br />
+<h2 id="toc11"><a name="Code and instructions-Set the fuses"></a> Set the fuses </h2>
+We're using a atmega328 in same config as an arduino, sot set the fuses to use the 16 MHz crystal. Note that since we don't need ultra precision you could use this pcb without the crystal but the SPI commmunication might require it. Never tried, it could work maybe with a few tweaks. <br />
+Still always get an error when running that command but it's working anyway.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos">avrdude -v -v -p m328p -c avrispv2 -P <span class="kw4">COM1</span> -U lfuse:w:0xf7:m -U hfuse:w:0xd9:m -U efuse:w:0xff:m</pre>
+
+<br />
+<h2 id="toc12"><a name="Code and instructions-Upload the binary"></a> Upload the binary </h2>
+I use the pololu programmer and Arduino 1.0 IDE so it's integrated. Just had to explain it how to use the pololu programmer. Edit the D:\arduino-1.0\hardware\arduino\programmers.txt file and add the following lines. Trick is then in the Serial port menu to choose the port where your programmer is plugged and enjoy the power of Ctrl%20Shift%20U.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">avrispv2.name=Pololu AVRISPv2 clone
+avrispv2.communication=serial
+avrispv2.protocol=avrispv2</pre>
+
+<br />
+<br />
+<h1 id="toc13"><a name="Display idea bank"></a> Display idea bank </h1>
+<iframe width='600' height='600' frameborder='0' src='https://docs.google.com/spreadsheet/pub?hl=fr&amp;hl=fr&amp;key=0AoQprwpmFmPZdExQSW5jZVJEUG1aYzB5SXhzM25tVHc&amp;single=true&amp;gid=0&amp;output=html&amp;widget=true'></iframe><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/wordclock-layer5x5.v1.png" alt="wordclock-layer5x5.v1.png" title="wordclock-layer5x5.v1.png" style="width: 300px;" /><br />
+</td>
+        <td><img src="files/wordclock-mask-jap1.png" alt="wordclock-mask-jap1.png" title="wordclock-mask-jap1.png" style="width: 300px;" /><br />
+</td>
+        <td><img src="files/wordclock-mask-jap1.detail.png" alt="wordclock-mask-jap1.detail.png" title="wordclock-mask-jap1.detail.png" style="width: 300px;" /><br />
+</td>
+    </tr>
+    <tr>
+        <td><em>The original mask</em><br />
+</td>
+        <td><em>The japanese v1 言時計 mask </em><br />
+</td>
+        <td><strong><span style="color: #0007ff;">十一(時)</span>三十九(分)<span style="color: #c708c2;">午後</span></strong> //means 11:39 PM<br />
+</td>
+    </tr>
+</table>
+
+<br />
+<br />
+<h1 id="toc14"><a name="Pictures"></a> Pictures </h1>
+<img src="files/IMG_6425b.JPG" alt="IMG_6425b.JPG" title="IMG_6425b.JPG" /><br />
+<em>As Frrrrrranky would say, this pcb is suuuuuuuuupeeeeeer cool</em><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><div style="text-align: center"><img src="files/IMG_6473.JPG" alt="IMG_6473.JPG" title="IMG_6473.JPG" /></div></td>
+        <td><div style="text-align: center"><img src="files/IMG_6471.JPG" alt="IMG_6471.JPG" title="IMG_6471.JPG" /></div></td>
+    </tr>
+    <tr>
+        <td><em>The <strong>Japanese v1 '言時計'</strong> front with a Altoid for the size comparison.<br />
+Board is 5x5 cm. In blue the hours, in white the minutes, pink is the &quot;afternoon flag&quot;.<br />
+Picture time was</em> <strong><span style="color: #0007ff;">十(時)</span>二十五(分)<span style="color: #c708c2;">午後</span></strong> <em>means 10:25 PM (hard to read on the picture took in low light)</em><br />
+</td>
+        <td><em>The Japanese v1 view by the side.<br />
+No comment about the ugly buttons poorly hotglued to the back, thanks. <a class="wiki_link" href="KitchenTimer.html">This time</a> I forethought and hid them behind.</em><br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h1 id="toc15"><a name="Links"></a> Links </h1>
+<ul><li>Another rendition of the Wordclock, with 5 minutes approx, led driver for continuous display plus nice surprises : a attiny2313 at the heart and the whole program in assembler (an art being lost). Respect sirs! <a class="wiki_link_ext" href="http://dev.frozeneskimo.com/embedded_projects/word_clock" rel="nofollow">http://dev.frozeneskimo.com/embedded_projects/word_clock</a></li></ul><br />
+<h1 id="toc16"><a name="Captain's log"></a> Captain's log </h1>
+<h2 id="toc17"><a name="Captain's log-Led board"></a> Led board </h2>
+<strong>20111223:</strong> Just sent it to production in China for a small serie. The schema is available <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FWordclock" rel="nofollow">on google code SVN.</a><br />
+<strong>20120110:</strong> got it, soldered it, tested it : works just fine (but it was an easy one). Next one : the main board (sent to HK tonight!)<br />
+<strong>20120307:</strong> let's make a new version with SMD leds instead!<br />
+<h2 id="toc18"><a name="Captain's log-Main board"></a> Main board </h2>
+<strong>20120110:</strong> To be honnest, it's the most difficult board I made (it's my 4th), took me 1 day and a half of work to wire the whole mess. If this works from start, I'll be king for the day (^。^) Let's cross finger, it's now in the good care of Seeedstudio. The schema is available <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FWordclock" rel="nofollow">on google code SVN.</a><br />
+<strong>20120131:</strong> Received from Seeedstudio, delay was longer than usual but the 1 week of Chinese new year explains much. To be tested tonight...<br />
+<strong>20120131 later that night:</strong> ok, card is working just fine ! I have my time displayed on a 5x5, the prototype is just working so fine, passed the few first glitches I was a happy geek. However, Main Board v1.0 has flaws that will be fixed in v1.1:<br />
+<ul><li>DS3231 : (Major) I picked the wrong package, the trace is way too small, impossible to solder... I feel like an idiot... no wait, I made provision to use also a DS3234 : it works ! I feel like a genius again. Anyway, let's fix that trace since DS3231 is easily encountered chip (or DS3232?)</li><li>/CS pin :  (minor) for the DS3234 the /CS pin could be (via a solder pad) connected to one Atmega pin or to gnd. I misread the doc, it can't be always connected to ground, the change of state is meaningful.</li><li>Led board connection pins :  (minor) slight mistake in placement, they are not exactly at the right place. I would say that the right one (labelled &quot;east&quot;) is ～1mm too high. Although I thought I checked it, seems I anyway made the mistake. It's ok since you can connected it anyway, it's just not nice, it appears to be just a little screwed. Let's fix this next time.</li><li>RTC connections : (nice to have) seems on some schema people add pull down or caps to the RTC component. It's not mandatory, not even on the constructor datasheet, but could be a plus or at least save some space for it.</li></ul><strong>20120205:</strong> You must add a battery CR2032 otherwise it won't work : this costed me one afternoon to understand this. I don't know why but you must have a battery for the DS3234 to work. Added the 2 buttons in the back (hahaha you can't see the ugly hotglue work) for &quot;set&quot; and &quot;plus&quot;. &quot;Set&quot; cylcles through View time -&gt; set hour -&gt; set minutes -&gt; view time -&gt; ... and I guess you got the idea with the &quot;plus&quot;. Finished the layout, prints on transparent adhesive paper, started preparing the box. To be tested for one day tomorrow. <br />
+<strong>20120206:</strong> Tested the japanese version I made yesterday the full day, a good habbit that made me discover a big bug in the display. Fixed this evening with a new firmware, put the stuff in a box (221 JPY at TokyuHands), complained about my lack of provision for fixing holes on the board, put a recycled usb cable for the 5v (it's meant to sit next to my pc at work), sticked the stickers (2 layers) et <em>voila</em> ! The <strong>Japanese v1</strong> board (I live in Japan, I'm French, wife's Korean, ... long story). I'll call it 言時計, reads <em>kotodokei</em> or <em>gendokei</em> (1st reading prefered) and means yeah....workclock. Yeah I know the sticker is a bit tilted, not centered and the frog looked better in my imagination ... will do better next time, but still I'm happy. Now move on to next phases : test with Atmega88, voltage regulation and a 10x5 display with a SIPO, last preparation step before the 10x10 for the korean version.<br />
+Edit: after tests with Atmega88 it's ... not working (!) I think it's my chip that was fried, it requires another test but that was a bad surprise.<br />
+<strong>20120207:</strong> sent the main board v1.1 for production in HK. Main changes are all the bugfixes listed here above of v1.0 (wrong landing print for DS3231, unnecessary 2 way solder pad for /CS of DS3234. lack of mounting holes, misaligned pins, etc..). So basically the same except that easier to use for DS3234 and should be DS3231 compatible. Also the general wiring was reviewed and some unnecessary wires removed. Let's cross fingers and wait 2 weeks... Ah btw my Japanese v1 version is so cool on my desk.<br />
+<strong>20120224:</strong> at last, v1.1 arrived ! The delay for reception from Seeedstudio is somewhat irregular... but they still have the best ratio price/quality/quantity. Waiting for tonight to populate it with the <em>La France</em> that I finished soldering yesterday (around 50 through 3mm leds soldered by hand with luv)!<br />
+<strong>20120228:</strong> v1.1 working just fine with a DS3231! The <em>La France</em> is soldered and programmed, works just fine. Will sit on my desk a few days for the test, it will give me a little time to find a nice enclosure...
+    </div>
+  </body>
+</html>

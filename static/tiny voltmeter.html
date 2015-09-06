@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>kalshagar - Tiny Voltmeter</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Summary"></a> Summary </h1>
+Sometime I just want to see the voltage just without turning on my voltmeter, hold the wires, change hands etc... never felt that you couse use a pair of additional hands ? Me very often. So I want a small, self powered, minimum display voltmeter that is breadboard friendly.<br />
+What it will have :<br />
+<ul><li>a 2 digits 7 segment display (scavenged on a radio cassette player found in the trash)</li><li>a button battery (small and light)</li><li>a attiny at heart (need a ADC)</li><li>a DC converter 5v ?</li><li>a small switch</li><li>breadboard friendly</li></ul><br />
+<h1 id="toc1"><a name="Explanation"></a> Explanation </h1>
+<img src="files/zenerdivider.png" alt="zenerdivider.png" title="zenerdivider.png" align="right" />Use the ADC to read a voltage, but how to do in case it's more than 5v ? Double trick : the &quot;zener divider&quot;. As explained on [@<a class="wiki_link_ext" href="http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html" rel="nofollow">http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html</a> this site], make a voltage divider. For instance, if you want to measure [0v;20v] range, the max division factor is max voltage / uC voltage = 20/5 = 4. Use that 4 factor to make a divider with that factor : <br />
+<img src="math/6447ea6d3121953fbec51ce23e86ca0c.gif" title="R_{2} = \frac{R_{1}}{(factor -1)} = \frac{R_{1}}{3}" alt="R_{2} = \frac{R_{1}}{(factor -1)} = \frac{R_{1}}{3}" align="absmiddle" /><br />
+Don't hesitate to put big resistor, you don't want to use the power, you want to measure it. Thousand or tens of thousands are welcome, mega are ok. Let's say I pick 1ko for the R2, I need 3ko for R1 then.<br />
+Ok, so now you get max 5v ... at the condition you put max 20v. What happens when you know, sh### happens and you put more than 20v? Magic smoke. So, put a Zener diode with a 5v breakdown (5.1v is perfectly fine too). Thanks to the zener diode, you can't see more than 5v ! And under that value, you have linear reading, what you need for your voltmeter.<br />
+<img src="math/e4704aa09af1b412e173c682d51b14f1.gif" title="V_{out} = max(V_{zener}, V_{in} * \frac{R_{2}}{R_{1} %20 R_{2}}) = max(5, \frac{V_{in}}{4})" alt="V_{out} = max(V_{zener}, V_{in} * \frac{R_{2}}{R_{1} %20 R_{2}}) = max(5, \frac{V_{in}}{4})" align="absmiddle" /><br />
+<em>Source : <a class="wiki_link_ext" href="http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html" rel="nofollow">http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html</a></em><br />
+<br />
+This will give you a nice value x in [0;1024] that you will map to [0;20] with the little X = x * 20 / 1024...<br />
+<br />
+<h1 id="toc2"><a name="Schema"></a> Schema </h1>
+<img src="files/tinyvoltmeter-schema.png" alt="tinyvoltmeter-schema.png" title="tinyvoltmeter-schema.png" /><br />
+<br />
+<strong>Points of interrest:</strong><br />
+<ul><li>This schema uses a battery for portability and a DC-DC 5v converter <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02800/" rel="nofollow" target="_blank">HT7750A</a><ul><li>The HT7705a is a lightweight so sourcing too much current out of it is going to affect badly the VCC it produces and drift away from 5v</li><li>The capacitor to stabilize the output voltage are a must for stable reading</li></ul></li><li>All the grounds are linked together : the battery ground and the input ground</li><li>Using a resistor scale we divide input by 2. 10kOhm are good values that don't affect much the reading.</li><li>Using 1k resistor on the cathod of the 7 segment to keep current to minimum</li><li>There is not one 7segment but 2 for unit and tens of volts, and the wiring is not presented here</li><li>The 5v zener diode is here to protect the ADC from being fed with something bigger than 5v</li><li>The micro controller is in fact a attiny861 (lots of pins and ADC)</li></ul><br />
+<h1 id="toc3"><a name="Code"></a>Code</h1>
+Where else could it be if not <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny861%2FTinyVoltmeter" rel="nofollow" target="_blank">on my google code account</a>  ?<br />
+<br />
+<h1 id="toc4"><a name="Pictures"></a>Pictures </h1>
+<img src="files/2012-04-06_23.15.54b.jpg" alt="2012-04-06_23.15.54b.jpg" title="2012-04-06_23.15.54b.jpg" /><br />
+<em>The inside of the beast : a ATTiny861, a 2 digit 7 segment found in the trash bin inside a cd player, a 5 V DC boost converter and 2 AAA battery for a nice 5v</em><br />
+<img src="files/2012-04-06_23.17.12b.jpg" alt="2012-04-06_23.17.12b.jpg" title="2012-04-06_23.17.12b.jpg" /><br />
+<em>Once closed, reading are not too bad (^_^)v (-&gt; 15 is to be read as 1.5v ... there was no </em>dot<em> on the scavenged 7seg)</em><br />
+<br />
+<h1 id="toc5"><a name="Links"></a> Links </h1>
+<h2 id="toc6"><a name="Links-Voltage reading with a Atmel"></a> Voltage reading with a Atmel </h2>
+<ul><li>5v external ref is the best, but when you can't here's a trick <a class="wiki_link_ext" href="http://provideyourown.com/2012/secret-arduino-voltmeter-measure-battery-voltage/" rel="nofollow">http://provideyourown.com/2012/secret-arduino-voltmeter-measure-battery-voltage/</a></li></ul><h2 id="toc7"><a name="Links-HT7750A : 5v DC-DC converter"></a> HT7750A : 5v DC-DC converter</h2>
+<ul><li>An article (jp) <a class="wiki_link_ext" href="http://www.henteko.org/fswiki/wiki.cgi?page=DC-DC%A5%B3%A5%F3%A5%D0%A1%BC%A5%BF%A1%BC%A3%B4%A1%CAHT7750A%A4%F2%BA%C6%A5%C6%A5%B9%A5%C8%A1%CB" rel="nofollow">http://www.henteko.org/fswiki/wiki.cgi?page=DC-DC%A5%B3%A5%F3%A5%D0%A1%BC%A5%BF%A1%BC%A3%B4%A1%CAHT7750A%A4%F2%BA%C6%A5%C6%A5%B9%A5%C8%A1%CB</a></li><li>Another one <a class="wiki_link_ext" href="http://www.geocities.jp/neofine9/work/swreg2/swreg2.html" rel="nofollow">http://www.geocities.jp/neofine9/work/swreg2/swreg2.html</a></li></ul><h2 id="toc8"><a name="Links-Project"></a> Project </h2>
+<ul><li>With a arduino but howto divert the internal 1.1v reference to measure arduino's power rail ... very interresting.<ul><li><a class="wiki_link_ext" href="http://code.google.com/p/tinkerit/wiki/SecretVoltmeter" rel="nofollow">http://code.google.com/p/tinkerit/wiki/SecretVoltmeter</a></li></ul></li><li>The general idea of what I want to do<ul><li><a class="wiki_link_ext" href="http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html" rel="nofollow">http://picboard.blogspot.ca/2010/10/0-20v-digital-voltmeter-dvm-using.html</a></li></ul></li></ul>
+    </div>
+  </body>
+</html>

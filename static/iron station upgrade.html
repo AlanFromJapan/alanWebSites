@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>kalshagar - Iron station upgrade</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+Every where I read, people say that working with the 10 $ iron is bad and should be avoided as soon as you start doing &quot;serious things&quot;. Next step is to move to a branded iron, with a variator to control the temperature and maybe a precise selection of temperature (display or gradation). Well shame is I happen to like my 10 $ 40W iron, even if I agree it's too hot, but has the punch when needed for a quick start or some heavy job. <br />
+A few months ago I bought a simple 6$ variator kit and setup my iron on it, worked just fine. But I wanted to have more safety, especially not risk to forget my iron on. So I though of combining both: a <strong>variator</strong>, a <strong>light</strong> indication of the ON status, and a <strong>timer</strong> ! 10 minutes max : press the white button and get 3 minutes of heating, press the red button and stop now. <br />
+<br />
+I found afterward a video of the crazy-fantastic Dave of EEVBlog that was also having the same concern of &quot;is my iron still on&quot; and hacked his Hakko led <a class="wiki_link_ext" href="http://www.youtube.com/watch?v=rtlN0b-gkic" rel="nofollow">http://www.youtube.com/watch?v=rtlN0b-gkic</a><br />
+<br />
+<h1 id="toc0"><a name="Functions and parts"></a> Functions and parts </h1>
+<ul><li>Variator for the power : <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gK-00098/" rel="nofollow">http://akizukidenshi.com/catalog/g/gK-00098/</a></li><li>Fuse to protect the whole thing</li><li>ON status light</li><li>Microcontroller (ATmega88p) and Timer 7segments (reach zero turns off) : <a class="wiki_link" href="Rapide7seg.html">Rapide7seg</a></li><li>Switches and buttons :<ul><li>General switch</li><li>%203 minute button</li><li>Stop now button</li></ul></li><li>A relay 5v controlled <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-01214/" rel="nofollow">http://akizukidenshi.com/catalog/g/gP-01214/</a></li><li>A scavenged 5v wallwart</li></ul><br />
+<h1 id="toc1"><a name="General schema"></a> General schema </h1>
+<img src="files/Timer-iron-schema.png" alt="Timer-iron-schema.png" title="Timer-iron-schema.png" />
+    </div>
+  </body>
+</html>

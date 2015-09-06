@@ -1,0 +1,193 @@
+/****************************************** General site-wide styles **************************************************************/
+.wiki { font-family: Calibri, arial, helvetica, sans-serif; }
+.wiki #toc { width: 15%; float:right;background-color:#D0D0D0;font-size:smaller; }
+.wiki a {font-weight: bold; }
+.wiki a:link {text-decoration: none}
+.wiki a:hover {text-decoration: underline; color: red;}
+.wiki a.wiki_link {color: #009ACD; }
+.wiki a.ext {color: #008B8B; }
+.wiki a.wiki_link_ext {color: #008B8B; }
+.wiki ol.includeTagCloud a {color:red;}
+
+.wiki h1 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.5em; border-bottom:solid 1px #C0C0C0; }
+.wiki h2 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.2em; }
+.wiki h3 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.0em; } 
+.wiki h4 { font-weight: normal; padding: 5px 0 0 0; margin: 0; font-size: 0.9em; }
+
+.wiki img { padding: 0px; padding-right:4px; vertical-align:middle; }
+
+/****************************************** News section styles **************************************************************/
+.wiki span.newsZoneHeader {
+font-weight:bold;
+font-size:180%;
+text-align:center;
+background-color:#2f2f2f; 
+color:#f8f33c;
+display: block;
+width:100%-400px;
+
+background-image:url('/files/gradientNews1.png');
+background-repeat:repeat-x;
+background-position:left bottom;
+}
+.wiki span.newsZone {
+background-color:#2f2f2f; 
+color:white;
+display: block;
+height:900px;
+width:100%-400px;
+overflow:auto;
+padding-left:5px;
+}
+.wiki span.newsZone A{
+color:#f8f33c;
+}
+.wiki span.alannews { 
+display:block;
+font-weight:bold;
+text-align:left;
+background-image:url('/files/gradientNews1.png');
+background-repeat:repeat-x;
+background-position:left bottom;
+color: white;
+font-size:125%;
+}
+.wiki span.alannews img { 
+vertical-align:bottom;
+padding-left:5px;
+}
+
+
+
+.wiki span.newsZoneHeader2 {
+font-weight:bold;
+font-size:180%;
+text-align:center;
+background-color:white; 
+color:black;
+display: block;
+width:100%-400px;
+
+background-image:url('/files/gradientNews3.png');
+background-repeat:repeat-x;
+background-position:left bottom;
+}
+.wiki span.newsZone2 {
+background-color:white; 
+color:black;
+display: block;
+height:900px;
+width:100%-400px;
+overflow:auto;
+padding-left:5px;
+}
+
+.wiki span.alannews2 { 
+display:block;
+font-weight:bold;
+text-align:left;
+background-image:url('/files/gradientNews1.png');
+background-repeat:repeat-x;
+background-position:left bottom;
+font-size:90%;
+color: white;
+}
+.wiki span.alannews2 img { 
+vertical-align:bottom;
+padding-left:5px;
+}
+/****************************************** Home page current projects **************************************************************/
+.wiki span.currentProjects { 
+text-align:center;
+vertical-align:middle;
+display:block;
+width:100%;
+background-color:#2f2f2f;
+color:white;
+}
+
+.wiki span.currentProjects2 { 
+text-align:center;
+vertical-align:middle;
+display:block;
+width:100%;
+}
+/****************************************** Home page header table styles **************************************************************/
+.wiki   table.alanHeaderTable { height:60px; width:100%; border:solid 0px white; text-align:center; table-layout: fixed; font-size:18px; font-weight: bold;
+background-image:url('/files/tablebg02.png'); background-repeat: repeat-x;
+ }
+.wiki   tr.alanHeaderTR { }
+.wiki   td.alanHeaderTD A {color:white; font-weight:normal; text-decoration:none; }
+.wiki   td.alanHeaderTD { color:white; vertical-align:middle; border:solid 0px white;  }
+.wiki   td.alanHeaderTD:hover {background-image:url('/files/tablebg02_off.png'); background-repeat: repeat-x; color:black; }
+.wiki   td.alanHeaderTD:hover * {color:black; }
+
+
+
+.wiki   table.alanHeaderTable2 { height:60px; width:100%; border:solid 0px white; text-align:center; table-layout: fixed; font-size:18px; font-weight: bold;
+background-image:url('/files/tablebg03.png'); background-repeat: repeat-x;
+ }
+.wiki   tr.alanHeaderTR2{ }
+.wiki   td.alanHeaderTD2 A {color:black; font-weight:bold; text-decoration:none; }
+.wiki   td.alanHeaderTD2 { color:black; vertical-align:middle; border:solid 0px white;  }
+.wiki   td.alanHeaderTD2:hover {background-image:url('/files/tablebg03_off.png'); background-repeat: repeat-x; color:#009ACD; }
+.wiki   td.alanHeaderTD2:hover * {color:#009ACD; }
+
+/****************************************** Left hand size navigation bar styles **************************************************************/
+.wiki .navigationHeader { font-weight:bold; font-size: 120%; border-bottom:solid 1px black;display:block; width:100%; }
+
+/****************************************** "See also" boxes **************************************************************/
+.wiki span.seeAlsoClocks {
+background-color: #6b939f;
+border: solid 1px #022a35;
+display: block;
+text-align:left;
+padding-left:40px;
+height:64px;
+}
+.wiki span.seeAlsoClocks A {color:white;}
+.wiki span.seeAlsoGB {
+background-color: whitesmoke;
+border: solid 1px darkgrey;
+display: table-cell;
+vertical-align:middle;
+text-align:left;
+padding-left:40px;
+height:64px;
+}
+
+/****************************************** Electrogeek.cc - Header **************************************************************/
+.template1_header {
+height:100px;
+background-color: #808080;
+
+background-image:url('/files/header_right1.png'); 
+background-repeat: no-repeat;
+background-position: top right;
+
+border-spacing: 0px;
+border-collapse:collapse;
+}
+
+body.wiki {
+background-image:url("/files/bgstripe1.png") ;
+background-repeat: repeat ;
+background-position: 0px 0px, top right;
+
+background-color:#4E4E4E;
+}
+
+
+/*additional clas for top projects on the left to prefix with a small ">>"*/
+.wiki a.wiki_link_top::before {color: grey;content:"\bb";font-weight:bold;font-size:smaller; }
+
+input[type="text"] {
+  padding: 3px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+input[type="text"]:focus,
+input[type="text"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}

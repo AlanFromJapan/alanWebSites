@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <title>kalshagar - RapideUSB</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="background-color: #ffb500;
+text-align: center;
+display: block;
+font-weight:bold;">How to use this? <a class="wiki_link" href="USB%20without%20Arduino.html">USB without Arduino</a>  </span><br />
+<h1 id="toc0"><a name="Summary"></a>Summary </h1>
+<img src="files/Rapideusb_silktoponly2.png" alt="Rapideusb_silktoponly2.png" title="Rapideusb_silktoponly2.png" align="right" />A one afternoon work to make this board. Goal: make the <a class="wiki_link" href="USB%20without%20Arduino.html">V-USB project simple</a> , with a board that already has everything you need. Populate it, burn the program and you're good to go! Works for <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a> DIP or <a class="wiki_link" href="ATmega328.html">ATmega328</a> (all the ATmegaxx8 family in fact) in SMD package.<br />
+<br />
+This board is made to make your life easier if:<br />
+<ul><li>You go with the Zener diodes approach: your mCU runs on 5v, life is easy. For the small downsides see <a class="wiki_link_ext" href="http://vusb.wikidot.com/hardware" rel="nofollow">V-USB hardware documentation</a>.</li><li>You plan to use pins D2 and D4 for your connectivity. You can use other pins though, you'll have to <em>not</em> solder the jumpers and wire D%20/D- to the pins you want</li><li>You plan to use ATtiny 2313 DIP or ATmegaxx8 SMD family</li></ul><br />
+I know the board is tight and some solderings might require a little attention but unless you have Parkinson disease (wish you not, terrible stuff) or solder with a blowtorch, that should be fine. Just be a little careful.<br />
+If you have suggestions about how to improve the layout, please let me hear.<br />
+<br />
+Self-criticizing and possible improvements:<br />
+<ul><li>[High] Add holes for D%20/D- to plug a USB cable directly instead of a micro/mini plug</li><li>[Medium] Make those lines that carry power (VCC &amp; GND) bigger, it's just signal size now, no way it can draw more than a few tens of mA)</li><li>[Medium] Put a solder mask on the bottom for the power rail! Hard to figure where is gnd/vcc...</li><li>[low] Add a V-USB logo</li><li>[low] The power rail have solder mask on top (bottom is ok)... how did I do this miracle? Replace with regular ones</li></ul><br />
+<h1 id="toc1"><a name="Schematics"></a> Schematics </h1>
+On Google SVN : <a class="wiki_link_ext" href="https://alanarduinotools.googlecode.com/svn/trunk/eagle/RapideUSB" rel="nofollow">https://alanarduinotools.googlecode.com/svn/trunk/eagle/RapideUSB</a> <br />
+<br />
+<h2 id="toc2"><a name="Schematics-README ! Things to know"></a> README ! Things to know </h2>
+<ul><li>The board has 2 solder jumpers labelled <em>D%20=D2</em> and <em>D-=D4</em>: if you use D2 (as D%20) and D4 (as D-) as default, just solder close these jumpers. If not, let them open and join the solder pad to the pin you're using.<ul><li>Corollary: if you don't solder these pads but use my default pins, nothing will work.</li></ul></li><li>PORT D is common to both mCU, PORT C is only available for ATmega328 and PORT B is implemented <em>separately</em>. Reason is that the ISP wiring on both mCU go to PORT B but the pins are different: MISO is PB6 on the tiny and PB4 on the mega. It would result in a big mess shorting pins. I could have put solder jumpers but I had space so...</li><li>For all the ports the pin 0 is the <em>square</em> 口 pad. Count up from there, farthest is number 7.</li><li>Board is a default 5cm x 5cm<ul><li>You can cut the board at the level of the 3rd free row (where there's the &quot;<em>cut ok</em>&quot; top silk message). You board will become a 5cm x 3.3cm in case you need space.</li></ul></li></ul><br />
+<h2 id="toc3"><a name="Schematics-Setting the fuses"></a> Setting the fuses </h2>
+<img src="files/RapideUSB2313fuses.PNG" alt="RapideUSB2313fuses.PNG" title="RapideUSB2313fuses.PNG" /><br />
+<em>Fuses setup for a <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a></em><br />
+<br />
+<h2 id="toc4"><a name="Schematics-BOM"></a> BOM </h2>
+<span style="text-align:center;"><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Mandatory</strong><br />
+</td>
+        <td><strong>Part</strong><br />
+</td>
+        <td><strong>Value</strong><br />
+</td>
+        <td><strong>Device</strong><br />
+</td>
+        <td><strong>Package</strong><br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>C1</strong><br />
+</td>
+        <td>22pF<br />
+</td>
+        <td>C-EU025-024X044<br />
+</td>
+        <td>C025-024X044<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>C2</strong><br />
+</td>
+        <td>22pF<br />
+</td>
+        <td>C-EU025-024X044<br />
+</td>
+        <td>C025-024X044<br />
+</td>
+    </tr>
+    <tr>
+        <td><br />
+</td>
+        <td><strong>C3</strong><br />
+</td>
+        <td>1uF<br />
+</td>
+        <td>C-EU025-024X044<br />
+</td>
+        <td>C025-024X044<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>C4</strong><br />
+</td>
+        <td>10uF%20<br />
+</td>
+        <td>CPOL-EUE2-5<br />
+</td>
+        <td>E2-5<br />
+</td>
+    </tr>
+    <tr>
+        <td><br />
+</td>
+        <td><strong>C5</strong><br />
+</td>
+        <td>1uF<br />
+</td>
+        <td>C-EU025-024X044<br />
+</td>
+        <td>C025-024X044<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>R1</strong><br />
+</td>
+        <td>1.5k<br />
+</td>
+        <td>R-EU_0204/2V<br />
+</td>
+        <td>0204V<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>R2</strong><br />
+</td>
+        <td>68<br />
+</td>
+        <td>R-EU_0204/2V<br />
+</td>
+        <td>0204V<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>R3</strong><br />
+</td>
+        <td>68<br />
+</td>
+        <td>R-EU_0204/2V<br />
+</td>
+        <td>0204V<br />
+</td>
+    </tr>
+    <tr>
+        <td><br />
+</td>
+        <td><strong>R4</strong><br />
+</td>
+        <td>1M<br />
+</td>
+        <td>R-EU_0204/2V<br />
+</td>
+        <td>0204V<br />
+</td>
+    </tr>
+    <tr>
+        <td>!<br />
+</td>
+        <td><strong>UC1</strong><br />
+</td>
+        <td>ATtiny2313 or AT90S2313P<br />
+</td>
+        <td>AT90S2313P<br />
+</td>
+        <td>DIL20<br />
+</td>
+    </tr>
+    <tr>
+        <td>!<br />
+</td>
+        <td><strong>UC2</strong><br />
+</td>
+        <td>ATMEGAxx8P<br />
+</td>
+        <td>ATMEGA328_SMT<br />
+</td>
+        <td>TQFP32-08<br />
+</td>
+    </tr>
+    <tr>
+        <td>!!<br />
+</td>
+        <td><strong>USB_MICRO</strong><br />
+</td>
+        <td>USB_MICROB_PLUGCONN-11752<br />
+</td>
+        <td>USB_MICROB_PLUGCONN-11752<br />
+</td>
+        <td>USB-B-MICRO-SMD_V03<br />
+</td>
+    </tr>
+    <tr>
+        <td>!!<br />
+</td>
+        <td><strong>USB_MINI</strong><br />
+</td>
+        <td>USBSMD<br />
+</td>
+        <td>USBSMD<br />
+</td>
+        <td>USB-MINIB<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>Y1</strong><br />
+</td>
+        <td>12-20MHz<br />
+</td>
+        <td>CRYSTALHC49UV<br />
+</td>
+        <td>HC49U-V<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>ZENER1</strong><br />
+</td>
+        <td>3.6v<br />
+</td>
+        <td>ZENER-DIODEZD-2.5<br />
+</td>
+        <td>ZDIO-2.5<br />
+</td>
+    </tr>
+    <tr>
+        <td>x<br />
+</td>
+        <td><strong>ZENER2</strong><br />
+</td>
+        <td>3.6v<br />
+</td>
+        <td>ZENER-DIODEZD-2.5<br />
+</td>
+        <td>ZDIO-2.5<br />
+</td>
+    </tr>
+</table>
+
+</span><br />
+!: use an ATtiny2313 or an ATmega328 (SMD version) not both<br />
+!!: USB micro or mini connector are on top of each other so pick one<br />
+C3/C5: 1uF caps to put the closest to the mCU, not mandatory but encouraged<br />
+R4: some people put a 1Mohm pullup, some don't. Not mandatory.<br />
+<br />
+<h1 id="toc5"><a name="Code"></a> Code </h1>
+Look into my other <a class="wiki_link" href="USB%20gadgets.html">USB gadgets</a> projects : <a class="wiki_link" href="Tricolor%20USB%20alert.html">Tricolor USB alert</a> (ATtiny2313) or <a class="wiki_link" href="Finger%20Password%20Keyboard.html">Finger Password Keyboard</a> (ATmega328).<br />
+<br />
+<h1 id="toc6"><a name="Pictures"></a> Pictures </h1>
+<img src="files/2015-01-17-18-00-53_deco.jpg" alt="2015-01-17-18-00-53_deco.jpg" title="2015-01-17-18-00-53_deco.jpg" /><br />
+<em> See the BOM for details. Took 25 minutes to assemble, no big issue.</em><br />
+<img src="files/2015-01-17-18-32-44_deco.jpg" alt="2015-01-17-18-32-44_deco.jpg" title="2015-01-17-18-32-44_deco.jpg" /><br />
+<em>2313 version assembled. Just be careful next to the USB connector with the diodes and resistor, space is tight, you might want to place them wisely (see the 3 vertical resistors next to USB connector)</em>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>kalshagar - ardTouch codes</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<em>(back to the <a class="wiki_link" href="ardTouch.html">ardTouch</a> main page)</em><br />
+<h1 id="toc0"><a name="ardTouch codes"></a> ardTouch codes </h1>
+<h2 id="toc1"><a name="ardTouch codes-Schema"></a> Schema </h2>
+<img src="files/ArdTouchPresentation.jpg" alt="ArdTouchPresentation.jpg" title="ArdTouchPresentation.jpg" /><br />
+Abbreviations I will use:<br />
+<ul><li>TS : TouchShield from LiquidWare</li><li>Ard2009 : Arduino Duemillanove (2009)</li></ul><br />
+<h2 id="toc2"><a name="ardTouch codes-Summary"></a> Summary </h2>
+Like a iPh0ne/iP0d (no I don't have neither want one), the touch-sensitive display shows many buttons that when pressed, will send a message to the pc and do some action (run program, change volume, format hard-drive, ...). Each button on the display has a unique code associated that will be intepreted by the pc.<br />
+That project has 2 distincts sides :<br />
+<ol><li>The ard2009/TS side : display, manage user interaction, basic functions...</li><li>The PC side : read the serial port messages and make the according command (Windows C# .Net)</li></ol><br />
+<h2 id="toc3"><a name="ardTouch codes-Communications"></a> Communications </h2>
+<h3 id="toc4"><a name="ardTouch codes-Communications-PC  Arduino 2009"></a> PC &lt;-&gt; Arduino 2009 </h3>
+Communication done by <a class="wiki_link" href="ARCPO.html">ARCPO</a> packages, both ways :<br />
+<ul><li>When the PC sends a message : show new unread mail, change brightness,...</li><li>When the Arduino notifies the PC of something : the key with code 'x' has been pressed</li></ul><br />
+NB: for now, I limited the unique code of the &quot;keys&quot; on TS to be 1 char. Still gives 256 possibilities, but it's not that fantastic however. This is one thing that has high chance to change in the future.<br />
+<h3 id="toc5"><a name="ardTouch codes-Communications-Arduino 2009  TouchSlide"></a> Arduino 2009 &lt;-&gt; TouchSlide </h3>
+Communication done by &quot;simple&quot; serial characters send/receive, both ways :<br />
+<ul><li>When the arduino sends a message : it sends at least 3 chars coming from the PC (explanation here under), plus for instance the mail title. But it's the very basic serial communication.</li><li>When the TS notifies the Arduino of something : serial send the key's code that has been pressed</li></ul><br />
+Q: Why not implementing also the <a class="wiki_link" href="ARCPO.html">ARCPO</a> packages stuff between Ard2009 and TS ? <br />
+A: Because for now that library uses the <span style="font-family: 'Courier New', Courier, monospace">Serial</span> object, but between the Ard2009 and the TS it is <span style="font-family: 'Courier New', Courier, monospace">Software serial</span> ! (ard2009 side at least). I need to rewrite this <em>and then</em> I'll 100% sure implement it. But since for now there is no need, let's live like that some time... <br />
+<br />
+<h1 id="toc6"><a name="The Arduino side"></a> The Arduino side </h1>
+Code is very short and simple : <br />
+<ul><li>when receive a message from PC, extract interresting stuff and forward to the TS Uses <strong><a class="wiki_link" href="ARCPO.html">ARCPO</a> library</strong>.</li><li>when read a char from the TS, make a packet and send to PC</li></ul><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Current version bin/src</strong><br />
+</td>
+        <td><ul><li>Source<ul><li><A  href="files/Slide_Arduino2PC.pde.html">Slide_Arduino2PC.pde</a></li></ul></li></ul></td>
+    </tr>
+</table>
+
+<br />
+Ideally, the ard2009 could do more thing, like read the temperature, read buttons, make funky rgb mood color, ... but I have not implemented that yet. It is here for comfort and make future evolutions easy.<br />
+I develop it on the official Arduino software because it seems the gadget stuff don't work well on my pc. Except that, no mystical reason involved.<br />
+<br />
+<h1 id="toc7"><a name="The TouchShield Slide side"></a> The TouchShield Slide side </h1>
+<br />
+The big part. It makes extensive use of the <strong><a class="wiki_link" href="TouchSlideExt.html">TouchSlideExt</a> library</strong> so check for this on that site.<br />
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Current version bin/src</strong><br />
+</td>
+        <td><ul><li>Source<ul><li><A  href="files/Slide_ARDTouch.0.5.zip.html">Slide_ARDTouch.0.5.zip</a></li></ul></li></ul></td>
+    </tr>
+</table>
+
+<br />
+<h1 id="toc8"><a name="The PC side"></a> The PC side </h1>
+-&gt; See <a class="wiki_link" href="ardTouchConnector.html">ardTouchConnector</a> &lt;-
+    </div>
+  </body>
+</html>

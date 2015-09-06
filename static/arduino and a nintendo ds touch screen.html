@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and a Nintendo DS touch screen</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="display:flex;"><br />
+<span style="width:50%;" class="seeAlsoGB"><img src="files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link_ext" href="http://kalshagar.wikispaces.com/space/content?tag=Gameboy" rel="nofollow">Gameboy related pages</a></span>  <span style="width:50%;" class="seeAlsoClocks"><img src="files/clock48.png" alt="clock48.png" title="clock48.png" /><a class="wiki_link" href="Clocks.html">See my clocks projects</a> : with voltmeter, with RGB dot matrix, with VFD tubes, ... </span> </span><br />
+<h1 id="toc0"><a name="Realisation"></a> Realisation </h1>
+<img src="files/DSscreen.jpg" alt="DSscreen.jpg" title="DSscreen.jpg" style="width: 300px;" align="right" /> <br />
+Quite easy to do, with inexpensive components (Touch screen is 10$, break board connector 4$ and just buy it, don't be a hero), but with one or two caveats.<br />
+Sample, wiring and code here under. Everything is basically an application of Elm-chan's very good tutorial  <a class="wiki_link_ext" href="http://kousaku-kousaku.blogspot.com/2008/08/arduino_24.html" rel="nofollow">http://kousaku-kousaku.blogspot.com/2008/08/arduino_24.html</a> (but not in Japanese).<br />
+<br />
+<span style="
+border-left: 4px solid grey;
+display:block;
+margin-left: 20px;
+margin-right: 20px;
+padding-left: 4px;
+">You might be interrested in a project I did that uses it, it's the <a class="wiki_link" href="ardReveil.html">ardReveil</a>. I divided the touchpad in 4 zones in/out/%20/- and used it as an input and it was quite successful. Project had other problems but at least this was really ok.</span><br />
+<h2 id="toc1"><a name="Realisation-Caveats and what you should know"></a> Caveats and what you should know </h2>
+<ul><li>Buy the breakboard it make your life easier. You can solder directly to the connector, I did it (see below), but I don't recommend it seeing the ration complexity/benefit. Just spend 4 bucks.</li><li>Touchscreen has <strong>2 sides</strong> and <em>only one is sensitive</em>. Can seem obvious when you know, but I didn't at first...</li><li>Don't forget the <strong>pulldown resistors</strong>. Otherwise you have floating results and can't get anything meaningful as a result. Depending on the resistors you will put, you will have different results:<ul><li>Put 470 ohm : the read values are [0..200] and you don't read a square but a triangle : one angle is in the middle of the hypothenus of the others, you have to do calibration/transformation matrix or barycenters ... it's high school maths for the later, but not fun. <span style="color:red;">Small resistor value = bad idea</span></li><li>Put 10k Ohm : you get a nice, square reading, values [0 .. 800]. No calibration or post calculation needed. <span style="color:green;">10k%20 resistor value = good idea</span></li></ul></li><li>There's no limit on how fast you can read as per my tests, knock yourself out!</li><li>Answering some people questions : it takes 5v at least in the present implementation (arduino runs on 5v). With the big pull-down (10kOhm), the pull-down intensity is very low, like 0.5 mA, a triffle.</li><li>Use the breakboard for the connector <em>if possible</em>. Indeed, my first touch screen fit perfectly and was well bound to it, but ... the 2 recent ones I bought (obviously different models, with greenish border) even though look exactly the same, <u>they didn't fit in the connector</u> ! It looked like ok, but contact was not done and it was loose, the screen going out of the connector as if it was not blocked at all... then comes the time for real solder-soldier:<ul><li>With thin scisors, cut the screen connector to separate the 4 little tracks to connect</li><li>Drop a little solder on each. Beware of short cuts and don't burn it (even if it's <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Kapton" rel="nofollow" target="_blank">kapton</a> ) : be swift.</li><li>Prepare a 4 wire map (flat cable) by presoldering each wire</li><li>The real hard part: wire per wire, make the contact between the connector track and the wire, heat up to have the solder to melt and make contact, and don't move (makes bad solder)</li><li>If you're at that point, you're not too bad, kind of cold-handed guy ^^ So insert a piece of paper between the soldered wires (very close, might short-cut) and maybe hot glue it or wrap it with tape.</li><li>TADA! It's done. Goo news is that the wire order is the same as with the connector.</li></ul></li></ul><br />
+<br />
+<h2 id="toc2"><a name="Realisation-Pictures"></a> Pictures </h2>
+<img src="files/DSTouchScreenWiring.jpg" alt="DSTouchScreenWiring.jpg" title="DSTouchScreenWiring.jpg" /><br />
+Too many people use this, too few put a diagram. I suck a electronic, so I put a graph.<br />
+<strong>One important word :</strong> 4x 10kOhm <em>can't</em> be replaced with just one, don't waste time trying.<br />
+<img src="files/dstest.jpg" alt="dstest.jpg" title="dstest.jpg" style="width: 600px;" /><br />
+With the 10 kOhm resistors, nice reading, no recalibration : raw results drawn on a 800x800 picture. Life is great.<br />
+<strong>BEWARE:</strong> this pin assignement is according the code here under. If you have other assignement, just change the constants in the header of the Arduino code.<br />
+<img src="files/DSTouchScreenMontage01.jpg" alt="DSTouchScreenMontage01.jpg" title="DSTouchScreenMontage01.jpg" /> <br />
+Arduino 2009 %20 4x 10 kOhm %20 Connector %20 DS touch screen. You can do that within 1 hour for sure...<br />
+<br />
+<h2 id="toc3"><a name="Realisation-Links"></a> Links </h2>
+<h3 id="toc4"><a name="Realisation-Links-Shopping"></a> Shopping </h3>
+<ul><li>Screen (Sparkfun for US, Switch-Science for the japanese) <a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/product_info.php?products_id=8977" rel="nofollow">http://www.sparkfun.com/commerce/product_info.php?products_id=8977</a>  <a class="wiki_link_ext" href="http://www.switch-science.com/products/detail.php?product_id=105" rel="nofollow">http://www.switch-science.com/products/detail.php?product_id=105</a></li><li>Connector (don't be a hero, spend 4$) <a class="wiki_link_ext" href="https://www.sparkfun.com/commerce/product_info.php?products_id=9170" rel="nofollow">https://www.sparkfun.com/commerce/product_info.php?products_id=9170</a>  <a class="wiki_link_ext" href="http://www.switch-science.com/products/detail.php?product_id=178" rel="nofollow">http://www.switch-science.com/products/detail.php?product_id=178</a></li></ul><br />
+<h3 id="toc5"><a name="Realisation-Links-Documentation and tutorials"></a> Documentation and tutorials </h3>
+<ul><li>Sparkfun's tutorial <a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=139" rel="nofollow">http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=139</a></li></ul><br />
+<h3 id="toc6"><a name="Realisation-Links-Reading values"></a> Reading values </h3>
+<ul><li><strong>WORKING</strong> Same as the link here under BUT in Japanese BUT with a schema ! <a class="wiki_link_ext" href="http://kousaku-kousaku.blogspot.com/2008/08/arduino_24.html" rel="nofollow">http://kousaku-kousaku.blogspot.com/2008/08/arduino_24.html</a></li><li><em>Not working</em>  a RGB mixer with a DS touchscreen ... wait a minute, that's EXACLTY<a class="wiki_link" href="ardColorLamp.html"> what I planned</a>  ! <a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1243499684" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1243499684</a></li></ul><br />
+<h3 id="toc7"><a name="Realisation-Links-Calibration (no need with 10kOhm pull down)"></a> Calibration (no need with 10kOhm pull down) </h3>
+<ul><li><a class="wiki_link_ext" href="http://www.embedded.com/story/OEG20020529S0046" rel="nofollow">http://www.embedded.com/story/OEG20020529S0046</a></li><li><A  href="files/EEIOL_2002JUN02_EMS_OPTO_TA.pdf.html">EEIOL_2002JUN02_EMS_OPTO_TA.pdf</a> taken from <a class="wiki_link_ext" href="http://www.eetindia.co.in/ART_8800503899_1800010_TA_1f833eab.HTM" rel="nofollow">http://www.eetindia.co.in/ART_8800503899_1800010_TA_1f833eab.HTM</a></li></ul><br />
+<h2 id="toc8"><a name="Realisation-Code"></a> Code </h2>
+<ul><li>Download code here <A  href="files/DSTouchScreen_Test2.pde.html">DSTouchScreen_Test2.pde</a></li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c">&nbsp;
+&nbsp;
+<span class="co1">// Taken from http://kousaku-kousaku.blogspot.com/2008/08/arduino_24.html</span>
+<span class="coMULTI">/*
+#define xLow  14
+#define xHigh 15
+#define yLow  16
+#define yHigh 17
+*/</span>
+<span class="co1">//modified to match my sparkfun connector</span>
+<span class="co2">#define xLow  17</span>
+<span class="co2">#define xHigh 15</span>
+<span class="co2">#define yLow  16</span>
+<span class="co2">#define yHigh 14</span>
+&nbsp;
+&nbsp;
+<span class="kw4">void</span> setup<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+  Serial.<span class="me1">begin</span><span class="br0">&#40;</span><span class="nu0">9600</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> loop<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+  pinMode<span class="br0">&#40;</span>xLow<span class="sy0">,</span>OUTPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  pinMode<span class="br0">&#40;</span>xHigh<span class="sy0">,</span>OUTPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  digitalWrite<span class="br0">&#40;</span>xLow<span class="sy0">,</span>LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+  digitalWrite<span class="br0">&#40;</span>xHigh<span class="sy0">,</span>HIGH<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  digitalWrite<span class="br0">&#40;</span>yLow<span class="sy0">,</span>LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+  digitalWrite<span class="br0">&#40;</span>yHigh<span class="sy0">,</span>LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  pinMode<span class="br0">&#40;</span>yLow<span class="sy0">,</span>INPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  pinMode<span class="br0">&#40;</span>yHigh<span class="sy0">,</span>INPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  delay<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="co1">//xLow has analog port -14 !!</span>
+  <span class="kw4">int</span> x<span class="sy0">=</span>analogRead<span class="br0">&#40;</span>yLow <span class="sy0">-</span><span class="nu0">14</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  pinMode<span class="br0">&#40;</span>yLow<span class="sy0">,</span>OUTPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  pinMode<span class="br0">&#40;</span>yHigh<span class="sy0">,</span>OUTPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  digitalWrite<span class="br0">&#40;</span>yLow<span class="sy0">,</span>LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+  digitalWrite<span class="br0">&#40;</span>yHigh<span class="sy0">,</span>HIGH<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  digitalWrite<span class="br0">&#40;</span>xLow<span class="sy0">,</span>LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+  digitalWrite<span class="br0">&#40;</span>xHigh<span class="sy0">,</span>LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  pinMode<span class="br0">&#40;</span>xLow<span class="sy0">,</span>INPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  pinMode<span class="br0">&#40;</span>xHigh<span class="sy0">,</span>INPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  delay<span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="co1">//xLow has analog port -14 !!</span>
+  <span class="kw4">int</span> y<span class="sy0">=</span>analogRead<span class="br0">&#40;</span>xLow <span class="sy0">-</span> <span class="nu0">14</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    Serial.<span class="me1">print</span><span class="br0">&#40;</span>x<span class="sy0">,</span>DEC<span class="br0">&#41;</span><span class="sy0">;</span>   
+    Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;,&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>     
+    Serial.<span class="me1">println</span><span class="br0">&#40;</span>y<span class="sy0">,</span>DEC<span class="br0">&#41;</span><span class="sy0">;</span> 
+&nbsp;
+  delay<span class="br0">&#40;</span><span class="nu0">200</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;</pre>
+
+
+    </div>
+  </body>
+</html>

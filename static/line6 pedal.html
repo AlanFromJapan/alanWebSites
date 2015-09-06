@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <title>kalshagar - Line6 pedal</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Why making a pedal ?"></a> Why making a pedal ? </h1>
+I have at home a <strong><a class="wiki_link_ext" href="http://line6.com/support/manuals/podhd" rel="nofollow" target="_blank">Line6 POD HD Desktop</a></strong> which I'm very happy about, but I'd like to be able to use a pedal too. For instance for the looper (great but useless if you need to start/stop it with your fingers), maybe switch between settings for intro/rythm/solo ... well all those things you do with a pedal!<br />
+Being curious and careful with my money (sometimes) I dug into the idea of making one myself instead of buying Line6 cheapest compatible one, a <a class="wiki_link_ext" href="http://line6.com/footcontrollers/fbvexpressmkii.html" rel="nofollow" target="_blank">FBV EXPRESS™ MkII</a> (80%20 USD on amazon). Apparently it was a not so hard task with former models (see the links here under) but with my POD HD Desktop, unfortunately things got complicated. Line6 took a even more all-digital turn, even for the pedals. This page is the place where I'll store my remarks, I hope it can help you.<br />
+<br />
+<h1 id="toc1"><a name="RJ45 connector"></a> RJ45 connector </h1>
+Connector is a regular RJ45, 8 pins. Don't use those fancy one with 2 leds embedded and maybe even with the ferrite inside, it just short the wires 8 to 6 and force your POD to reset. Use a plain vanilla RJ45 connector.<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Pin#</strong><br />
+</td>
+        <td><strong>Readouts</strong><br />
+</td>
+        <td><strong>Analysis</strong><br />
+</td>
+    </tr>
+    <tr>
+        <td>1<br />
+</td>
+        <td>GND<br />
+</td>
+        <td>GND<br />
+</td>
+    </tr>
+    <tr>
+        <td>2<br />
+</td>
+        <td>%208.7v<br />
+</td>
+        <td>9v wannabe ? Additional power for some component on the pedal?<br />
+</td>
+    </tr>
+    <tr>
+        <td>3<br />
+</td>
+        <td>GND<br />
+</td>
+        <td>GND<br />
+</td>
+    </tr>
+    <tr>
+        <td>4<br />
+</td>
+        <td>GND<br />
+</td>
+        <td>GND<br />
+</td>
+    </tr>
+    <tr>
+        <td>5<br />
+</td>
+        <td>%208.7v<br />
+</td>
+        <td>9v wannabe ? Additional power for some component on the pedal?<br />
+</td>
+    </tr>
+    <tr>
+        <td>6<br />
+</td>
+        <td>%205v<br />
+</td>
+        <td>Voltage for the logic and chips in the pedal (and reference maybe)<br />
+</td>
+    </tr>
+    <tr>
+        <td>7<br />
+</td>
+        <td>%205v<br />
+</td>
+        <td>Pulled-UP data wire. Let's name it <strong>D%20</strong><br />
+</td>
+    </tr>
+    <tr>
+        <td>8<br />
+</td>
+        <td>%200.02v<br />
+</td>
+        <td>Pulled-DOWN data wire. Let's name it <strong>D-</strong><br />
+</td>
+    </tr>
+</table>
+
+<br />
+Readouts are simple analysis done with a multimeter, nothing fancy. Then I put all the lines in my DSO oscilloscope to identify those who just seem to be fixed voltage but aren't. Bingo, at least pins 7 and 8 are in that group. The strange 9v-ish pins are still mystery, but maybe they are just really 9v.<br />
+Of course don't short GND and the 9v pins, your POD will restart (you're shorting power, kinda bad thing to do). We can assume that it's protected but let's just not do it willingly.<br />
+<br />
+<h1 id="toc2"><a name="D%20/D- bus"></a> D%20/D- bus </h1>
+Then I put the 2 D%20/D- pins on my <strong><a class="wiki_link_ext" href="http://www.zeroplus.com.tw/logic-analyzer_en/products.php?pdn=1&amp;product_id=252" rel="nofollow" target="_blank">LAP-C Zeroplus Logic cube 16064</a> </strong> to have some more info.<br />
+<img src="files/Line6pedal_bus01.png" alt="Line6pedal_bus01.png" title="Line6pedal_bus01.png" /><br />
+Quick analysis based on this diagram (situation : nothing plugged on the POD) :<br />
+<ul><li>The 2 wires are mirror of one another, like in <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/USB#Signaling" rel="nofollow" target="_blank">USB communications</a> hence the names I picked D%20 and D-</li><li>It transmits a packet every 200ms, one packet lasts 1.26ms</li><li>Shortest impulse is 32us means a guessed frequency F = 1 / 32us = <strong>31.25kHz</strong></li><li>It looks like USB (2 wires in mirror) but it's not USB because :<ul><li>Frequency : 50 kHz, too low for USB even 1.0</li><li>USB needs a stuff bit every 6 consecutive 1's (lines unchanged) and we can see last part being 288us = 9 bits on the row of the same value.</li></ul></li></ul><br />
+So what could it be? <br />
+<ul><li><strong><a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/MIDI#Technical%20specifications" rel="nofollow" target="_blank">MIDI</a></strong> : the best bet seeing that the carrier is 31.25 kHz and midi works at 31.25 kBauds!<ul><li>Yes but ... how do we answer ? Shall we take control on the bus ? Lower the 5v pin ?</li></ul></li><li>Alternates:<ul><li>2 wires ... I2C ? No, SDA is data and SCL is a clock, obviously none of these pin is clock.</li><li>SPI : still need to interpret the commands</li><li>Custom protocol : will be hard to understand without a real pedal to compare</li></ul></li></ul><h2 id="toc3"><a name="D%20/D- bus-Sample message interpretation"></a> Sample message interpretation </h2>
+<img src="files/Line6pedal_bus02.png" alt="Line6pedal_bus02.png" title="Line6pedal_bus02.png" align="Right" />Let's say that it's like USB: both line at normal level is 1, inverted is 0. And let's assume codes are send MSB first.<br />
+We get if we remove what looks like a preamble 3 bytes remaining : 0x0A 0x02 0x00<br />
+<br />
+<br />
+<h1 id="toc4"><a name="Documentation and links"></a> Documentation and links </h1>
+<h2 id="toc5"><a name="Documentation and links-MIDI"></a> MIDI </h2>
+<ul><li>MIDI messages <a class="wiki_link_ext" href="http://www.midi.org/techspecs/midimessages.php" rel="nofollow">http://www.midi.org/techspecs/midimessages.php</a></li></ul><h2 id="toc6"><a name="Documentation and links-Pedal RJ45 connector (OLD version)"></a> Pedal RJ45 connector (OLD version) </h2>
+<em><strong>README :</strong> This document relates to the FORMER version of Pedal that DON'T work with my POD HD Desktop. It's a good reference, but can't be used since their system has changed drastically.</em><br />
+<ul><li>Very detailed one, maybe a bit old <a class="wiki_link_ext" href="http://www.harmonicappliances.com/floorboard/floorboard.html" rel="nofollow">http://www.harmonicappliances.com/floorboard/floorboard.html</a></li><li>Another one who goes less in details <a class="wiki_link_ext" href="http://practicalusage.com/?paged=5" rel="nofollow">http://practicalusage.com/?paged=5</a></li><li>A root version (maybe avoid) <a class="wiki_link_ext" href="http://www.instructables.com/id/Line-6-Spider-Amp-Hack/" rel="nofollow">http://www.instructables.com/id/Line-6-Spider-Amp-Hack/</a></li></ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and a button</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+Various notes about buttons, switches, etc...<br />
+<br />
+<h1 id="toc0"><a name="Buttons 101"></a> Buttons 101 </h1>
+<ul><li><strong>Debouncing</strong> : you have to debounce buttons. The spring inside will bump many times, or just even the time you press while scanned thousands of time per second by your program will read multiple inputs. Usually just read every n millisec is enough.</li><li><strong>Floating</strong> : if a pin is not connected to anything because switch is opened, the input is floating and picking whatever magnetic perturabations arround. You have to do a <em>pull-up</em> or <em>pull-down</em>.</li></ul><br />
+<h1 id="toc1"><a name="Multiple buttons on 1 analog pin"></a> Multiple buttons on 1 analog pin </h1>
+<img src="files/button_analog.png" alt="button_analog.png" title="button_analog.png" align="right" /><br />
+This is one of the multiple possible circuit. This one is pulled-down, can read without ambiguity maybe until 5 buttons, but can't read multiple press at the same time.<br />
+<br />
+Receipe for n buttons:<br />
+<ul><li>n resistors of value R (R &lt;= 1 kOhm)</li><li>n momentary buttons</li></ul><br />
+The &quot;R<em>bottom</em>&quot; (on the graph) one is a pull down. <br />
+For n == 3:<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Button pressed</strong><br />
+</td>
+        <td><strong>Reading</strong><br />
+</td>
+        <td><strong>Comment</strong><br />
+</td>
+    </tr>
+    <tr>
+        <td>None<br />
+</td>
+        <td>0 V<br />
+</td>
+        <td>Pulldown<br />
+</td>
+    </tr>
+    <tr>
+        <td>Top<br />
+</td>
+        <td>Vcc<br />
+</td>
+        <td>Because direclt linked to 5v, but the bottom resistor limits the current to a very low value<br />
+</td>
+    </tr>
+    <tr>
+        <td>Middle<br />
+</td>
+        <td>Vcc /2<br />
+</td>
+        <td>V = Vcc * R<em>bottom</em> / (R<em>top</em> %20 R<em>bottom</em>) = Vcc * R / 2R = Vcc/2<br />
+</td>
+    </tr>
+    <tr>
+        <td>Bottom<br />
+</td>
+        <td>Vcc /3<br />
+</td>
+        <td>V = Vcc * R<em>bottom</em> / (R<em>top</em> %20 R<em>middle</em> %20 R<em>bottom</em>) = Vcc * R / 3R = Vcc/3<br />
+</td>
+    </tr>
+</table>
+
+<br />
+One can find an interresting variant here : <a class="wiki_link_ext" href="http://rayshobby.net/blog/?p=16" rel="nofollow">http://rayshobby.net/blog/?p=16</a><br />
+<br />
+<h1 id="toc2"><a name="Push-on push-off latching switch"></a> Push-on push-off latching switch </h1>
+Turn on/off with one push button only !<br />
+<ul><li>EEVblog Dave crazy bloke's version <a class="wiki_link_ext" href="http://www.youtube.com/watch?v=Foc9R0dC2iI" rel="nofollow">http://www.youtube.com/watch?v=Foc9R0dC2iI</a></li><li>Alternate <a class="wiki_link_ext" href="http://www.youtube.com/watch?v=I70H5xQ6MT0" rel="nofollow">http://www.youtube.com/watch?v=I70H5xQ6MT0</a></li></ul><img src="files/EEVblogLatchPowerSwitch.png" alt="EEVblogLatchPowerSwitch.png" title="EEVblogLatchPowerSwitch.png" /><br />
+<em>EEVblog Dave crazy bloke's version <a class="wiki_link_ext" href="http://www.youtube.com/watch?v=Foc9R0dC2iI" rel="nofollow">http://www.youtube.com/watch?v=Foc9R0dC2iI</a></em>
+    </div>
+  </body>
+</html>

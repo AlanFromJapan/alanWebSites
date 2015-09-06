@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino and a Character LCD</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Summary"></a> Summary </h1>
+<br />
+Arduino works fine with Character LCD (the classic 16 char x 2 lines). It can even use the 4 bits library, to save some pins (you end up needing 6 at minimum). However that library or at least the version I had was old (2006) and had some painful limitations. It's fixed in this version. Feel free to use, GPL free.<br />
+<br />
+If you find it useful, it's good. If I've wasted 1/2 hour on a historical version, that's it for me. Comments welcome.<br />
+<em>Edit : LiquidCrystal is much better, should have used it from start ...</em><br />
+<img src="files/lcd2arduinoATmega328.png" alt="lcd2arduinoATmega328.png" title="lcd2arduinoATmega328.png" /><br />
+<em>An exemple on how to plug it. Count 7 pins for driving it (4 bits data %20 E %20 CS %20 Backlight)</em><br />
+<br />
+<h2 id="toc1"><a name="Summary-Fixings"></a> Fixings </h2>
+Based on the version of LCD4Bit v0.1 16/Oct/2006 neillzero <a class="wiki_link_ext" href="http://www.arduino.cc/playground/Code/LCD4BitLibrary" rel="nofollow">http://www.arduino.cc/playground/Code/LCD4BitLibrary</a> <a class="wiki_link_ext" href="http://abstractplain.net" rel="nofollow">http://abstractplain.net</a><br />
+<ul><li>Pins must be contiguous : fixed !</li><li>You can't specify the pins easily (must recompile the library itself) : now you can override it easily with <span style="font-family: 'Courier New', Courier, monospace ;background-color: #D0D0D0">lcd.overrideLCDPins(int pPins[], int pRS, int pRW, int pEnable)</span></li><li>Annoying warning during build : fixed (added the missing parenthesis)</li></ul><br />
+<h2 id="toc2"><a name="Summary-Download and install"></a> Download and install </h2>
+Replace the version of Lib4bit you have with this one in the <span style="font-family: 'Courier New', Courier, monospace; background-color: #D0D0D0">\arduino-0015\hardware\libraries\LCD4Bit</span> directory. That's all. Maybe drop the lib4bit.o and rebuild, in case. Enjoy.<br />
+<A  href="files/LCD4Bit.zip.html">LCD4Bit.zip</a><br />
+<br />
+<h1 id="toc3"><a name="Links"></a> Links </h1>
+<ul><li>Howto custom characters <a class="wiki_link_ext" href="http://www.electronicsblog.net/arduino-lcd-horizontal-progress-bar-using-custom-characters/" rel="nofollow">http://www.electronicsblog.net/arduino-lcd-horizontal-progress-bar-using-custom-characters/</a></li></ul>
+    </div>
+  </body>
+</html>

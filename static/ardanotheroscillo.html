@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>kalshagar - ardAnotherOscillo</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Foreword"></a> Foreword </h1>
+This poor man oscilloscope is based on an <strong>excellent</strong> tutorial from Vassilis Serasidis. This is why this project is named after his, ard<u>Another</u>Oscillo.<br />
+<ul><li>Original version <a class="wiki_link_ext" href="http://www.serasidis.gr/circuits/AVR_oscilloscope/avr_oscilloscope.htm" rel="nofollow">http://www.serasidis.gr/circuits/AVR_oscilloscope/avr_oscilloscope.htm</a></li><li>Instructables version <a class="wiki_link_ext" href="http://www.instructables.com/id/Low-speed-AVR-oscilloscope/" rel="nofollow">http://www.instructables.com/id/Low-speed-AVR-oscilloscope/</a></li><li><a class="wiki_link" href="ARD_AnalogViewer.html">For the viewer, one of my previous tool ARD_AnalogViewer</a></li></ul><br />
+Purpose is to provide a windows PC displayable signal for low voltage (max 5V) and low frequency but cost/complexity cutting by using a windows application for design. (instead of using an embeded screen).<br />
+<br />
+<span style="background-color: #ffb800"><strong>Edit:</strong> I decided to be no more poor man and bought this. Very good tool, however both are maybe complementary.<br />
+<a class="wiki_link_ext" href="http://www.seeedstudio.com/depot/dso-nano-pocket-size-digital-storage-oscilloscope-p-512.html?cPath=11" rel="nofollow">http://www.seeedstudio.com/depot/dso-nano-pocket-size-digital-storage-oscilloscope-p-512.html?cPath=11</a></span><br />
+<br />
+<br />
+<h1 id="toc1"><a name="Schema"></a> Schema </h1>
+<img src="files/ardOscillo.png" alt="ardOscillo.png" title="ardOscillo.png" /><br />
+<h1 id="toc2"><a name="Code"></a> Code </h1>
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="kw4">int</span> potPin <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>    <span class="co1">// select the input pin for the potentiometer</span>
+<span class="kw4">int</span> val <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>       <span class="co1">// variable to store the value coming from the sensor</span>
+&nbsp;
+<span class="kw4">void</span> setup<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  analogReference<span class="br0">&#40;</span>DEFAULT<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  Serial.<span class="me1">begin</span><span class="br0">&#40;</span><span class="nu0">115200</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> loop<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  val <span class="sy0">=</span> analogRead<span class="br0">&#40;</span>potPin<span class="br0">&#41;</span><span class="sy0">;</span>    <span class="co1">// read the value from the sensor</span>
+&nbsp;
+  Serial.<span class="me1">println</span><span class="br0">&#40;</span>val<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  delay<span class="br0">&#40;</span><span class="nu0">100</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+
+    </div>
+  </body>
+</html>

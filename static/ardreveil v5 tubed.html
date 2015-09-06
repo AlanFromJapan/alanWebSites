@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>kalshagar - ardReveil v5 Tubed</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="
+background-color: lightyellow;
+display: block;
+border: solid 1px gold;
+text-align:center;
+">This page is the legacy page of the project. Main page now is <strong><a class="wiki_link" href="Alan%20numitron%20clock.html">Alan numitron clock</a></strong>.</span><br />
+<br />
+<img src="files/2012-12-09-17-30-56_deco.jpg" alt="2012-12-09-17-30-56_deco.jpg" title="2012-12-09-17-30-56_deco.jpg" style="width: 300px;" align="right" />This project is at cross point of a few other projects of mine. It's using a <a class="wiki_link" href="Wordclock.html">Wordclock</a> board, because it's the easiest solution to manage the time keeping part, it's using <a class="wiki_link" href="Nixie%20tubes%20and%20alike.html">Nixie tubes IV16</a> to show the time, <a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FTinyNumitronBoard" rel="nofollow" target="_blank">Tiny Numitron board</a>s to show the time (2 times 2 tubes for hour and minutes), <a class="wiki_link" href="Arduino%20and%20Shift-registers.html">74HC595 Shift registers</a> to drive the tubes (5 volts and they are 7 segments).<br />
+The final design is not bad to my idea and thoses tubes, although not as cool as the Nixie tubes, add a quite nice touch with their glass envelope.<br />
+<h1 id="toc0"><a name="Code"></a> Code </h1>
+ <ul><li>All based on my <a class="wiki_link" href="Wordclock.html">Wordclock</a> project (Arduino 1.0 code)<ul><li>Google SVN <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FWordclock" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FWordclock</a></li><li>Special version Alan (serial #0001) <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftags%2FWordclock%2FAlanOriginalVersion" rel="nofollow" target="_blank">code tag</a></li><li>Special version Francois (serial #0002) <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftags%2FWordclock%2FFrancoisLeFrancais" rel="nofollow" target="_blank">code tag</a></li></ul></li></ul><br />
+<h1 id="toc1"><a name="Special instructions"></a> Special instructions </h1>
+<ul><li>Wiring :<ul><li>Wire the bottom connector middle 3 pins [PB0 - PD7 - PD6] to [DATA - LTCH - CLK]</li><li>Carry pin can stay unwired</li></ul></li></ul><br />
+<h1 id="toc2"><a name="Board and schematics"></a> Board and schematics </h1>
+<ul><li>Eagle <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FTinyNumitronBoard" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FTinyNumitronBoard</a></li></ul><br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/LINEcamera_share_2012-10-23-23-36-54.jpg" alt="LINEcamera_share_2012-10-23-23-36-54.jpg" title="LINEcamera_share_2012-10-23-23-36-54.jpg" style="width: 300px;" /><br />
+2 nixie tubes on a Tiny Numitron board<br />
+</td>
+        <td><img src="files/tinynumitronboard-10.png" alt="tinynumitronboard-10.png" title="tinynumitronboard-10.png" style="width: 300px;" /><br />
+The Tiny numitron board schema<br />
+</td>
+        <td><img src="files/wordclock-main.v1.1.png" alt="wordclock-main.v1.1.png" title="wordclock-main.v1.1.png" style="width: 300px;" /><br />
+The wordclock board<br />
+</td>
+    </tr>
+</table>
+
+<br />
+<img src="files/LINEcamera_share_2012-10-25-22-56-18.jpg" alt="LINEcamera_share_2012-10-25-22-56-18.jpg" title="LINEcamera_share_2012-10-25-22-56-18.jpg" /><br />
+During the tests ...<br />
+<br />
+<img src="files/2012-12-09-17-34-47_deco.jpg" alt="2012-12-09-17-34-47_deco.jpg" title="2012-12-09-17-34-47_deco.jpg" /><img src="files/2012-12-09-17-30-56_deco.jpg" alt="2012-12-09-17-30-56_deco.jpg" title="2012-12-09-17-30-56_deco.jpg" /><img src="files/2012-12-09-17-29-42_deco.jpg" alt="2012-12-09-17-29-42_deco.jpg" title="2012-12-09-17-29-42_deco.jpg" />
+    </div>
+  </body>
+</html>

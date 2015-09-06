@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>kalshagar - Table lamp</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+Get more light where you need. At my desk I have sufficient light but sometimes I need more. Why not buying a desk lamp? Well, my desk is small and I didn't found something that has low surface (can't use the &quot;claw&quot; like version, desk side is too thick) and that fills my need:<br />
+<ul><li>No or barely no space wasted on my small table</li><li>Please, no additional wallwart. I have enough under my desk so let's use batteries (anyway the light will only be on from time to time)</li><li>Articulated arm to allow to have the light right where you want it</li></ul><br />
+Solution, use some power white led powered by a battery, make a articulated arm from electrical strong wires and case the on/off and power potentiometer in the side of the top shelf itself.<br />
+<br />
+<h1 id="toc1"><a name="Parts"></a> Parts </h1>
+<ul><li>Power white led (12-14v, 60 mA) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-03946/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-03946/</a></li><li>2x 9V batteries in serie (= 18v)</li><li>Resistor scale to get 15v OR LM317 ?<ul><li>To save some amps, I turned to LM317 : with R1=100ohm and R2=1000ohm, a Vin of 18V becomes a nice 14- Volt.Perfect!</li></ul></li><li>Slide potentiometer for the power<ul><li>I put it in parallel with a 300 ohm resistor. Result is not linear but gives a contol on the power on the last part of the rail (last 15% I would say). With the slide to 0, the 300 ohm feeds the led with a nice 60%20 mA which is the current for the which it's rated. Since I have no 300 ohm resistor, I used a small 1kOhm pot I had and I measured it to 300 ohm. I could then fine tune the final current if needed.</li></ul></li></ul><br />
+<h1 id="toc2"><a name="Schema"></a> Schema </h1>
+Problem : slide potentiometer I have are way too strong, like 100 kOhm. So I use 2 parallel resistor to lower the value. It's not perfect since relevant amp change can be seen only on extreme lower end of the slide but ... well, I want to try and use it :P<br />
+Parallel resistor ohm rule : R = (R1 %20 R2) / (R1 * R2)<br />
+NOTABENE : finally it's a LM317 I use but idea is still valid.<br />
+<img src="files/table_lamp_circuit.png" alt="table_lamp_circuit.png" title="table_lamp_circuit.png" /><br />
+<a class="wiki_link_ext" href="http://www.falstad.com/circuit/" rel="nofollow" target="_blank">Circuit :</a> <br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">$ 1 5.0E-6 10.20027730826997 50 5.0 50
+v 144 256 144 192 0 0 40.0 18.0 0.0 0.0 0.5
+r 224 160 224 208 0 100.0
+r 224 208 224 288 0 500.0
+r 288 240 416 240 0 300.0
+174 304 176 432 176 0 100000.0 0.0050 Resistance
+d 528 256 528 320 1 0.805904783
+w 144 192 224 160 0
+w 224 288 144 256 0
+w 224 208 288 240 0
+w 416 240 528 256 0
+w 528 320 224 288 0
+w 432 176 528 256 0
+w 224 208 336 128 0
+w 336 128 368 160 0
+w 336 128 304 176 0
+o 5 64 0 35 5.0 0.1 0 -1</pre>
+
+<br />
+<h1 id="toc3"><a name="Pictures"></a> Pictures </h1>
+<img src="http://lh6.ggpht.com/_guyITpquorQ/TPpglqNFn3I/AAAAAAAAIJM/lzE0c1yMtaU/s1152/2010-12-05%2000.36.07.jpg" alt="external image 2010-12-05%2000.36.07.jpg" title="external image 2010-12-05%2000.36.07.jpg" /><br />
+The circuit : one can see the 100kOhm slide, the 1kOhm pot set to 300ohm, the LM317 on the right hand and the little basket on the right holds the 2 9V batteries.<br />
+<img src="http://lh6.ggpht.com/_guyITpquorQ/TPpgcDRXk6I/AAAAAAAAIJI/g9PNm7tdd1Q/s1152/2010-12-05%2000.36.48.jpg" alt="external image 2010-12-05%2000.36.48.jpg" title="external image 2010-12-05%2000.36.48.jpg" /><br />
+The led module itself. Notice how it's held by strong copper wire (drive the power, hold it and make a nice articulated arm).
+    </div>
+  </body>
+</html>

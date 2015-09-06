@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>kalshagar - ardSolar companion</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+<br />
+<h1 id="toc1"><a name="Schema"></a> Schema </h1>
+<img src="files/LedMatrixSchema.png" alt="LedMatrixSchema.png" title="LedMatrixSchema.png" /><br />
+<em>Led matrix wiring (TOP VIEW).</em><br />
+<br />
+<h1 id="toc2"><a name="Preparation"></a> Preparation </h1>
+It will use the led matric code that can be found here : <a class="wiki_link" href="Arduino%20and%20a%20Dot%20Matrix.html">Arduino and a Dot Matrix</a> <br />
+<h2 id="toc3"><a name="Preparation-Setting up the environment"></a> Setting up the environment </h2>
+We will use the <a class="wiki_link" href="Arduino%20without%20arduino.html">Arduino without arduino</a> technique with a variation, this time we will use a Atmega 88. Same as 328 but with 8kb memory, plenty sufficient for what we will do. See <a class="wiki_link" href="Arduino%20without%20arduino.html">Arduino without arduino</a> for all the details (Setup the environment and the fuses...)<br />
+<br />
+<h1 id="toc4"><a name="Code"></a> Code </h1>
+Everything is here : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn/trunk/LedMatrixCompanion" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn/trunk/LedMatrixCompanion</a><br />
+<br />
+<h2 id="toc5"><a name="Code-Standalone mode"></a> Standalone mode </h2>
+Load it with some program that will do some nice display, bouncing ball, random dots, life game ... whatever you can program and find nice.<br />
+<br />
+<h2 id="toc6"><a name="Code-Display mode"></a> Display mode </h2>
+Using the serial pins, pilot it using the super simple protocol to display, image, animated message, again a bouncing ball... Nice thing is that you can chain multiple ones and have a bigger display. <br />
+For now protocol doesn't include addressing info, so <em>currently</em> you need as many serial communication pin as module you have. That's job for a Arduino in the background using multiple NewSoftSerial.<br />
+<br />
+<h3 id="toc7"><a name="Code-Display mode-Protocol"></a> Protocol </h3>
+Very simple, expects the following commands:<br />
+<ul><li>R : clears the display</li><li>CXX : on 3 char, C is the column index (0 &lt;= C &lt;= 7) and XX is the hexadecimal representation of the line (1 = led on, 0 = led off)</li></ul><br />
+<br />
+<h1 id="toc8"><a name="Links"></a> Links </h1>
+<h2 id="toc9"><a name="Links-Same kind of stuff"></a> Same kind of stuff </h2>
+<ul><li>Connected to ethernet and displaying the news <a class="wiki_link_ext" href="http://www.circuitcellar.com/Wiznet/winners/001166.html" rel="nofollow">http://www.circuitcellar.com/Wiznet/winners/001166.html</a></li></ul><h2 id="toc10"><a name="Links-Serial on ATmega 88"></a> Serial on ATmega 88 </h2>
+<ul><li>The holy graal (works perfectly, nothing to change) : <a class="wiki_link_ext" href="http://jimsmindtank.com/how-to-atmega-usart-in-uart-mode-with-circular-buffers/" rel="nofollow">http://jimsmindtank.com/how-to-atmega-usart-in-uart-mode-with-circular-buffers/</a></li><li>Not working, but some ideas <a class="wiki_link_ext" href="http://tom-itx.dyndns.org:81/~webpage/how_to/atmega168/mega168_rs232_index.php" rel="nofollow">http://tom-itx.dyndns.org:81/~webpage/how_to/atmega168/mega168_rs232_index.php</a></li></ul>
+    </div>
+  </body>
+</html>

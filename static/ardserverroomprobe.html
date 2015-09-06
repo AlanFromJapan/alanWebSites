@@ -1,0 +1,155 @@
+<html>
+  <head>
+    <title>kalshagar - ardServerRoomProbe</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Purpose"></a>Purpose</h1>
+ ardServerRoomProbe or ASRP has for purpose:<br />
+<ul><li>Provide the INFRA team engineers with informations related to the server room status (not the servers themselves, they already have this)</li><li>Provide the following info:<ul><li>Current and historical temperature (use 2~3%20 temp probes) - 3 probes %20 average</li><li>Current and historical humidity - drop, too annoying</li></ul></li><li>Information should be made available :<ul><li>Database (on the server piloting the ASRP) [HIGH] - drop it, the <a class="wiki_link_ext" href="http://www.nagios.org/" rel="nofollow" target="_blank">Nagios</a> takes care.</li><li>SNMP [MED] - <span style="color: #008000"><strong>done!</strong></span></li><li>Web interface [MED] - drop, <a class="wiki_link_ext" href="http://www.nagios.org/" rel="nofollow" target="_blank">Nagios</a> job</li><li>Mail on alert [HIGH] - drop, <a class="wiki_link_ext" href="http://www.nagios.org/" rel="nofollow" target="_blank">Nagios</a> job</li></ul></li></ul>Inspiration can be taken from <a class="wiki_link_ext" href="http://www.industrialethernet.com/sp8.html" rel="nofollow">http://www.industrialethernet.com/sp8.html</a><br />
+<br />
+<h1 id="toc1"><a name="Pictures"></a>Pictures</h1>
+ 
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/14355_194868943789_704343789_3038646_2355886_n.jpg" alt="14355_194868943789_704343789_3038646_2355886_n.jpg" title="14355_194868943789_704343789_3038646_2355886_n.jpg" style="width: 400px;" /><br />
+</td>
+        <td><img src="files/19670_245282138789_704343789_3277049_5990341_n.jpg" alt="19670_245282138789_704343789_3277049_5990341_n.jpg" title="19670_245282138789_704343789_3277049_5990341_n.jpg" style="width: 400px;" /><br />
+</td>
+    </tr>
+    <tr>
+        <td><img src="files/19670_245281633789_704343789_3277048_956838_n.jpg" alt="19670_245281633789_704343789_3277048_956838_n.jpg" title="19670_245281633789_704343789_3277048_956838_n.jpg" style="width: 400px;" /><br />
+</td>
+        <td><br />
+</td>
+    </tr>
+</table>
+
+Tadaaaa ♪ The boxed version, bling-bling flavor. 3 probes, total less than 40 Euro.<br />
+<br />
+<h1 id="toc2"><a name="Material"></a>Material</h1>
+ <ul><li>Arduino card : no special things needed, so even a Tiny would fit. However since permanent USB connection is required and size doesn't matter, let's roll with the Arduino 2009.</li><li>LM35 temperature probes x3 (150 JPY x3) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-00116/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-00116/</a><ul><li>Or LM61 <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02753/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-02753/</a></li></ul></li><li>Humidity probe x1 (500 JPY) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-00117/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-00117/</a></li><li>Leds : power x1, now probing x1</li><li>Box, resistors, USB cable,...</li><li>On-box display ? <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-02919/" rel="nofollow">http://akizukidenshi.com/catalog/g/gP-02919/</a></li></ul><br />
+<h1 id="toc3"><a name="Code"></a>Code</h1>
+ <h2 id="toc4"><a name="Code-SNMP Agent"></a> SNMP Agent </h2>
+See here <a class="wiki_link" href="SNMP%20agent%20in%20C.html">SNMP agent in C</a>#. I won't disclose the real version of the software, but I can show the tests we made before moving to the real job.<br />
+<br />
+<h2 id="toc5"><a name="Code-Arduino probing code"></a> Arduino probing code </h2>
+It has 3 sensors (pin analog 0 to 2) plus a blink led on digital 12.<br />
+It polls all the sensors every 3 seconds, store the SENSOR_AVERAGE latest results in an array and return the average per sensor. Up to the tests I've done now, it's quite nice results...<br />
+<br />
+<a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn/trunk/ServerRoomProbe" rel="nofollow">Source SVN</a> <br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co2">#define PIN_LED 12</span>
+&nbsp;
+<span class="co2">#define SENSOR_COUNT 3</span>
+<span class="co2">#define SENSOR_AVERAGE 6</span>
+&nbsp;
+<span class="kw4">long</span> mSavedValues<span class="br0">&#91;</span>SENSOR_COUNT<span class="br0">&#93;</span><span class="br0">&#91;</span>SENSOR_AVERAGE<span class="br0">&#93;</span><span class="sy0">;</span>
+<span class="kw4">int</span> mRound <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw4">void</span> setup<span class="br0">&#40;</span><span class="br0">&#41;</span>                    <span class="co1">// run once, when the sketch starts</span>
+<span class="br0">&#123;</span>
+  pinMode<span class="br0">&#40;</span>PIN_LED<span class="sy0">,</span> OUTPUT<span class="br0">&#41;</span><span class="sy0">;</span>
+  Serial.<span class="me1">begin</span><span class="br0">&#40;</span><span class="nu0">9600</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// begin serial</span>
+&nbsp;
+  <span class="co1">//init table of values</span>
+  <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> SENSOR_COUNT<span class="sy0">;</span> i<span class="sy0">%20%20</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> j <span class="sy0">&lt;</span> SENSOR_AVERAGE<span class="sy0">;</span> j<span class="sy0">%20%20</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+      mSavedValues<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#91;</span>j<span class="br0">&#93;</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">long</span> vVal <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="kw4">long</span> vValScaled <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="kw4">char</span> vMessage<span class="br0">&#91;</span><span class="nu0">50</span><span class="br0">&#93;</span><span class="sy0">;</span>
+<span class="kw4">char</span> vBuffer<span class="br0">&#91;</span><span class="nu0">20</span><span class="br0">&#93;</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw4">void</span> loop<span class="br0">&#40;</span><span class="br0">&#41;</span>                     <span class="co1">// run over and over again</span>
+<span class="br0">&#123;</span>
+&nbsp;
+  <span class="co1">//start reading</span>
+  digitalWrite<span class="br0">&#40;</span>PIN_LED<span class="sy0">,</span> HIGH<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="co1">//read values and store</span>
+  <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> SENSOR_COUNT<span class="sy0">;</span> i<span class="sy0">%20%20</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    vVal <span class="sy0">=</span> analogRead<span class="br0">&#40;</span>i<span class="br0">&#41;</span><span class="sy0">;</span>
+    vValScaled <span class="sy0">=</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">long</span><span class="br0">&#41;</span><span class="nu0">5</span><span class="sy0">*</span>vVal<span class="sy0">*</span><span class="br0">&#40;</span><span class="kw4">long</span><span class="br0">&#41;</span><span class="nu0">100</span><span class="sy0">/</span><span class="br0">&#40;</span><span class="kw4">long</span><span class="br0">&#41;</span><span class="nu0">1024</span><span class="br0">&#41;</span><span class="sy0">;</span>         <span class="co1">//convert voltage to temperature</span>
+    mSavedValues<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#91;</span>mRound<span class="br0">&#93;</span> <span class="sy0">=</span> vValScaled<span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  mRound <span class="sy0">=</span> <span class="br0">&#40;</span>mRound <span class="sy0">%20</span> <span class="nu0">1</span><span class="br0">&#41;</span> <span class="sy0">%</span> SENSOR_AVERAGE<span class="sy0">;</span>
+&nbsp;
+&nbsp;
+  <span class="co1">//calculate average</span>
+  <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> SENSOR_COUNT<span class="sy0">;</span> i<span class="sy0">%20%20</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    <span class="co1">//reset message buffer</span>
+    vMessage<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    vVal <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> j <span class="sy0">&lt;</span> SENSOR_AVERAGE<span class="sy0">;</span> j<span class="sy0">%20%20</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+      vVal <span class="sy0">%20=</span> mSavedValues<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    vVal <span class="sy0">=</span> vVal <span class="sy0">/</span> SENSOR_AVERAGE<span class="sy0">;</span>
+&nbsp;
+    <span class="kw3">itoa</span><span class="br0">&#40;</span>i<span class="sy0">,</span> vBuffer<span class="sy0">,</span> <span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw3">strcat</span><span class="br0">&#40;</span>vMessage<span class="sy0">,</span>vBuffer<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw3">strcat</span><span class="br0">&#40;</span>vMessage<span class="sy0">,</span><span class="st0">&quot;=&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw3">itoa</span><span class="br0">&#40;</span>vVal<span class="sy0">,</span> vBuffer<span class="sy0">,</span> <span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw3">strcat</span><span class="br0">&#40;</span>vMessage<span class="sy0">,</span>vBuffer<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw3">strcat</span><span class="br0">&#40;</span>vMessage<span class="sy0">,</span><span class="st0">&quot;,&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    Serial.<span class="me1">print</span><span class="br0">&#40;</span>vMessage<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+  Serial.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="co1">//end of read</span>
+  digitalWrite<span class="br0">&#40;</span>PIN_LED<span class="sy0">,</span> LOW<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+&nbsp;
+  delay<span class="br0">&#40;</span><span class="nu0">3000</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;</pre>
+
+
+    </div>
+  </body>
+</html>

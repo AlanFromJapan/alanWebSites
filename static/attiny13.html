@@ -1,0 +1,269 @@
+<html>
+  <head>
+    <title>kalshagar - attiny13</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<img src="files/pinout13large.png" alt="pinout13large.png" title="pinout13large.png" /><br />
+<h2 id="toc0"><a name="x-Memo fact sheet"></a> Memo fact sheet </h2>
+<ul><li><strong>Code</strong> : 1024 Bytes / <strong>EEPROM</strong> : 64 Bytes / <strong>RAM</strong> : 64 Bytes</li><li>It has 4 ADC- Analog to Digital Converter !</li><li>Default speed : internal oscillator 9.6 MHz</li><li>Homepage <a class="wiki_link_ext" href="http://www.atmel.com/devices/attiny13.aspx" rel="nofollow">http://www.atmel.com/devices/attiny13.aspx</a></li></ul><br />
+<h1 id="toc1"><a name="Links"></a> Links </h1>
+<ul><li>The bases, with samples, and on Wikispaces : <a href="http://avrbasiccode.wikispaces.com/">http://avrbasiccode.wikispaces.com/</a></li><li>It's ATtiny45 but maybe compliant ? Have to read further : <a class="wiki_link_ext" href="http://kehribar.me/projects/Little-Wire/" rel="nofollow">http://kehribar.me/projects/Little-Wire/</a></li></ul><br />
+<h1 id="toc2"><a name="Samples"></a> Samples </h1>
+<h2 id="toc3"><a name="Samples-Blink"></a> Blink </h2>
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.cpp  {font-family:monospace;}
+.cpp .imp {font-weight: bold; color: red;}
+.cpp .kw1 {color: #0000ff;}
+.cpp .kw2 {color: #0000ff;}
+.cpp .kw3 {color: #0000dd;}
+.cpp .kw4 {color: #0000ff;}
+.cpp .co1 {color: #666666;}
+.cpp .co2 {color: #339900;}
+.cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp .es0 {color: #000099; font-weight: bold;}
+.cpp .es1 {color: #000099; font-weight: bold;}
+.cpp .es2 {color: #660099; font-weight: bold;}
+.cpp .es3 {color: #660099; font-weight: bold;}
+.cpp .es4 {color: #660099; font-weight: bold;}
+.cpp .es5 {color: #006699; font-weight: bold;}
+.cpp .br0 {color: #008000;}
+.cpp .sy0 {color: #008000;}
+.cpp .sy1 {color: #000080;}
+.cpp .sy2 {color: #000040;}
+.cpp .sy3 {color: #000040;}
+.cpp .sy4 {color: #008080;}
+.cpp .st0 {color: #FF0000;}
+.cpp .nu0 {color: #0000dd;}
+.cpp .nu6 {color: #208080;}
+.cpp .nu8 {color: #208080;}
+.cpp .nu12 {color: #208080;}
+.cpp .nu16 {color:#800080;}
+.cpp .nu17 {color:#800080;}
+.cpp .nu18 {color:#800080;}
+.cpp .nu19 {color:#800080;}
+.cpp .me1 {color: #007788;}
+.cpp .me2 {color: #007788;}
+.cpp span.xtra { display:block; }
+
+-->
+</style><pre class="cpp"><span class="co1">// includes</span>
+<span class="co2">#include &lt;avr/io.h&gt;</span>
+<span class="co2">#include &lt;util/delay.h&gt;</span>
+&nbsp;
+<span class="co1">//</span>
+<span class="co1">// main function</span>
+<span class="co1">//</span>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="co1">//factory settings is to divide internal clock 8MHz by 8.</span>
+    <span class="co1">//don't, and just run at 8 MHz (set the clock divider to 1 so no effect)</span>
+    CLKPR <span class="sy1">=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy1">&lt;&lt;</span>CLKPCE<span class="br0">&#41;</span><span class="sy4">;</span>
+    CLKPR <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> <span class="co1">// Divide by 1 </span>
+&nbsp;
+    <span class="co1">//port B pins 0-5 go OUTPUT</span>
+    DDRB <span class="sy1">=</span> <span class="nu12">0xFF</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">while</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy1">==</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="co1">//all on</span>
+        PORTB <span class="sy1">=</span> <span class="nu12">0xFF</span><span class="sy4">;</span>
+&nbsp;
+        <span class="co1">//wait a little</span>
+        _delay_ms<span class="br0">&#40;</span><span class="nu0">500</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+        <span class="co1">//all off</span>
+        PORTB <span class="sy1">=</span> <span class="nu12">0x00</span><span class="sy4">;</span>
+&nbsp;
+        <span class="co1">//wait again</span>
+        _delay_ms<span class="br0">&#40;</span><span class="nu0">200</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<br />
+<h2 id="toc4"><a name="Samples-PWM"></a> PWM </h2>
+See <a href="http://avrbasiccode.wikispaces.com/">http://avrbasiccode.wikispaces.com/</a><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.cpp  {font-family:monospace;}
+.cpp .imp {font-weight: bold; color: red;}
+.cpp .kw1 {color: #0000ff;}
+.cpp .kw2 {color: #0000ff;}
+.cpp .kw3 {color: #0000dd;}
+.cpp .kw4 {color: #0000ff;}
+.cpp .co1 {color: #666666;}
+.cpp .co2 {color: #339900;}
+.cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp .es0 {color: #000099; font-weight: bold;}
+.cpp .es1 {color: #000099; font-weight: bold;}
+.cpp .es2 {color: #660099; font-weight: bold;}
+.cpp .es3 {color: #660099; font-weight: bold;}
+.cpp .es4 {color: #660099; font-weight: bold;}
+.cpp .es5 {color: #006699; font-weight: bold;}
+.cpp .br0 {color: #008000;}
+.cpp .sy0 {color: #008000;}
+.cpp .sy1 {color: #000080;}
+.cpp .sy2 {color: #000040;}
+.cpp .sy3 {color: #000040;}
+.cpp .sy4 {color: #008080;}
+.cpp .st0 {color: #FF0000;}
+.cpp .nu0 {color: #0000dd;}
+.cpp .nu6 {color: #208080;}
+.cpp .nu8 {color: #208080;}
+.cpp .nu12 {color: #208080;}
+.cpp .nu16 {color:#800080;}
+.cpp .nu17 {color:#800080;}
+.cpp .nu18 {color:#800080;}
+.cpp .nu19 {color:#800080;}
+.cpp .me1 {color: #007788;}
+.cpp .me2 {color: #007788;}
+.cpp span.xtra { display:block; }
+
+-->
+</style><pre class="cpp"><span class="co1">// includes</span>
+<span class="co2">#include &lt;avr/io.h&gt;</span>
+<span class="co2">#include &lt;util/delay.h&gt;</span>
+<span class="co2">#include &lt;avr/interrupt.h&gt;</span>
+&nbsp;
+<span class="co1">//</span>
+<span class="co1">// main function</span>
+<span class="co1">//</span>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="co1">//factory settings is to divide internal clock 8MHz by 8.</span>
+    <span class="co1">//don't, and just run at 8 MHz (set the clock divider to 1 so no effect)</span>
+    CLKPR <span class="sy1">=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy1">&lt;&lt;</span>CLKPCE<span class="br0">&#41;</span><span class="sy4">;</span>
+    CLKPR <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> <span class="co1">// Divide by 1 </span>
+&nbsp;
+    <span class="co1">//port B pins 0-5 go OUTPUT</span>
+    DDRB <span class="sy1">=</span> <span class="nu12">0xFF</span><span class="sy4">;</span>
+&nbsp;
+<span class="co1">//PWM : Use this line...</span>
+TCCR0A <span class="sy3">|</span><span class="sy1">=</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy1">&lt;&lt;</span> COM0A1<span class="br0">&#41;</span> <span class="sy3">|</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy1">&lt;&lt;</span> COM0A0<span class="br0">&#41;</span> <span class="co1">// COM0A1 - COM0A0 (Set OC0A on Compare Match, clear OC0A at TOP)</span>
+ <span class="sy3">|</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy1">&lt;&lt;</span> WGM01<span class="br0">&#41;</span> <span class="sy3">|</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy1">&lt;&lt;</span> WGM00<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// WGM01 - WGM00 (set fast PWM)</span>
+&nbsp;
+<span class="co1">//...or those lines. No (noticeable) difference.</span>
+    <span class="coMULTI">/* Set Fast PWM mode. */</span>
+    <span class="co1">//TCCR0A |= (1&lt;&lt;WGM00) | (1&lt;&lt;WGM01);</span>
+    <span class="coMULTI">/* Clear 0C0A on compare. */</span>
+    <span class="co1">//TCCR0A |= (1&lt;&lt;COM0A1);</span>
+&nbsp;
+&nbsp;
+    <span class="coMULTI">/* Start timer, no prescaling. */</span>
+    TCCR0B <span class="sy3">|</span><span class="sy1">=</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy1">&lt;&lt;</span>CS00<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="co1">//initial PWM value is 0</span>
+    OCR0A <span class="sy1">=</span> <span class="nu12">0x00</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">while</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="sy1">==</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i<span class="sy1">=</span><span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> <span class="nu0">255</span><span class="sy4">;</span> i <span class="sy2">%20%20</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            OCR0A <span class="sy1">=</span> i<span class="sy4">;</span>
+            _delay_ms<span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i<span class="sy1">=</span><span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> <span class="nu0">255</span><span class="sy4">;</span> i <span class="sy2">%20%20</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            OCR0A <span class="sy1">=</span> <span class="nu0">255</span><span class="sy2">-</span>i<span class="sy4">;</span>
+            _delay_ms<span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<h2 id="toc5"><a name="Samples-Soft PWM on 3%20 pins"></a> Soft PWM on 3%20 pins </h2>
+<br />
+Pick 3 pins, assign to each a 8bit desired value [0-255], loop and light them for a small quantum of time △ (like 50 us). In my implementation, <em>current turn</em> a byte that keeps on incrementing and overflowing between 0 and 255.<br />
+<ul><li>Starting at <em>current turn</em>==0 when you light everybody on (turn pins HIGH).</li><li>When the <em>current turn</em>  (a byte that keeps on rolling between 0 and 255) reaches the desired value, turn that pin LOW.</li><li>At each turn pause a little time (△) for the POV and increment <em>current turn</em></li></ul>Therefore a pin that has a duty of 25% = 256 * 0.25 = 64 will be HIGH for 64 * △ = 3,200 us = 3.2 ms and LOW for (256-64) * △ = 192 * △ = 9.6 ms over a total cycle of 12.8 ms (). You have a nice PWM of 78Hz, and with your Attiny running at 8 MHz with the internal oscillator it's piece of cake for it. You can even find a little time every <em>n</em> cycles in between (who said with an interrupt ?) to read the ADC value of the LM35 and convert that to a color. Don't read the LM35 too often, it's useless. Maybe once every few seconds is more than plainly sufficient.<br />
+<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c">    <span class="kw4">uint8_t</span> vRGBCurrentRound <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw1">while</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="co1">//todo : put this in an interrupt?</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>vRGBCurrentRound <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="coMULTI">/*
+            //make pins B0-2 high
+            PORTB = 
+                (1 &lt;&lt; PORTB0) 
+                | (1 &lt;&lt; PORTB1)
+                | (1 &lt;&lt; PORTB2)
+                ;
+            */</span>
+&nbsp;
+            PORTB <span class="sy0">=</span> <span class="nu12">0x00</span><span class="sy0">;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>mRGB<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+                PORTB <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> PORTB0<span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>mRGB<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+                PORTB <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> PORTB1<span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>mRGB<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+                PORTB <span class="sy0">|=</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> PORTB2<span class="br0">&#41;</span><span class="sy0">;</span>        
+        <span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>vRGBCurrentRound <span class="sy0">==</span> mRGB<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> <span class="sy0">&amp;&amp;</span> vRGBCurrentRound <span class="sy0">!=</span> <span class="nu0">255</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            PORTB <span class="sy0">&amp;=</span> ~<span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> PORTB0<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>vRGBCurrentRound <span class="sy0">==</span> mRGB<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy0">&amp;&amp;</span> vRGBCurrentRound <span class="sy0">!=</span> <span class="nu0">255</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            PORTB <span class="sy0">&amp;=</span> ~<span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> PORTB1<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>vRGBCurrentRound <span class="sy0">==</span> mRGB<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span> <span class="sy0">&amp;&amp;</span> vRGBCurrentRound <span class="sy0">!=</span> <span class="nu0">255</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            PORTB <span class="sy0">&amp;=</span> ~<span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> PORTB2<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="co1">//and the POV</span>
+        _delay_us<span class="br0">&#40;</span><span class="nu0">50</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        vRGBCurrentRound<span class="sy0">%20%20;</span>
+    <span class="br0">&#125;</span></pre>
+
+
+    </div>
+  </body>
+</html>

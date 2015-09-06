@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>kalshagar - Clapclap2313 - Assembly instruction</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="How to build your own Clapclap2313"></a> How to build your own Clapclap2313 </h1>
+Ok, so you made your own board using the eagle files or you bought one from me (can't thank you enough!). Let's go to the assembly now..<br />
+<br />
+<h1 id="toc1"><a name="Disclaimer"></a> Disclaimer </h1>
+Dear customer or curious tinkering brother or sister, this is the time for the usual disclaimer, so please take time to read this.<br />
+<br />
+<em>We provide you with this board with no guarantee, none implicit nor explicit. We don't guarantee that it will work for any duration, purpose, or even that it will work at all. This is provided as a novelty, a curiosity and a tool for curious people to play with. <br />
+Since you are playing with AC, please be double, triple sure of what you do. You might get hurt or worse, and your house or the one of your loved ones might become a pile of ashes. So think in advance and be careful. Respect the ratings, and always underestimate them. Don't overload the relay, 100 W is a max I would recommend to not cross (even though theoretical limit is 10x that for 220 v). Keep away from water, kids, pets, humidity, stupid people and don't use unattended. The whole circuit must be in a closed box, no parts apparent, out of careless reach but still under surveillance.<br />
+In short, you are responsible for using this in any case you find suitable, left to your own judgement but be careful, it is dangerous. We accept no kind of liability nor responsibility for whatever might happen to you, your belongings or whatever else might be damaged by the usage of this item.</em><br />
+<br />
+Ok, this is scarry but it's just a way of saying &quot;if you don't know what you're doing, be safe, wise and just don't do it&quot;. And whatever happens, don't even think of suing me.<br />
+<br />
+<span style="
+background-color: Gainsboro;
+display: block;
+border: solid 2px black;
+text-align:left;
+border-radius:10px;
+padding:10px;
+"><strong>Usage reminder</strong><br />
+This item didn't pass any safety test, it's a novelty product, use at your own risk. Don't use unattended, keep avoid from kids, pets, water. Use only inside.<br />
+<br />
+Due to copper thickness on the board and safety spacing, don't use this item to drive a load of more than 100W. Be careful to not overload the circuit itself or the load side which could result in fire and destruction.<br />
+</span><br />
+<br />
+<h1 id="toc2"><a name="Parts list"></a> Parts list </h1>
+<img src="files/clapclap2313parts.png" alt="clapclap2313parts.png" title="clapclap2313parts.png" align="right" /><br />
+<strong>The mandatory parts :</strong><br />
+<ul><li>The <a class="wiki_link" href="Clapclap2313.html">Clapclap2313</a> board</li><li>ATtiny2313 x1 (ATTINY2313)</li><li><a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02796/" rel="nofollow" target="_blank">Holtek audio amp HT82V739</a> x1 (HT82V739)</li><li>A <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-01810/" rel="nofollow" target="_blank">electret microphone</a>  x1 (M1)</li><li>A relay (my case <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-01214/" rel="nofollow" target="_blank">5v that drives up to 5A/220V</a>) (K1)</li><li>A NPN transistor to drive the relay　<a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02732/" rel="nofollow" target="_blank">２ＳＣ２１２０－Ｙ</a> (NPN)</li><li>A flyback diode, any is ok as long as it can handle 5v. My case was a <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-00934/" rel="nofollow" target="_blank">1N4007</a> which is way overspec but does the job. (D1)</li><li>5 kOhm potentiometer x2, <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-03275/" rel="nofollow" target="_blank">something like this</a> (AMP_VOL, MINIMUM_VOL)</li><li>1k ohm (R3) from uC to the transistor</li><li>Capacitors for the amp :<ul><li>47 uF x1 (C3)</li><li>1 uF x2 (C1, C2)</li></ul></li><li>A wallwart or other power source that provides 5v and 150mA minimum (the relay needs 100 mA, give 20mA for the other buddies and take some provision in case). Just solder it to the power connector on the top left but be careful of the polarity!<ul><li>This circuit does not have a regulation circuit so beware of cheap unregulated 5v wallwart that might kill your microcontroller. You might want to add some pre-stage of regulation with the legendary LM7805. FYI, none of the one I made until now have a regulation circuit and both are still working fine, but don't take it as a rule.</li></ul></li></ul><strong>The optional parts :</strong><br />
+<ul><li>470 ohm resistor x2 (R1, R2)</li><li>3mm Led x2 (LED1, LED2)</li><li>Power rail stabilization capacitor 100 uF%20 (C4)</li></ul><br />
+<strong>Notabene :</strong> the image on the right is of the latest version of the board (v1.1). In case you have a 1.0, the big difference is the labels that are missing and the additional trace and holes on the bottom right that allow to solder directly the AC wires. Also the AC traces to the relay are thicker.<br />
+<br />
+<strong>Notabene for version 1.2 :</strong> the part behind the dashed line that contains the entry pins for AC and the relay is the hot zone with high voltage. Do not touch when plugged to the power ! The other side with the micro controller is 5v <em>cold</em> zone, ok to touch but be careful to not shortcut anything or inadvertently touch the hot deadly zone. <br />
+<br />
+<h1 id="toc3"><a name="Power"></a> Power </h1>
+This little toy requires power to work of course. Feed it with something that can give 5 V and 150mA at minimum. The bottom schema shows hot to wire the power wires. A few thing to pay attention:<br />
+<ul><li>There is no LM7805 or other voltage regulator plugged. I've not put on any of my versions, and they're all working fine. It doesn't mean it's a best practice (on the contrary!). On the cheap side you could wire a diode on one of the power pin : you would be protected of reverse wiring and you diminish voltage of 0.7v (or go for a zener)<ul><li>In short if you prefer be safe than sorry : put a voltage regulator or a zener diode</li></ul></li><li>You will want to connect wires to your wallwart. One trick : open it ! With a small saw, cut where the pins that go in the power plug are : you will most likely see 2 wires soldered from those pins to the internals of the wallwart. Solder directly on them and glue/fix/tape it according your religion. It makes things much more professional.</li><li>Again, it's AC : be careful of short cut, touching it while powered, conducting internal of the box, etc...</li></ul><br />
+<img src="files/clapclap2313-wiring.png" alt="clapclap2313-wiring.png" title="clapclap2313-wiring.png" /><br />
+<em>How to wire with the power plug (version &lt;= 1.1 of the board) : I have to redraw it each time, now it's done once and for all</em><br />
+<img src="files/clapclap2313-v1.2-wiring.png" alt="clapclap2313-v1.2-wiring.png" title="clapclap2313-v1.2-wiring.png" /><br />
+<em>How to wire with the power plug (version 1.2 of the board)</em><br />
+<br />
+<h1 id="toc4"><a name="Assembly rules"></a> Assembly rules </h1>
+Here's a personal suggestion on which order to follow, but you can go your way too : nothing special, you can plug it the way you want. My advice is the smaller firsts, and from the center to the outside. <br />
+<ol><li>Check you have all components ready at hand and properly identified</li><li>Start by soldering the capacitors C1, C2, C3, C4 and the potentiometers,</li><li>Microphone wire, flyback diode D1, NPN transistor and R3<ol><li>NB: to determine the microphone (-) look at the bottom, it's the pin that is connected to the case</li><li>NB: use 5 to 15 cm wire to connect the microphone and the board, and avoid having the wire being too close to the main currents (generate parasites and a nice but useless 50Hz clap clap!)</li></ol></li><li>Leds and their current limiter resistors R1 and R2 if you want the bling bling (not mandatory)</li><li>Microcontroller and OpAmp. Be careful to solder them in the right direction. Be careful to not overheat them. In case you want to be on the safe side, use IC sockets.</li><li>The relay should be the last component you solder on the board</li><li>Now on the wires :<ol><li>Plug the 5v from the wallwart to the North-West corner. Beware of polarity! I personally crack open the wallwart and plug directly the wires to the main, but that's dangerous so do it your own risk</li><li>The main wires from the wall go to the South-East holes, the output wires are just above.</li><li>On a general note, you might want to put a fuse on the way of the main, just to stay safe.</li></ol></li></ol><br />
+<h2 id="toc5"><a name="Assembly rules-Sensitivity setup"></a> Sensitivity setup </h2>
+There is 2 potentiometer on the board, and you must use them to setup the sensibility of the clap clap. <br />
+<ul><li>The <em>AMP_VOL</em> is how much the sound from the microphone is amplified, it would correspond simply to the &quot;volume&quot; potentiometer on a regular amplifier. Setting it half way should be ok.</li><li>The <em>MIN_LVL</em> is the level above the which the comparator will detect the peak and consider it a &quot;clap&quot;. You can set it to min (you will see the leds blinking crazy fast) and then augment little by little and test so that your hand clap at the distance you want trigger the stuff.</li></ul><br />
+<h1 id="toc6"><a name="Final result"></a> Final result </h1>
+<img src="files/2011-12-05_22.37.48b.jpg" alt="2011-12-05_22.37.48b.jpg" title="2011-12-05_22.37.48b.jpg" style="width: 500px;" /><br />
+A sample of final product : board is v1.0, the power plug is not connected. You can see that it's another type of potentiometer I used but same value. The microphone is connected on a wire and not directly on the board, which is more practical for enclosure.
+    </div>
+  </body>
+</html>

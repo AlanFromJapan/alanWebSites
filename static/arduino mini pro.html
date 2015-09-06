@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>kalshagar - Arduino Mini Pro</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+Arduino Pro Mini is a wonderful board, that with only a little soldering comes great. I love the integrated power regulation that allows you to plug it to a more than common 9v wall plug. Here's a page about some things I discovered that might be some help for you ... or at least for me not to forget it :P<br />
+<br />
+<h2 id="toc0"><a name="x-Uploading code to the Mini Pro"></a> Uploading code to the Mini Pro </h2>
+<em>I copy and paste my post on the Arduino Forum ... finding this saved me of becoming crazy</em><br />
+<a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1244146665/0#14" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1244146665/0#14</a><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">Hi all,
+&nbsp;
+I had the same problem with my Arduino Mini Pro 8MHz/3.3v and found my/the answer.
+&nbsp;
+The key is the bootloader that is on the Mini Pro:
+If the default pattern of the led is (_ = off, * = on) :
+__**__**__**__**__** (simple slow pace blinking) ... you must choose in the Arduino software 
+&quot;Board = Arduino Mini Pro&quot; (my first Mini Pro was like that and working)
+&nbsp;
+** BUT **
+&nbsp;
+if the pattern is ____*____*___*__*_***** (like a drum rolling faster) you must choose &quot;Board = Arduino Duemillanove w/ ATMega 328&quot; ! 
+And it started working just fine !
+&nbsp;
+It took me a few hours to desperately try that, and it worked just fine   Smiley I think the key is that the &quot;older&quot; generation came with a 
+old bootloader with a specific signature, but the new ones come with another signature that match the Duemillanove 328.
+&nbsp;
+Hope this helps. At least it saved me from throwing my 3 Mini Pro to the bin! And no need for any kind of rewiring the FTDI connector, the 
+Sparfun 3.3v works just fine it you plug it the right way (not upside down).
+&nbsp;
+Cheers,
+Alan. </pre>
+
+<br />
+<h2 id="toc1"><a name="x-Please, don't do this"></a> Please, don't do this </h2>
+To my great shame, I s*ck at electronics. Really. To the point I misread the pins on the board and plugged my unregulated 9v (meaning 15v I assume when not too much used) to the Vcc pin ... that was expecting 3.3v. As you can expect, my board became <em>very hot</em> within seconds and left us for the country of the happy boards ... now even if you plug it to a fully working FTDI usb board, it overheats within seconds, saying at which point it is <strong>dead</strong>.<br />
+<strong>Please, never do this</strong>. The unregulated pin is on the <strong>side</strong> and is labelled <strong>RAW</strong> (for the ground, use its GND friend just next): don't forget this lesson that cost me a board and some unsoldering/rewiring time.
+    </div>
+  </body>
+</html>

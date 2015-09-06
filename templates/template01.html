@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>Electrogeek.cc - {{ pagename }}</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+<body class="wiki">
+
+<!-- Master table -->
+<table  style="background-color:#ebebeb;border-collapse:collapse;max-width:1400px;width:100%;">
+  <tr cellpadding="0" cellspacing="0" >
+    <td colspan="2" class="template1_header" >
+<!-- Header -->
+<a href="/"><img src="files/electrogeek_logo2.png" alt="logo"/></a><!--span style="font-size:24pt;font-weight:bold;">Electrogeek.cc </span><span style="font-size:8pt;">formerly kalshagar.wikispaces.com</span-->
+<!-- /Header --></td>
+  </tr>
+  <tr>
+    <td  style="width:150px;vertical-align:top;padding: 10px;">
+<!-- Left menu -->
+<form action="search.aspx"><input type="text" name="txbSearch"  placeholder="Search..." /></form>
+<img src="files/navigationGo.png" alt="navigationGo.png" title="navigationGo.png" /><span style="font-weight:bold;">Quick Navigation</span><br/>
+<a href="Complete project list.html"><img src="files/allprojects32.png" alt="allprojects32.png" title="allprojects32.png" /></a><a class="wiki_link" href="Complete project list.html">All projects</a> <br />
+<a href="Hardware.html"><img src="files/hardware32.png" alt="hardware32.png" title="hardware32.png" /></a><a class="wiki_link" href="Hardware.html">Hardware</a><br />
+<a href="Links.html"><img src="files/links32.png" alt="links32.png" title="links32.png" /></a><a class="wiki_link" href="Links.html">Links</a><br />
+
+<hr align="align" width="33%" />
+
+
+<img src="files/favoriteStar32.png" alt="favoriteStar32.png" title="favoriteStar32.png" /><span style="font-weight:bold;">Top projects</span><br/>
+<a class="wiki_link wiki_link_top" href="Game boy projects.html">Game boy projects</a><br />
+<a class="wiki_link wiki_link_top" href="Alan numitron clock.html">Alan numitron clock</a><br />
+<a class="wiki_link wiki_link_top" href="Clapclap 2313.html">Clapclap 2313</a>/<a class="wiki_link wiki_link_top" href="Clapclap 1386.html">1386</a><br />
+<a class="wiki_link wiki_link_top" href="SNES Pi webserver.html">SNES Pi Webserver</a><br />
+<a class="wiki_link wiki_link_top" href="Smokey amp.html">Smokey amp</a><br />
+<a class="wiki_link wiki_link_top" href="Laser cutter.html">Laser cutter</a><br />
+<a class="wiki_link wiki_link_top" href="WordClock.html">WordClock</a><br />
+<a class="wiki_link wiki_link_top" href="ardReveil v3.html">ardReveil v3</a><br />
+<a class="wiki_link wiki_link_top" href="Around a SNES.html">SNES Arcade cabinet</a><br />
+<a class="wiki_link wiki_link_top" href="cameleon.html">cameleon</a><br />
+<a class="wiki_link wiki_link_top" href="Home Presence Detector.html">Home Presence Detector</a><br />
+
+<hr align="align" width="33%" />
+
+<img src="files/navigationMail.png" alt="navigationMail.png" title="navigationMail.png" /><span style="font-weight:bold;">Contact me</span><br/>
+<img src="files/alanfjmail.png" alt="alanfjmail.png" title="alanfjmail.png" /><br />
+<img src="files/3flags.png" alt="3flags.png" title="3flags.png" /><a class="wiki_link" href="WhoAmI.html">Who's Alan?</a><br />
+<br />
+
+<hr align="align" width="33%" />
+
+
+<span style="font-size: 130%;"><a class="wiki_link_ext" href="http://blog.atmel.com/" rel="nofollow" target="_blank">ATmel blog</a></span><br />
+<span style="font-size: 120%;"><a class="wiki_link_ext" href="http://akizukidenshi.com" rel="nofollow" target="_blank">Akizukidenshi</a> </span><br />
+<span style="font-size: 120%;"><a class="wiki_link_ext" href="http://www.electronics-lab.com/blog/" rel="nofollow" target="_blank">Elec-lab</a></span><br />
+<span style="font-size: 110%;"><a class="wiki_link_ext" href="http://www.eevblog.com" rel="nofollow" target="_blank">EEVblog</a></span><br />
+<a class="wiki_link_ext" href="http://www.switch-science.com/" rel="nofollow" target="_blank">Switch-science</a> <br />
+<a class="wiki_link_ext" href="http://www.sparkfun.com" rel="nofollow" target="_blank">Sparkfun</a> <br />
+<a class="wiki_link_ext" href="http://www.suzushoweb.com/" rel="nofollow" target="_blank">Suzusho</a><br />
+<a class="wiki_link_ext" href="http://www.datasheetlib.com/" rel="nofollow" target="_blank">Datasheet Lib</a><br />
+<span style="font-size: 80%;"><a class="wiki_link_ext" href="http://www.ermicro.com/blog" rel="nofollow" target="_blank">Ermicro</a></span><br />
+<span style="font-size: 80%;"><a class="wiki_link_ext" href="http://skyduino.wordpress.com/" rel="nofollow" target="_blank">Skyduino (fr)</a></span><br />
+<span style="font-size: 80%;"><a class="wiki_link_ext" href="http://www.marutsu.co.jp/" rel="nofollow" target="_blank">Marutsu</a></span><br />
+<br />
+<!-- /Left menu --></td>
+    <td style="background-color:white;width:100%;padding: 10px;vertical-align: top;">
+<!-- Content -->
+{% autoescape false %}
+    {{ pagecontent }}
+{% endautoescape %}
+<!-- /Content --></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align:center;font-size:8pt;background-color:#808080;">
+<!-- Footer -->
+All content on this site is shared under the <span style="font-weight:bold;">MIT licence</span> (do what u want, don't sue me, hat tip appreciated)<br/>
+<a href="http://electrogeek.cc"/>electrogeek.cc</a> ~ Formerly known as Kalshagar.wikispaces.com (AlanFromJapan [2009 - {{ year }}])
+<!-- /Footer --></td>
+  </tr>
+</table>
+
+    </body>
+</html>

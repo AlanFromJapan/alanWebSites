@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <title>kalshagar - SNMP agent in C</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<em><span style="font-size: 70%">... I mean C# CSharp !! Damned page name.</span></em><br />
+<br />
+<h1 id="toc0"><a name="Library"></a> Library </h1>
+<ul><li>The <strong>excellent</strong> library <strong>SnmpSharpNet</strong> for C# in GPL <a class="wiki_link_ext" href="http://www.snmpsharpnet.com/" rel="nofollow" target="_blank">http://www.snmpsharpnet.com/</a></li></ul><br />
+<h1 id="toc1"><a name="Code sample"></a> Code sample </h1>
+<h2 id="toc2"><a name="Code sample-Agent"></a> Agent </h2>
+<em>That was the prototype, the prod version is of course much better (but sorry, property of my company). Supports SNMP v1</em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp  {font-family:monospace;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+-->
+</style><pre class="csharp"><span class="kw1">using</span> <span class="co3">System</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Collections.Generic</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.ComponentModel</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Data</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Drawing</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Text</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Windows.Forms</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">SnmpSharpNet</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Net</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Net.Sockets</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.Threading</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">namespace</span> SSNet_AgentTest <span class="br0">&#123;</span>
+    <span class="kw1">public</span> <span class="kw1">partial</span> <span class="kw4">class</span> Form1 <span class="sy0">:</span> Form <span class="br0">&#123;</span>
+        <span class="kw1">public</span> Form1<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            InitializeComponent<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">private</span> Socket mSock <span class="sy0">=</span> <span class="kw1">null</span><span class="sy0">;</span>
+&nbsp;
+        <span class="kw1">private</span> <span class="kw4">void</span> Form1_Load<span class="br0">&#40;</span><span class="kw4">object</span> sender, EventArgs e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+            Thread vThread <span class="sy0">=</span> <span class="kw3">new</span> Thread<span class="br0">&#40;</span><span class="kw3">new</span> ThreadStart<span class="br0">&#40;</span><span class="kw1">this</span><span class="sy0">.</span><span class="me1">ListenerThread</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            vThread<span class="sy0">.</span><span class="me1">IsBackground</span> <span class="sy0">=</span> <span class="kw1">true</span><span class="sy0">;</span>
+            vThread<span class="sy0">.</span><span class="me1">Priority</span> <span class="sy0">=</span> ThreadPriority<span class="sy0">.</span><span class="me1">BelowNormal</span><span class="sy0">;</span>
+            vThread<span class="sy0">.</span><span class="me1">Start</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            textBox1<span class="sy0">.</span><span class="me1">Text</span> <span class="sy0">=</span> <span class="st0">&quot;Listener Thread Started !<span class="es0">\r</span><span class="es0">\n</span>&quot;</span><span class="sy0">;</span>            
+        <span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+        <span class="kw1">public</span> <span class="kw4">void</span> ListenerThread<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            mSock <span class="sy0">=</span> <span class="kw3">new</span> Socket<span class="br0">&#40;</span>AddressFamily<span class="sy0">.</span><span class="me1">InterNetwork</span>, SocketType<span class="sy0">.</span><span class="me1">Dgram</span>, ProtocolType<span class="sy0">.</span><span class="me1">Udp</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            mSock<span class="sy0">.</span><span class="me1">ReceiveTimeout</span> <span class="sy0">=</span> <span class="nu0">2000</span><span class="sy0">;</span>
+            IPEndPoint vEndPoint <span class="sy0">=</span> <span class="kw3">new</span> IPEndPoint<span class="br0">&#40;</span>IPAddress<span class="sy0">.</span><span class="me1">Any</span>, <span class="nu0">16100</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            mSock<span class="sy0">.</span><span class="me1">Bind</span><span class="br0">&#40;</span>vEndPoint<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+&nbsp;
+            <span class="kw4">byte</span><span class="br0">&#91;</span><span class="br0">&#93;</span> vBuff <span class="sy0">=</span> <span class="kw3">new</span> <span class="kw4">byte</span><span class="br0">&#91;</span><span class="nu0">4096</span><span class="br0">&#93;</span><span class="sy0">;</span>
+            <span class="kw4">int</span> vLen <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+            <span class="kw1">while</span> <span class="br0">&#40;</span><span class="kw1">true</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw1">if</span> <span class="br0">&#40;</span><span class="kw1">this</span><span class="sy0">.</span><span class="me1">mSock</span><span class="sy0">.</span><span class="me1">Available</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                    EndPoint vSender <span class="sy0">=</span> <span class="br0">&#40;</span>EndPoint<span class="br0">&#41;</span><span class="kw3">new</span> IPEndPoint<span class="br0">&#40;</span>IPAddress<span class="sy0">.</span><span class="me1">Any</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    vLen <span class="sy0">=</span> mSock<span class="sy0">.</span><span class="me1">ReceiveFrom</span><span class="br0">&#40;</span>vBuff, <span class="kw1">ref</span> vSender<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                    LogText<span class="br0">&#40;</span><span class="st0">&quot;----------------------------------------------------&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    LogText<span class="br0">&#40;</span><span class="st0">&quot;Data received (bytes): &quot;</span> <span class="sy0">%20</span> vLen<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                    SnmpPacket vPacket <span class="sy0">=</span> <span class="kw3">new</span> SnmpV1Packet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    vPacket<span class="sy0">.</span><span class="me1">decode</span><span class="br0">&#40;</span>vBuff, vLen<span class="br0">&#41;</span><span class="sy0">;</span>
+                    LogText<span class="br0">&#40;</span><span class="st0">&quot;PDU decoded: &quot;</span> <span class="sy0">%20</span> vPacket<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">VbCount</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    Oid <span class="kw4">vOid</span> <span class="sy0">=</span> <span class="kw1">null</span><span class="sy0">;</span>
+                    <span class="kw1">if</span> <span class="br0">&#40;</span>vPacket<span class="sy0">.</span><span class="me1">Pdu</span> <span class="sy0">!=</span> <span class="kw1">null</span> <span class="sy0">&amp;&amp;</span> vPacket<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">VbList</span> <span class="sy0">!=</span> <span class="kw1">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                        <span class="kw1">foreach</span> <span class="br0">&#40;</span>Vb vVb <span class="kw1">in</span> vPacket<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">VbList</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                            LogText<span class="br0">&#40;</span>vVb<span class="sy0">.</span><span class="me1">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                            <span class="kw4">vOid</span> <span class="sy0">=</span> vVb<span class="sy0">.</span><span class="me1">Oid</span><span class="sy0">;</span>
+                        <span class="br0">&#125;</span>
+                    <span class="br0">&#125;</span>
+&nbsp;
+                    <span class="co1">//Response packet: mind the community and request id</span>
+                    SnmpPacket vRep <span class="sy0">=</span> <span class="kw3">new</span> SnmpV1Packet<span class="br0">&#40;</span><span class="st0">&quot;&quot;</span> <span class="sy0">%20</span> vPacket<span class="sy0">.</span><span class="me1">Community</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    vRep<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">Type</span> <span class="sy0">=</span> PduType<span class="sy0">.</span><span class="me1">Response</span><span class="sy0">;</span>
+                    vRep<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">RequestId</span> <span class="sy0">=</span> vPacket<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">RequestId</span><span class="sy0">;</span>
+                    vRep<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">ErrorStatus</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="co1">// no error</span>
+                    vRep<span class="sy0">.</span><span class="me1">Pdu</span><span class="sy0">.</span><span class="me1">VbList</span><span class="sy0">.</span><span class="me1">Add</span><span class="br0">&#40;</span><span class="kw4">vOid</span>, <span class="kw3">new</span> OctetString<span class="br0">&#40;</span><span class="st0">&quot;Hello monde!&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+                    <span class="kw4">byte</span><span class="br0">&#91;</span><span class="br0">&#93;</span> vOutBuff <span class="sy0">=</span> vRep<span class="sy0">.</span><span class="me1">encode</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    mSock<span class="sy0">.</span><span class="me1">SendTo</span><span class="br0">&#40;</span>vOutBuff, vSender<span class="br0">&#41;</span><span class="sy0">;</span>
+                    LogText<span class="br0">&#40;</span><span class="st0">&quot;Answer sent.&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>                    
+                <span class="br0">&#125;</span>
+&nbsp;
+                Thread<span class="sy0">.</span><span class="me1">Sleep</span><span class="br0">&#40;</span><span class="nu0">1000</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">public</span> <span class="kw4">delegate</span> <span class="kw4">void</span> InvokeDelegString<span class="br0">&#40;</span><span class="kw4">string</span> p<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+        <span class="kw1">private</span> <span class="kw4">void</span> LogText<span class="br0">&#40;</span><span class="kw4">string</span> p<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span><span class="kw1">this</span><span class="sy0">.</span><span class="me1">InvokeRequired</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw1">this</span><span class="sy0">.</span><span class="me1">Invoke</span><span class="br0">&#40;</span><span class="kw3">new</span> InvokeDelegString<span class="br0">&#40;</span><span class="kw1">this</span><span class="sy0">.</span><span class="me1">LogText</span><span class="br0">&#41;</span>, p<span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+            <span class="kw1">else</span> <span class="br0">&#123;</span>
+                textBox1<span class="sy0">.</span><span class="me1">Text</span> <span class="sy0">%20=</span> p <span class="sy0">%20</span> <span class="st0">&quot;<span class="es0">\r</span><span class="es0">\n</span>&quot;</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<br />
+<h2 id="toc3"><a name="Code sample-Client"></a> Client </h2>
+Simple but efficient.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp  {font-family:monospace;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+-->
+</style><pre class="csharp">            <span class="kw4">String</span> snmpAgent <span class="sy0">=</span> <span class="st0">&quot;127.0.0.1&quot;</span><span class="sy0">;</span>
+             <span class="kw4">String</span> snmpCommunity <span class="sy0">=</span> <span class="st0">&quot;public&quot;</span><span class="sy0">;</span>
+             SimpleSnmp snmp <span class="sy0">=</span> <span class="kw3">new</span> SimpleSnmp<span class="br0">&#40;</span>snmpAgent, <span class="nu0">16100</span>, snmpCommunity, <span class="nu0">2000</span>, <span class="nu0">2</span><span class="br0">&#41;</span><span class="sy0">;</span>
+             <span class="co1">// Create a request Pdu</span>
+             Pdu pdu <span class="sy0">=</span> <span class="kw3">new</span> Pdu<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+             pdu<span class="sy0">.</span><span class="me1">Type</span> <span class="sy0">=</span> PduType<span class="sy0">.</span><span class="me1">Get</span><span class="sy0">;</span>
+             pdu<span class="sy0">.</span><span class="me1">VbList</span><span class="sy0">.</span><span class="me1">Add</span><span class="br0">&#40;</span><span class="st0">&quot;1.3.6.1.2.1.1.1.0&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+             Dictionary<span class="sy0">&lt;</span>Oid, AsnType<span class="sy0">&gt;</span> result <span class="sy0">=</span> snmp<span class="sy0">.</span><span class="me1">GetNext</span><span class="br0">&#40;</span>SnmpVersion<span class="sy0">.</span><span class="me1">Ver1</span>, pdu<span class="br0">&#41;</span><span class="sy0">;</span>
+             <span class="kw1">if</span><span class="br0">&#40;</span> result <span class="sy0">==</span> <span class="kw1">null</span> <span class="br0">&#41;</span> <span class="br0">&#123;</span>
+               Console<span class="sy0">.</span><span class="me1">WriteLine</span><span class="br0">&#40;</span><span class="st0">&quot;Request failed.&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+             <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+               <span class="kw1">foreach</span> <span class="br0">&#40;</span>KeyValuePair<span class="sy0">&lt;</span>Oid, AsnType<span class="sy0">&gt;</span> entry <span class="kw1">in</span> result<span class="br0">&#41;</span>
+               <span class="br0">&#123;</span>
+                 Console<span class="sy0">.</span><span class="me1">WriteLine</span><span class="br0">&#40;</span><span class="st0">&quot;{0} = {1}: {2}&quot;</span>, entry<span class="sy0">.</span><span class="me1">Key</span><span class="sy0">.</span><span class="me1">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, SnmpConstants<span class="sy0">.</span><span class="me1">GetTypeName</span><span class="br0">&#40;</span>entry<span class="sy0">.</span><span class="me1">Value</span><span class="sy0">.</span><span class="me1">Type</span><span class="br0">&#41;</span>,
+                   entry<span class="sy0">.</span><span class="me1">Value</span><span class="sy0">.</span><span class="me1">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+               <span class="br0">&#125;</span>
+             <span class="br0">&#125;</span></pre>
+
+
+    </div>
+  </body>
+</html>

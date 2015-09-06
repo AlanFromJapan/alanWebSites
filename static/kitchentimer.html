@@ -1,0 +1,158 @@
+<html>
+  <head>
+    <title>kalshagar - KitchenTimer</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Goal"></a> Goal </h1>
+<img src="files/minuteurikea.jpg" alt="minuteurikea.jpg" title="minuteurikea.jpg" style="width: 300px;" align="right" /><br />
+Goal is to replace this <a class="wiki_link_ext" href="http://www.ikea.com/jp/en/catalog/products/90163356/" rel="nofollow" target="_blank">Ikea super cheap timer</a> that works ... well, as good as something manual that you paied less than 200 JPY (less than 2 euro). Not precise, sometimes doesn't ring, or ring just the blink of an eye, so easy to miss...<br />
+<br />
+The new timer will:<br />
+<ul><li>Have a graphical LCD (bought one one year ago, never used it, needed a pretext, so...)</li><li>Work on battery (1x 9v battery)</li><li>Play music when it's time<ul><li>Use a speaker and amp</li><li>Possibly use a <a class="wiki_link" href="Arduino%20and%20a%20YMZ294.html">YMZ294</a> ?</li><li><span style="color: #ff00b7;">In fact something else but much better...</span></li></ul></li><li>Have an on/off system with a push-button, not a open/close switch <span style="color: #ff00b7;">In fact a tilt switch</span></li><li>No arduino, but a simple atmega 328 (more than sufficient)</li><li>Keep me busy a few days while allowing me to use some parts I bought long time ago and create a un-reasonable and out of price kitchen timer</li></ul><img src="files/IMG_6438.JPG" alt="IMG_6438.JPG" title="IMG_6438.JPG" style="width: 300px;" align="right" /> <br />
+<br />
+<strong>Hall of fame:</strong><br />
+<ul><li>Electronics-lab : <a class="wiki_link_ext" href="http://www.electronics-lab.com/blog/?p=16570" rel="nofollow">http://www.electronics-lab.com/blog/?p=16570</a></li><li>Hackaday : <a class="wiki_link_ext" href="http://hackaday.com/2012/02/03/kitchen-timer-makes-mario-your-sous-chef/" rel="nofollow">http://hackaday.com/2012/02/03/kitchen-timer-makes-mario-your-sous-chef/</a></li></ul><br />
+<h1 id="toc1"><a name="Features"></a> Features </h1>
+<h2 id="toc2"><a name="Features-Plateform and board"></a> Plateform and board </h2>
+Following the saying of &quot;eat your own cuisine&quot;, I'll use my <a class="wiki_link" href="Rapide328.html">Rapide328</a> board since it's sufficient for what we want to do here (throwing in a 16Mhz crystal, it's an arduino clone minus USB). I'll be using the Arduino libs, meaning compile with Arduino IDE and then upload the produced .hex to the board via a programmer. Therefore the code is 100% compliant with an Arduino and you could reuse it with the Arduino effort with 0 development. <br />
+<br />
+Great (temporary) deception however: the <a class="wiki_link" href="Rapide328.html">Rapide328</a> works very fine but once the graphic LCD plugged on, since it uses the MOSI wire, I can't upload via the ISP anymore!! I have to move the uC between an Arduino and the board to test ... Solution : change the default wiring and reposition wires where it's more convenient! Just change the ks0108_Arduino.h file and move that wire to some other pin!<br />
+<br />
+<h2 id="toc3"><a name="Features-Auto on-off"></a> Auto on-off </h2>
+Two ways were possible, I picked the easy : <br />
+<ul><li><strong>The hard way (easy) :</strong> use a tilt switch. Turn upside-down and the it's off!<ul><li>For the record I soldered a 47 uF cap in parallel of the tilt switch. It seems to remove most of the flicker, but thinking again it doesn't seem such a great idea since even no current should flow, a little is still always leaking and killing the battery. Am I wrong ? I guess so, so please explain me where.</li></ul></li><li>The soft way (hard) : make a push-on/push-off system driven by the micro controller. Click a momentary switch it turns on, and the uC can turn the whole stuff down by itself.</li></ul><br />
+<h3 id="toc4"><a name="Features-Auto on-off-Links"></a> Links </h3>
+<ul><li>On-Off with 3 transistors <a class="wiki_link_ext" href="http://talkingelectronics.com/projects/200TrCcts/200TrCcts.html#16" rel="nofollow">http://talkingelectronics.com/projects/200TrCcts/200TrCcts.html#16</a><ul><li>Thanks to my DIY-hero <a class="wiki_link_ext" href="http://hackaweek.com/hacks/" rel="nofollow" target="_blank">Dino SEGOVIS</a>  for sharing this finding <a class="wiki_link_ext" href="http://www.youtube.com/user/HackaweekTV#p/u/13/I70H5xQ6MT0" rel="nofollow" target="_blank">in this video</a></li></ul></li><li>Another very simple on-off <em>but</em> using a relay... <a class="wiki_link_ext" href="http://www.oldradio.com/current/pushon-pushoff.htm" rel="nofollow">http://www.oldradio.com/current/pushon-pushoff.htm</a></li><li><a class="wiki_link_ext" href="http://www.seanet.com/~karllunt/atmegapowerdown.html" rel="nofollow">http://www.seanet.com/~karllunt/atmegapowerdown.html</a></li><li><a class="wiki_link_ext" href="http://www.josepino.com/howto/on_off_button" rel="nofollow">http://www.josepino.com/howto/on_off_button</a></li><li><a class="wiki_link_ext" href="http://www.pololu.com/catalog/product/750" rel="nofollow">http://www.pololu.com/catalog/product/750</a></li><li><a class="wiki_link_ext" href="http://electronics.stackexchange.com/questions/9015/how-to-implement-a-soft-power-switch-controllable-by-microcontroller" rel="nofollow">http://electronics.stackexchange.com/questions/9015/how-to-implement-a-soft-power-switch-controllable-by-microcontroller</a></li><li>... or just stop being stuborn and use the sleep mode <a class="wiki_link_ext" href="http://jarv.org/2011/12/musical-ms-pacman-candy-tin-hack/" rel="nofollow">http://jarv.org/2011/12/musical-ms-pacman-candy-tin-hack/</a></li></ul><br />
+<h2 id="toc5"><a name="Features-Graphical LCD"></a> Graphical LCD </h2>
+<img src="files/ks0108_Panel_B.gif" alt="ks0108_Panel_B.gif" title="ks0108_Panel_B.gif" style="width: 300px;" align="right" />Use that big graphic <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gP-02159/" rel="nofollow" target="_blank">LCD bought the other day</a>  and sitting alone and forgotten.<br />
+Use that library that works just fine  (great job and many thanks to the author) <a class="wiki_link_ext" href="http://www.arduino.cc/playground/Code/GLCDks0108" rel="nofollow">http://www.arduino.cc/playground/Code/GLCDks0108</a><br />
+My concern is now that I have 7 pins left ... quite short. Rewriting part of the above library to use a SIPO is not something I dream of neither so I'll go with that constraint since I can live with it.<br />
+<br />
+For the record, I just amended a bit the suggested wiring : my C1/C2 pin are inverted (my mistake I think, I never had the will to check, just inverted the pins in the .h file) and I moved the pin that was going to the Atmega MOSI pin somewhere else (I'm using ISP programmer, it didn't work with that pin used by the GLCD).<br />
+<br />
+Light every minute tick, shows remaining time.<br />
+<br />
+<h2 id="toc6"><a name="Features-Sound"></a> Sound </h2>
+<h3 id="toc7"><a name="Features-Sound-What I wanted to do"></a> What I wanted to do </h3>
+Use a <a class="wiki_link" href="Arduino%20and%20a%20YMZ294.html">YMZ294</a> 'cause I have some of them left. Will require a SIPO chip since I won't have enough I/O pins available with the LCD and the YMZ294 and the on-off and the bling bling ...<br />
+<br />
+Music would be nintendo classics or classical music ? Did that in the past, should be able to make it work again.<br />
+<br />
+Speaker must be small, so maybe reuse that cell-phone scavenged speaker? Or that flat profile speaker bought the other day?<br />
+<br />
+<h3 id="toc8"><a name="Features-Sound-What I will do"></a> What I will do </h3>
+<img src="http://www.mariowiki.com/images/1/1a/SuperMarioSoundDrops.jpg" alt="external image SuperMarioSoundDrops.jpg" title="external image SuperMarioSoundDrops.jpg" style="width: 200px;" align="right" /><br />
+I don't have many pins left, so instead of sound and poor led I'll with poor sound (buzzer/uC Driver speaker ?) and led. But in fact I found in the pile of stuffs I have one of those key chains playing supermario sounds that you buy in distributor machine for 200 JPY. This one was of no great value to me but was quite loud : I opened it, soldered 2 wires on the button pad, added an optocoupler between that and the arduino, et voila !<br />
+<ul><li>By the way, the one I used <a class="wiki_link_ext" href="http://www.youtube.com/watch?v=YjLJpyGqyT8" rel="nofollow">http://www.youtube.com/watch?v=YjLJpyGqyT8</a></li><li>A bit more details <a class="wiki_link_ext" href="http://www.mariowiki.com/Keychains#Sound%20Drops" rel="nofollow">http://www.mariowiki.com/Keychains#Sound%20Drops</a></li><li>Just found a tutorial of a guy explaining how to do it (saves me the need to write it for you) <a class="wiki_link_ext" href="http://www.instructables.com/id/Super-Mario-Bros-Warp-Pipe-Sound-Effect-Toilet-To/" rel="nofollow">http://www.instructables.com/id/Super-Mario-Bros-Warp-Pipe-Sound-Effect-Toilet-To/</a></li></ul><br />
+<h2 id="toc9"><a name="Features-Input"></a> Input </h2>
+Well you have to say how long you want it to wait, haven't you? I imagine now the following inputs:<br />
+<ul><li>Momentary switch 1 : %205 minutes</li><li>Momentary switch 2 : %2015 sec</li><li>Momentary switch 3 : Start/Pause (start could be replaced by a &quot;start automatically as soon as first duration is entered&quot;)</li></ul><br />
+I used the <em>All buttons on one pin</em> technique that I've not yet used. Looks good since I still have one Analog pin left and I don't see other usage for that pin.<br />
+<ul><li>Use the method explained at <strong><a class="wiki_link" href="Arduino%20and%20a%20button.html">Arduino and a button</a></strong></li></ul><br />
+<h2 id="toc10"><a name="Features-Bling bling"></a> Bling bling </h2>
+In addition to sound, added 2 transistor driving each one 2 leds to blink with the music.<br />
+<br />
+<h2 id="toc11"><a name="Features-Power"></a> Power </h2>
+Must : have sufficient power (duh!), match the usage (used not often but when used it's continuously for 30 avg?), keep small volume and keep it light. My choice is a square 9v battery (smaller) and a LM7805. Maybe not the best choice, but it works. Other option  could have been those cheap 5v USB charger that work with 2 AA battery : costs 100 jpy, but is it better?<br />
+<ul><li>Went for the 9v battery  7805 regulation</li></ul><br />
+<h1 id="toc12"><a name="Code"></a> Code </h1>
+<h2 id="toc13"><a name="Code-The source"></a> The source </h2>
+As usual, everything is on <strong>Google code</strong> : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FKitchenTimer" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FKitchenTimer</a><br />
+<br />
+<br />
+<h2 id="toc14"><a name="Code-Set the fuses"></a> Set the fuses </h2>
+We're using a atmega328 in same config as an arduino, sot set the fuses to use the 16 MHz crystal.<br />
+<em>For the record: the glcd worked also with the internal 8MHz oscillator (with default division of 8) meaning 1 MHz although compiled for a 16MHz pace. It was just slower. 16x times slower. But worked.</em><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos">avrdude -v -v -p m328p -c avrispv2 -P <span class="kw4">COM1</span> -U lfuse:w:0xf7:m -U hfuse:w:0xd9:m -U efuse:w:0xff:m</pre>
+
+<br />
+<h2 id="toc15"><a name="Code-Upload the binary"></a> Upload the binary </h2>
+I use the pololu programmer so I type something like this :<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos">avrdude  -c avrispv2 -p m328p -P <span class="kw4">COM1</span> -U flash:w:C:\Users\Alan\AppData\Local\Temp\build66073673223083421.tmp\KitchenTimer.cpp.hex:i </pre>
+
+<br />
+<br />
+<h2 id="toc16"><a name="Code-Point of interrest"></a> Point of interrest </h2>
+<ul><li>Using the GLCD library, a really nice job easy to configure. Thanks to the author.</li><li>3 buttons on a pin : works really fine and a pin saver.</li><li>The &quot;&quot;&quot;hack&quot;&quot;&quot; (hum hum) of the Super Mario key chain that is backpacked on the box</li><li><span style="text-decoration: line-through;">Making a replacement timer that is maybe 20 times the price of the original one</span></li><li>Finally make a something that make my wife react more than a raised eyebrow and a pat on the back. She really uses and like it. <img src="files/heart.gif" alt="heart.gif" title="heart.gif" /></li></ul><br />
+<h1 id="toc17"><a name="Pictures"></a> Pictures </h1>
+<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><img src="files/IMG_6436.JPG" alt="IMG_6436.JPG" title="IMG_6436.JPG" style="width: 500px;" /><br />
+On startup : turn it upside-up (!) and the current flows. Input duration with the 2 top left and middle button and Go!<br />
+</td>
+        <td><img src="files/IMG_6438.JPG" alt="IMG_6438.JPG" title="IMG_6438.JPG" style="width: 500px;" /> <br />
+While counting time ...<br />
+</td>
+    </tr>
+    <tr>
+        <td><img src="files/IMG_6446.JPG" alt="IMG_6446.JPG" title="IMG_6446.JPG" style="width: 500px;" /><br />
+Side picture (yeah it's quite big)<br />
+</td>
+        <td><img src="files/IMG_6445.JPG" alt="IMG_6445.JPG" title="IMG_6445.JPG" style="width: 500px;" /> <br />
+Back picture : notice the yellow keychain that is screwed on the back of the box.<br />
+</td>
+    </tr>
+</table>
+
+
+    </div>
+  </body>
+</html>

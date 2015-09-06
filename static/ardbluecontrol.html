@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>kalshagar - ardBlueControl</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Material"></a> Material </h1>
+<ul><li>Arduino (low power preferable)</li><li>Bluetooth connection :<ul><li>Additional to Arduino</li><li>Directly embeded (Arduino BT)</li></ul></li><li>Touchscreen</li><li>Status info led?</li><li>On/off switch</li><li>Battery pack or Lithium refillable battery</li></ul><br />
+<h1 id="toc1"><a name="Status"></a> Status </h1>
+<strong>2009-12-07</strong> : <img src="files/skull-crossbones1.gif" alt="skull-crossbones1.gif" title="skull-crossbones1.gif" /><span style="background-color: #feaeae">Still can't upload code to that f%%%%%%% board ! 12,000 JPY and just the default blink-blink-blink is <em>very frustrating</em>!<br />
+I ended up doing the same kind of thing in C# to pilot my pc-multimedia from my laptop <a class="wiki_link" href="Home%20Network%20Remote%20Control.html">Home Network Remote Control</a> </span><br />
+<strong>2010-01-23</strong> : using my Pololu uploader, I can now upload code to my card, working fine. It is a bit annoying process but it has the bonus of saving 2kB over 16, which is cool. It works like that:<br />
+<ul><li>In Arduino IDE compile <em>and upload</em> your code. It will not work I know BUT it will generate the .hex file in the \applet subdirectory (which is not done when doing a simple compile)</li><li>With the win-avr, run a command prompt</li><li>(make it a .bat for doing it simple) Run avrdude.exe :</li></ul><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos">avrdude -p atmega168 -P <span class="kw4">com1</span>   -c avrispv2   -v -v  -U flash:w:sketch_090711a.hex</pre>
+
+
+    </div>
+  </body>
+</html>

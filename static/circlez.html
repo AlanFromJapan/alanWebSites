@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>kalshagar - Circlez</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Summary"></a> Summary </h1>
+<img src="files/circlezschema.png" alt="circlezschema.png" title="circlezschema.png" style="width: 400px;" align="right" />The conjonction of a few facts lead me to this one-afternoon-straight-to-production PCB design:<br />
+<ul><li>I saw this LED ring that I found beautiful but very overpriced (45 USD ? Come on !) <a class="wiki_link_ext" href="http://www.adafruit.com/products/1575" rel="nofollow">http://www.adafruit.com/products/1575</a></li><li>I scored a sh*tload of extra small LED in my 福袋 Lucky bag at Akizuki this year (really, counts by the hundreds). They are orange and really small : 0.6mm x 1.4mm (makes package <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Surface-mount_technology" rel="nofollow" target="_blank">SOD-723</a>)</li><li>I had a handful of ATmel SMD chips that I wanted to use bought on eBay (more on that later)</li><li>The usual boredome x curiosity</li></ul><br />
+I made a square board with a round outline on the silk and a few holes on the side so I can but and sand it. Why didn't I make it round from the start and saving me some cutting-and-filing job? <strong>'Cause I didn't know I could!</strong> Now I know, saw some tutorials on the net. Maybe for a later iteration?<br />
+<br />
+<strong>Fun facts:</strong> I had the <em>chance</em> to discover that my cheap Atmega8a were cheap for a reason ... they were fake. Bought it on eBay at a seller I used many times, always a success ... until that time. Soldered all by hand and nothing happened. Soldered another chip on another board, checked everything: everything seems fine, but nothing happens. Checked my circuit, re-read the documentation of the chip in details (I had the case of the special <a class="wiki_link" href="ATmega64a.html">ATmega64a</a> strange pinout), plugged my signal analyzer : everything looks ok, but no answer from the chip itself. Soldered a Atmega328a (pin compatible) to counter check: bingo, working no problem. 5 bucks lost on nice pieces of plastics with metal legs sticking out ... I will survive. Another life lessons learnt the hard way from eBay.<br />
+<br />
+<h1 id="toc1"><a name="PCB schema"></a> PCB schema </h1>
+On google code SVN : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FCirclez" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FCirclez</a><br />
+<br />
+<h2 id="toc2"><a name="PCB schema-PCB charlieplexing"></a> PCB charlieplexing </h2>
+<a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Charlieplexing" rel="nofollow" target="_blank">Charlieplexing</a> is a great technique, but how to make it look nice on your schema (not talking about the PCB itself). I constructed my version 1 based on the sample found on Wikipedia, by making recursive-like structure. Works fine with 3 pins, but when you start adding more, things get messy. I tried one version continuing to do some &quot;clusters&quot;, but in the end I was not driving the number of leds I expected. <br />
+After some search on the internet, I <a class="wiki_link_ext" href="http://embedded-lab.com/blog/?p=8116" rel="nofollow" target="_blank">found this page</a>  and everything came into light: it's like a simple binary counter (maybe I'm the only one to see it like that?). Anyway, make a scale with the pins, drawing long horizontal nets. And place leds pairs one by one between the new wire and all the pre existing other wires, adding one new wire each round.<br />
+<br />
+<img src="files/circlez2_charlie.png" alt="circlez2_charlie.png" title="circlez2_charlie.png" /><br />
+<br />
+<h1 id="toc3"><a name="Code"></a> Code </h1>
+Google code : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAtmegaxx8%2FCirclezDemo" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAtmegaxx8%2FCirclezDemo</a><br />
+<br />
+<h1 id="toc4"><a name="Pictures"></a> Pictures </h1>
+<iframe width="560" height="315" src="//www.youtube.com/embed/Di9AJKrVdCI" frameborder="0" allowfullscreen=""></iframe><br />
+<img src="files/20140304_232509.jpg" alt="20140304_232509.jpg" title="20140304_232509.jpg" /><br />
+<em>The board with a fake Atmega8a to the side.</em>
+    </div>
+  </body>
+</html>

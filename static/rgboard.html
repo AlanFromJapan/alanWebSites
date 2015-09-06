@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>kalshagar - RGBoard</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<img src="files/I-02225.jpg" alt="I-02225.jpg" title="I-02225.jpg" style="width: 200px;" align="right" /><br />
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+It's a 5x5 cm board dedicated to hold 4x4 of those leds <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-02225/" rel="nofollow" target="_blank">ＳＬＣ－Ｆ２１９ＣＡ－Ｔ１</a> . Those are SMD but big  enough to be soldered manually if you don't shake too much (honnestly it's easier to solder than it looks). It's to be used in the project <a class="wiki_link" href="Avalanche.html">Avalanche</a>.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2 id="toc1"><a name="Purpose-Failure"></a> Failure </h2>
+<img src="files/Fail_Logo.jpg" alt="Fail_Logo.jpg" title="Fail_Logo.jpg" style="width: 200px;" align="right" />Ha lalala stupid me ! I designed the circuit schema like the board ! I made a stupid mistake that makes that red and green channel work fine (intersect with ground to light LED individually) but all the columns (the blue) are linked together. Therefore all the blue of a same column are light together (can't control individually)... what a stupid mistake ... <br />
+Moreover, the placement of the connectors for colors is poorly designed : try to do a 2x2 of thoses boards, you have ground in front of blue, red in front of green! You have to air wire the mess together, impossible to make clean bus. One correct alternative would have been : ground bus vertical (top and bottom), red-green-blue 4 wires bus side by side horizontally (left and right). The meshing of the board would have been more complex but afterward making composition like 2x2, 3x1, ... would have been MUCH easier with NO air wiring.<br />
+Oh and I forgot the fixing holes, version number... That's a failure that you can still make work with lots of painful soldering (what a shame for a board whose main mission was to save me that meaningless activity).<br />
+<br />
+<h1 id="toc2"><a name="Code"></a> Code </h1>
+Eagle files : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FRGBoard" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2Feagle%2FRGBoard</a><br />
+<br />
+<h1 id="toc3"><a name="Pictures"></a> Pictures </h1>
+<img src="files/2012-04-06_23.47.11b.jpg" alt="2012-04-06_23.47.11b.jpg" title="2012-04-06_23.47.11b.jpg" />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>kalshagar - ardReveil v4</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Why why why oh why ?"></a> Why why why oh why ? </h1>
+<img src="files/2014-12-07-16-30-07_deco.jpg" alt="2014-12-07-16-30-07_deco.jpg" title="2014-12-07-16-30-07_deco.jpg" style="width: 300px;" align="right" />No ultimate good reasons but a list of &quot;because&quot;:<br />
+<ul><li>Because I can find some use to it (I'm an engineer so no purpose, no attraction)</li><li>Because those voltmeters are so cheap (100 JPY)</li><li>Because it looks more complex than what it is (that's for picking up girls ... or geeks)</li><li>Because otherwise the little spare time I have in my life is spent between cigarette and hangover</li></ul><br />
+So, it will be like that : <br />
+<ul><li>2 voltmeters for hours and minutes</li><li>Hours will be 12h based %20 backlight color for indicating morning/evening (RGB color, orange vs. night blue ?)</li><li>Need ot pick a RTC, very unhappy with creepy DS1307, I'd like something that actually keeps time... DS3234</li><li>No arduino inside but Arduino compatible (ATmega 88)</li><li>And for the design:<ul><li>Metal enclosure from a recycled EMF shield</li><li>&quot;Old chestnut style&quot; pine wood (a piece of pine painted with special varnish)</li><li>Some real vacuum tubes with the light under for the style (totally useless)</li><li>As smoke pipe to release the pressure of so much calculation (you'll see)</li><li>Dings and dents...</li></ul></li></ul><br />
+<h1 id="toc1"><a name="Technical"></a> Technical </h1>
+<h2 id="toc2"><a name="Technical-Driving the voltmeter"></a> Driving the voltmeter </h2>
+<img src="files/2014-11-18-19-25-56_deco.jpg" alt="2014-11-18-19-25-56_deco.jpg" title="2014-11-18-19-25-56_deco.jpg" style="width: 200px;" align="right" />Ooooh Japan cheap 100JPY (&quot;hyaku-en&quot;) shop, I love you. Found some cheap battery tester with a voltmeter. You have to brutally open the voltmeter (at 1 USD it's not made to be serviced) and extract the interresting part. Then you must drive the voltmeter, <br />
+<br />
+<ul><li>Driving non linear voltmeter <a class="wiki_link_ext" href="http://www.waitingforfriday.com/index.php/USB_Performance_Monitor" rel="nofollow">http://www.waitingforfriday.com/index.php/USB_Performance_Monitor</a></li><li><a class="wiki_link_ext" href="http://www.allaboutcircuits.com/vol_1/chpt_8/8.html" rel="nofollow">http://www.allaboutcircuits.com/vol_1/chpt_8/8.html</a></li><li>RC circuit <a class="wiki_link_ext" href="http://www.electronics-tutorials.ws/rc/rc_1.html" rel="nofollow">http://www.electronics-tutorials.ws/rc/rc_1.html</a></li><li><a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Voltmeter" rel="nofollow">http://en.wikipedia.org/wiki/Voltmeter</a></li></ul><br />
+In fact the voltmeter are easy to drive with a 1kOhm in serial and PWM. No algorithm inside, I made just a simple measurements and stored in the EEPROM the calibrated values for each hours or 10's minutes. I'd do a simple ratio for minutes. My only concern is that the voltmeter I got now are using a spring to push the arrow back to zero (and therefore subject to stress and losing it strength), whereas previous I bought a few months ago where using a magnet. Let's see, but I forecast that periodic re-calibration will be necessary.<br />
+<br />
+<h2 id="toc3"><a name="Technical-Draw the voltmeter"></a> Draw the voltmeter </h2>
+With Inkscape, a shot of the original one, precise mesuring and a little time, you can have good results.<br />
+<ul><li><a class="wiki_link_ext" href="https://inkscape.org/doc/tips/tutorial-tips.html" rel="nofollow">https://inkscape.org/doc/tips/tutorial-tips.html</a></li></ul><img src="files/voltmeter%20time%20scale.PNG" alt="voltmeter time scale.PNG" title="voltmeter time scale.PNG" /><br />
+Source SVG file : <A  href="files/voltmeter-scale-time12.svg.html">voltmeter-scale-time12.svg</a><br />
+<h2 id="toc4"><a name="Technical-Lights"></a> Lights </h2>
+<img src="files/ardReveil4_tiny10.png" alt="ardReveil4_tiny10.png" title="ardReveil4_tiny10.png" align="right" />The clock will have a few fake tube (real dead vacuum tubes with a led at the bottom), but it will be fixed. There will be also some changing lights:<br />
+<ul><li>One flame like light, pulsating, in the body of my former soldering iron</li><li>Two alternating leds changing status every second</li></ul><br />
+This will be powered by a <strong><a class="wiki_link" href="ATtiny10.html">ATtiny10</a></strong>, an extra small micro controller of barely 3mm x 3mm. This was just a pretext to practice with this little IC, and seeing the limited number of pins, blinking led is what I'll use it for (though some people put USB stack on it ...!).<br />
+Code is here <a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny10" rel="nofollow">at Google code</a>, in the project <em>ArdReveil4Effects</em>. Points of interrest:<br />
+<ul><li><strong>PWM</strong> and <strong>Random algorithm</strong> for the flame burning effect</li><li><strong>Watchdog interrupt</strong> for the blinking-every-second</li></ul><img src="files/pinout10large.png" alt="pinout10large.png" title="pinout10large.png" style="width: 450px;" /><br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.text  {font-family:monospace;}
+.text .imp {font-weight: bold; color: red;}
+.text span.xtra { display:block; }
+
+-->
+</style><pre class="text">              %20-\/-%20
+ Flame    PB0 |o   | PB3  
+          GND |    | VCC
+ Led pin  PB1 |____| PB2  Led pin
+&nbsp;</pre>
+
+<br />
+<h1 id="toc5"><a name="Code"></a> Code </h1>
+All the code for the main MCU (Atmegaxx8) is in the <a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAtmegaxx8%2FMultiClockManager" rel="nofollow">Google source control </a> (you can pick the tag <em>ARDREVEIL4_VOLTMETER_20141207</em>)<br />
+Things to know:<br />
+<ul><li>Works with any atmega xx8 (used a atmega88, already an overkill)</li><li>Change the settings to use your RTC (my case was a DS3234)</li><li>Change the display to VoltmeterDisplay</li></ul><br />
+Points of interrest in the code:<br />
+<ul><li>For driving the voltmeter it does <strong>fast PWM</strong> to remove the high pitched sound,</li><li>Calibrated values are stored in the <strong>EEPROM</strong> so read/write there,</li><li>Talks to the DS3234 using <strong>SPI</strong>,</li><li>Basically it's the code of <a class="wiki_link" href="WordClock.html">WordClock</a> just migrated to Atmel Studio 6, just a bit better</li></ul><br />
+<h1 id="toc6"><a name="Pictures"></a> Pictures </h1>
+<img src="files/2014-11-16-00-14-14_deco.jpg" alt="2014-11-16-00-14-14_deco.jpg" title="2014-11-16-00-14-14_deco.jpg" /><br />
+<em>The enclosure in preparation: a piece of wood at the bottom, the top is the aluminium shielding of a big power circuit of a thing I attempted (but failed) to repair, you see also a tube that will be plugged in the stuff, as well as one of the voltmeter. The thin steel pipe is the body of my former iron, and I always knew I could reuse this baby for design ... just wait, you'll see.</em><br />
+<img src="files/2014-11-24-22-47-30_deco.jpg" alt="2014-11-24-22-47-30_deco.jpg" title="2014-11-24-22-47-30_deco.jpg" /><br />
+<em>First holes for the voltmeters and the chimney (you'll see)</em><br />
+<img src="files/2014-11-24-22-48-53_deco.jpg" alt="2014-11-24-22-48-53_deco.jpg" title="2014-11-24-22-48-53_deco.jpg" /><br />
+<em>Just a quick preview of what it will look like. Still need to make the hole for the tube.</em><br />
+<img src="files/ardReveil4%2001.jpg" alt="ardReveil4 01.jpg" title="ardReveil4 01.jpg" style="width: 600px;" /><br />
+<em>Attiny10 part done and wired inside the aluminium shielding</em><br />
+<img src="files/2014-12-07-00-17-02_deco.jpg" alt="2014-12-07-00-17-02_deco.jpg" title="2014-12-07-00-17-02_deco.jpg" /><br />
+<em>Nearly finished, need a couple more leds and plug in the voltmeters for real</em><br />
+<img src="files/ardReveil4%2002.jpg" alt="ardReveil4 02.jpg" title="ardReveil4 02.jpg" /><br />
+<em>Finished product. Managed to take the picture with the angle of the protective plastic cover just right on the figures (sigh... oh well).</em><br />
+<img src="files/2014-12-07-15-12-48_deco.jpg" alt="2014-12-07-15-12-48_deco.jpg" title="2014-12-07-15-12-48_deco.jpg" /><br />
+<em>The insides of the beast: on the left a <a class="wiki_link" href="atmega328.html">atmega328</a> on its <a class="wiki_link" href="WordClock.html">WordClock</a> v1.0 board </em><br />
+<h1 id="toc7"><a name="Documentations"></a> Documentations </h1>
+<h2 id="toc8"><a name="Documentations-I hate those guys"></a> I hate those guys </h2>
+<ul><li><a class="wiki_link_ext" href="http://hackedgadgets.com/2010/06/23/multimeter-clock-styled-after-the-simpson-260-multimeter/" rel="nofollow">http://hackedgadgets.com/2010/06/23/multimeter-clock-styled-after-the-simpson-260-multimeter/</a></li><li><a class="wiki_link_ext" href="http://hackaday.com/2010/01/30/hybrid-analogbinary-clock-the-mk2/" rel="nofollow">http://hackaday.com/2010/01/30/hybrid-analogbinary-clock-the-mk2/</a></li></ul><h2 id="toc9"><a name="Documentations-Other interesting sources"></a> Other interesting sources </h2>
+<ul><li>A performance meter with Vu-meter and algorithm for good PWM control <a class="wiki_link_ext" href="http://www.waitingforfriday.com/index.php/USB_Performance_Monitor" rel="nofollow">http://www.waitingforfriday.com/index.php/USB_Performance_Monitor</a></li></ul>
+    </div>
+  </body>
+</html>

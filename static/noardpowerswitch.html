@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <title>kalshagar - noardPowerSwitch</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<span style="background-color: gold;
+text-align: center;
+display: block;
+font-size: 120%;"><strong>FOREWORD :</strong> this is all based and cloned to a few details to the excellent solution you can find here. All credits for the author, I'm just making small variation based on his work : <a class="wiki_link_ext" href="http://www.obdev.at/products/vusb/powerswitch.html" rel="nofollow">http://www.obdev.at/products/vusb/powerswitch.html</a></span><br />
+<br />
+<h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
+Same project as <a class="wiki_link" href="ardPowerSwitch.html">ardPowerSwitch</a>, except <em>without</em> an Arduino!<br />
+Have a windows interface to controll on/off different things plugged around your pc. Ie, turn on/off that DVD reader that you use once a while and that has that annoying switch behind the case under the pc itself under the tv (see what I mean ?). It's a smart version of <a class="wiki_link" href="Auto%20USB%20power%20box.html">Auto USB power box</a>, using 5Amp relays to drive power-hog DVD reader, sound system, ...<br />
+This project is a good pretext for:<br />
+<ul><li>Playing with relays</li><li>Implement USB without RS232 or other FTDI chip but using the <a class="wiki_link_ext" href="http://www.obdev.at/products/vusb" rel="nofollow" target="_blank">great library V-USB</a></li><li>More chance to burn down my place (do <u>NOT</u> play with AC power if you don't know what you're doing)</li><li>Continue the fun after the <a class="wiki_link" href="Clapclap.html">Clapclap</a> that turns light on in my room</li></ul><br />
+<h2 id="toc1"><a name="Purpose-History"></a> History </h2>
+<strong>20110102:</strong> well after a few weeks this project stated, I finally managed to make it work with a ATmega328 (using the <a class="wiki_link_ext" href="http://www.recursion.jp/avrcdc/cdc-232.html#schematic" rel="nofollow" target="_blank">M.Ishikawa's library</a> ) to discover that on Windows 7 64bits Japanese (which happen to be my pc) you can't have this work without you windows running in some test mode for drivers, launching some weird applications, rebooting many times,... and finally having still not work that much. Big deception... So let's forget that and move to the HID solution that should work without a driver.<br />
+<br />
+<h1 id="toc2"><a name="Circuit"></a> Circuit </h1>
+<h2 id="toc3"><a name="Circuit-Schema"></a> Schema </h2>
+Todo<br />
+<h2 id="toc4"><a name="Circuit-Preparatory work"></a> Preparatory work </h2>
+<h3 id="toc5"><a name="Circuit-Preparatory work-Power considerations"></a> Power considerations </h3>
+<img src="http://vusb.wikidot.com/local--files/hardware/voltage-reduction-with-diodes.gif" alt="external image voltage-reduction-with-diodes.gif" title="external image voltage-reduction-with-diodes.gif" align="right" /><br />
+Ok, USB VCC/GND is a nice 5v BUT the Data wires (D%20/D-) are 3.3volters. How to solve this ? It's explained here, don't try to be the smart-a$$ : <a class="wiki_link_ext" href="http://vusb.wikidot.com/hardware" rel="nofollow">http://vusb.wikidot.com/hardware</a><br />
+For the records, I used the solution A, 2nd variation : meaning diode in serial to artificially create a approximative 3.3v VCC. I use 2 diodes in serial and get the predictable 3.6v which I hearsay is &quot;acceptable&quot;. Cheap and easy, hope it will work. Btw, ATmega runs fine in 1.8-5.5v range, so no worries. That VCC will trigger the transistor that will drive the relay, but those will use the original USB 5v Vcc to be turned on (transistor C-E).<br />
+<br />
+<h3 id="toc6"><a name="Circuit-Preparatory work-Speed"></a> Speed </h3>
+You <strong>must</strong> use a 12Mhz crystal, not 16Mhz. The library CAN work with 16 Mhz but the code as it is now cannot. So use a 12 Mhz crystal.<br />
+<br />
+<h3 id="toc7"><a name="Circuit-Preparatory work-Setup the ATmega328"></a> Setup the ATmega328 </h3>
+Since in my solution I use a <span style="text-decoration: line-through;">16</span> 12 MHz crystal, you have to set the fuses accordingly (this is not the default settings, that is internal RC Oscillator with scale of 8 =&gt; you run at 1 Mhz)<br />
+You should use this site for calculating the fuse or blindingly type the following  <a class="wiki_link_ext" href="http://www.engbedded.com/fusecalc/" rel="nofollow">http://www.engbedded.com/fusecalc/</a><br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="co0">#SET fuses to use a external crystal (sends an error in the end but just worked fine ... mystery)</span>
+avrdude <span class="re5">-v</span> <span class="re5">-v</span> <span class="re5">-p</span> m328p <span class="re5">-c</span> avrispv2 <span class="re5">-P</span> COM1 <span class="re5">-U</span> lfuse:w:0xf7:m <span class="re5">-U</span> hfuse:w:0xd9:m <span class="re5">-U</span> efuse:w:0xff:m</pre>
+
+<br />
+<h3 id="toc8"><a name="Circuit-Preparatory work-Setup the Attiny2313"></a> Setup the Attiny2313 </h3>
+TODO <a class="wiki_link_ext" href="http://www.recursion.jp/avrcdc/cdc-232.html#schematic" rel="nofollow">http://www.recursion.jp/avrcdc/cdc-232.html#schematic</a><br />
+<br />
+<h3 id="toc9"><a name="Circuit-Preparatory work-Code upload"></a> Code upload </h3>
+I use the Pololu programmer, cheap and works just fine, nice baby. I had to solder the ISP programmer (waste of time but spares swapping the chip between my arduino and the board for tests). Note that on the ISP the Vcc I linked is the 5v USB one, not the 3.3v. Programmation seems to work just fine for now.<br />
+This time I can't use the trick &quot;code in Arduino IDE, compile and upload the .hex to the chip&quot;, since the libraries used will mostly not work. I will try with Programmers Notepad delivered with <a class="wiki_link_ext" href="http://winavr.sourceforge.net/" rel="nofollow" target="_blank">WinAVR</a> (a must have!)<br />
+<br />
+<h1 id="toc10"><a name="Links"></a> Links </h1>
+<ul><li>If not the source idea - I claim again, if not the first, the idea came and then I searched and found on internet and decided to &quot;inspire&quot; myself-, the source (thanks to the author) <a class="wiki_link_ext" href="http://www.obdev.at/products/vusb/powerswitch.html" rel="nofollow">http://www.obdev.at/products/vusb/powerswitch.html</a></li><li>Not related, except that the guy uses LUFA library to run his USB stuff... (very cool stuff btw) <a class="wiki_link_ext" href="http://www.retrode.org/" rel="nofollow">http://www.retrode.org/</a></li><li>An arduino clone using V-USB on the board : I want to do this !! <a class="wiki_link_ext" href="http://www.makehackvoid.com/group-projects/mhvboard-arduino-clone" rel="nofollow">http://www.makehackvoid.com/group-projects/mhvboard-arduino-clone</a><ul><li>Original project using V-USB <em>AND</em> Atmega328 <a class="wiki_link_ext" href="http://www.obdev.at/products/vusb/usbasploader.html" rel="nofollow">http://www.obdev.at/products/vusb/usbasploader.html</a></li></ul></li><li>Serial port with atmega328 <a class="wiki_link_ext" href="http://www.obdev.at/products/vusb/avrdoper.html" rel="nofollow">http://www.obdev.at/products/vusb/avrdoper.html</a></li><li>With a ATtiny2313 and serial port emulation (less development) <a class="wiki_link_ext" href="http://www.recursion.jp/avrcdc/cdc-232.html#schematic" rel="nofollow">http://www.recursion.jp/avrcdc/cdc-232.html#schematic</a></li><li>Give another shot with a HID implementation:<ul><li><a class="wiki_link_ext" href="http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows" rel="nofollow">http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows</a></li><li><a class="wiki_link_ext" href="http://www.obdev.at/products/vusb/hidkeys.html" rel="nofollow">http://www.obdev.at/products/vusb/hidkeys.html</a></li></ul></li></ul>
+    </div>
+  </body>
+</html>

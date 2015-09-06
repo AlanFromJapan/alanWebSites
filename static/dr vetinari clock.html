@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>kalshagar - Dr Vetinari clock</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Summary"></a> Summary </h1>
+<img src="files/LINEcamera_share_2013-04-07-16-00-34.jpg" alt="LINEcamera_share_2013-04-07-16-00-34.jpg" title="LINEcamera_share_2013-04-07-16-00-34.jpg" style="width: 300px;" align="right" />It's a clock with the sec that don't tick every second. Although keeping accurate time (for minutes and hours) the clock sometimes doesn't tick, stops, and then compensates for all missing ticks in a burst. Supposed to turn the spectator crazy, and was in <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Havelock_Vetinari" rel="nofollow" target="_blank">Dr. Vetinari's waiting room</a>.<br />
+<br />
+Inspirations (thanks to them, I just did my version inspiring from their works : all credits go to them!):<br />
+<ul><li><a class="wiki_link_ext" href="http://renaud.schleck.free.fr/horloge_vetinari.php" rel="nofollow">http://renaud.schleck.free.fr/horloge_vetinari.php</a></li><li><a class="wiki_link_ext" href="http://www.waitingforfriday.com/index.php/Vetinari%27s_Clock" rel="nofollow">http://www.waitingforfriday.com/index.php/Vetinari%27s_Clock</a></li></ul><br />
+<h2 id="toc1"><a name="Summary-Key things to know"></a> Key things to know </h2>
+<ul><li>You have to make the electro-magnet ALTERNATE each tick. Just one direction won't work. Here's a usually accepted schema it seems :<ul><li>Pick 2 pins of you uC (for sake of sample, PB0 and PB1)</li><li>Wire directly PB0 to one side of the coil, and put a 100ohm between PB1 and the other side of the coil. The purpose of the resistor is to limit current and diminish the effect of collapsing of the magnetic field of the coil (it seems)</li></ul></li><li>Beware of the voltage : during my tests, I could notice that 5v make the clock go <em>backward</em> ! And the same code and circuit running on 2 AAA battery (say less than 3v) runs in the correct direction ... go figure.</li><li>You need a few millisec between each tick : there's a physical movement with a backward feedback, too close ticks will not leave time to the tick to move forward. Seems that in my case 200ms do the trick, less is not enough.</li></ul><br />
+<h2 id="toc2"><a name="Summary-Code"></a> Code </h2>
+As usual on Google code's Subversion : <a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny13%2FDrVetinaryClock" rel="nofollow">https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny13%2FDrVetinaryClock</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <title>kalshagar - ardTimeLapse</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Why why why oh why ?"></a> Why why why oh why ? </h1>
+<img src="files/2010-07-23_22.17.01.jpg" alt="2010-07-23_22.17.01.jpg" title="2010-07-23_22.17.01.jpg" style="width: 400px;" align="right" /> <br />
+<span style="background-color: #ffc300">Well, I'm not proud but I inspired (stole?) from a young guy I met at the <a class="wiki_link_ext" href="http://jp.makezine.com/blog/2010/05/mtm05.html" rel="nofollow" target="_blank">Make : Tokyo Meeting 05 (in 2010)</a>. <br />
+His wonderful time lapse video are available here <a class="wiki_link_ext" href="http://www.youtube.com/user/OkometubuY" rel="nofollow" target="_blank">http://www.youtube.com/user/OkometubuY</a> so I would like to all credits being given to him for initial idea.</span><br />
+You can find <a class="wiki_link_ext" href="http://www.switch-science.com/products/detail.php?product_id=298" rel="nofollow" target="_blank">his circuit distributed by Switch-science</a> , as the BluRay DVD of the Timelapses videos.<br />
+<strong>Update:</strong> damned, <a class="wiki_link_ext" href="http://wordpress.bolanski.com/?p=9" rel="nofollow" target="_blank">found a guy who did nearly all</a> ... but mine will be better :P<br />
+<ul><li><a class="wiki_link_ext" href="http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1165863936" rel="nofollow">http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1165863936</a></li><li><a class="wiki_link_ext" href="http://blog.makezine.com/archive/2008/06/how_to_timelapse_photos_w.html" rel="nofollow">http://blog.makezine.com/archive/2008/06/how_to_timelapse_photos_w.html</a></li><li>The smallest possible <a class="wiki_link_ext" href="http://www.diyphotography.net/the-smallest-intervalometer-in-the-world" rel="nofollow">http://www.diyphotography.net/the-smallest-intervalometer-in-the-world</a></li></ul><br />
+Time lapse : set your camera pointing to an interesting spot, and take one picture every minute for instance. Combine all these pictures in one movie and that still view you had become animated. Clouds move, sun moves, people and cars pass by, ... and by night with a little long exposure, it's even more nice.<br />
+Check here for <a class="wiki_link_ext" href="http://www.diyphotography.net/how-to-create-time-lapse-movies-with-lots-of-open-source-software" rel="nofollow" target="_blank">tricks on how to compile all the still images in one movie (and more!)</a>  (<a class="wiki_link_ext" href="http://justinsomnia.org/2009/08/how-to-make-a-time-lapse-video-with-ffmpeg/" rel="nofollow" target="_blank">or here</a> ).<br />
+<br />
+That young guy made a little system that you strap on the lens, that triggers the camera by sending IR command. Easy, and adaptable to any (or so) camera! That is a great idea I think. I was about to buy one from him (he was selling the set of components to solder yourself for like 2000 JPY), when the geek within me spoke and said &quot;hum, you can make your own version that could also control exposure length and without that IR/every camera compatible stuff&quot;... and it was the strongest.<br />
+<br />
+<strong>Goal :</strong><br />
+<ul><li><a class="wiki_link" href="CANON%20EOS%20shutter%20trigger.html">Connect on the pear jack connector of the camera</a> , CANON only (Nikkon guys, make your own, I'm a CANONist)</li><li>With 2 pots, control time between 2 pictures and picture exposure (since we use the pear connector, we can be veeeeery long)</li><li>Work on battery (3 AA battery)</li><li>A glimps of bling bling when shooting (red led on/off, green is shoot in progress)</li><li>No focus control (fixed on camera), just the exposure duration</li><li>Exposure up to 30 sec and time between 2 pictures is up to 15 minutes.<ul><li>NB: these can be very easily changed in the code when the uC &quot;interpretes&quot; the reading of the pots</li></ul></li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c">  <span class="co1">//duration are divided by 2, since all the timing is compiled for a 16MHz running Arduino but runs on a on-chip 8MHz oscillator</span>
+  <span class="co1">//DURATION: max = 1024 = 1 sec =&gt; x900 = max is 15 min</span>
+  mDuration <span class="sy0">=</span> <span class="nu0">900</span> <span class="sy0">*</span> analogRead<span class="br0">&#40;</span>PINDURATION<span class="br0">&#41;</span> <span class="sy0">/</span><span class="nu0">2</span><span class="sy0">;</span>
+  <span class="co1">//EXPO: max = 1024 = 1 sec =&gt; x30 = max is 30 sec</span>
+  mExpolen <span class="sy0">=</span> <span class="nu0">30</span> <span class="sy0">*</span> analogRead<span class="br0">&#40;</span>PINEXPOLEN<span class="br0">&#41;</span> <span class="sy0">/</span><span class="nu0">2</span><span class="sy0">;</span> </pre>
+
+<br />
+<strong>Technical points :</strong><br />
+<ul><li>Use a ATmega 328 (cant use ATTiny 2313 as is, since we need 2 ADC for the potentiometer values)</li><li>Use optocoupler/photocoupler for isolating circuit and camera trigger</li><li>uC runs on its own oscillator, so spare the quartz and capacitors (we don't need speed or high precision here)</li><li>Programming the uC <em>without using the bootloader</em> is done like this :<ul><li>Build using the button &quot;Verify&quot; (not upload) in the Arduino IDE</li><li>Find the .hex file (in /tmp/build.????????????????//)</li><li>Put the uC in the Arduino (don't break the legs, check for the correct direction, mind doing the power on, ...)</li><li>Plug the programmer on the ISP plug (my case, <a class="wiki_link_ext" href="http://www.pololu.com/catalog/product/1300" rel="nofollow" target="_blank">a Pololu programmer</a> )</li><li>Run the command you will find here under</li><li>Et voila.</li></ul></li></ul>
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="co0">#!/bin/bash</span>
+avrdude  <span class="re5">-c</span> avrispv2 <span class="re5">-p</span> m328p <span class="re5">-P</span> <span class="sy0">/</span>dev<span class="sy0">/</span>ttyACM0 <span class="re5">-U</span> flash:w:.<span class="sy0">/</span>ArdTimeLapse.cpp.hex:i </pre>
+
+<br />
+<img src="files/canonshutter.jpg" alt="canonshutter.jpg" title="canonshutter.jpg" style="width: 300px;" /> <br />
+<br />
+<strong>Realisation</strong><br />
+(2010-07-22) One evening of work and it was all done. A few adjustments on the software and a couple additional hours later it was ok.<br />
+<br />
+<h1 id="toc1"><a name="Schema"></a> Schema </h1>
+Sorry, I'm a real beginer to Eagle ... anyway, schema should be understandable even if it is not the final.<br />
+<img src="files/ardtimelapse-schema.png" alt="ardtimelapse-schema.png" title="ardtimelapse-schema.png" /><br />
+<br />
+<h1 id="toc2"><a name="Code"></a> Code </h1>
+No special trick or point of interest. Just note that it is built for a Arduino running at 16MHz and since it runs on the internal oscillator at 8MHz, it runs twice &quot;slower&quot;. I just take it in account when reading the potentiometers. I build and the upload using the arduino board and the pololu programmer.<br />
+<br />
+<A  href="files/ArdTimeLapse.pde.html">ArdTimeLapse.pde</a><br />
+<h1 id="toc3"><a name="Howto make a video from still images"></a> Howto make a video from still images </h1>
+<h2 id="toc4"><a name="Howto make a video from still images-Step 0 : the photos"></a> Step 0 : the photos </h2>
+<ul><li>Force the white balance</li><li>Force the focus (manual)</li><li>Check ISO</li><li>Force exposure length (or bo in BULBE mode and let the ardTimeLapse do it)</li><li>Put the camera in a safe place where it won't move</li><li>Put the settings to &quot;small&quot; images with high quality</li><li>Usual stuff: check the battery, make sure you have free space on the card,...</li></ul><br />
+<h2 id="toc5"><a name="Howto make a video from still images-Step 1 : rename the images"></a> Step 1 : rename the images </h2>
+We will use ffmpeg that needs images with number starting from 1. So use this script for renaming:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="co0">#!/bin/bash</span>
+&nbsp;
+<span class="kw1">for</span> i <span class="kw1">in</span> <span class="sy0">*</span>.JPG
+<span class="kw1">do</span>
+  <span class="re2">j</span>=<span class="sy0">`</span><span class="kw3">printf</span> <span class="st0">&quot;img_%d.JPG<span class="es1">\n</span>&quot;</span> <span class="re1">$x</span><span class="sy0">`</span>
+  <span class="kw2">mv</span> <span class="re1">$i</span> <span class="re1">$j</span>
+  <span class="co0">#echo $j</span>
+  <span class="re2">x</span>=$<span class="br0">&#40;</span><span class="br0">&#40;</span>x%20<span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+<span class="kw1">done</span></pre>
+
+<br />
+<h2 id="toc6"><a name="Howto make a video from still images-Step 2 : resize"></a> Step 2 : resize </h2>
+Even in low size the pictures of my Canon 450D are way too big, like 2000%20 by something like that. Lets batch resize it using ImageMagick.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash">mogrify <span class="re5">-resize</span> <span class="nu0">800</span> <span class="sy0">*</span>.JPG</pre>
+
+<br />
+<h2 id="toc7"><a name="Howto make a video from still images-Step 3 : make a movie"></a> Step 3 : make a movie </h2>
+Using ffmpeg, run that command line:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash"><span class="kw2">ffmpeg</span> <span class="re5">-f</span> image2 <span class="re5">-r</span> <span class="nu0">25</span> <span class="re5">-i</span> img_<span class="sy0">%</span>d.JPG video.mpg</pre>
+
+<br />
+<h1 id="toc8"><a name="Pictures"></a> Pictures </h1>
+<img src="files/2010-07-23_22.17.01.jpg" alt="2010-07-23_22.17.01.jpg" title="2010-07-23_22.17.01.jpg" style="width: 600px;" /> <br />
+The box, left pot is lapse and right is exposure length. Red light is the &quot;on&quot; led, green is the &quot;shoot in progress&quot;.<br />
+<img src="files/2010-07-23_22.17.51.jpg" alt="2010-07-23_22.17.51.jpg" title="2010-07-23_22.17.51.jpg" style="width: 600px;" /> <br />
+System works on 3 AA battery so should live long. Circuit is very simple with just the ATmega328, a few resistors and a photocoupler.<br />
+<img src="files/2010-07-23_22.18.12.jpg" alt="2010-07-23_22.18.12.jpg" title="2010-07-23_22.18.12.jpg" style="width: 600px;" /> <br />
+The 4 leg a the botom of the pcb is the photocoupler. You can see, very simple circuitry.
+    </div>
+  </body>
+</html>

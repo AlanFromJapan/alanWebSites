@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>kalshagar - Atmel assembler</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Things to know"></a> Things to know </h1>
+<h2 id="toc1"><a name="Things to know-Project and AVR Studio"></a> Project and AVR Studio </h2>
+<ul><li>Assembler files are .S files</li><li>You can mix .c ans .S files in the programe, no problem</li><li>Your .c files gets interpreted as pseudo assembler file in the .??? file of your solution. Nice to see what your code becomes and where is the error coming from.</li></ul><br />
+<h2 id="toc2"><a name="Things to know-ASM : jmp, call, and flow control"></a> ASM : jmp, call, and flow control </h2>
+<ul><li>The <em>r</em>jmp/jmp, <em>r</em>call/call, ... is that the r-version work for &quot;close&quot; addresses and the non-r version for the long jumps, and are not implmented on small uC (like tiny2313)<ul><li>Simple trick : code everything with a rjmp and rcall, the compiler will tell you if you need to use the long-range version.</li></ul></li><li><em>jmp</em> just change the Stack Pointer, <em>call</em> is a subroutine call that and you return to previous location%201 using <em>ret</em></li></ul><br />
+<h2 id="toc3"><a name="Things to know-Registers"></a> Registers </h2>
+<ul><li>Affect a register to a variable (uint8_t) with <em><strong>register</strong> volatile uint8_t variable01 <strong>asm(&quot;r2&quot;)</strong>;</em><ul><li>Reserved to r2 .. r7</li></ul></li><li>r0 is always free temp variable</li><li>r1 should be always 0, so reset after use (clr r1) or just avoid</li><li>r18-r27, r30-r31 are used when mixing C and ASM so save them before</li><li>r2-r17, r28-r29 are not used for callign C so just mind your ASM and push/pop if needed</li><li>Detailed registers explanation : <a class="wiki_link_ext" href="http://www.gnu.org/savannah-checkouts/non-gnu/avr-libc/user-manual/FAQ.html#faq_reg_usage" rel="nofollow">http://www.gnu.org/savannah-checkouts/non-gnu/avr-libc/user-manual/FAQ.html#faq_reg_usage</a></li></ul><br />
+<h2 id="toc4"><a name="Things to know-Playing with memory"></a> Playing with memory </h2>
+<h3 id="toc5"><a name="Things to know-Playing with memory-Read and Write in SRAM"></a> Read and Write in SRAM </h3>
+The key commands are LD... and ST..., with variants if you use the address register X or Y.<br />
+<ul><li>Very good <a class="wiki_link_ext" href="http://www.avr-asm-tutorial.net/avr_en/beginner/SRAM.html" rel="nofollow">http://www.avr-asm-tutorial.net/avr_en/beginner/SRAM.html</a></li><li>A sample, much less clear however <a class="wiki_link_ext" href="http://www.attiny.com/scroll3.htm" rel="nofollow">http://www.attiny.com/scroll3.htm</a></li></ul><br />
+<h1 id="toc6"><a name="Links"></a> Links </h1>
+<h2 id="toc7"><a name="Links-General AVR ASM tutorials"></a> General AVR ASM tutorials </h2>
+<ul><li>Very good <a class="wiki_link_ext" href="http://www.avrbeginners.net/" rel="nofollow">http://www.avrbeginners.net/</a></li><li>Another special ASM <a class="wiki_link_ext" href="http://www.avr-asm-tutorial.net/" rel="nofollow">http://www.avr-asm-tutorial.net/</a></li><li>AVR Tutorials <a class="wiki_link_ext" href="http://www.avr-tutorials.com/" rel="nofollow">http://www.avr-tutorials.com/</a></li><li>General talk about AVR Studio <a class="wiki_link_ext" href="http://avrstudio5.wordpress.com/" rel="nofollow">http://avrstudio5.wordpress.com/</a></li><li>Again tutorials <a class="wiki_link_ext" href="http://www.attiny.com/index.htm" rel="nofollow">http://www.attiny.com/index.htm</a></li></ul><br />
+<h2 id="toc8"><a name="Links-Mixing C and ASM"></a> Mixing C and ASM </h2>
+<ul><li>Adding inline asm(&quot;&quot;) <a class="wiki_link_ext" href="http://www.nongnu.org/avr-libc/user-manual/inline_asm.html" rel="nofollow">http://www.nongnu.org/avr-libc/user-manual/inline_asm.html</a></li><li>Combining .c and .S files <a class="wiki_link_ext" href="http://www.nongnu.org/avr-libc/user-manual/group" rel="nofollow">http://www.nongnu.org/avr-libc/user-manual/group</a>__asmdemo.html<ul><li>Another sample <a class="wiki_link_ext" href="http://dics.voicecontrol.ro/process_mails/arata_discutia/124981/Mixed_C_and_assembly_with_AVR_studio_and_gcc.html" rel="nofollow">http://dics.voicecontrol.ro/process_mails/arata_discutia/124981/Mixed_C_and_assembly_with_AVR_studio_and_gcc.html</a></li></ul></li><li><a class="wiki_link_ext" href="http://www.scriptoriumdesigns.com/embedded/interrupt_examples.php" rel="nofollow">http://www.scriptoriumdesigns.com/embedded/interrupt_examples.php</a></li></ul>
+    </div>
+  </body>
+</html>

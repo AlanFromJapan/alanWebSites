@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>kalshagar - bareminimum bicycle POV</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="Summary"></a> Summary</h1>
+It's just a astable multivibrator, it's all very well explained here <a class="wiki_link_ext" href="http://rayshobby.net/blog/?p=1079" rel="nofollow">http://rayshobby.net/blog/?p=1079</a><br />
+Tricks are:<br />
+<ul><li>Make it small (it will be on the bicycle wheel)</li><li>Make it attachable to your bicycle wheel so make holes and make it thin! Use small CR2032 battery.<ul><li>How long will it run ? measured 2.5 mA of usage, means ... <a class="wiki_link_ext" href="http://oregonembedded.com/batterycalc.htm" rel="nofollow">http://oregonembedded.com/batterycalc.htm</a></li></ul></li><li>Calculate the bling bling speed:<ul><li>Formula is explained in Wikipedia also <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Multivibrator" rel="nofollow">http://en.wikipedia.org/wiki/Multivibrator</a></li><li>Use the specific case with R2=R3 &amp; C1=C2 that gives you the same duration for the 2 leds to blink (when one is on the other is off and reciprocity <em>with same periodicity</em>)</li></ul></li><li>The trick : how to put it on the wheel, leave it here and not put a on/off button<ul><li>... use a tilt switch! A small enclosure with 2 pins inside and a metal ball. Turn it outward, the centrifugal force will make the contact when the wheel turns, but when stopped just have your wheel with the correct &quot;side&quot; up and it will be off.</li></ul></li></ul><br />
+<img src="http://upload.wikimedia.org/wikipedia/commons/6/6a/Transistor_Multivibrator.svg" alt="external image Transistor_Multivibrator.svg" title="external image Transistor_Multivibrator.svg" /><br />
+<em>(Wikipedia image)</em><br />
+<br />
+I won't explain the schema here, first I don't grasp the subtilities and it's very well explained in the links above.<br />
+Just in case, a few hints :<br />
+<ul><li>R1 and R4 are current limiter for the leds : in my case between the NPN emitter and ground. They have no role in the frequency except that the ratio R2/R1 should be &lt; hFE (read somewhere) to have no transition.</li><li>The formula is (with C1=C2 and R2=R3) : F = 1/T = 1 / (ln(2) * 2 * R * C)<ul><li>In my case : F = 1 / (ln(2) * 2 * 10000 ohm * 4.7 uF) ~= 15 Hz</li></ul></li></ul><br />
+<h1 id="toc1"><a name="Pictures"></a> Pictures </h1>
+<img src="files/micropov1.JPG" alt="micropov1.JPG" title="micropov1.JPG" />
+    </div>
+  </body>
+</html>

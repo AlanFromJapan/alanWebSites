@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	flShow Carousel 2.0 configuration file
+	Please visit http://www.flshow.net/ for more info
+-->
+
+<slide_show>
+	<options>
+		<background>transparent</background>		<!-- #RRGGBB, transparent -->
+		
+		<titles>
+			<style>
+				body {
+					font-size: 18px;					<!-- pixel only -->
+					font-family: Impact;		<!-- as standard CSS -->
+					color: #000000;						<!-- as standard CSS -->
+				}
+			</style>
+			<position>above right</position>
+			<!-- [above, below] [left,center,right]-->
+			<!--background>mytitlebg.png</background-->
+			<!-- image url -->
+			<scale9>14 14 14 14</scale9>
+			<!-- [0,1000] pixels -->
+			<padding>12 12 12 12</padding>
+			<!-- [-1000,1000] pixels -->
+		</titles>
+			
+		<interaction>
+			<!--rotation>auto</rotation-->
+			<!-- auto, mouse, keyboard -->
+			<view_point>none</view_point>
+			<!-- none, mouse, keyboard -->
+			<speed>90</speed>
+			<default_speed>15</default_speed>
+			<!-- [-360,360] degrees per second -->
+			<default_view_point>50%</default_view_point>
+			<!-- [0,100] percentage -->
+			<reset_delay>5</reset_delay>
+			<!-- [0,600] seconds, 0 means never reset -->
+		</interaction>
+	</options>
+
+	<photo href="Alan Numitron Clock.html" title="Numitron IV9 clock" target="_self">/files/clockheader_Numitron.jpg</photo>
+	<photo href="ardReveil v4.html" title="Voltmeter face clock" target="_self">/files/clockheader_Voltmeter.jpg</photo>
+	<photo href="Wordclock.html" title="Work clock" target="_self">/files/clockheader_word.jpg</photo>
+
+	<photo href="ardReveil v3.html" title="LCD clock with IR sensor" target="_self">/files/clockheader_reveil3.jpg</photo>
+	<photo href="RGB matrix display.html" title="RGB matrix display for time or else" target="_self">/files/clockheader_matrix.jpg</photo>
+	<photo href="ardReveil v6.html" title="IV6 VFD tubes clock" target="_self">/files/clockheader_tubeiv6.jpg</photo>
+
+	<photo href="Repair - Gameboy battery upgrade.html" title="Gameboy upgrade with USB cellphone battery hack" target="_self">/files/header_gbbattery.jpg</photo>
+	
+</slide_show>

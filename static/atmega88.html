@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>kalshagar - atmega88</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h1 id="toc0"><a name="ATMega 88"></a> ATMega 88 </h1>
+<h2 id="toc1"><a name="ATMega 88-Memo fact sheet"></a> Memo fact sheet </h2>
+<ul><li><strong>Code</strong> : 8192 Bytes / <strong>EEPROM</strong> : 512 Bytes / <strong>RAM</strong> : 1024 Bytes</li></ul><br />
+Why use a ATMega88 instead of a 328 ? Well, ... price difference, if you have some in your toolbox, if you feel ashame of wasting a ATMega328 for writing that 2kb of code that does some bling-bling. Otherwise, no particular reason since those are basically the same. Except that you will suffer to have those working, since ARDUINO software doesn't support them. So you have to go to the WinAVR and rewrite basically whatever you need. That's a good occasion to make a micro kernel or understand what is really happening behind the Serial.println().<br />
+<br />
+<h2 id="toc2"><a name="ATMega 88-Setup working environment"></a> Setup working environment </h2>
+<h3 id="toc3"><a name="ATMega 88-Setup working environment-Setup the avrdude"></a> Setup the avrdude </h3>
+You need that to have avrdude able to upload the code. Basically, use the m88 and clone it to m88p (copy-paste). <br />
+To do this, in the avrdude.conf clone the m88 to one named m88p and update the signature to <strong>signature = 0x1e 0x93 0x0F;</strong> (see <a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;p=564029" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=viewtopic&amp;p=564029</a>)<br />
+<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.bash  {font-family:monospace;}
+.bash .imp {font-weight: bold; color: red;}
+.bash .kw1 {color: #000000; font-weight: bold;}
+.bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash .co0 {color: #666666; font-style: italic;}
+.bash .co1 {color: #800000;}
+.bash .co2 {color: #cc0000; font-style: italic;}
+.bash .co3 {color: #000000; font-weight: bold;}
+.bash .co4 {color: #666666;}
+.bash .es1 {color: #000099; font-weight: bold;}
+.bash .es2 {color: #007800;}
+.bash .es3 {color: #007800;}
+.bash .es4 {color: #007800;}
+.bash .es5 {color: #780078;}
+.bash .es_h {color: #000099; font-weight: bold;}
+.bash .br0 {color: #7a0874; font-weight: bold;}
+.bash .sy0 {color: #000000; font-weight: bold;}
+.bash .st0 {color: #ff0000;}
+.bash .st_h {color: #ff0000;}
+.bash .nu0 {color: #000000;}
+.bash .re0 {color: #007800;}
+.bash .re1 {color: #007800;}
+.bash .re2 {color: #007800;}
+.bash .re4 {color: #007800;}
+.bash .re5 {color: #660033;}
+.bash span.xtra { display:block; }
+
+-->
+</style><pre class="bash">...
+<span class="co0">#------------------------------------------------------------</span>
+<span class="co0"># ATmega88P</span>
+<span class="co0">#------------------------------------------------------------</span>
+&nbsp;
+part
+    <span class="kw2">id</span>               = <span class="st0">&quot;m88p&quot;</span>;
+    desc             = <span class="st0">&quot;ATMEGA88P&quot;</span>;
+     has_debugwire = <span class="kw2">yes</span>;
+     flash_instr   = 0xB6, 0x01, 0x11;
+     eeprom_instr  = 0xBD, 0xF2, 0xBD, 0xE1, 0xBB, 0xCF, 0xB4, 0x00,
+                 0xBE, 0x01, 0xB6, 0x01, 0xBC, 0x00, 0xBB, 0xBF,
+                 0x99, 0xF9, 0xBB, 0xAF;
+    stk500_devcode   = 0x73;
+<span class="co0">#    avr910_devcode   = 0x;</span>
+    signature        = 0x1e 0x93 0x0F;
+...</pre>
+
+<br />
+<h3 id="toc4"><a name="ATMega 88-Setup working environment-Setup the fuses"></a> Setup the fuses </h3>
+Force to run using the 16 MHz crystal (by default, it use its internal 8MHz oscillator). Note the m88p to say we use a ATmega 88. You have to add its definition in the avrdude.conf file.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.dos  {font-family:monospace;}
+.dos .imp {font-weight: bold; color: red;}
+.dos .kw1 {color: #00b100; font-weight: bold;}
+.dos .kw2 {color: #000000; font-weight: bold;}
+.dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos .co1 {color: #808080; font-style: italic;}
+.dos .co2 {color: #b100b1; font-style: italic;}
+.dos .co3 {color: #33cc33;}
+.dos .es0 {color: #ff0000; font-weight: bold;}
+.dos .sy0 {color: #33cc33;}
+.dos .sy1 {color: #33cc33;}
+.dos .st0 {color: #ff0000;}
+.dos .re0 {color: #b100b1; font-weight: bold;}
+.dos .re1 {color: #448844;}
+.dos .re2 {color: #448888;}
+.dos .re3 {color: #448888;}
+.dos span.xtra { display:block; }
+
+-->
+</style><pre class="dos">avrdude -v -v -c avrispv2 -p m88p -P <span class="kw4">com1</span> -U lfuse:w:0xd7:m</pre>
+
+
+    </div>
+  </body>
+</html>

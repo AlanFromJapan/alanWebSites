@@ -1,0 +1,261 @@
+<html>
+  <head>
+    <title>kalshagar - ARCPO</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+  <body>
+    <div class="wiki" id="content_view" style="display: block;">
+<h2 id="toc0"><a name="x-Purpose"></a>Purpose</h2>
+ Propose a simple way to communicate 2 ways between PC and Arduino. I want also to abstract from low level stuff focus on the high level. I also don't want to care about serial communication tricks and caveats, how to make sure packet has arrived, etc... so let's write this once and for all.<br />
+This works with fixed size packets.<br />
+
+
+<table class="wiki_table">
+    <tr>
+        <td><strong>Current version</strong><br />
+</td>
+        <td colspan="2">0.4<br />
+</td>
+    </tr>
+    <tr>
+        <td><strong>Current version release date</strong><br />
+</td>
+        <td colspan="2">25/05/2010<br />
+</td>
+    </tr>
+    <tr>
+        <td><strong>Current version release</strong><br />
+</td>
+        <td colspan="2"><ul><li>Acknowledgement</li><li>Send receive problem fixed</li><li>C# reception is multithreaded and no collision between ack packets and notification packets</li><li>Works fine (^o^)v</li><li>Works only with the hardware serial</li><li>Better handling of message reception without Exception raised (C#)</li></ul></td>
+    </tr>
+    <tr>
+        <td><strong>Current version bin/src</strong><br />
+</td>
+        <td><strong>ARDUINO Source</strong><br />
+<ul><li><A  href="files/ARCPO_Lib.v0.3.zip.html">ARCPO_Lib.v0.3.zip</a></li></ul></td>
+        <td><strong>C# .Net Source</strong><br />
+<ul><li><A  href="files/ARCPO_CSharp.v0.4.zip.html">ARCPO_CSharp.v0.4.zip</a></li><li><A  href="files/ARCPO_CSharp.v0.3.zip.html">ARCPO_CSharp.v0.3.zip</a></li></ul></td>
+    </tr>
+    <tr>
+        <td><strong>TODO and future</strong><br />
+</td>
+        <td colspan="2">Currently since communication is done in &quot;text&quot;, the character \0 is forbidden. This is a shameful limitation that involves tricky and time wasting workarounds. Let's remove this. Also it's related to the fact I use bytes here and there, int is better (funny byte bug in arduino for() )<br />
+</td>
+    </tr>
+</table>
+
+<br />
+<h2 id="toc1"><a name="x-General idea"></a>General idea</h2>
+ <h3 id="toc2"><a name="x-General idea-A Package"></a>A Package</h3>
+ Communication is done by sending packages on the serial port. You can ask for a receipt acknowledgement, the library will take care of retrying a few times if missed. You just make the packet and post it. You can focus on what your software/piece of electronic is supposed to do and not waste time again and again with serial communication stuffs.<br />
+Each packet is sent with a header &quot;$*&quot; and the it goes until end of message/fixed length.<br />
+<br />
+Package is defined as follow:<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co1">//Content member max length</span>
+<span class="co2">#define CONTENT_LENGTH 56</span>
+<span class="co1">//length WITHOUT the header 2 chars</span>
+<span class="co2">#define FULL_PACKET_LENGTH CONTENT_LENGTH %20 4</span>
+&nbsp;
+<span class="co1">//Each packet is sent with that signature $*ITEContent....</span>
+<span class="co1">//A packet is 64 in length, internal serial buffer is 128 according documentation, which is a maximum if you dont</span>
+<span class="co1">//want to loose too much packet I assume.</span>
+<span class="kw4">typedef</span> <span class="kw4">struct</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> ID<span class="sy0">;</span> <span class="co1">//default undefined</span>
+  <span class="kw4">char</span> Type<span class="sy0">;</span>
+  <span class="kw4">char</span> SubType<span class="sy0">;</span>
+  <span class="kw4">char</span> ExpectAcknowledge<span class="sy0">;</span>
+  <span class="kw4">char</span> Content<span class="br0">&#91;</span>CONTENT_LENGTH<span class="br0">&#93;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span> ARCPOPacket<span class="sy0">;</span></pre>
+
+<br />
+<strong>IMPORTANT NOTA BENE :</strong> none of this field should worth 0 ! Serial communication interprets it as a &quot;hey, it's finished, nothing more to read&quot;. Don't know why, maybe it's me, but to avoid this, make sure to put something else that 0 everywhere.<br />
+<br />
+Field description:<br />
+<ul><li>ID : a unique ID, used for you or for the Acknowledgement. Making it unique (mod 256) doesnt hurt</li><li>Type : free</li><li>SubType : free</li><li>ExpectAcknowledge : shall the library make sure it was sent and received or do you feel lucky?</li><li>Content : free, put some text, values whatever. Don't put 0, it's the end of communication.<ul><li>Nota Bene : The Content does not have to be <span style="font-family: 'Courier New', Courier, monospace">CONTENT_LENGTH</span> chars. It can be less, it's ok.</li></ul></li></ul><br />
+<h3 id="toc3"><a name="x-General idea-Arduino side"></a>Arduino side</h3>
+ Easy classes and library to include, that can read/write a packet and send to the pc without much trouble.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.c  {font-family:monospace;}
+.c .imp {font-weight: bold; color: red;}
+.c .kw1 {color: #b1b100;}
+.c .kw2 {color: #000000; font-weight: bold;}
+.c .kw3 {color: #000066;}
+.c .kw4 {color: #993333;}
+.c .co1 {color: #666666; font-style: italic;}
+.c .co2 {color: #339933;}
+.c .coMULTI {color: #808080; font-style: italic;}
+.c .es0 {color: #000099; font-weight: bold;}
+.c .es1 {color: #000099; font-weight: bold;}
+.c .es2 {color: #660099; font-weight: bold;}
+.c .es3 {color: #660099; font-weight: bold;}
+.c .es4 {color: #660099; font-weight: bold;}
+.c .es5 {color: #006699; font-weight: bold;}
+.c .br0 {color: #009900;}
+.c .sy0 {color: #339933;}
+.c .st0 {color: #ff0000;}
+.c .nu0 {color: #0000dd;}
+.c .nu6 {color: #208080;}
+.c .nu8 {color: #208080;}
+.c .nu12 {color: #208080;}
+.c .nu16 {color:#800080;}
+.c .nu17 {color:#800080;}
+.c .nu18 {color:#800080;}
+.c .nu19 {color:#800080;}
+.c .me1 {color: #202020;}
+.c .me2 {color: #202020;}
+.c span.xtra { display:block; }
+
+-->
+</style><pre class="c"><span class="co2">#include &quot;ARCPO_Lib.h&quot;</span>
+&nbsp;
+<span class="kw4">void</span> ProcessPacket <span class="br0">&#40;</span>ARCPOPacket<span class="sy0">&amp;</span> pPacket<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">switch</span> <span class="br0">&#40;</span>pPacket.<span class="me1">Type</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    <span class="kw1">case</span> PACKET_TYPE_TEXT<span class="sy0">:</span>
+      ProcessPacketText <span class="br0">&#40;</span>pPacket<span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> PACKET_TYPE_TIME<span class="sy0">:</span>
+      ProcessPacketTime <span class="br0">&#40;</span>pPacket<span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">default</span><span class="sy0">:</span>
+      <span class="co1">//nothing</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">//Make a packet and send. Set every member to something != 0 !!</span>
+<span class="kw4">void</span> SampleSendPacket<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+  ARCPOPacket vP<span class="sy0">;</span>
+  vP.<span class="me1">ID</span> <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+  vP.<span class="me1">Type</span> <span class="sy0">=</span> <span class="nu0">98</span><span class="sy0">;</span>
+  vP.<span class="me1">SubType</span> <span class="sy0">=</span> <span class="nu0">128</span><span class="sy0">;</span>
+  <span class="kw3">strcpy</span><span class="br0">&#40;</span>vP.<span class="me1">Content</span><span class="sy0">,</span> <span class="st0">&quot;hello monde&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  writePacket <span class="br0">&#40;</span>vP<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> setup<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  Serial.<span class="me1">begin</span><span class="br0">&#40;</span><span class="nu0">9600</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> loop<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ARCPOPacket vPacket<span class="sy0">;</span>
+&nbsp;
+  vPacket <span class="sy0">=</span> readPacket<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">if</span> <span class="br0">&#40;</span>readPacketSuccess<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    ProcessPacket <span class="br0">&#40;</span>vPacket<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  delay<span class="br0">&#40;</span><span class="nu0">50</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<br />
+<br />
+<h3 id="toc4"><a name="x-General idea-PC side"></a>PC side</h3>
+ C# multithreaded message reception plus integrated acknowledgement of sent messages.<br />
+Just instanciate a <span style="font-family: 'Courier New', Courier, monospace; font-weight:bold;">ARCPO_Connector</span> for sending. If you want to received messages also, attache the <span style="font-family: 'Courier New', Courier, monospace">PacketReceived </span>event and then (in that order please) set <span style="font-family: 'Courier New', Courier, monospace">PollMessages </span>to <em>true</em>.<br />
+
+<style type="text/css"><!--
+/**
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ */
+.csharp  {font-family:monospace;}
+.csharp .imp {font-weight: bold; color: red;}
+.csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp .kw3 {color: #008000;}
+.csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp .kw5 {color: #000000;}
+.csharp .co1 {color: #008080; font-style: italic;}
+.csharp .co2 {color: #008080;}
+.csharp .co3 {color: #008080;}
+.csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp .es0 {color: #008080; font-weight: bold;}
+.csharp .es_h {color: #008080; font-weight: bold;}
+.csharp .br0 {color: #008000;}
+.csharp .sy0 {color: #008000;}
+.csharp .st0 {color: #666666;}
+.csharp .st_h {color: #666666;}
+.csharp .nu0 {color: #FF0000;}
+.csharp .me1 {color: #0000FF;}
+.csharp .me2 {color: #0000FF;}
+.csharp span.xtra { display:block; }
+
+-->
+</style><pre class="csharp"><span class="kw1">private</span> ARCPO_Connector mConnector <span class="sy0">=</span> <span class="kw1">null</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw1">private</span> <span class="kw4">void</span> Form1_Load<span class="br0">&#40;</span><span class="kw4">object</span> sender, EventArgs e<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    mConnector <span class="sy0">=</span> <span class="kw3">new</span> ARCPO_Connector<span class="br0">&#40;</span><span class="nu0">9600</span>, <span class="st0">&quot;COM8&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">this</span><span class="sy0">.</span><span class="me1">mConnector</span><span class="sy0">.</span><span class="me1">PacketReceived</span> <span class="sy0">%20=</span> <span class="kw3">new</span> EventHandler<span class="sy0">&lt;</span>ARCPO_ReceivedEventArgs<span class="sy0">&gt;</span><span class="br0">&#40;</span>Connector_PacketReceived<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">this</span><span class="sy0">.</span><span class="me1">mConnector</span><span class="sy0">.</span><span class="me1">PollMessages</span> <span class="sy0">=</span> <span class="kw1">true</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">private</span> <span class="kw4">void</span> Connector_PacketReceived<span class="br0">&#40;</span><span class="kw4">object</span> sender, ARCPO_ReceivedEventArgs e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    textBox1<span class="sy0">.</span><span class="me1">Text</span> <span class="sy0">%20=</span> <span class="st0">&quot;&gt;&gt;RECEIVED unexpected message &quot;</span> <span class="sy0">%20</span> e<span class="sy0">.</span><span class="me1">Packet</span><span class="sy0">.</span><span class="me1">mID</span> <span class="sy0">%20</span> <span class="st0">&quot; : &quot;</span><span class="sy0">;</span>
+    textBox1<span class="sy0">.</span><span class="me1">Text</span> <span class="sy0">%20=</span> e<span class="sy0">.</span><span class="me1">Packet</span><span class="sy0">.</span><span class="me1">ContentString</span><span class="sy0">;</span>
+    textBox1<span class="sy0">.</span><span class="me1">Text</span> <span class="sy0">%20=</span> <span class="st0">&quot;<span class="es0">\r</span><span class="es0">\n</span>&quot;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">private</span> <span class="kw4">void</span> SendPacket<span class="br0">&#40;</span><span class="kw4">string</span> pContent, <span class="kw4">byte</span> pType, <span class="kw4">byte</span> pSubType<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ARCPO_Packet vP <span class="sy0">=</span> <span class="kw3">new</span> ARCPO_Packet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> vPacketId <span class="sy0">=</span> mPacketCounter<span class="sy0">;</span>
+    vP<span class="sy0">.</span><span class="me1">mType</span> <span class="sy0">=</span> pType<span class="sy0">;</span>
+    vP<span class="sy0">.</span><span class="me1">mID</span> <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">byte</span><span class="br0">&#41;</span><span class="br0">&#40;</span>mPacketCounter<span class="sy0">%20%20</span> <span class="sy0">%</span> <span class="nu0">256</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    vP<span class="sy0">.</span><span class="me1">mSubType</span> <span class="sy0">=</span> pSubType<span class="sy0">;</span>
+    vP<span class="sy0">.</span><span class="me1">mExpectAcknowledge</span> <span class="sy0">=</span> ckbAck<span class="sy0">.</span><span class="kw3">Checked</span><span class="sy0">;</span> <span class="sy0">;</span>
+    vP<span class="sy0">.</span><span class="me1">ContentString</span> <span class="sy0">=</span> pContent<span class="sy0">;</span>
+&nbsp;
+    mConnector<span class="sy0">.</span><span class="me1">SendPacket</span><span class="br0">&#40;</span>vP<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+
+    </div>
+  </body>
+</html>
