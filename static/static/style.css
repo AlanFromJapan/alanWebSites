@@ -191,3 +191,10 @@ input[type="text"].focus {
   border: solid 1px #707070;
   box-shadow: 0 0 5px 1px #969696;
 }
+
+h1.PageTitle {
+ font-weight: bold; 
+ font-size: 2em; 
+ border-bottom:none;
+
+}
