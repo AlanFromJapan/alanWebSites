@@ -104,4 +104,4 @@ if __name__ == '__main__':
     app.logger.addHandler(handler)
 
     #start serving pages
-    app.run(host='0.0.0.0', port=HTTPPORT)
+    app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
