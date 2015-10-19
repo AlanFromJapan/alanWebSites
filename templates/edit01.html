@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>Electrogeek.cc - {{ pagename }}</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
+<body class="wiki">
+
+<!-- Master table -->
+<table  style="background-color:#ebebeb;border-collapse:collapse;max-width:1400px;width:100%;">
+  <tr cellpadding="0" cellspacing="0" >
+    <td colspan="2" class="template1_header" >
+<!-- Header -->
+<a href="/"><img src="files/electrogeek_logo2.png" alt="logo"/></a><!--span style="font-size:24pt;font-weight:bold;">Electrogeek.cc </span><span style="font-size:8pt;">formerly kalshagar.wikispaces.com</span-->
+<!-- /Header --></td>
+  </tr>
+  <tr>
+    <td  style="width:150px;vertical-align:top;padding: 10px;">
+<!-- Left menu -->
+EDIT mode
+<!-- /Left menu --></td>
+    <td style="background-color:white;width:100%;padding: 10px;vertical-align: top;">
+<!-- Content -->
+{% if not isprod %}
+<div style="border: solid 2px red;text-align:center;color:red;background:#FFA0A0;font-weight:bold;"> Non production site - this is the test site !</div>
+{% endif %}
+<h1 class="PageTitle">Editing '{{ pagename }}'</h1>
+<form action="{{ pagename }}" method="POST" id="inputform">
+        <textarea  name="text" style="width:100%; height:500px;">
+{% autoescape false %}
+    {{ pagecontent }}
+{% endautoescape %}
+		</textarea>
+</form>
+
+<button type="submit" form="inputform" value="Save">Save</button> <button type="submit" form="inputform" value="Preview">Preview</button> <a href="/{{ pagename }}.html">Cancel edit</a>
+
+<hr/>
+<div style="font-width:8px;">
+{% autoescape false %}
+    {{ testout }}
+{% endautoescape %}
+</div>
+<!-- /Content --></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align:center;font-size:8pt;background-color:#808080;">
+<!-- Footer -->
+All content on this site is shared under the <span style="font-weight:bold;">MIT licence</span> (do what u want, don't sue me, hat tip appreciated)<br/>
+<a href="http://electrogeek.cc">electrogeek.cc</a> ~ Formerly known as Kalshagar.wikispaces.com (AlanFromJapan [2009 - {{ year }}])
+<!-- /Footer --></td>
+  </tr>
+</table>
+
+<!-- Google analytics, prod only-->
+{% if isprod %}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67278227-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+{% endif %}
+
+</body>
+</html>

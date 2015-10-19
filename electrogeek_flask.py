@@ -37,6 +37,48 @@ def homepage():
     #app.logger.warning('A warning occurred (%d apples)', 42)
     return redirect('/home.html')
 
+	
+#serving page through template
+@app.route('/edit/<page>', methods=['POST', 'GET'])
+def editPage(page):
+    vBody = None
+
+    #make sure this path is a *safe* path
+    vFilePath = ROOTDIR + page.lower() + ".html"
+
+    #caching or read from disk
+    if Config.getboolean("WebConfig", "CACHING"):
+        vBody = getStatic(page.lower(), vFilePath)
+    else:
+    #read content of the static file
+        with open(vFilePath, mode="r") as f:
+            vBody = f.read().decode("utf-8")
+
+    vYear = datetime.now().strftime('%Y')
+    vFormContent = ""
+    """
+    if request.method == "POST":
+        vFormContent = request.form["text"]    
+        vIsPreview = request.form["Preview"]
+        vIsSave = request.form["Save"]
+        vTest = "[ Prevciew = " + vIsPreview + ", Save = " + vIsSave + "]"
+"""
+    if request.method == "POST":
+        vFormContent = ",".join(request.form.keys())    
+
+    #generate the output by injecting static page content and a couple of variables in the template page
+    return render_template("edit01.html", pagename=page, pagecontent=vBody, year=vYear, isprod=Config.getboolean("WebConfig", "ISPROD"), testout=vFormContent)
+			
+"""
+	if request.method == "POST":
+		#POST: renders
+		return renderPageInternal (pPageName=page, pBody=vBody)
+	else:
+		#GET
+		vYear = datetime.now().strftime('%Y')
+		#generate the output by injecting static page content and a couple of variables in the template page
+		return render_template("edit01.html", pagename=page, pagecontent=vBody, year=vYear, isprod=Config.getboolean("WebConfig", "ISPROD"))
+"""
 
 #serving page through template
 @app.route('/<page>.html')
@@ -95,13 +137,15 @@ if __name__ == '__main__':
     #loading once and for all the config values
     ROOTDIR  = Config.get("WebConfig", "ROOTDIR")
     LOGFILE  = Config.get("WebConfig", "LOGFILE")
-    HTTPPORT = Config.get("WebConfig", "HTTPPORT")
+    HTTPPORT = int(Config.get("WebConfig", "HTTPPORT"))
 
     #start the logfile
     #logging.basicConfig(filename="/tmp/flasklogging.log",level=logging.DEBUG)
     handler = RotatingFileHandler(LOGFILE, maxBytes=10000, backupCount=1)
     handler.setLevel(logging.INFO)
     app.logger.addHandler(handler)
+
+    app.debug = True
 
     #start serving pages
     app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
