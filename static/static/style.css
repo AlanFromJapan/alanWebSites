@@ -1,7 +1,7 @@
 /****************************************** General site-wide styles **************************************************************/
 .wiki { font-family: Calibri, arial, helvetica, sans-serif; }
 .wiki #toc { width: 15%; float:right;background-color:#D0D0D0;font-size:smaller; }
-.wiki a {font-weight: bold; }
+.wiki a {font-weight: bold; color: #009ACD;  }
 .wiki a:link {text-decoration: none}
 .wiki a:hover {text-decoration: underline; color: red;}
 .wiki a.wiki_link {color: #009ACD; }
