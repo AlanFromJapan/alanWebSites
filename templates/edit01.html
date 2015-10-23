@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>Electrogeek.cc - {{ pagename }}</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   </head>
 <body class="wiki">
@@ -11,7 +11,7 @@
   <tr cellpadding="0" cellspacing="0" >
     <td colspan="2" class="template1_header" >
 <!-- Header -->
-<a href="/"><img src="files/electrogeek_logo2.png" alt="logo"/></a><!--span style="font-size:24pt;font-weight:bold;">Electrogeek.cc </span><span style="font-size:8pt;">formerly kalshagar.wikispaces.com</span-->
+<a href="/"><img src="/files/electrogeek_logo2.png" alt="logo"/></a><!--span style="font-size:24pt;font-weight:bold;">Electrogeek.cc </span><span style="font-size:8pt;">formerly kalshagar.wikispaces.com</span-->
 <!-- /Header --></td>
   </tr>
   <tr>
@@ -26,14 +26,10 @@ EDIT mode
 {% endif %}
 <h1 class="PageTitle">Editing '{{ pagename }}'</h1>
 <form action="{{ pagename }}" method="POST" id="inputform">
-        <textarea  name="text" style="width:100%; height:500px;">
-{% autoescape false %}
-    {{ pagecontent }}
-{% endautoescape %}
-		</textarea>
-</form>
+    <textarea  name="text" style="width:100%; height:500px;">{% autoescape false %}{{ pagecontent }}{% endautoescape %}</textarea>
 
-<button type="submit" form="inputform" value="Save">Save</button> <button type="submit" form="inputform" value="Preview">Preview</button> <a href="/{{ pagename }}.html">Cancel edit</a>
+<button type="submit" name="SaveOrPreview" value="Save">Save</button> <button type="submit" name="SaveOrPreview" value="Preview">Preview</button> <a href="/{{ pagename }}.html">Cancel edit</a>
+</form>
 
 <hr/>
 <div style="font-width:8px;">
@@ -51,20 +47,6 @@ All content on this site is shared under the <span style="font-weight:bold;">MIT
 <!-- /Footer --></td>
   </tr>
 </table>
-
-<!-- Google analytics, prod only-->
-{% if isprod %}
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-67278227-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-{% endif %}
 
 </body>
 </html>
