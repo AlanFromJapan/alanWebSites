@@ -109,6 +109,10 @@ def doLogin():
 #serving page through template
 @app.route('/edit/<page>', methods=['POST', 'GET'])
 def editPage(page):
+    #not logged in? go away
+    if None == request.cookies.get('username'):
+        return redirect("/" + page.lower() + ".html")
+
     vBody = None
     vFormContent = ""
     vYear = datetime.now().strftime('%Y')
@@ -134,8 +138,8 @@ def editPage(page):
     if request.method == "POST" and "SaveOrPreview" in request.form:
         if request.form["SaveOrPreview"] == "Save":
             #do save
-            if "" != vFormContent.strip():
-                #save
+            if None != request.cookies.get('username') and "" != vFormContent.strip():
+                #save IF content is not empty and you are logged in
                 with open(vFilePath, mode="w") as f:   
                     f.write(vFormContent.strip().encode("utf-8"))
                 #and redirect
