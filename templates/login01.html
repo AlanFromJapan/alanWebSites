@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<title>Electrogeek.cc - {{ pagename }}</title>
+		<!--link rel="stylesheet" href="/static/style.css" type="text/css" /-->
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<style>
+/* Google Fonts */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+/* sets whole page to Open Sans and sets background color */
+body {
+  font-family: 'Open Sans', 'sans-serif';
+  background-image: url(http://benague.ca/files/congruent_outline.png);
+}
+
+/* login div */
+.login {
+  background-color: #eee;
+  width: 420px;
+  height: 318px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* login header */
+h1 {
+  color: #55acee;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 10px;
+}
+
+/* div containing form */
+form {
+  text-align: center;
+}
+
+/* username and password fields */
+input:not([type="button"]) {
+  font-family: 'Open Sans', 'sans-serif';
+  border: 1px solid #acacac;
+  color: #666;
+  opacity: .7;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 250px;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  font-size: 16px;
+}
+
+input:focus:not([type="button"]) {
+  border: 1px solid #55acee;
+  opacity: 1;
+  width: 320px;
+  outline: none;
+  color: #55acee;
+}
+
+/* submit button */
+input[type="button"] {
+  padding: 15px 25px;
+  font-size: 22px;
+  width: 420px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  background-color: #55acee;
+  box-shadow: 0px 5px 0px 0px #3C93D5;
+  outline: none;
+  border: none;
+}
+
+input[type="button"]:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 0px 0px 0px;
+}
+
+input[type="button"]:hover {
+  background-color: #6FC6FF;
+}
+</style>
+	</head>
+	<body >
+
+		<!-- login div -->
+		<div class="login">
+			<!-- login header -->
+			<h1 id="header">Electrogeek.cc login</h1>
+			<!-- start da login goodness -->
+			<form id="form" method="POST" action="{{ pagename }}">
+				<input type="text" placeholder="What's your username?" maxlength="50" name="login" />
+				<br />
+				<input type="password" placeholder="Choose a password" name="pwd" />
+				<br />
+				<button type="submit" name="Login" value="Login">Login !</button>
+			</form>
+			<span style="color:red; font-weight:bold;">{{ message }}</span>
+		</div>
+
+	</body>
+</html>

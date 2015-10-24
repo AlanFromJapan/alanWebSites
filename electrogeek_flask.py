@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, make_response
 import os
 import ConfigParser
 import logging
@@ -18,7 +18,9 @@ ISPROD = False
 #static pages cache (to avoid reading from disk each time)
 StaticPagesCache = dict()
 
+#Interpretes the Wiki tags and translate to HTML
 def wikilize(html):
+    #links
     link = r"((?<!\<code\>)\[\[([^<].+?) \s*([|] \s* (.+?) \s*)?]])"
     compLink = re.compile(link, re.X | re.U)
     for i in compLink.findall(html):
@@ -27,14 +29,15 @@ def wikilize(html):
         formattedLink = u"<a href='/{0}.html'>{1}</a>".format(url.lower(), title)
         html = re.sub(compLink, formattedLink, html, count=1)
 
-        
+    #bold and italic
     link = r"(//\*\*(.[^*]+)\*\*//)"
     compLink = re.compile(link, re.X | re.U)
     for i in compLink.findall(html):
         url = i[1]
         formattedLink = u"<i><b>{0}</b></i>".format(url)
         html = re.sub(compLink, formattedLink, html, count=1)
- 
+
+    #italic and bold
     link = r"(\*\*//(.[^/]+)//\*\*)"
     compLink = re.compile(link, re.X | re.U)
     for i in compLink.findall(html):
@@ -42,6 +45,7 @@ def wikilize(html):
         formattedLink = u"<i><b>{0}</b></i>".format(url)
         html = re.sub(compLink, formattedLink, html, count=1)
 
+    #bold
     link = r"(\*\*(.[^*]+)\*\*)"
     compLink = re.compile(link, re.X | re.U)
     for i in compLink.findall(html):
@@ -49,6 +53,7 @@ def wikilize(html):
         formattedLink = u"<b>{0}</b>".format(url)
         html = re.sub(compLink, formattedLink, html, count=1)
 
+    #italic
     link = r"(//(.[^/]+)//)"
     compLink = re.compile(link, re.X | re.U)
     for i in compLink.findall(html):
@@ -78,6 +83,27 @@ def getStatic(page, vFilePath):
 def homepage():
     #app.logger.warning('A warning occurred (%d apples)', 42)
     return redirect('/home.html')
+
+
+#Login page
+@app.route('/login', methods=['POST', 'GET'])
+def doLogin():
+    if request.method == "GET":
+        return render_template("login01.html", pagename="login", isprod=ISPROD, message="")
+    else:
+        vLogin = request.form["login"]
+        vPwd = request.form["pwd"]
+        
+        if vLogin == "test" and vPwd == "test":
+            #Login is correct
+            resp = make_response( redirect("home.html") )
+            
+            resp.set_cookie ('username', vLogin)
+                
+            return resp
+        else:
+            #incorrect login
+            return render_template("login01.html", pagename="login", isprod=ISPROD, message="Login incorrect")
 
 	
 #serving page through template
@@ -117,7 +143,7 @@ def editPage(page):
         else:
             if request.form["SaveOrPreview"] == "Preview":
                 #do Preview
-                pass #do nothing
+                pass #do nothing, stay on the page, this will just refresh the preview
         #else:
             #do nothing :P
 
@@ -126,7 +152,13 @@ def editPage(page):
     #    vFormContent = ",".join(request.form.keys()) + vFormContent    
 
     #generate the output by injecting static page content and a couple of variables in the template page
-    return render_template("edit01.html", pagename=page, pagecontent=vBody, year=vYear, isprod=ISPROD, testout=wikilize(vFormContent))
+    resp = make_response( render_template(Config.get("Design", "EditTemplate"), pagename=page, pagecontent=vBody, year=vYear, isprod=ISPROD, testout=wikilize(vFormContent)))
+    
+    #Debug
+    #if "SaveOrPreview" in request.form and request.form["SaveOrPreview"] == "Preview":
+    #    resp.set_cookie ('username', 'xyz')
+        
+    return resp
 
     
 #serving page through template

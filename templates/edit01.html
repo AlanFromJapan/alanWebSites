@@ -17,7 +17,8 @@
   <tr>
     <td  style="width:150px;vertical-align:top;padding: 10px;">
 <!-- Left menu -->
-EDIT mode
+EDIT mode<br/>
+{{ request.cookies.get('username') }}
 <!-- /Left menu --></td>
     <td style="background-color:white;width:100%;padding: 10px;vertical-align: top;">
 <!-- Content -->
@@ -26,7 +27,7 @@ EDIT mode
 {% endif %}
 <h1 class="PageTitle">Editing '{{ pagename }}'</h1>
 <form action="{{ pagename }}" method="POST" id="inputform">
-    <textarea  name="text" style="width:100%; height:500px;">{% autoescape false %}{{ pagecontent }}{% endautoescape %}</textarea>
+    <textarea  name="text" style="width:100%; height:450px;">{% autoescape false %}{{ pagecontent }}{% endautoescape %}</textarea>
 
 <button type="submit" name="SaveOrPreview" value="Save">Save</button> <button type="submit" name="SaveOrPreview" value="Preview">Preview</button> <a href="/{{ pagename }}.html">Cancel edit</a>
 </form>
