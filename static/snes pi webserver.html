@@ -1,13 +1,5 @@
-<html>
-  <head>
-    <title>kalshagar - SNES Pi Webserver</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
 <h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
-Need a web server for self hosting, use a Raspberry Pi 2 of course (seeing I expect 200-300 page views a day we're safe). I need a DMZ in my internal network so the old router sleeping in the closet found a new life. I also had those beefy AC/DC modules in my lucky bag in Akihabara years ago, make the 110v a steady 10.5V with a decent amount of amps (measured 4 when short cutting I think). Throw in a couple of step down &quot;buck&quot; converters (no 7805) from eBay to have a decent efficiency and get my 5v for the Raspi as 3.3v for the router. Interresting fact this SoB of router does not work with 3.3v but is fed about 3.5-3.6v otherwise it doesn't start or keep rebooting. Not the fault of the power module, I tested with my beefy DC supply and with a precise 3.3v it keep on rebooting. The original power plug was measured 3.47V (though labelled 3.3v), so, what the hell, it works, maybe not for a century but I'll manage.<br />
+Need a web server for self hosting, use a Raspberry Pi 2 of course (seeing I expect 200-300 page views a day we're safe). I need a DMZ in my internal network so the old router sleeping in the closet found a new life. I also had those beefy AC/DC modules in my lucky bag in Akihabara years ago, make the 110v a steady 10.5V with a decent amount of amps (measured 4 when short cutting I think). Throw in a couple of step down "buck" converters (no 7805) from eBay to have a decent efficiency and get my 5v for the Raspi as 3.3v for the router. Interresting fact this SoB of router does not work with 3.3v but is fed about 3.5-3.6v otherwise it doesn't start or keep rebooting. Not the fault of the power module, I tested with my beefy DC supply and with a precise 3.3v it keep on rebooting. The original power plug was measured 3.47V (though labelled 3.3v), so, what the hell, it works, maybe not for a century but I'll manage.<br />
 The whole thing is stuffed inside a SNES body that was the empty shell of my <a class="wiki_link" href="Around%20a%20SNES.html">Arcade cabinet made with a SNES</a>. I had to make fake joypad port, just wood with a few holes and painted/varnished the same as the SNES original grey, ... if you don't pay attention it makes acceptable illusion.<br />
 <br />
 
@@ -17,7 +9,7 @@ The whole thing is stuffed inside a SNES body that was the empty shell of my <a 
         <td><img src="files/snespi1.jpg" alt="snespi1.jpg" title="snespi1.jpg" /><br />
 </td>
         <td>1- Raspberry Pi2<br />
-2- AC/DC converter (110V AV -&gt; 10.5V DC)<br />
+2- AC/DC converter (110V AV -> 10.5V DC)<br />
 3- Old router<br />
 4- Step down buck converters<br />
 </td>
@@ -34,16 +26,14 @@ The whole thing is stuffed inside a SNES body that was the empty shell of my <a 
 
 <br />
 <h2 id="toc1"><a name="Purpose-Software"></a> Software </h2>
-Now comes the fun. My goals are to:<br />
-<ul><li>Serve static content: html, css, images... I don't care/desire php modules or else, I'm fine editing my site with emacs (yes, I do)</li><li>A little dynamic though: if I could do some page combination on the fly like ASP.Net master page or maybe have a few tags dynamcally parsed, that would be cool but I <em>could</em> live without it.</li></ul><br />
+Now comes the fun. My goals are to:
+<ul><li>Serve static content: html, css, images... I don't care/desire php modules or else, I'm fine editing my site with emacs (yes, I do)</li><li>A little dynamic though: if I could do some page combination on the fly like ASP.Net master page or maybe have a few tags dynamcally parsed, that would be cool but I <em>could</em> live without it.</li></ul>
 <h3 id="toc2"><a name="Purpose-Software-Option 1 use a home made Python webserver"></a> Option 1 use a home made Python webserver </h3>
-<span style="color: #ff0000;font-size: 140%;">&#x2717;</span>Which is what I did first, it handled bravely a few attacks until some a**hole found a breach and killed it with a few commands. Yeah, BaseHTTPServer is not the most robust implementation. <br />
+<span style="color: #ff0000;font-size: 140%;">✗</span>Which is what I did first, it handled bravely a few attacks until some a$$hole found a breach and killed it with a few commands. Yeah, BaseHTTPServer is not the most robust implementation. <br />
 <br />
 <h3 id="toc3"><a name="Purpose-Software-Option 2 a existing Python framework"></a> Option 2 a existing Python framework </h3>
-<span style="font-weight:bold;">Flask</span> is the answer. and that's the way to go!
+<span style="font-weight:bold;">Flask</span> is the answer. and that's the way to go!<br/>
+I used the **Flask** to build a custom single editor multithreaded webservice. I can edit pages on the site live, that works quite fine. It's a work in progress, but if you're interrested do check on github, there's the **full site**: [[https://github.com/AlanFromJapan/alanWebSites]] <br/>
 <br />
 <h3 id="toc4"><a name="Purpose-Software-Option 3 a fullfledge web server"></a> Option 3 a fullfledge web server </h3>
-Not Apache (robust but cabalistic config), but maybe an easier/lighter Nginx?
-    </div>
-  </body>
-</html>
+<span style="color: #ff0000;font-size: 140%;">✗</span>Not Apache (robust but cabalistic config), but maybe an easier/lighter Nginx? Would have worked but I wanted some flexibility.
