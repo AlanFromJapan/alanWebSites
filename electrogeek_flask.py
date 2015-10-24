@@ -94,7 +94,7 @@ def doLogin():
         vLogin = request.form["login"]
         vPwd = request.form["pwd"]
         
-        if vLogin == "test" and vPwd == "test":
+        if vLogin == Config.get("AdminAccount", "Login") and vPwd == Config.get("AdminAccount", "Password"):
             #Login is correct
             resp = make_response( redirect("home.html") )
             
