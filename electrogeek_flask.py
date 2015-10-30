@@ -63,6 +63,14 @@ def wikilize(html):
         formattedLink = u"<i>{0}</i>".format(url)
         html = re.sub(compLink, formattedLink, html, count=1)
 
+    #list item (unordered)
+    link = r"^\*\s+(.+)$"
+    compLink = re.compile(link, re.X | re.U | re.M) #need the M = multiline to detect begin/end of string
+    for i in compLink.findall(html):
+        url = i
+        formattedLink = u"<li>{0}</li>".format(url)
+        html = re.sub(compLink, formattedLink, html, count=1)
+
     return html
 
 #store static pages (.html) in memory for faster response

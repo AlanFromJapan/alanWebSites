@@ -37,3 +37,17 @@ I used the **Flask** to build a custom single editor multithreaded webservice. I
 <br />
 <h3 id="toc4"><a name="Purpose-Software-Option 3 a fullfledge web server"></a> Option 3 a fullfledge web server </h3>
 <span style="color: #ff0000;font-size: 140%;">✗</span>Not Apache (robust but cabalistic config), but maybe an easier/lighter Nginx? Would have worked but I wanted some flexibility.
+
+<h1>Network</h1>
+<h2>Topology</h2>
+I won't go into micro details here because it will change between your house and me, and it gets a little too private. I'm no network expert, so forgive if some details I keep before me.
++++ network diagram +++
+<h2>Security</h2>
+On the main router:
+* "DMZ router" is the DMZ target for the main router: all incoming extrnal traffic is redirected to that DMZ router
+* All external incoming traffic to the DMZ router management port is //rejected// (important)
+* NATing (port 80 external - port XYZ internal) can happen on that router (not in my case though)
+On the DMZ router:
+* NATing of individual ports to the webserver: port 80 for http, 443 for ssh (not HTTPs, ssh so I can admin from outside and fool my company proxy), 8089 for dev server
+* Only incoming traffic is allowed on these 3 ports, no outgoing traffic allowed (only RESPONSE traffic)
+* All traffic from Dev server to Internal NW is rejected (except on the 3 ports as explained above)
