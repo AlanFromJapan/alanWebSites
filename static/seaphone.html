@@ -2,7 +2,7 @@
 This is an artistic project: no real use in life, just be nice, sit, question or surprise you maybe?
 
 <h2>Schematics</h2>
-<img src="files/SeaPhones_schema.jpg" style="width:600px;" /><br/>
+<img src="/files/SeaPhones_schema.jpg" style="width:600px;" /><br/>
 Basically I tried to reuse the maximum of the phone: 
 <ul>
   <li>Main power switch is the earpiece switch, so when unused it uses 0 watt (to the tradeoff price that startup time of a couple of seconds)</li>
@@ -11,24 +11,24 @@ Basically I tried to reuse the maximum of the phone:
   <li>The rotary quadrant is used as input for a small uC that will be the tiniest possible, meaning initial plan is <a class="wiki_link_ext" href="attiny10.html">ATTiny10</a> or <a class="wiki_link_ext" href="attiny13.html">ATTiny13</a>.</li>
   <li>The uC that as stated above gets the rotary dial input, search for some known code and "drives" the MP3 player. However it's limited now: only "Next" button is available (driven via optocouple).</li>
 </ul>
-
 <h1>Reusing a rotary phone</h1>
 <h2>Rotary dial</h2>
 That's the fun part: 3 wires, 1 input at GND and 2 outputs. Use a pulled-up pin to read, something happens when the pin becomes low.<br/>
-&#9312; when you start sweeping the dial it gets low, maybe as a warning that dialing will happen.<br/>
-&#9313; One low for each digit (10 for the zero) once the dial swipes back to its original position.<br/>
+① when you start sweeping the dial it gets low, maybe as a warning that dialing will happen.<br/>
+② One low for each digit (10 for the zero) once the dial swipes back to its original position.<br/>
 You'll find all of this explained in details in this <a href="http://www.instructables.com/id/Interface-a-rotary-phone-dial-to-an-Arduino/">Instructable</a> (thanks for sharing mate).
+<img src="/files/seaphone_tiny10_basic.png" />
 <h2>Earpiece</h2>
 A simple microphone and speaker, 2 pairs of wires, one for each. Unscrew the mouth/ear to see the wire colors. For mine it was black for ear, white for mouth. Is it a standard?
 <h2>Electronics</h2>
 Not much there, you got a few resistors, big coils if you're in need. They make perfect electromagnet I assume. The bell system is one: an arm with a permanent magnet that is placed between 2 bells and next to the electromagnet. When the later inverts its magnetic field rapidely, the arm is pulled or pushed, banging the bells. Simple and efficient. But anyway scavenging stopped here for me.
 
 <h1>Images</h1>
-<img src="files/20151020_211404.jpg" /><br/>
+<img src="/files/20151020_211404.jpg" /><br/>
 <i>Exploded view of the phone, missing the dial though.</i><br/>
-<img src="files/20151020_220049.jpg" /><br/>
+<img src="/files/20151020_220049.jpg" /><br/>
 <i>You can see the MP3 player, with its SD card and some wires.</i><br/>
-<img src="files/20151020_220130.jpg" /><br/>
+<img src="/files/20151020_220130.jpg" /><br/>
 <i>While running, the mp3 player shiiiiiiiines but you can't see it once all assembled, and I'm too lazy to take the leds off if it's not visible. Will do though if it becomes a problem.</i><br/>
 <h2>Video</h2>
 <iframe width="420" height="315" src="https://www.youtube.com/embed/gaY2EIsKhCw" frameborder="0" allowfullscreen></iframe>

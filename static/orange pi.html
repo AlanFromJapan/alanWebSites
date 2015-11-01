@@ -3,12 +3,24 @@ All is said, I bought a new member of my mini-pc at home, this time it's an [[ht
 <h1>Hardware</h1>
 <h2>Power</h2>
 <ul>
-  <li>Vendor says 1.5-2A power is needed. I tested with 1A, mine turns the leds on, but nothing happens on the HDMI... hard to believe this guy needs 10W to run... Waiting for the 2A USB charger to arrive to confirm.</li>
+* Vendor says 1.5-2A power is needed. I tested with 1A, mine turns the leds on, but nothing happens on the HDMI... hard to believe this guy needs 10W to run... Waiting for the 2A USB charger to arrive to confirm.
+* Couple of days later I get my 2A power supply, and in fact it was the HDMI that was not working so maybe it did work with a 1A, but I'm too lazy to double check so sorry. 2A plug it is.
 </ul>
 <h2>Wifi</h2>
 <ul>
-  <li>To enable wifi connection from command line run: **sudo nmcli -a d wifi connect** and enter your wifi credentials</li>
+* The Wifi module I have is a **Realtek RTL8189ETV** as per the specs, though it's writen //Createk CK-W-R189// ?
+* Driver is noted //rtl8189es// in //dmesg//
+* I read that to enable wifi connection from command line run: **sudo nmcli -a d wifi connect** and enter your wifi credentials, but to no avail
 </ul>
+If found an old cheap Wifi dongle in a drawer, chip is a **Realtek rtl8188cus** that is apparently supported by the Raspi, so maybe I can make it work here too...
+* Some guy struggling here [[http://blog.donity.com/k1/2011/02/22/gw-usvalue-ez-%E3%82%92-ubuntu-%E3%81%A7/]]
+* Some guy who made a script BUT do not run it as is, you must edit it (I tried, it forced me to do a reinstall): [[https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=6256&start=375]]
+<pre>
+# lsusb
+to list the usb
+# modprobe -a 8188eu
+to load module [[http://doc.ubuntu-fr.org/tutoriel/tout_savoir_sur_les_modules_linux]]
+</pre>
 <h1>Operating system</h1>
 <h2>Install</h2>
 <ul>
@@ -17,4 +29,12 @@ All is said, I bought a new member of my mini-pc at home, this time it's an [[ht
 </ul>
 
 <h1>Software</h1>
-.
+Now to the fun part. 
+* Started with the OPI2 "Debian server" version: plugged on TV and ... nothing. Ethernet leds stay on, nothing on the TV (though some mode change happens, you see the TV react and change display mode) no text nothing. Waited, waited, retried. Nix. 
+* Then tried alternate distributions [[http://www.orangepi.org/orangepibbsen/forum.php?mod=viewthread&tid=342|here]]: still no ethernet, no wifi, no HDMI **but I had Serial interface** (3.3v by the way):
+* - Debian jessie minimal: no ethernet, no wifi, no HDMI 
+* - Arch linux minimal: no ethernet, no wifi, no HDMI 
+* Then [[http://www.orangepi.org/downloadresources/|Raspbian]] and I got the **Ethernet working**! HDMI I didn't test (don't care), and still no wifi though but we're making progress...
+
+<h1>Links</h1>
+* Apparently there's another geek in Japan with a OPi2 [[http://blog.osakana.net/]]
