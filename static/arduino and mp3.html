@@ -1,0 +1,59 @@
+<h1>Ebay's YX5300</h1>
+A very cheap 4.5 USD serial module [[http://www.ebay.com/itm/321867319818|on eBay]]. Bought 2 and very happy! Fast and efficient. Ok, you have to know a few things and fining doc is a bit hazardous but doable.
+* Some gentelman share his experience ([[http://www.jarzebski.pl/arduino/komponenty/modul-mp3-z-ukladem-yx5300.html|in Polish]]) 
+* For the doc search for Catalex if you're lucky or see below:
+<a href="/files/YX5300 Serial MP3 Player v1.0 Manual.pdf">YX5300 Serial MP3 Player v1.0 Manual.pdf</a> and <a href="/files/YX5300-24SS Datasheet V1.0.pdf">YX5300-24SS Datasheet V1.0.pdf</a>
+<pre><code class="cpp">
+#include <SoftwareSerial.h>
+ 
+SoftwareSerial mp3(8, 9);
+ 
+static uint8_t cmdbuf[8] = {0};
+ 
+void command(int8_t cmd, int16_t dat)
+{
+  delay(20);
+ 
+  cmdbuf[0] = 0x7e; // bajt startu
+  cmdbuf[1] = 0xFF; // wersja
+  cmdbuf[2] = 0x06; // liczba bajtow polecenia
+  cmdbuf[3] = cmd;  // polecenie
+  cmdbuf[4] = 0x00; // 0x00 = no feedback, 0x01 = feedback
+  cmdbuf[5] = (int8_t)(dat >> 8); // parametr DAT1
+  cmdbuf[6] = (int8_t)(dat); //  parametr DAT2
+  cmdbuf[7] = 0xef; // bajt konczacy
+ 
+  for (uint8_t i = 0; i < 8; i++)
+  {
+    mp3.write(cmdbuf[i]);
+  }
+}
+ 
+//Thanks http://www.jarzebski.pl/arduino/komponenty/modul-mp3-z-ukladem-yx5300.html
+void setup()
+{
+  Serial.begin(9600);
+  mp3.begin(9600);
+ 
+  delay(500); // Czekamy 500ms na inicjalizacje  
+ 
+  command(0x09, 0x0002); // Wybieramy karte SD jako zrodlo
+  delay(200); // Czekamu 200ms na inicjalizacje
+ 
+  command(0x06, 15); // Ustaw glosnosc na 30
+  command(0x03, 0x0001); // Otwarzamy pierwszy utwor (kolejnosc nieposortowana)
+}
+ 
+void loop() { 
+  if (Serial.available() > 0){
+     byte c = Serial.read();
+     
+     switch (c){
+       case 'n':
+         command(0x01, 0x0000);
+         Serial.println("Next!");
+     }
+  }
+}
+
+</code></pre>

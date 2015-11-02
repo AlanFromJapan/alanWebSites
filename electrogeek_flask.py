@@ -18,6 +18,7 @@ ISPROD = False
 #static pages cache (to avoid reading from disk each time)
 StaticPagesCache = dict()
 
+##########################################################################################
 #Interpretes the Wiki tags and translate to HTML
 def wikilize(html):
     #links
@@ -73,6 +74,7 @@ def wikilize(html):
 
     return html
 
+##########################################################################################
 #store static pages (.html) in memory for faster response
 def getStatic(page, vFilePath):
     if not StaticPagesCache.has_key(page):
@@ -87,6 +89,7 @@ def getStatic(page, vFilePath):
     return StaticPagesCache[page]
     
 
+##########################################################################################
 #default page -> redirect
 @app.route('/')
 @app.route('/index.html')
@@ -95,6 +98,7 @@ def homepage():
     return redirect('/home.html')
 
 
+##########################################################################################
 #Login page
 @app.route('/login', methods=['POST', 'GET'])
 def doLogin():
@@ -115,8 +119,30 @@ def doLogin():
             #incorrect login
             return render_template("login01.html", pagename="login", isprod=ISPROD, message="Login incorrect")
 
+
+
+##########################################################################################
+#New page creation
+@app.route('/new/<page>')
+def newPage(page):
+    #not logged in? go away
+    if None == request.cookies.get('username'):
+        return redirect("/home.html")
+
+    targetFilePath = ROOTDIR + page.lower() + ".html"
+    #if page already exists just go there
+    if os.path.isfile(targetFilePath):
+        return redirect("/"+ page.lower() +".html")
+
+    #make an empty page
+    with open(targetFilePath, 'a'):
+        os.utime(targetFilePath, None)
+    #...and go there
+    return redirect("/edit/"+ page.lower())
+
 	
-#serving page through template
+##########################################################################################
+#Edit page online
 @app.route('/edit/<page>', methods=['POST', 'GET'])
 def editPage(page):
     #not logged in? go away
@@ -175,8 +201,10 @@ def editPage(page):
     return resp
 
     
+##########################################################################################
 #serving page through template
 @app.route('/<page>.html')
+@app.route('/<page>')
 def serveTemplate(page):
     vBody = None
 
@@ -194,7 +222,7 @@ def serveTemplate(page):
     #renders
     return renderPageInternal (pPageName=page, pBody=vBody)
 
-
+##########################################################################################
 #Search page
 @app.route('/search.aspx')
 def searchPage():
@@ -205,7 +233,8 @@ def searchPage():
 	if os.path.isfile(os.path.join(ROOTDIR, filename)) and filename.lower().endswith(".html"):
             with open(os.path.join(ROOTDIR, filename), mode="r") as f:
                 t = f.read().decode("utf-8")
-                vCount = t.count(searchstring)
+                #count in the file and the filename
+                vCount = t.count(searchstring) + filename.count(searchstring)
                 #if searchstring in t:
                 if vCount > 0:
                     vBody = vBody + ('&#x2771; <a href="%s">%s</a> (%d occurences)<br/>' % (filename, filename[:-5], vCount))
