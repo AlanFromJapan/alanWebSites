@@ -1,14 +1,15 @@
-<html>
-  <head>
-    <title>kalshagar - Gameboy housing a DS</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
 One day maybe ... <br />
+
+<h1>Links and disclaimer</h1>
 I have that old GB brick now empty of its content (screen dead), I have that old Nintendo DS 1st version that was ugly from the start and has a broken screen connector ... Shall we reuse one for the other? <br />
-<ul><li>Apparently doable, seing the piece of art this gentleman made:<ul><li>Details <a class="wiki_link_ext" href="http://www.bacman.co.uk/bacforum/viewtopic.php?f=18&amp;t=1322" rel="nofollow">http://www.bacman.co.uk/bacforum/viewtopic.php?f=18&amp;t=1322</a></li><li>Youtube <a class="wiki_link_ext" href="https://www.youtube.com/watch?v=d9KrlGChPy8" rel="nofollow">https://www.youtube.com/watch?v=d9KrlGChPy8</a></li></ul></li></ul>
-    </div>
-  </body>
-</html>
+Apparently doable, seing the piece of art this gentleman made:
+* Details <a class="wiki_link_ext" href="http://www.bacman.co.uk/bacforum/viewtopic.php?f=18&t=1322" rel="nofollow">http://www.bacman.co.uk/bacforum/viewtopic.php?f=18&t=1322</a> FAAAAAAIL Bacman closed his forum, nothing left.
+* Youtube <a class="wiki_link_ext" href="https://www.youtube.com/watch?v=d9KrlGChPy8" rel="nofollow">https://www.youtube.com/watch?v=d9KrlGChPy8</a>
+Now some other pointers:
+* Another guy who had the idea: [[https://fibbefcreations.wordpress.com/2014/05/08/the-nintendo-s-a-work-in-progress/]]
+* Same same: [[https://facelesstech.wordpress.com/2014/06/29/turn-broken-nintendo-ds-into-gameboy-advance/]]
+<h1>Things to know</h1>
+<h2>Screen</h2>
+A DS can run with only one screen //but// you must trick it to think other screen is attached: put a resistor in lieu of the pins for the backlight (maybe in fact a protection to avoid short or whatever?)
+* If you keep the bottom and dump the top screen (most usual case): locate on the board the pins LED**C2** and LED**A2** which are the Cathode(-) and Anode(+) of the backlight of screen 2. On the v1 fat DS, it's to the top right next ot the Start button. Any resistor will go, I put a 1kOhm and works fine. Some people put a led+resistor, up to you.
+* If you keep the top and dump the bottom screen: I don't know, but give a try with the LEDC1 and LEDA1?
