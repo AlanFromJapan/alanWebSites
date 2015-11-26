@@ -8,8 +8,14 @@ Apparently doable, seing the piece of art this gentleman made:
 Now some other pointers:
 * Another guy who had the idea: [[https://fibbefcreations.wordpress.com/2014/05/08/the-nintendo-s-a-work-in-progress/]]
 * Same same: [[https://facelesstech.wordpress.com/2014/06/29/turn-broken-nintendo-ds-into-gameboy-advance/]]
+* More: [[https://fibbefcreations.wordpress.com/2014/05/08/the-nintendo-s-a-work-in-progress/]]
+* And again a [[https://translate.google.com/translate?sl=es&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=http%3A%2F%2Fwww.tentaculopurpura.com%2F%3Fp%3D16065&edit-text=&act=url|gtranslated]]
 <h1>Things to know</h1>
 <h2>Screen</h2>
 A DS can run with only one screen //but// you must trick it to think other screen is attached: put a resistor in lieu of the pins for the backlight (maybe in fact a protection to avoid short or whatever?)
-* If you keep the bottom and dump the top screen (most usual case): locate on the board the pins LED**C2** and LED**A2** which are the Cathode(-) and Anode(+) of the backlight of screen 2. On the v1 fat DS, it's to the top right next ot the Start button. Any resistor will go, I put a 1kOhm and works fine. Some people put a led+resistor, up to you.
-* If you keep the top and dump the bottom screen: I don't know, but give a try with the LEDC1 and LEDA1?
+* If you keep the bottom and dump the top screen: locate on the board the pins LED**C2** and LED**A2** which are the Cathode(-) and Anode(+) of the backlight of screen 2. On the v1 fat DS, it's to the top right next ot the Start button. Any resistor will go, I put a 1kOhm and works fine. Some people put a led+resistor, up to you.
+* If you keep the top and dump the bottom screen: same, with LEDC1 and LEDA1, which is at the top-side around the lower part of the main board, slightly off-centered to the right.
+<img src="/files/ds_v1_board.jpg" alt="board of DS version 1" width="900"/><br/>
+// The mother board of a v1 NintendoDS (one I use in my case) //<br/>
+<img src="/files/gb housing - wiring.jpg" /><br/>
+// How I wired the hacked bottom of the original GB brick to reuse most of the buttons: yellow = gnd, orange = how to join the gnd together to get it everywhere, pink = signal//<br/>
