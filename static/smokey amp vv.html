@@ -1,5 +1,29 @@
-<i>Based on [[Smokey amp vIII]], the same circuit with minor additions. The main change is the details level and the lack of switch thanks to the usage of the mono jack Ring/Sleeve as a switch.</i><br/>
+<i>Based on [[Smokey amp vIII]], the same circuit with minor additions. The main change is the details level and the lack of switch thanks to the usage of the mono jack Ring/Sleeve as a switch. Project completed in Jan 2016.</i><br/>
 <br/>
 For once I built a [[Smokey amp]] that is really in a cigaret pack. Still based on [[http://hackaweek.com/hacks/?p=131|Mr. Segovis of Hackaday]] design, a minor change is the reuse of the input jack as a power switch, a power led for the blingbling and a few components values that have changed.
 <br/>
 <img src="/files/smokeyampvv.png" />
+
+<h2>Notes about sound and caps</h2>
+Datasheet explains it: the bigger C1 is the more amplification you get (max 10uF in real life). No C1 makes lowest amplification which translates also happily in low distortion. C2 does quite a bit of bass amplification, I like it. There's another way to do a bass boost exlained in the datasheet, I won't use it here.<br/>
+I spend time tinkering on the final circuit swapping caps etc... here's my results.
+* C1 = (none) + C2 = (none) : cleanest sound, barely no humming, no disto ... too clean in fact to my taste
+* C1 = (none) + C2 = 200 : cleaner sound, barely no humming, low disto, nice bass
+* C1 = 1.5 + C2 = (none) : clean sound, low humming, low disto
+* C1 = 1.5 + C2 = 220 : a bit humming but nice bass sound improved
+* C1 = 4.7 + C2 = (none) : clean sound, high humming
+* C1 = 4.7 + C2 = 220 : higher humming, move amplification, nice bass
+<br/>
+⇒　Will go for **C1 = 1.5 + C2 = 220** //and// **C1 = (none) + C2 = 220** by adding a small slide switch to bypass C1 in case. And C2 = 220 because I like the bass boost it proposes.<br/>
+
+<h1>Pictures</h1>
+<img src="/files/20160129_125146.jpg" /><br/>
+//The circuit, piggyback style, trying to keep wires at minimum length.//<br/>
+<img src="/files/20160129_163951.jpg" /><br/>
+//Before getting in the box//<br/>
+<img src="/files/20160206_105513.jpg" /><br/>
+//The inner carrier in wood ready for final assembly.//<br/>
+<img src="/files/20160206_113230.jpg" /><br/>
+//The final thing, with my guitar.//<br/>
+<img src="/files/20160206_215900.jpg" /><br/>
+//Close-up shot//<br/>
