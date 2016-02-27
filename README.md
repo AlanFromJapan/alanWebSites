@@ -10,6 +10,7 @@ Features:
 * Templates supported
 * Main important config values in a config file
 * File system based (no DB)
+* Multiple file upload function
 
 Won't be supported ('cause I don't care):
 * Blog engine
