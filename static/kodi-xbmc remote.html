@@ -1,0 +1,16 @@
+<h1>Why why why oh why?</h1>
+New android OS upgrade now forbids my [[https://play.google.com/store/apps/details?id=org.leetzone.android.yatsewidgetfree&hl=en|Yatse]] (very good software btw) to be on the lock screen as before. Result, now I have to unlock my screen each time I want to play/pause, navigate, etc... awfully annoying.<br/>
+I made recently some [[USB without Arduino|fun things with USB]], Kodi/XBMC works just fine when driven by keyboard, I bought a bunch of eBay inexpensive **kst-tx01 / kst-rx706** ... see where I'm going?<br/>
+<img src="/files/kodi-xbmc-hld.JPG" alt="high level design"/>
+<h1>About the cheap wireless link</h1>
+I bought a few of those wireless link (433MHz and another 300 something MHz) thinking it would be blindly reliable: in my case kst-tx01 and kst-rx706 (which seems outdated since I can find reference for the rx806 only). I was oh so wrong. They are dirt cheap, like 2-3 USD max but you get for your money: communication range is enough if we're talking in a reasonable sized room, but the noise is **incredible**. Seriously, some people say you can use them "like a wire in case of low radio wave noise environment". I think it means north pole or in the high plains of Khazakstan. In Tokyo I have more noise than message. Forget the "as a wire" analogy, you have to manually implement a control protocol. Ok I could spare me the pain and buy a 7 USD better module (plenty of them on Seeedstudio.com) or even splurge with an XBee module, but I hate to waste and I never turned down a good challenge. So here we go...<br/>
+<br/>
+Luckily for me, I want to send:
+* Extra simple messages: one byte of data is enough
+* very low transmission rate: as long as one message is transferred successfully per second I'm good. I don't care to press play/pause faster than that.
+* Low number of different messages: I'll need play/pause, stop, turn off, up-down-left-right, back ... give or take 10 messages is enough
+<br/>
+So all this wrapped up together makes this solution popup in my mind: message is 2 byte: one header for synch, one for message. Synch can be 0xAA, already used in ethernet because it becomes 0b10101010 ... nice to detect. Message I can use the 4 high bits being the code I want (makes me 16 possibilities), the 4 lower bits will be a checksum. Overkill? yeah maybe.<br/>
+Then since communication is one way only, sender (the remote) can not know if the receiver got the message properly. And clicking frenetically to pause my episode of TBBT doesn't raise my interest. So let's say (disregarding the transmission speed that we'll see later but we can assume to be < 100ms), remote can send the same message n times (3?) and the receiver ignores if it received a same message multiple time within say 1 sec. I could even maybe add a seq num like in TCP which would make it even more fool proof (let's call it plan B).<br/>
+<h2>Signal analysis theory</h2>
+Ok so I have engineer's degree but statistics and analogic have never ever be my forte (far from it). Now I try to extract an intermittent, changeant, partially only predictable signal. Not easy.<br/>
