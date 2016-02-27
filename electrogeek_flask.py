@@ -5,6 +5,7 @@ import ConfigParser
 import logging
 from logging.handlers import RotatingFileHandler
 import re
+from werkzeug import secure_filename
 
 #http://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
 app = Flask(__name__, static_url_path='')
@@ -17,6 +18,16 @@ ISPROD = False
 
 #static pages cache (to avoid reading from disk each time)
 StaticPagesCache = dict()
+
+#Werkzeug and Flask global constants
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
+##########################################################################################
+#Check file name to upload
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 ##########################################################################################
 #Interpretes the Wiki tags and translate to HTML
@@ -154,6 +165,7 @@ def editPage(page):
     vYear = datetime.now().strftime('%Y')
     #make sure this path is a *safe* path
     vFilePath = ROOTDIR + page.lower() + ".html"
+    vRecentlyUploaded = ""
 
     
     #get textbox content from the form post param or from disk
@@ -169,6 +181,18 @@ def editPage(page):
             with open(vFilePath, mode="r") as f:
                 vBody = f.read().decode("utf-8")
         vFormContent = vBody
+
+    #file upload
+    uploaded_files = request.files.getlist("imgup")
+    if None != uploaded_files and len(uploaded_files) > 0:
+        #some files to upload
+        for f in uploaded_files:
+            if f and allowed_file(f.filename):
+                filename = secure_filename(f.filename)
+                f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                vRecentlyUploaded = vRecentlyUploaded + '&lt;img src="/files/'+filename+'" /&gt;'
+    if vRecentlyUploaded == "":
+        vRecentlyUploaded = "<i>none.</i>"
 
     #Save or preview or else?
     if request.method == "POST" and "SaveOrPreview" in request.form:
@@ -192,7 +216,7 @@ def editPage(page):
     #    vFormContent = ",".join(request.form.keys()) + vFormContent    
 
     #generate the output by injecting static page content and a couple of variables in the template page
-    resp = make_response( render_template(Config.get("Design", "EditTemplate"), pagename=page, pagecontent=vBody, year=vYear, isprod=ISPROD, testout=wikilize(vFormContent)))
+    resp = make_response( render_template(Config.get("Design", "EditTemplate"), pagename=page, pagecontent=vBody, year=vYear, isprod=ISPROD, testout=wikilize(vFormContent), recentupload=vRecentlyUploaded))
     
     #Debug
     #if "SaveOrPreview" in request.form and request.form["SaveOrPreview"] == "Preview":
@@ -263,7 +287,8 @@ if __name__ == '__main__':
     LOGFILE  = Config.get("WebConfig", "LOGFILE")
     HTTPPORT = int(Config.get("WebConfig", "HTTPPORT"))
     ISPROD = Config.getboolean("WebConfig", "ISPROD")
-    
+    UPLOAD_FOLDER = os.path.join(ROOTDIR, 'files')
+
     #start the logfile
     #logging.basicConfig(filename="/tmp/flasklogging.log",level=logging.DEBUG)
     handler = RotatingFileHandler(LOGFILE, maxBytes=10000, backupCount=1)
@@ -272,6 +297,9 @@ if __name__ == '__main__':
 
     if not ISPROD:
         app.debug = True
+
+    #set the upload folder
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     #start serving pages
     app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
