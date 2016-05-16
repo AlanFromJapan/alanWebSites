@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <!-- For code formatting and pretty print: https://github.com/google/code-prettify -->
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
   </head>
 <body class="wiki">
 
@@ -30,11 +31,50 @@ Logged in
 <div style="border: solid 2px red;text-align:center;color:red;background:#FFA0A0;font-weight:bold;"> Non production site - this is the test site !</div>
 {% endif %}
 <h1 class="PageTitle">Editing '{{ pagename }}'</h1>
-<form action="{{ pagename }}" method="POST" id="inputform">
-    <textarea  name="text" style="width:100%; height:450px;">{% autoescape false %}{{ pagecontent }}{% endautoescape %}</textarea>
+<form action="{{ pagename }}" method="POST" id="inputform" enctype="multipart/form-data">
 
-{% if None != request.cookies.get('username') %}<button type="submit" name="SaveOrPreview" value="Save">Save</button> <button type="submit" name="SaveOrPreview" value="Preview">Preview</button> {% endif %}<a href="/{{ pagename }}.html">Cancel edit</a>
+  <!--  Floating buttons : must be in the same for mas the textarea -->
+  <div id="divButtons" style="text-align:center;position:fixed; bottom:200px; left:5px; width:80px;">
+
+    {% if None != request.cookies.get('username') %}
+    <button type="submit" name="SaveOrPreview" value="Save" style="width:75px;font-weight:bold;color:darkred;">Save</button> 
+    <button type="submit" name="SaveOrPreview" value="Preview" style="width:75px;">Preview</button> <br/>
+
+    <br/>
+    {% endif %}
+
+    <a href="/{{ pagename }}.html">Cancel edit</a><br/>
+  </div>
+  <!--  /Floating buttons -->
+
+  <textarea  name="text" style="width:100%; height:450px;">{% autoescape false %}{{ pagecontent }}{% endautoescape %}</textarea>
+
+{% if None != request.cookies.get('username') %}
+<button type="submit" name="SaveOrPreview" value="Save" style="width:100px;font-weight:bold;color:darkred;">Save</button> 
+<button type="submit" name="SaveOrPreview" value="Preview" style="width:100px;">Preview</button> 
+{% endif %}
+  <a href="/{{ pagename }}.html">Cancel edit</a><br/>
+
+  <!-- Image upload div -->
+  <div style="border: solid 1px black;background:#D0D0D0;height:100px;">
+    <table style="width:100%;height:100%;">
+      <tr>
+	<td style="width:100px;display:table-cell; vertical-align:middle; text-align:center;"><img src="/files/photouploadlogo.png" height="80" /></td>
+	<td>Choose files to upload: <input type="file" name="imgup" multiple="" /><button type="submit" name="Upload" value="Upload">Upload</button><br/>
+	  Recently uploaded files: <span id="recentupload" style="font-family:'Courier New', Courier, monospace;">{% autoescape false %}{{ recentupload }}{% endautoescape %}</span><button type='button'  id="btnCopy" onclick="copyToClipboard(document.getElementById('recentupload').innerHTML)">Copy</button></td>
+      </tr>
+    </table>
+  </div>
+  <!-- /Image upload div -->
 </form>
+
+    <script>
+  function copyToClipboard(text) {
+    text = text.replace('&lt;', '<').replace('&gt;', '>');
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+  }
+    </script>
+
 
 <hr/>
 <div style="font-width:8px;">
