@@ -199,6 +199,11 @@ h1.PageTitle {
 
 }
 
+pre {
+   background: #E0E0E0;
+   overflow-x: scroll;
+}
+
 /****************************************** Corner side ribons **************************************************************/
 /* http://codepen.io/eode9/pen/twkKm */
 .corner-ribbon{

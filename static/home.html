@@ -26,6 +26,25 @@
 ← News ! What's up and fresh in my geeky world! →<br />
 </span><span class="newsZone2">
 <!-- =========================== Start of news =========================== -->
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-04-26 - Cheap 3.5 in screens</span><br />
+Bought one of these cheap screens on eBay for 10USD, the ones that you plug onto a [[Raspi]]. And oh surprised, it works just fine from the start! Seriously, I installed a driver, but maybe it was already there from the start. A great surprise. Ok, it's SPI so you won't play movies or games, but for console it's just ok. Plus seems you can write in the Framebuffer, that looks fun ... provided one day I can compile that python lib FbPy.<br/>
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-04-17 - Finished with the FSM</span><br />
+That [[Kodi-XBMC remote]] went the LUA way in the end, so I installed a javascript mode for syntax highlighting ([[https://highlightjs.org/]]). Works fine, so now just have to code it. (PS: I don't think I'm going to like Lua)<br/>
+Also I tried to fix my team's video project which claims that one of its fan is not running... which is wrong. I shorted the temp sensors, no success. I measured the tachymeter output, a nice signal for 2 of them and a strange 10v centered +/- 3v for the big one next to the lamp. I ordered a "similar" one on eBay (12v 0.85a 5cm fan), let's see if we can solve the problem with a 300 JPY part.<br/>
+And I bought a 1 JPY ('love auctions) car dvd player screen, I'm trying to figure out how to inject composite signal inside. Already found power, the baby starts. And I already shocked myself with the inverters for the backlight (not a very pleasant feeling). There's 9 pins, 2 are power, remains 7 among which 2-3 must be the composite. More on that later...<br/>
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-04-04 - Finite state machine infinite problem</span><br />
+The [[Kodi-XBMC remote]] made a few progress but not in the right direction! I even wrote a Finite State Machine FSM to detect messages, but there is so much noise, I even get false positives with a 4byte message (means 32 false positive on the row!). Ok, I get most (not all) of the correct signal, but still, I don't want the thing to pause my movie in the middle of the action randomly. So came plan B: use a [[Arduino and ESP8266|ESP8266]] ! I have a couple bought for testing a few months ago, XBMC runs a web server as a remote, should just need to join the main NW wifi and send HTLP request to the web interface. Easy peasy! Is it? Wait and see ...<br/>
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-03-27 - Playing with oranges</span><br />
+I resumed playing with my [[Orange Pi]], with more success this time. Used the [[http://www.armbian.com/|Armbian]] distribution, works much better. Still no wifi but all the rest works fine so, maybe I'll leave it as is and use the ethernet. Maybe even try to set up a owmCloud solution?<br/>
+The [[Kodi-XBMC remote]] makes few progress because the communication between those 2 dirt cheap module is bad, simply very bad. I even made now some code with a Finite State Machine to detect the messages in the signal. Making progress though, but didn't imagine it would be that difficult to read through the tremendous amount of noise :/ Don't feel lucky with my choices of projects these days...<br/>
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-02-27 - A day well spent</span><br />
+I spent my Saturday at home because of prod problem (not our fault but we were impacted). I could code something I wanted to do for a long time: create a **file upload function** for my web engine (which runs this site). It is now done! You can even upload multiple files at once ! Kinda happy. Go and check my [[https://github.com/AlanFromJapan/alanWebSites|GitHUB]]. As a proof of my status and to use my new function, here's how I feel :<br/>
+<img src="/files/brownhappy1.png" /><br/>
+
 <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-02-25 - Kodi-XBMC remote II</span><br />
 [[Kodi-XBMC remote]] is making some progress. Got the basic setup, need to stabilize the communication with error checking and so one because the cheap 433MHz stuff are really sensible to noise. Like crazy sensible. But I'm gonna teach it who's the boss ;)<br/>
 

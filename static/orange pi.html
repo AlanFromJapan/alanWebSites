@@ -38,3 +38,30 @@ Now to the fun part.
 
 <h1>Links</h1>
 * Apparently there's another geek in Japan with a OPi2 [[http://blog.osakana.net/]]
+
+<h1>Rebooted - March 2016</h1>
+Ok, I decided to start over:
+* OS: I put an armbian [[http://www.armbian.com/orange-pi-2/]] ... oh found [[http://www.cnx-software.com/2016/03/16/orange-pi-one-board-quick-start-guide-with-armbian-debian-based-linux-distribution/|this tutorial]] (afterward of course)
+* It **MUST** run with a beefy USB power supply or the boot process will just fail and stop in the middle
+* Upgrade all //apt-get update; apt-get upgrade//
+* To enable Wifi with a small dongle, need to install nw tools: //apt-get install network-manager //
+Setting up the network with //nmcli// ([[https://docs.fedoraproject.org/en-US/Fedora/20/html/Networking_Guide/sec-Connecting_to_a_Network_Using_nmcli.html|doc1]], [[https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Networking_Guide/sec-Using_the_NetworkManager_Command_Line_Tool_nmcli.html|doc2]]):
+* Existing NW setup:  nmcli con show
+* Status of NW connections: nmcli dev status
+* Wifi NW around: nmcli dev wifi list
+* Specific connection details: nmcli connection show id //connection-id//
+* Wifi on/off : nmcli radio wifi on
+* Wifi connect: nmcli c up id //connection-id//
+* Change server name ([[http://www.howtogeek.com/167195/how-to-change-your-raspberry-pi-or-other-linux-devices-hostname/|doc]]): edit /etc/hosts, run /etc/init.d/hostname.sh, and finally reboot
+My favorite //.profile// ([[http://bashrcgenerator.com/|profile generator]]):
+<pre>alias m='emacs'
+alias emcas='emacs'
+alias cls='clear'
+alias als='ls -alF'
+#alias temp='/opt/vc/bin/vcgencmd measure_temp'
+alias killoldssh='pkill -o -u $USER sshd'
+alias cd..='cd ..'
+alias temp='cat /sys/class/thermal/thermal_zone0/temp'
+
+export PS1="\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;9m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;10m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\]\\$ \[$(tput sgr0)\]"
+</pre>

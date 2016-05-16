@@ -1,11 +1,5 @@
-<html>
-  <head>
-    <title>kalshagar - RasPi</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
+<script>hljs.initHighlightingOnLoad();</script>
+
 Official documentation : <a class="wiki_link_ext" href="http://elinux.org/R-Pi_Hub" rel="nofollow">http://elinux.org/R-Pi_Hub</a> <br />
 - Lots of tutorials : <a class="wiki_link_ext" href="http://elinux.org/RPi_Tutorials" rel="nofollow">http://elinux.org/RPi_Tutorials</a><br />
 - Troubleshooting commands : <a class="wiki_link_ext" href="http://elinux.org/RPI_vcgencmd_usage" rel="nofollow">http://elinux.org/RPI_vcgencmd_usage</a><br />
@@ -20,126 +14,33 @@ Official documentation : <a class="wiki_link_ext" href="http://elinux.org/R-Pi_H
 <ul><li>Use OwnCloud</li></ul><br />
 <h2 id="toc4"><a name="Projects and tips-Raspi as DLNA server [DONE!]"></a> Raspi as DLNA server [DONE!] </h2>
 <ul><li><a class="wiki_link_ext" href="http://pihomeserver.wordpress.com/2012/12/07/raspberry-pi-home-server-etape-8-installer-minidlna/" rel="nofollow">http://pihomeserver.wordpress.com/2012/12/07/raspberry-pi-home-server-etape-8-installer-minidlna/</a></li><li>Useful info:</li></ul>
-<style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.bash  {font-family:monospace;}
-.bash .imp {font-weight: bold; color: red;}
-.bash .kw1 {color: #000000; font-weight: bold;}
-.bash .kw2 {color: #c20cb9; font-weight: bold;}
-.bash .kw3 {color: #7a0874; font-weight: bold;}
-.bash .co0 {color: #666666; font-style: italic;}
-.bash .co1 {color: #800000;}
-.bash .co2 {color: #cc0000; font-style: italic;}
-.bash .co3 {color: #000000; font-weight: bold;}
-.bash .co4 {color: #666666;}
-.bash .es1 {color: #000099; font-weight: bold;}
-.bash .es2 {color: #007800;}
-.bash .es3 {color: #007800;}
-.bash .es4 {color: #007800;}
-.bash .es5 {color: #780078;}
-.bash .es_h {color: #000099; font-weight: bold;}
-.bash .br0 {color: #7a0874; font-weight: bold;}
-.bash .sy0 {color: #000000; font-weight: bold;}
-.bash .st0 {color: #ff0000;}
-.bash .st_h {color: #ff0000;}
-.bash .nu0 {color: #000000;}
-.bash .re0 {color: #007800;}
-.bash .re1 {color: #007800;}
-.bash .re2 {color: #007800;}
-.bash .re4 {color: #007800;}
-.bash .re5 {color: #660033;}
-.bash span.xtra { display:block; }
 
--->
-</style><pre class="bash"><span class="co0">#edit</span>
-<span class="kw2">sudo</span> <span class="kw2">vim</span> <span class="sy0">/</span>etc<span class="sy0">/</span>minidlna.conf
-<span class="co0">#restart the service after changes</span>
-<span class="kw2">sudo</span> service minidlna force-reload</pre>
+
+<pre><code class="bash">
+#edit
+sudo vim /etc/minidlna.conf
+#restart the service after changes
+sudo service minidlna force-reload
+</code></pre>
 
 <br />
 <h2 id="toc5"><a name="Projects and tips-Raspi file share SAMBA [DONE!]"></a> Raspi file share SAMBA [DONE!] </h2>
 <ul><li><a class="wiki_link_ext" href="http://pihomeserver.wordpress.com/2012/12/09/raspberry-pi-home-server-etape-10-installer-samba/" rel="nofollow">http://pihomeserver.wordpress.com/2012/12/09/raspberry-pi-home-server-etape-10-installer-samba/</a></li></ul>
-<style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.bash  {font-family:monospace;}
-.bash .imp {font-weight: bold; color: red;}
-.bash .kw1 {color: #000000; font-weight: bold;}
-.bash .kw2 {color: #c20cb9; font-weight: bold;}
-.bash .kw3 {color: #7a0874; font-weight: bold;}
-.bash .co0 {color: #666666; font-style: italic;}
-.bash .co1 {color: #800000;}
-.bash .co2 {color: #cc0000; font-style: italic;}
-.bash .co3 {color: #000000; font-weight: bold;}
-.bash .co4 {color: #666666;}
-.bash .es1 {color: #000099; font-weight: bold;}
-.bash .es2 {color: #007800;}
-.bash .es3 {color: #007800;}
-.bash .es4 {color: #007800;}
-.bash .es5 {color: #780078;}
-.bash .es_h {color: #000099; font-weight: bold;}
-.bash .br0 {color: #7a0874; font-weight: bold;}
-.bash .sy0 {color: #000000; font-weight: bold;}
-.bash .st0 {color: #ff0000;}
-.bash .st_h {color: #ff0000;}
-.bash .nu0 {color: #000000;}
-.bash .re0 {color: #007800;}
-.bash .re1 {color: #007800;}
-.bash .re2 {color: #007800;}
-.bash .re4 {color: #007800;}
-.bash .re5 {color: #660033;}
-.bash span.xtra { display:block; }
 
--->
-</style><pre class="bash"><span class="co0">#edit</span>
-<span class="kw2">sudo</span> <span class="kw2">vim</span> <span class="sy0">/</span>etc<span class="sy0">/</span>samba<span class="sy0">/</span>smb.conf
-<span class="co0">#restart the service after changes</span>
-<span class="kw2">sudo</span> <span class="sy0">/</span>etc<span class="sy0">/</span>init.d<span class="sy0">/</span>samba restart</pre>
+<pre><code class="bash">
+#edit
+sudo vim /etc/samba/smb.conf
+#restart the service after changes
+sudo /etc/init.d/samba restart
+</code></pre>
 
 <br />
 <h2 id="toc6"><a name="Projects and tips-Raspi mount a USB drive [DONE!]"></a> Raspi mount a USB drive [DONE!] </h2>
 Edit /etc/fstab<br />
 
-<style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.bash  {font-family:monospace;}
-.bash .imp {font-weight: bold; color: red;}
-.bash .kw1 {color: #000000; font-weight: bold;}
-.bash .kw2 {color: #c20cb9; font-weight: bold;}
-.bash .kw3 {color: #7a0874; font-weight: bold;}
-.bash .co0 {color: #666666; font-style: italic;}
-.bash .co1 {color: #800000;}
-.bash .co2 {color: #cc0000; font-style: italic;}
-.bash .co3 {color: #000000; font-weight: bold;}
-.bash .co4 {color: #666666;}
-.bash .es1 {color: #000099; font-weight: bold;}
-.bash .es2 {color: #007800;}
-.bash .es3 {color: #007800;}
-.bash .es4 {color: #007800;}
-.bash .es5 {color: #780078;}
-.bash .es_h {color: #000099; font-weight: bold;}
-.bash .br0 {color: #7a0874; font-weight: bold;}
-.bash .sy0 {color: #000000; font-weight: bold;}
-.bash .st0 {color: #ff0000;}
-.bash .st_h {color: #ff0000;}
-.bash .nu0 {color: #000000;}
-.bash .re0 {color: #007800;}
-.bash .re1 {color: #007800;}
-.bash .re2 {color: #007800;}
-.bash .re4 {color: #007800;}
-.bash .re5 {color: #660033;}
-.bash span.xtra { display:block; }
-
--->
-</style><pre class="bash"><span class="sy0">/</span>dev<span class="sy0">/</span>sda1       <span class="sy0">/</span>media<span class="sy0">/</span>usbhdd   ntfs    auto,user,rw,<span class="re2">uid</span>=smbguest,<span class="re2">gid</span>=smbguest,<span class="re2">umask</span>=<span class="nu0">0</span>  <span class="nu0">0</span> <span class="nu0">0</span></pre>
+<pre><code class="bash">
+/dev/sda1       /media/usbhdd   ntfs    auto,user,rw,uid=smbguest,gid=smbguest,umask=0  0 0
+</code></pre>
 
 <br />
 <h3 id="toc7"><a name="Projects and tips-Raspi mount a USB drive [DONE!]-Stop the HDD"></a> Stop the HDD </h3>
@@ -151,7 +52,7 @@ Edit /etc/fstab<br />
 <h1 id="toc10"><a name="Raspberry Pi Hardware"></a> Raspberry Pi Hardware </h1>
 <h2 id="toc11"><a name="Raspberry Pi Hardware-Hardware details"></a> Hardware details </h2>
 <h3 id="toc12"><a name="Raspberry Pi Hardware-Hardware details-List of test points and usage"></a> List of test points and usage </h3>
-<a class="wiki_link_ext" href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=89522" rel="nofollow">http://www.raspberrypi.org/forums/viewtopic.php?f=28&amp;t=89522</a><br />
+<a class="wiki_link_ext" href="http://www.raspberrypi.org/forums/viewtopic.php?f=28&t=89522" rel="nofollow">http://www.raspberrypi.org/forums/viewtopic.php?f=28&t=89522</a><br />
 
 
 <table class="wiki_table">
@@ -201,7 +102,49 @@ PP40 SDA0<br />
     </tr>
 </table>
 
+<h1>Raspberry Pi and a 3.5 Inch LCD screen</h1>
 
-    </div>
-  </body>
-</html>
+<H2>Setup of 3.5 Inch LCD</H2>
+* Bought [[http://www.ebay.com/itm/262070167290?_trksid=p2057872.m2749.l2649&ssPageName=STRK%3AMEBIDX%3AIT|this one]]
+* Used this [[http://www.spotpear.com/learn/EN/raspberry-pi/Raspberry-Pi-LCD/Drive-the-LCD.html|this driver]] from SpotPear. They seemed the most "serious" and recent. Worked as a charm.
+* This is <a href="/files/Raspberry+Pi+Custom+Mirror+LCD+Driver.zip">the official driver I got from the vendor</a>. There's even a nice PDF. It's a **Waveshare** screen.
+Here's what I did (in case the SpotPear page gets eaten by the Internet black hole):
+<ol>
+* Download the driver (at the time I write this, it was <a href="/files/LCD-show-151102.tar.gz">LCD-show-151102.tar.gz</a>)
+* Un-tgz it and run the "sudo ./LCD35-show"
+* Thats all
+</ol>
+
+<H2>Things to remember</H2>
+<ul>
+* Device is a Framebuffer at **/dev/fb1** 
+* "To change the blanking of the screen on console just append the line consoleblank=0 to the /boot/cmdline.txt and restart!" ([[https://forums.adafruit.com/viewtopic.php?f=50&t=86760|source]])
+* **fbset** tool for getting details 
+* There's a python lib named [[https://pypi.python.org/pypi/fbpy|FbPy]], and she doesn't work from the start so:
+<ul>
+* sudo apt-get install python-dev libffi-dev
+* sudo pip install cython
+* sudo pip install numpy
+* export CFLAGS=-I/usr/local/lib/python2.7/dist-packages/numpy/core/include/
+* sudo pip install cffi
+* sudo pip install JACK-client
+* pip install fbpy
+</ul>
+</ul>
+<H2>Other resources</H2>
+* One how to setup. Is it the good one? [[http://www.circuitbasics.com/setup-lcd-touchscreen-raspberry-pi/]]
+* http://www.circuitbasics.com/setup-lcd-touchscreen-raspberry-pi/
+* http://en.kedei.net/raspberry/raspberry.html
+* Typical touchscreen chip that Raspi knows: **[[http://www.ti.com/product/ADS7846|ads7846]]**
+* another driver that looks like the **official** in fact :/ : [[https://github.com/notro/fbtft]]
+
+<h1>Raspberry Pi 3</h1>
+Bought April 2016, here's the different steps I used to set it up.<br/>
+* [[https://www.raspberrypi.org/documentation/configuration/raspi-config.md|sudo raspi-config]] : extand the disk space, change hostname, make graphic memory 16 (min), change local, wifi country
+* sudo apt-get update
+* sudo apt-get upgrade
+* sudo apt-get install emacs-nox htop python-setuptools
+⇒ install emacs without X modules, htop, python's //easy_install// so you can get //pip// tool
+* sudo easy_install pip
+⇒ install python's //pip// tool
+* setup the wifi [[https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md]]

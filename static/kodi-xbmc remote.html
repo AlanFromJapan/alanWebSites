@@ -1,16 +1,51 @@
 <h1>Why why why oh why?</h1>
 New android OS upgrade now forbids my [[https://play.google.com/store/apps/details?id=org.leetzone.android.yatsewidgetfree&hl=en|Yatse]] (very good software btw) to be on the lock screen as before. Result, now I have to unlock my screen each time I want to play/pause, navigate, etc... awfully annoying.<br/>
 I made recently some [[USB without Arduino|fun things with USB]], Kodi/XBMC works just fine when driven by keyboard, I bought a bunch of eBay inexpensive **kst-tx01 / kst-rx706** ... see where I'm going?<br/>
-<img src="/files/kodi-xbmc-hld.JPG" alt="high level design"/>
-<h1>About the cheap wireless link</h1>
+And for memory, there's 2 alternate options [[http://kodi.wiki/view/Remote_controls/MCE|listed  here]]: use a MCE remote (450 JPY on eBay) or the TV CEC commands.<br/> 
+<h1>Option 1: using a [[Arduino and ESP8266|ESP8266]] <span style="color:orange;">[Jury is still out...]</span></h1>
+Seeing that the below ↓ solution with a cheap RF module was a failure, let's try using those [[Arduino and ESP8266|ESP8266]] modules. I will use [[http://benlo.com/esp8266/|LUA on ESP8266]]<br/>
+<h2>BOM</h2>
+<ul>
+* ESP8266 for the wifi: runs the NodeMCU firmware and a small script in LUA
+* An Arduino Pro (ATmega328, 8MHz, 3.3v) because it's in the toolbox for years (litterally). I want to be lazy and just use a library, not reinvent the Serial lib again.
+* A scavenged Li-Ion library from somewhere (old cellphone, old laptop, ...)
+* A 3.3v low drop regulator: the [[http://akizukidenshi.com/catalog/g/gI-01177/|Sharp PQ3RD23]]. I know I should use a boost/buck converter, yet there's none in my toolbox that takes 4.2v-2.7v in and spits 3.3v. And all the modules on eBay look clunky and not in my posession. So it's not optimum, but should work.
+* A few buttons: play/pause, stop, turn off, up-down-left-right, back. Could even skip the turn off.
+* A way to control the power: I don't want it "ON" all the time of the ESP8266 will suck the battery dry in no time though I'm not sure I'll press one touch per day (some time I just don't use that home center)
+* Bling bling and glue
+</ul>
+<h2>Program</h2>
+All is [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/ESP8266/kodi-xbmc_remote|on my GitHUB]].
+<h3>ESP8266 and LUA</h3>
+As said before, uses NodeMCU: it's a bit strange at the begining, but it works fine once you get it. Make yourself a quick rig to upload the firmware: you're gonna want to use this puppy more and more.<br/>
+Same goes for LUA, I was reluctant at first, but ended liking this convenient little scripting language. No way I'd make a living with it, but it fits the purpose nicely and has some nice language paradigms.<br/>
+<br/>
+Two files:
+* An //init.lua//, just to be compliant with the common usage. Just loads the other file.
+* //kodi-remote.lua// which contains just a few methods to call your remote via the webinterface. All the parameters have to be passed by the external mCU (the arduino-like) via the serial interface. Basically, just need to send that on the serial interface:
+<pre>callKodiRemote("192.168.0.5", 8090, "the encoded login:password", '{ "id" : "1", "jsonrpc" : "2.0", "method": "Input.Up" }')</pre>
+Credentials are encoded with the usual [[https://en.wikipedia.org/wiki/Basic_access_authentication|HTTP Basic Authentication]] method: "login:password" and encode that in Base64, your're good to go. <br/>
+<br/>
+The code returns nothing, success or not. I know it's bad. Sue me.
+<h1>Option 2: using a cheap wireless link <span style="color:red;">[FAILED!]</span></h1>
 I bought a few of those wireless link (433MHz and another 300 something MHz) thinking it would be blindly reliable: in my case kst-tx01 and kst-rx706 (which seems outdated since I can find reference for the rx806 only). I was oh so wrong. They are dirt cheap, like 2-3 USD max but you get for your money: communication range is enough if we're talking in a reasonable sized room, but the noise is **incredible**. Seriously, some people say you can use them "like a wire in case of low radio wave noise environment". I think it means north pole or in the high plains of Khazakstan. In Tokyo I have more noise than message. Forget the "as a wire" analogy, you have to manually implement a control protocol. Ok I could spare me the pain and buy a 7 USD better module (plenty of them on Seeedstudio.com) or even splurge with an XBee module, but I hate to waste and I never turned down a good challenge. So here we go...<br/>
+<img src="/files/kodi-xbmc-hld.JPG" alt="high level design"/>
 <br/>
 Luckily for me, I want to send:
 * Extra simple messages: one byte of data is enough
 * very low transmission rate: as long as one message is transferred successfully per second I'm good. I don't care to press play/pause faster than that.
 * Low number of different messages: I'll need play/pause, stop, turn off, up-down-left-right, back ... give or take 10 messages is enough
 <br/>
+<h2>Solution 1: signal analysis (extraction of signal out of moisy message)</h2>
 So all this wrapped up together makes this solution popup in my mind: message is 2 byte: one header for synch, one for message. Synch can be 0xAA, already used in ethernet because it becomes 0b10101010 ... nice to detect. Message I can use the 4 high bits being the code I want (makes me 16 possibilities), the 4 lower bits will be a checksum. Overkill? yeah maybe.<br/>
 Then since communication is one way only, sender (the remote) can not know if the receiver got the message properly. And clicking frenetically to pause my episode of TBBT doesn't raise my interest. So let's say (disregarding the transmission speed that we'll see later but we can assume to be < 100ms), remote can send the same message n times (3?) and the receiver ignores if it received a same message multiple time within say 1 sec. I could even maybe add a seq num like in TCP which would make it even more fool proof (let's call it plan B).<br/>
-<h2>Signal analysis theory</h2>
 Ok so I have engineer's degree but statistics and analogic have never ever be my forte (far from it). Now I try to extract an intermittent, changeant, partially only predictable signal. Not easy.<br/>
+<img src="/files/signalaveraging.png" />
+<h2>Solution 2: state machine</h2>
+The other option relates to something I saw with the oscilloscope during my tests: //signal is always noisy (from average to OMG level) except for a little amount of time (100ms?) after a 1 has been received//. Why that, I have no idea but I could reproduce that experimentally at will; after a 1 is sent, the receiver remains at 0 for a little delay before becoming noisy again. Know we know that, let's leverage it: it means that I can have good hope to send a signal safely provided that max time between two 1s is less than that noise resilience time. Now 2 things come to help: I have a small number of messages to transfer and their format can be precalculated and fixed.<br/>
+Now I should be able in theory to read messages provided I precalculate them, choose carefully my transmission frequency/messages to now leave a big gap made of 0s that would end up jamming. But now comes the new challenge: I need to detect the begining of the message, read it all and recognize it. Yesterday evening in bed (yeah) it came to my mind: that's what a lexer or any state machine does in regex processing. And my state machines can be pretty simple: they all start the same, only last few bits can be the real payload (as said above, 4 bits are enough). <br/>
+I'll pay attention to maintain a certain distance between each messages to avoid confusion (each message must be different by more than x bits, x being the distance).  That means I'll need more than 4 bits in the end, but hey, message takes 30 or 40ms to transfer, what's the difference to a human scale in my case? 
+<img src="/files/Finite_state_machine.png" />
+<h2>Solution 3: Manchester</h2>
+Since as seen above transmitting a 1 stabilizes the line for some time, what about doing some Manchester encoding and sending always transitions and varying on ... whatever [[https://en.wikipedia.org/wiki/Manchester_code|Manchester does]].
+* [[https://mchr3k.github.io/arduino-libs-manchester/]]

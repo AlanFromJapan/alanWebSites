@@ -1,0 +1,35 @@
+My old tiny laptop stated to have a hard time under windows 7, and its small disk forced me to reinstall. So reinstalling for reinstalling, let's go Linux! Under the advice of a friend of mine (thanks Ivan), I installed a Linux mint 17.3 "Rosa".<br/>
+It's a good distribution, and over the last 20 years Linux made so much progress from those debians or redhats I installed when I was 15 (ah youth). Come to think of it that was also under the suggestion of my Linux senpai "Christophe".<br/>
+Enough rambling, down to business...<br/> 
+
+<h2>Install</h2>
+Use **synaptic** to do the installs unless otherwise specified:
+<ul>
+* arduino
+* eclipse (article about [[http://interactive-matter.eu/how-to/developing-software-for-the-atmel-avr-with-avr-eclipse-avr-gcc-avrdude/|avr dev under eclipse]] and another about  [[http://playground.arduino.cc/Code/Eclipse|Arduino and eclipse]] cohabitation)
+* avr-gcc and most of the avr* packages, avrdude, etc...
+* binutils and binutils-avr (should be installed as dependency anyway)
+* emacs
+* htop
+* iBus for [[http://www.localizingjapan.com/blog/2014/07/29/japanese-input-on-linux-mint-17-qiana-cinnamon/|Japanese input]]
+* keepass
+</ul>
+
+<h2>Additional setup</h2>
+<h3>Using USB ports</h3>
+You need to be sudoer to use the usb ports :( Found the explanation [[http://stackoverflow.com/questions/5412727/avrisp-mkii-doesnt-work-with-avrdude-on-linux|here]]. Problem is **udev** that is acting a bit.
+* You need your user to be in the group //dialout//
+* You need to add a rule in /etc/udev/rules.d/ folder. Basically copy the following code in a file like 10-local.rules to override rules by default. You can find the details of your USB programmer with //lsusb -v// (mine is a avrisp mkII and has Product ID 2104)
+<pre>
+SUBSYSTEM!="usb", ACTION!="add", GOTO="avrisp_end"
+
+# Atmel Corp. JTAG ICE mkII
+ATTR{idVendor}=="03eb", ATTR{idProduct}=="2103", MODE="660", GROUP="dialout"
+# Atmel Corp. AVRISP mkII
+ATTR{idVendor}=="03eb", ATTR{idProduct}=="2104", MODE="660", GROUP="dialout"
+# Atmel Corp. Dragon
+ATTR{idVendor}=="03eb", ATTR{idProduct}=="2107", MODE="660", GROUP="dialout"
+
+LABEL="avrisp_end"
+</pre>
+* a small restart of udevd might be needed, but the README file in the config folder says not needed... anyway, unplug and replug your programmer, you don't need to sudo anymore
