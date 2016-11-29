@@ -1,0 +1,52 @@
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Use a **Rubidium Frequency Standard** (model **FE5650a** Option 58) as a counter: you start at a point of time, you use the RFS to measure time passing by ans since it's ultra precise, you're in for an extra precise time keeping.
+<h2>Points of interrest</h2>
+<h1>Schematics</h1>
+<img src="/files/FE5650A-pin-out.gif" /><br/>
+In //my// case the wiring will be: 
+* <span style="color:red;">Red</span>: +15V
+* <span style="color:black;">Black</span>: 15V Ground
+* <span style="color:green;">Green</span>: +5V
+* <span style="color:white;background-color:black;">White</span>: 5V Ground
+
+* <span style="color:blue;">Blue</span>: Test 8Mhz output
+* <span style="color:gray;">Gray</span>: Lock
+* <span style="color:orange;">Orange</span>: 1 PPS TTL
+
+<h2>Bill of materials</h2>
+* Connector is [[http://www.digikey.com/product-detail/en/te-connectivity-amp-connectors/5-104893-2/A115267-ND/2261437|this one]] and too expensive for me (honnestly 6.5 USD + shipping for a piece of plastic, no thank you)
+<h1>Implementation</h1>
+<h2>Serial communications</h2>
+All the pictures found on the net mention a Sipex SP233ACT chip as the U404 on the silkscreen, but on my RFS the trace is unpopulated and instead a tiny-tiny 8 pin TSOP chip with "FDM" written on is here. And the serial 4 pin connector is gone, replaced by a nice molex (?) connector at the top with 15 pins. So conclusion, I have a more recent version.<br/>
+Checking the pinout of the original SP233ACT and my tiny chip, I can see that in fact the Serial1 is implemented, and I can wire them easily (^_^)v<br/>
+<br/>
+<img src="/files/fe5650a-serial_comparison.jpg" /><br/>
+<i>
+**Left: **what I have. Notice in the bottom-right corner the big printout free and the small chip. <br/>
+**Right: ** what I found on the net, looks pretty older compared to my version (not necessarily a good thing).<br/>
+The bottom right pinout should be (left to right): Gnd - Tx - Rx - 5v - 5v<br/>
+</i>
+<br/>
+<img src="/files/fe5650a-serial_comparison_pinout2.jpg" /><br/>
+//4 pins are mapped easily to the original circuit, let's use them. The rest must be power.//<br/>
+<br/>
+<img src="/files/fe5650a-serial_comparison_pinout3.jpg" /><br/>
+//Indeed, that smells like it. We need to use the pins T1IN and R1OUT because we'll be TTL side.//
+<br/>
+<h1>Source code</h1>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+* [[http://www.dty.sakura.ne.jp/keisoku/rubidium/fe5650.htm]] (Japanese)
+* [[http://www.leapsecond.com/museum/fei5650a/]]
+* [[http://www.qsl.net/zl1bpu/PROJ/Ruby.htm]]
+* EEVblog #236 <a href="https://www.youtube.com/watch?v=FRdGsSu5Nec">https://www.youtube.com/watch?v=FRdGsSu5Nec</a>
+* EEVblog #235 <a href="https://www.youtube.com/watch?v=I55uLRRvLCU">https://www.youtube.com/watch?v=I55uLRRvLCU</a>
+* Mike electronic stuffs takeof <a href="https://www.youtube.com/watch?v=ymV9LwhD0W0">https://www.youtube.com/watch?v=ymV9LwhD0W0</a>
+* FAQ [[http://www.ko4bb.com/doku2015/doku.php?id=precision_timing:fe5680a_faq]]
+* Misc [[http://www.ko4bb.com/doku2015/doku.php?id=precision_timing:fe5680a_pin-out]] 
+* Misc [[http://www.ko4bb.com/doku2015/doku.php?id=precision_timing:fe_series_oscillators]]
+
+<h2>Inspiration</h2>
+* The main inspiration: [[http://hackaday.com/2014/11/27/jaw-dropping-atomic-clock-build/]]

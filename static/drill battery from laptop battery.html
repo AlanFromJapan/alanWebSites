@@ -4,12 +4,46 @@ So let me explain how I did it...<br/>
 <h1>Principle</h1>
 <div style="border: solid 2px red;text-align:center;"><b>DISCLAIMER</b> (especially for the trolls)<br/>
 I <b>know</b> this is not the optimum way to make a multiple cell Li-Ion charger. I can already see the foam on the lips of internet trolls.<br/>
-I like the idea of reusing different components, combining them together and making them work as one. Like this charger. I know that if I spent a few hours on mouser I'd find a component that do just what I want for a few bucks, or maybe a all made module on eBay for 10 bucks... I like the challenge, I like the "rusticity" of the build, it's gonna be unique, clickety, with bling bling, clumsy, and maybe a fire hazard. So just don't make the same as me, but you're free to watch.</div>
+I like the idea of reusing different components, combining them together and making them work as one. Like this charger. I know that if I spent a few hours on mouser I'd find a component that do just what I want for a few bucks, or maybe an already-made module on eBay for 10 bucks... but I like the challenge, I like the "rusticity" of the build, it's gonna be unique, clickety, with bling bling, clumsy, and maybe a fire hazard. So just don't make the same as me, but you're free to watch.<br/>
+PS: yes I know I made a few blunders in this project, mainly I must have been very tired when this idea of optocoupler came to me where a simple pull-up would have sufficed. Don't hit a man on the ground please, he's ashamed enough.
+</div>
 <h1>Schematics</h1>
-<img src="/files/lion_drill_charger_schema1.png" />
+<img src="/files/drill_liion_schema_-_full.png" />
 <h2>Bill of materials</h2>
-* Micro controller: TBD
+For the battery:
+* 4x Li-Ion 18650 batteries scavenged from my office laptop old battery
+For the charger:
+* Micro controller: [[ATtiny26]] because I got some the other day in my //fukubukuro// so why not. Plus I'm just right good for the pin number.
 * Relay (x8): hk4100f-dc5v-shg (cheap 5v relays on eBay)
-* Transistor array to drive the relays: [[http://akizukidenshi.com/catalog/g/gI-02771/|Toshiba TD62064APG]]
-* LiPo charger: whichever found on eBay for 2 bucks. Mine is based on Top Power TP4056, a 1A max charger.
-* Connector: I used a 5 pins connector found on eBay
+* Transistor array to drive the relays: a [[http://akizukidenshi.com/catalog/g/gI-02771/|Toshiba TD62064APG]] with 4 NPN (sink) darlingtons inside
+* LiPo charger: whichever found on eBay for 2 bucks. Mine is based on Top Power TP4056, a 1A max charger. However never measured sucking more than 420mA.
+* Connector: I used a 5 pins connector found on eBay, pretty nice ([[http://www.ebay.com/itm/321923778152|that one]])
+* Optocoupler: 2 Sharp PC817 to read the LEDs of the LiIon charger (you don't need that in fact if you think 5 minutes... not like me)
+* Leds for the bling bling, resistors, caps, ... the usual works.
+
+<h2>General principle</h2>
+If the 4 liion batteries were in parallel, since they come from the same pack originally, one could assume it's safe to charge them in parallel. However one would have only ~4v output and one would sit on his drill because it would never turn...<br/>
+So the liion cells are in serie, the 4 of them for an output that will be in the range [14.8 ~ 16.8]. That's more than the nominal of the drill, but it's just a motor, and it will just eat a +10% overvoltage, so nothing to worry much about. Plus it's a drill which you run by bursts, not continuous so we'll live with it.<br/>
+<img src="/files/drill_liion_schema.png" /><br/>
+When the drill is operated, circuit is closed and all work as a serial bank of batteries. Now problem is when to charge: you can't charge liion in serie (nope). So simple solution is to isolate each cell and charge them individually. In the above schema, to charge cell (1), you connect the point (A) to the (Bat+) of the charger, (B) to (Bat-) and you're in business! Electrons will flow between these points only, leaving the other celles untouched. Then to the next cell, plug (B) to (Bat+) this time, (C) to (Bat-) and repeat. That pluging thing is done by some MOSFET I guess on the charging board that is in the laptop battery. In my case, because I <span style="text-decoration:line-through;">didn't thought of it</span> preferred to use small relays I bought before. More seriously, with relays I get a physical connection and disconnection of the circuit. I felt more safe for now due to my current knowledge of Liions cells and MOSFETs.
+
+<table>
+<tr style="font-weight:bold;">
+<td>Action</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td>
+</tr>
+<tr><td>Use the battery</td><td>x</td><td>x</td><td>x</td><td>x</td><td>x</td></tr>
+
+<tr><td>Charge cell 1</td><td>Bat+</td><td>Bat-</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td>Charge cell 2</td><td>x</td><td>Bat+</td><td>Bat -</td><td>x</td><td>x</td></tr>
+<tr><td>Charge cell 3</td><td>x</td><td>x</td><td>Bat +</td><td>Bat -</td><td>x</td></tr>
+<tr><td>Charge cell 4</td><td>x</td><td>x</td><td>x</td><td>Bat +</td><td>Bat -</td></tr>
+
+</table>
+
+Looking at the table we conclude there are 4 different configurations only (duh ... we have 4 cells) and all of them are mutually excluding (no overlap). So 4 transistors can drive 4 //pairs// of relays, and we can therefore charge each battery individually.<br/>
+Last part: when to stop? Easy. Those 2 USD chargers have leds, so just read their status. I used some optocoupler which is an overkill because we're operating on the same power source (USB) so no need to isolate, and now 2 weeks later as I type this I understand I should have used the config of the leds on that chip as a pullup: the pins 6 & 7 of the TP4056 are high impedance (not at same time), I should have soldered the resistor in place of the led and measure voltage there with my ATtiny26 (pullup so high if led should be off, low if led should be on)... anyway, now it's done and glued so I'll live with it an my over engineering of 30 JPY.<br/>
+<img src="/files/drill_liion_schema_-_leds.png" /><br/>
+<h1>Source code</h1>
+All the source code <a href="https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny26/LiionDrillCharger">on GitHub</a> as usual.
+<h1>Pictures</h1>
+<img src="/files/Liion_charger_schema_explained.jpg" />

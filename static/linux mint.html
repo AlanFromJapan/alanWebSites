@@ -33,3 +33,8 @@ ATTR{idVendor}=="03eb", ATTR{idProduct}=="2107", MODE="660", GROUP="dialout"
 LABEL="avrisp_end"
 </pre>
 * a small restart of udevd might be needed, but the README file in the config folder says not needed... anyway, unplug and replug your programmer, you don't need to sudo anymore
+
+<h2>Burnin CD/DVD on USB</h2>
+Found that on the net, used on the Xbmcbuntu pc, should work the same:
+<pre>sudo growisofs -dvd-compat -Z /dev/sr0=whatever-iso-you-want-to-burn.iso</pre>
+/dev/sr0 is my DVDRom, might be different. Use dmesg to see where it's mounted for you.

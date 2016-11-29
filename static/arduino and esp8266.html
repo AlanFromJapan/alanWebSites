@@ -13,9 +13,19 @@ See the page about [[Raspi]], most of the setup will be there. See the [[http://
 * put the main.cpp file (arduino syntax) in src/
 * platformio run
 ⇒ will //build// the project
+<h2>Firmware uploading</h2>
+Just use [[https://github.com/espressif/esptool|esptool]]:
+* git clone https://github.com/espressif/esptool.git
+* Push firmare: sudo python esptool.py --port /dev/ttyUSB0  write_flash 0x00000 The_Path_To_The_NodeMCU_Firmware.bin
 
 <h1>LUA on ESP8266</h1>
-[[http://benlo.com/esp8266/]]
+* [[http://benlo.com/esp8266/]] is a good entry point
+* Get the LUA firmware? Go to this page and build your own [[https://nodemcu-build.com/]]
+<br/>
+**Flashing:**
+* Install [[https://github.com/espressif/esptool|esptool]]
+* Clean all //esptool.py --port COM2 erase_flash//
+* Flash //esptool.py --port COM2 write_flash -fm qio 0x00000 "nodemcu_0.9.5.bin"//
 
 <H1>Random old stuff</h1>
 For uploading the firmware:<br />
