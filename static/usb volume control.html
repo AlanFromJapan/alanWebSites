@@ -1,15 +1,33 @@
-<i>Disclaimer: this is just my recreation of the one found here [[http://obruboff.ru/english-pages/usb-volume-control/]]. All credits go to him, many thanks for sharing! Спасибо!</i>
+<span style="background-color: #ffb500;
+text-align: center;
+display: block;
+font-weight:bold;">
+<i>Disclaimer: this is just my recreation of the one found here [[http://obruboff.ru/english-pages/usb-volume-control/]]. All credits go to him, many thanks for sharing! Спасибо!</i><br/>
+Software: <a class="wiki_link" href="USB%20without%20Arduino.html">USB without Arduino</a><br />
+Hardware: <a class="wiki_link" href="RapideUSB.html">RapideUSB</a> </span><br />
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
 <h2>Points of interrest</h2>
+Important subtlety I didn't get at first: we implement a "<u>Consumer device</u>" **not** a "Keyboard"! Hence my surprise that the codes for the Volume control on Keyboard and the ones implemented were different (see the [[http://www.usb.org/developers/hidpage#HID_Usage|HID doc]] chapter 10 vs. chapter 15).<br/>
+Good thing is there are lots of nice functions possible to implement too, like a "Next" button that I'm much more interrested to bind to the click of the rotary encoder to that rather than mute.<br/> 
+
 <h1>Schematics</h1>
 <h2>Bill of materials</h2>
+<ul>
+* Rotary encoder, in my case cheapo eBay guys which are **not** EC11 as I lost hours to understand (thank you eBay vendor). Same principle though: 2 pins A & B pulled up, if you turn left they go low in order A then B, if you turn right it's B then A. Once you get that, you're in business. But again **not** fancy encoders with state keeping like EC11 of Alps.
+* A board for USB, like the great [[RapideUSB]] board by your host (^_^)
+* All the usual V-USB dings and dents : 2x 3.6v Zener diodes, 2x 68 ohm resistors, 1x 1.5kOhm, 12MHz crystal, caps, ...
+* [[ATtiny2313]] or [[ATmega8a]] for instance, but program is small so no real problem here. You'll just need a few pins to read the encoder and the button
+* Some leds for the bling bling
+</ul>
 <h1>Implementation</h1>
 <h1>Source code</h1>
+As usual [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Atmegaxx8/UsbVolumeControl|in Github]].
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 
 <h2>Inspiration</h2>
 * This is just my implementation of this so many thanks for sharing !See original here ⇒ [[http://obruboff.ru/english-pages/usb-volume-control/]]
+* Default keyboard mapping: [[http://www.usb.org/developers/hidpage#HID_Usage]] in Section 15 "Consumer Page"

@@ -1,0 +1,30 @@
+<span style="
+background-color: lightgrey;
+display: block;
+border: solid 1px darkgrey;
+text-align:left;
+padding-left:40px;
+">
+<br/>
+**README:** this is the same board as the [[Alan numitron clock]] but with changes on the tubes board to host some [[nixie tubes and alike|Numitron IV6 tubes]], and some additional parts to generate the high and low voltage needed.
+<br/>
+<br/>
+</span>
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+A clock using the low voltages [[nixie tubes and alike|Numitron IV6 tubes]]. They need 2 voltages, ~1v and ~20v to shine with all their blue power. So need to generate those voltages too: the high one via those inexpensive voltage boost converter of eBay, the low one with a voltage divider.<br/>
+I'll also use the occasion to use those addressable WS2812B Leds that are everywhere on internet: much less hardware hassle, it goes to the mCU. And since it was busy doing nothing, that shouldn't be a problem.
+<h2>Points of interrest</h2>
+* Usage of Numitron IV6
+* Sink-side driving the tubes 20v with a combo of ULN2803 (NPN darlinton array) and 74xx595 (SIPO)
+* Play with thoses WS2812B leds
+* My first <span style="color:blue;">blue</span> board
+<h1>Schematics</h1>
+<h2>Bill of materials</h2>
+<h1>Implementation</h1>
+<h1>Source code</h1>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
