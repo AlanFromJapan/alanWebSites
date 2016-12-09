@@ -37,9 +37,9 @@ def wikilize(html):
     compLink = re.compile(link, re.X | re.U)
     for i in compLink.findall(html):
         title = [i[-1] if i[-1] else i[1]][0]
-        url = i[1].lower()
+        url = i[1]
         if not url.startswith("http://") and not url.startswith("https://"): 
-            url = "/" + url + ".html"
+            url = "/" + url.lower() + ".html"
         formattedLink = u"<a href='{0}'>{1}</a>".format(url, title)
         html = re.sub(compLink, formattedLink, html, count=1)
 
