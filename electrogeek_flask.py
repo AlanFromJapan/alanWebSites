@@ -37,9 +37,9 @@ def wikilize(html):
     compLink = re.compile(link, re.X | re.U)
     for i in compLink.findall(html):
         title = [i[-1] if i[-1] else i[1]][0]
-        url = i[1].lower()
+        url = i[1]
         if not url.startswith("http://") and not url.startswith("https://"): 
-            url = "/" + url + ".html"
+            url = "/" + url.lower() + ".html"
         formattedLink = u"<a href='{0}'>{1}</a>".format(url, title)
         html = re.sub(compLink, formattedLink, html, count=1)
 
@@ -145,9 +145,23 @@ def newPage(page):
     if os.path.isfile(targetFilePath):
         return redirect("/"+ page.lower() +".html")
 
-    #make an empty page
-    with open(targetFilePath, 'a'):
+    #make an empty page based on template
+    #make sure this path is a *safe* path : get the template path from flask (at least where flask expects it)
+    vFilePath =  \
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates') \
+        + "/" \
+        + Config.get("Design", "NewTemplate")
+
+    #get the new page template content
+    with open(vFilePath, mode="r") as f:
+        vBody = f.read().decode("utf-8")
+
+    #write the new page with the content and do some pattern replace 
+    with open(targetFilePath, 'a') as fout:
         os.utime(targetFilePath, None)
+        vBody = vBody.replace('%PAGE_NAME%', page)
+        fout.write(vBody)
+
     #...and go there
     return redirect("/edit/"+ page.lower())
 
