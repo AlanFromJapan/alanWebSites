@@ -16,15 +16,37 @@ padding-left:40px;
 A clock using the low voltages [[nixie tubes and alike|Numitron IV6 tubes]]. They need 2 voltages, ~1v and ~20v to shine with all their blue power. So need to generate those voltages too: the high one via those inexpensive voltage boost converter of eBay, the low one with a voltage divider.<br/>
 I'll also use the occasion to use those addressable WS2812B Leds that are everywhere on internet: much less hardware hassle, it goes to the mCU. And since it was busy doing nothing, that shouldn't be a problem.
 <h2>Points of interrest</h2>
-* Usage of Numitron IV6
+* Usage of [[Nixie tubes and alike|Numitron IV6]]
 * Sink-side driving the tubes 20v with a combo of ULN2803 (NPN darlinton array) and 74xx595 (SIPO)
 * Play with thoses WS2812B leds
 * My first <span style="color:blue;">blue</span> board
 <h1>Schematics</h1>
 <h2>Bill of materials</h2>
+**Mandatory:**
+* [[Nixie tubes and alike|Numitron tubes IV6]] x4
+* 74xx595 SIPO SMD x4
+* ULN2803 driver SMD SOIC18 x4
+* Capacitor 1uF SMD1206 x1
+* Capacitor 22uF SMD x1
+* Some way to make 20~30v for the IV6 tubes
+**Optional:**
+* WS2812B RGB led with 1wire x4
+* Resitor 470ohm SMD1206 x2 (for the colon in the middle)
+* Led for colon x2
 <h1>Implementation</h1>
 <h1>Source code</h1>
 <h1>Pictures</h1>
+<img src="/files/tinynumitronboard-extended_iv6.v1.0.png" /><br/>
+//The board as of Eagle//<br/>
+<img src="/files/20161217_114224.jpg" /><br/>
+//And the result from Seeedstudio//<br/>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
+<h3>Voltage boost to 30v</h3>
+<ul>
+* [[http://www.hackerspace-ffm.de/wiki/index.php?title=LED_step-up_converter_with_ATtiny85]] 
+* [[http://renaud.schleck.free.fr/nixie.php]] 
+</ul>
+
 <h2>Inspiration</h2>
+* that circuit <a href="http://www.ebay.com/itm/IV-11-VFD-TUBE-CLOCK-DIY-WITH-REMOTE-AND-ALARM-6-TUBE-SOLDERING-KIT-nixie-era-/162222652219?&_trksid=p2056016.m2518.l4276">on ebay</a>

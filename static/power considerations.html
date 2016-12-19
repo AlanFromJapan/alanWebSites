@@ -1,11 +1,3 @@
-<html>
-  <head>
-    <title>kalshagar - Power considerations</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
 <h1 id="toc0"><a name="Voltage Regulator"></a> Voltage Regulator </h1>
 Why because the Arduino has one ? Well, the Arduino 2009 has a good one, to my personal experience. The arduino pro has a lame one ... meaning it dies by iteself if you feed it with 9V. So better pre-regulate the voltage before feeding it.<br />
 <br />
@@ -16,7 +8,9 @@ THE voltage regulator. Feed it with something over 5V and below 12V (depends on 
 Variable output voltage regulator. Give it a few resistors, and you get whatever voltage you want!<br />
 Formula is Vout = 1.25 * (1 %20 R1 / R2)<br />
 Schema and explanation here... <br />
-<ul><li><a class="wiki_link_ext" href="http://electrossama.ifrance.com/electro/C6.htm" rel="nofollow">http://electrossama.ifrance.com/electro/C6.htm</a></li><li><a class="wiki_link_ext" href="http://www.onsemi.com/PowerSolutions/product.do?id=LM317" rel="nofollow">http://www.onsemi.com/PowerSolutions/product.do?id=LM317</a></li></ul><br />
+<ul>
+* Nice pre-calculated table [[http://www.reuk.co.uk/wordpress/electric-circuit/lm317-voltage-calculator/]]
+<li><a class="wiki_link_ext" href="http://electrossama.ifrance.com/electro/C6.htm" rel="nofollow">http://electrossama.ifrance.com/electro/C6.htm</a></li><li><a class="wiki_link_ext" href="http://www.onsemi.com/PowerSolutions/product.do?id=LM317" rel="nofollow">http://www.onsemi.com/PowerSolutions/product.do?id=LM317</a></li></ul><br />
 <h1 id="toc3"><a name="Constant current"></a> Constant current </h1>
  <ul><li>Simple design and explanation for a constant current constant voltage by the fantastic Dave Jones <a class="wiki_link_ext" href="https://www.youtube.com/watch?v=CIGjActDeoM" rel="nofollow">https://www.youtube.com/watch?v=CIGjActDeoM</a></li></ul><br />
 <h1 id="toc4"><a name="Battery life"></a> Battery life </h1>
@@ -38,7 +32,7 @@ Schema and explanation here... <br />
 <h2 id="toc12"><a name="Voltage doubler / Step-up converter-With an IC"></a> With an IC </h2>
 <ul><li>Maxim MAX668 (but looks like to need lots of additional components)</li><li>Maxim MAX662 (but low output current)</li><li>This works with AC. And DC ? <a class="wiki_link_ext" href="http://www.thescienceforum.com/Any-one-know-how-i-can-build-a-Step-Up-transformer-16557t.php#img_82" rel="nofollow">http://www.thescienceforum.com/Any-one-know-how-i-can-build-a-Step-Up-transformer-16557t.php#img_82</a></li><li>With IC MAX756 <a class="wiki_link_ext" href="http://www.ladyada.net/make/mintyboost/icharge.html" rel="nofollow">http://www.ladyada.net/make/mintyboost/icharge.html</a></li></ul><br />
 <h1 id="toc13"><a name="Wall wart"></a> Wall wart </h1>
-A common problem is the power source for my projects. Nearly all need their 5v regulated power source. Not such a burden when it's anyway plugged to USB or meant to be fed by a wallwart. But when it comes to the projects like <a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a> for instance that drives already a power plug, it forces me to do some complex, annoying and questionnably safe operations &quot;ghetto style&quot;. One good solution I wander around for some time is to open one of thoses small wallwart and connect directly to the right pins (as much for the AC and the DC). The following tutorial is not so much a surprise (kinda guessed what I would find or at least how to use what's inside a wallwart) but it's the &quot;red berry experience&quot; (as Dr. House explained) : seeing someone doing makes you see that <em>you</em> can do it too...<br />
+A common problem is the power source for my projects. Nearly all need their 5v regulated power source. Not such a burden when it's anyway plugged to USB or meant to be fed by a wallwart. But when it comes to the projects like <a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a> for instance that drives already a power plug, it forces me to do some complex, annoying and questionnably safe operations "ghetto style". One good solution I wander around for some time is to open one of thoses small wallwart and connect directly to the right pins (as much for the AC and the DC). The following tutorial is not so much a surprise (kinda guessed what I would find or at least how to use what's inside a wallwart) but it's the "red berry experience" (as Dr. House explained) : seeing someone doing makes you see that <em>you</em> can do it too...<br />
 <ul><li>Open a wallwart <a class="wiki_link_ext" href="http://www.instructables.com/id/Hack-a-Toaster-Oven-for-Reflow-Soldering/step5/USB-Wall-Charger-Hack/" rel="nofollow">http://www.instructables.com/id/Hack-a-Toaster-Oven-for-Reflow-Soldering/step5/USB-Wall-Charger-Hack/</a></li><li>Another interresting article <a class="wiki_link_ext" href="http://www.arcfn.com/2012/03/inside-cheap-phone-charger-and-why-you.html" rel="nofollow">http://www.arcfn.com/2012/03/inside-cheap-phone-charger-and-why-you.html</a></li></ul><br />
 The best thing : scavenge the trash bin. Here in Japan we sort stuff, electronic devices go to a special bin in my building threw away once a week... I already got more than 10 wallwart, 2 cd player (lots of good stuff inside), one dvd player, etc etc ... RE-CY-CLE ! It's worthless for you but so much fun for me.<br />
 <br />
@@ -56,7 +50,4 @@ We all have some of thoses laying around ... let's give a try.<br />
 From solar cells, wind, water flow... See also <strong>Voltage doubler / Step-up converter</strong> here above and <a class="wiki_link" href="Solar%20panel%20power.html">Solar panel power</a>.<br />
 <ul><li><a class="wiki_link_ext" href="http://www.digikey.com/us/en/techzone/energy-harvesting/resources/articles/step-up-micropower-voltage-boosters.html" rel="nofollow">http://www.digikey.com/us/en/techzone/energy-harvesting/resources/articles/step-up-micropower-voltage-boosters.html</a>?</li></ul><br />
 <h1 id="toc19"><a name="Current sensing"></a> Current sensing </h1>
-<ul><li>Low side detection<ul><li><a class="wiki_link_ext" href="http://www.maximintegrated.com/app-notes/index.mvp/id/746" rel="nofollow">http://www.maximintegrated.com/app-notes/index.mvp/id/746</a></li><li><a class="wiki_link_ext" href="http://www.planetanalog.com/document.asp?doc_id=527795&amp;site=planetanalog" rel="nofollow">http://www.planetanalog.com/document.asp?doc_id=527795&amp;site=planetanalog</a></li><li><a class="wiki_link_ext" href="http://www.power-eetimes.com/en/a-current-sensing-tutorial-part-ii-devices.html?cmp_id=71&amp;news_id=222904138" rel="nofollow">http://www.power-eetimes.com/en/a-current-sensing-tutorial-part-ii-devices.html?cmp_id=71&amp;news_id=222904138</a></li></ul></li></ul>
-    </div>
-  </body>
-</html>
+<ul><li>Low side detection<ul><li><a class="wiki_link_ext" href="http://www.maximintegrated.com/app-notes/index.mvp/id/746" rel="nofollow">http://www.maximintegrated.com/app-notes/index.mvp/id/746</a></li><li><a class="wiki_link_ext" href="http://www.planetanalog.com/document.asp?doc_id=527795&site=planetanalog" rel="nofollow">http://www.planetanalog.com/document.asp?doc_id=527795&site=planetanalog</a></li><li><a class="wiki_link_ext" href="http://www.power-eetimes.com/en/a-current-sensing-tutorial-part-ii-devices.html?cmp_id=71&news_id=222904138" rel="nofollow">http://www.power-eetimes.com/en/a-current-sensing-tutorial-part-ii-devices.html?cmp_id=71&news_id=222904138</a></li></ul></li></ul>

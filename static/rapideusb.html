@@ -1,11 +1,3 @@
-<html>
-  <head>
-    <title>kalshagar - RapideUSB</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
 <span style="background-color: #ffb500;
 text-align: center;
 display: block;
@@ -19,15 +11,18 @@ I know the board is tight and some solderings might require a little attention b
 If you have suggestions about how to improve the layout, please let me hear.<br />
 <br />
 Self-criticizing and possible improvements:<br />
-<ul><li>[High] Add holes for D+/D- to plug a USB cable directly instead of a micro/mini plug</li><li>[Medium] Make those lines that carry power (VCC &amp; GND) bigger, it's just signal size now, no way it can draw more than a few tens of mA)</li><li>[Medium] Put a solder mask on the bottom for the power rail! Hard to figure where is gnd/vcc...</li><li>[low] Add a V-USB logo</li><li>[low] The power rail have solder mask on top (bottom is ok)... how did I do this miracle? Replace with regular ones</li></ul><br />
+<ul><li>[High] Add holes for D+/D- to plug a USB cable directly instead of a micro/mini plug</li><li>[Medium] Make those lines that carry power (VCC & GND) bigger, it's just signal size now, no way it can draw more than a few tens of mA)</li><li>[Medium] Put a solder mask on the bottom for the power rail! Hard to figure where is gnd/vcc...</li><li>[low] Add a V-USB logo</li><li>[low] The power rail have solder mask on top (bottom is ok)... how did I do this miracle? Replace with regular ones</li></ul><br />
 <h1 id="toc1"><a name="Schematics"></a> Schematics </h1>
 On Google SVN : <a class="wiki_link_ext" href="https://alanarduinotools.googlecode.com/svn/trunk/eagle/RapideUSB" rel="nofollow">https://alanarduinotools.googlecode.com/svn/trunk/eagle/RapideUSB</a> <br />
 <br />
 <h2 id="toc2"><a name="Schematics-README ! Things to know"></a> README ! Things to know </h2>
-<ul><li>The board has 2 solder jumpers labelled <em>D+=D2</em> and <em>D-=D4</em>: if you use D2 (as D+) and D4 (as D-) as default, just solder close these jumpers. If not, let them open and join the solder pad to the pin you're using.<ul><li>Corollary: if you don't solder these pads but use my default pins, nothing will work.</li></ul></li><li>PORT D is common to both mCU, PORT C is only available for ATmega328 and PORT B is implemented <em>separately</em>. Reason is that the ISP wiring on both mCU go to PORT B but the pins are different: MISO is PB6 on the tiny and PB4 on the mega. It would result in a big mess shorting pins. I could have put solder jumpers but I had space so...</li><li>For all the ports the pin 0 is the <em>square</em> 口 pad. Count up from there, farthest is number 7.</li><li>Board is a default 5cm x 5cm<ul><li>You can cut the board at the level of the 3rd free row (where there's the &quot;<em>cut ok</em>&quot; top silk message). You board will become a 5cm x 3.3cm in case you need space.</li></ul></li></ul><br />
+<ul><li>The board has 2 solder jumpers labelled <em>D+=D2</em> and <em>D-=D4</em>: if you use D2 (as D+) and D4 (as D-) as default, just solder close these jumpers. If not, let them open and join the solder pad to the pin you're using.<ul><li>Corollary: if you don't solder these pads but use my default pins, nothing will work.</li></ul></li><li>PORT D is common to both mCU, PORT C is only available for ATmega328 and PORT B is implemented <em>separately</em>. Reason is that the ISP wiring on both mCU go to PORT B but the pins are different: MISO is PB6 on the tiny and PB4 on the mega. It would result in a big mess shorting pins. I could have put solder jumpers but I had space so...</li><li>For all the ports the pin 0 is the <em>square</em> 口 pad. Count up from there, farthest is number 7.</li><li>Board is a default 5cm x 5cm<ul><li>You can cut the board at the level of the 3rd free row (where there's the "<em>cut ok</em>" top silk message). You board will become a 5cm x 3.3cm in case you need space.</li></ul></li></ul><br />
 <h2 id="toc3"><a name="Schematics-Setting the fuses"></a> Setting the fuses </h2>
-<img src="files/RapideUSB2313fuses.PNG" alt="RapideUSB2313fuses.PNG" title="RapideUSB2313fuses.PNG" /><br />
+<img src="/files/RapideUSB2313fuses.PNG" alt="RapideUSB2313fuses.PNG" title="RapideUSB2313fuses.PNG" /><br />
 <em>Fuses setup for a <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a></em><br />
+<img src="/files/rapideUSBfuseatmega8a.png" /><br/>
+<em>Fuses setup for a [[ATmega8a]]</em><br />
+
 <br />
 <h2 id="toc4"><a name="Schematics-BOM"></a> BOM </h2>
 <span style="text-align:center;"><br />
@@ -254,6 +249,3 @@ Look into my other <a class="wiki_link" href="USB%20gadgets.html">USB gadgets</a
 <em> See the BOM for details. Took 25 minutes to assemble, no big issue.</em><br />
 <img src="files/2015-01-17-18-32-44_deco.jpg" alt="2015-01-17-18-32-44_deco.jpg" title="2015-01-17-18-32-44_deco.jpg" /><br />
 <em>2313 version assembled. Just be careful next to the USB connector with the diodes and resistor, space is tight, you might want to place them wisely (see the 3 vertical resistors next to USB connector)</em>
-    </div>
-  </body>
-</html>
