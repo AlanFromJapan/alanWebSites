@@ -36,6 +36,31 @@
 <!-- ===================================================================== -->
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2017-01-10 - Playin' with a son of ...</span><br />
+Ar...I meant "[[Sonoff]]", that little ESP8266 stuck in a little box with a transformer and a relay, which can be hacked in 5 mins to run your own code. Found [[http://randomnerdtutorials.com/reprogram-sonoff-smart-switch-with-web-server/|this article]] and it works like a breeze! Pretty fun.
+<br/>
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2017-01-09 - Success and failures</span><br />
+As I was working on the new board for the [[Alan Numitron Clock IV6]], I decided to route it all by hand. Problem is the grid that doesn't align with those SOIC 18, I ended with a patchwork of airwire because nothing would match... si I wrote a program to fix that (^_^). A small python program that matches existing wires and airwires if they are close enough : [[Eagle Grid Wiring Fixer]]. Works just fine, pretty happy. Give a try!<br/>
+That was the success. The failure, is plugging that Raspberry 3 on a PC screen and using it as a graphical PC. Conclusion: it sucks! Raspi are great headless mini servers, I love them. But they aren't yet strong enough for a basic PC usage as I expect it: watching a movie, watching Youtube, watching the net... Youtube is doable in window mode, net is ok if you're not nervous and movies... well, I couldn't watch one with omxplayer and VLC was extra slow without HW acceleration.
+<br/>
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2017-01-06 - On the move</span><br />
+So I'm moving to a new house in a few weeks, my house to be precise this time. One with a man-cave, a man-lab, etc... the dream! Since this site is hosted [[SNES Pi webserver|in my toilet]] it will have to move, which means a few day of interruption at worse. Maybe I'll try to move the site to of my cloud VMs, but I'm afraid I like it too much and leave it there... we'll see.<br/>
+So not much activity planned in the coming days, more like packing and cleaning, sorting out the junk. I found a new stuff to do: an [[Air quality meter]]. The heart is dirt cheap, and I just happen to need one, with all that dust I make. I wish I knew the part was so cheap before, I'd have bought it years ago.<br/>
+So about the [[BC05B Bluetooth module]] there's some noise that builds up somewhere, need to find where. And I need to make that board for [[Alan Numitron Clock IV6]] so it will arrive when I'm moving. ... I guess it will be a busy weekend. Cheers!
+<br/>
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2017-01-03 - I'm a f*cking idiot</span><br />
+Well, I crapped up. My [[ardReveil v6]] boards arrived from Seeedstudio (very nice job guys!), I plugged everything and ... nothing happens. No lighting up. Scratch scratch my head, test, test again and in the latest desperate step, read the [[nixie tubes and alike|freaking page I wrote]] and yes... I need to use PNP and not NPN transistor ... (//face-palm//) (T_T)<br/>
+Ok, so I'll try to tweak this circuit a bit, and since anyway even if it would work (which I doubt), it would be an ugly mess of wires, so I'll make a corrected version of the board and send to production in a few days ... A good reminder lesson : don't assume you remember, just **read the freaking doc** //that you wrote// (←the most innerving point).<br/>
+At least, my [[Decade counter viewer]] arrived and it works flawlessly, which is a small compensation of my self deprecation.
+<br/>
+<img src="/files/decadecounteranim.gif" />
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-12-31 - The sweet taste of victory</span><br />
+That little [[BC05B Bluetooth module]] worked, then decided to frustrate me. I used the good old approved technique: let it stew for a week, and check from the ground up. And guess what, //someone// made a small and -to be honnest- invisible short between the VOL+ and BACK pin, that rendered the module mute and noisy. A bit of scratching and heating after, it's working back as new now. A small mountain of hot snort later, it's going to find its place in the stereo tomorrow morning (I will stay on the feeling of victory for tonight).
+<br/>
+
 <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2016-12-18 - Getting distracted continued</span><br />
 Guess what, found another stuff to play with :D [[BC05B Bluetooth module]] that I bought the other day and that I finally need!
 <br/>

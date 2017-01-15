@@ -1,0 +1,22 @@
+<h1>Presentation</h1>
+<h2>Principle</h2>
+<img src="/files/eagle.jpg" align="right" width="150"/>A small python 2.x program that takes in an Eagle .BRD file and does some matching of the wires and air wires. <br/>
+Because sometimes your grid and parts don't perfectly line up (shoot me, I use the metric system) you end up with trace the should match the airwires, but don't. And there's no real easy way to fix that. So I made a script that works reasonably well.<br/>
+**Notice: do make a backup of your .brd before you run the script, in case.**
+<h2>Points of interrest</h2>
+Logic is the following: for each wire not already connected to a pad, the program searches for a matching airwire. "Matching" is defined by finding an airwire whose start and end matching distance withing a given margin of error (delta). Once it finds it, it merges both wires by replacing the content of the airwire with the wire segments and removing the airwire data (layer 19).<br/>
+<br/>
+Possible improvements:
+* Now the matching doesn't take in account the layers of the airwire pads and the candidate wire. Possibly it could mismatch if 2 SMD components pads are perfectly above one each-other on 2 side of the board. 
+* It doesn't match multi-pads wires (like a VCC wire or GND one running through the board).
+<h1>Implementation</h1>
+<h2>Source code</h2>
+GitHub as usual [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/EagleGridWiringFixer]]
+<h1>Pictures</h1>
+<img src="/files/beforeiv6.png" /><br/>
+//Before: a spaghetti plate of yellow airwires//<br/>
+<img src="/files/afteriv6.png" /><br/>
+//After: 89% matched, much much easier to continue working now :)//<br/>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>

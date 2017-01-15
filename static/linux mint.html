@@ -38,3 +38,14 @@ LABEL="avrisp_end"
 Found that on the net, used on the Xbmcbuntu pc, should work the same:
 <pre>sudo growisofs -dvd-compat -Z /dev/sr0=whatever-iso-you-want-to-burn.iso</pre>
 /dev/sr0 is my DVDRom, might be different. Use dmesg to see where it's mounted for you.
+
+<h2>OwnCloud client</h2>
+The default one coming with Linux Mint 17.3 Rosa is totally outdated and can't connect to resent OwnCloud servers, like the one I set up recently. So I found these simple commands [[http://www.larshaendler.com/2015/10/29/installation-for-latest-owncloud-client-on-linux-mint-17/|on this site]] that worked like a breeze! Thank you for sharing! <br/>
+I copy those below for memory (in case).
+<pre>
+wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_14.04/Release.key
+sudo apt-key add - < Release.key
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+sudo apt-get update
+sudo apt-get install owncloud-client
+</pre>

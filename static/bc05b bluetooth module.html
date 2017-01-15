@@ -1,8 +1,28 @@
-Well, I bought that small BC05B module on eBay some times ago, in those moments of "hmmm I might need that one day". And guess what: I need it now (^_^).<br/>
-<br/>
+<h1>Presentation</h1>
+<h2>Principle</h2>
+<img src="/files/bc05b_photo.jpg" align="right" width="250px"/>Well, I bought that small BC05B module on eBay some times ago, in those moments of "hmmm I might need that one day". And guess what: I need it now (^_^).<br/>
+<h2>Points of interrest</h2>
+* Soldering those tight ass microscoping 0.7mm connectors on the side of the module and taking the decision of **never <u>ever</u> again use that kind of modules** :) No seriously, it works, it's doable with a bit of time and patience, but it's really not fun.
+* It worked for a morning, quite well even on my [[http://www.kenwood.com/jp/products/audio/systemcompo/clx_70/index_end.html|Kenwood CLX-70]]. I used the jack in and also the red/white composite ones at the back, no problem. Then I tried to stuff it inside, steal some power from the stereo (using a LM317 to feed it with 3.7v) and there catastrophe! Sound went from great to awful, to nothing. Now it's out of the beast, and I just can't get any sound from it. Like zero, just static. The Vol+ also does not seem to work, only Vol- and I fear that my stupid module is stuck at Vol=0 (mute) ... bummer!<br/>
+**EDIT:** it's fixed!! There was an invisible short between VOL+ and BACK pins, and that rendered the VOL+ button inefficient and added a big bunch of noise to the board. Now I have it run next to me for one hours to confirm it's all good in term of power regulation. And since I'm a lazy b*stard, instead of shortening and resoldering the ugly air wires I just placed them nicely and drowned the sh*t of that module in hot snort (^_^)v hehehe.
+
+<h1>Schematics</h1>
 <img src="/files/Wireless_BC05_07.jpg" /><br/>
 //Recommended setup (taken from elecfreaks.com site)//<br/>
+<h2>Bill of materials</h2>
+<h1>Implementation</h1>
+<h1>Source code</h1>
+<h1>Pictures</h1>
+<img src="/files/bc05b_photo.jpg" /><br/>
+//The infamous module. Pitch between those pins is very small, it's 0.7mm ! Don't shake while soldering.//
+<img src="/files/20161231_182858.jpg" /><br/>
+//Top view: ugliest air wire soldering, a few buttons (blue=power VREG, red=VOL+, yellow=VOL-)//<br/>
+<img src="/files/20161231_182909.jpg" /><br/>
+//Side view: where that S.o.B. of BACK and VOL+ were shorted. Fixed on this shot before I litterally drowned it under hot glue.//<br/>
+<img src="/files/20161231_191044.jpg" /><br/>
+//Thought I was joking about being lazy and the mountain of hot snort?//
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 * All one needs to know [[http://www.elecfreaks.com/wiki/index.php?title=Audio_Bluetooth_Speaker_Module]]
-<br/>
+<h2>Inspiration</h2>
+* [[http://www.instructables.com/id/BluetoothBox-for-Stereo-Headphones-and-Speakers/?ALLSTEPS#step7|A project that implemented it]]

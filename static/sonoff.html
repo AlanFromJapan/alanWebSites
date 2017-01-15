@@ -1,0 +1,61 @@
+<img src="/files/sonoff_small.jpg" align="right"/>**Sonoff** from iTead.cc is a small box with an ESP8266, a transformer and a relay, 2 connectors for input and output AC, supports 110-220v AC and costs 5 USD on eBay! How to resist? [[https://www.itead.cc/sonoff-wifi-wireless-switch.html| Don't! Just buy it!]]
+
+<h1>Presentation</h1>
+<h2>Specification</h2>
+*    Voltage range: 90-250v AC(50/60Hz)
+*    Max current: 10A
+*    Max Wattage: 2200 watts
+*    Dimensions: 88*38*23mm (L*W*H)
+*    Color: White
+*    Humidity: 5%-95%
+*    Frequency: 2.4Ghz
+*    Working Temp: ﹣20℃-75℃
+* [[http://wiki.iteadstudio.com/images/6/6b/Sonoff_schmatic.pdf|Schematics]]
+<h2>Points of interrest</h2>
+An ESP8266 with transformer and realy for 5USD: do I need to say more??
+<h2>Review</h2>
+That has been done somewhere else on the net, just let me write down my thoughts about it.<br/>
+**Positive points:**
+* Very cheap (5USD) for what you get
+* The pads to upload your own code: that is superb foreward thinking! Many thanks.
+* Nice little box, with connectors. If you use the default app, nothing to solder.
+* General good quality for that price in that small form factor
+
+**Negative points:**
+* Clearance between the pins of the AC connector: there's a nice wide gap, but they still seem a bit close-ish to me.
+* AC screw connector: couldn't they have made it a bit bigger? You can't use any wire size you'd find at home center, the bigger ones won't fit.<br/>
+Edit: I tried with Ø 0.75mm (max 7A at 100V) wire it works just fine. I think it should work until Ø 1.6mm.
+* A little marking on the board and in the box for the "IN" / "OUT" would have been most welcome
+
+<h1>Implementation</h1>
+<h2>How to program</h2>
+Wiring schematics is below: plug your **3.3v** voltage converter, and hit upload in your Arduino:
+* Board = Generic ESP8266 module
+* Flash mode = DIO
+* Flash freq = 40MHz
+* CPU freq = 80MHz
+* Flash size = 512k (64k SPIFFS)
+* Upload speed : 115200
+
+<br/>
+<ol>
+* Turn off the Sonoff
+* Press the Sonoff button and stay pressed
+* Turn on the Sonoff (with the 3.3v serial usb converter and **NOT** with the AC plugged of course. Seriously, don't be an idiot and //do unplug the AC//)
+* Release the Sonoff button
+* You're in programming mode now, and your Arduino IDE should do that for you as a charm
+</ol>
+<h2>Schematics</h2>
+<img src="/files/sonoff_gpio-r.jpg" /><br/>
+Pinout (taken [[http://randomnerdtutorials.com/reprogram-sonoff-smart-switch-with-web-server/|here]])<br/>
+<h2>Source code</h2>
+**Important** things to know:
+* LED is on pin <span style="color:limegreen; font-weight:bold;">13</span>
+* RELAY is on pin <span style="color:red; font-weight:bold;">12</span>
+* One free GPIO is available on the board and it's pin **14**
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+* This one is great: just read it! [[http://randomnerdtutorials.com/reprogram-sonoff-smart-switch-with-web-server/]]
+* Tackling that reconnection problem ? [[https://github.com/esp8266/Arduino/issues/2186]]
+<h2>Inspiration</h2>
