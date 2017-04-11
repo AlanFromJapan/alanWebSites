@@ -49,3 +49,13 @@ sudo sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/d
 sudo apt-get update
 sudo apt-get install owncloud-client
 </pre>
+
+<h2>Netflix</h2>
+Just install google Chrome and you're done. Go to [[https://www.google.com/chrome/browser/]] and you're done...
+
+<h1>Troubleshooting</h1>
+//It doesn't work and I fixed or worked around it. So if it helps you...//
+<h2>⇒　My Linux Mint keeps on loosing internet (Mint 18.1 Serena)</h2>
+**Situation: **in fact Wifi does work, try putting an IP and you're good. Restarting your wireless connection fix the problem. So it drills down to "DNS resolution failing after a few minutes". <br/>
+**Guilty: **dnsmasq. <br/>
+**Solution:** deactivate that "addition" by editing /etc/NetworkManager/NetworkManager.conf and #comment out the line dns=dnsmasq, and reboot (you can restart the NW manager only but ...)

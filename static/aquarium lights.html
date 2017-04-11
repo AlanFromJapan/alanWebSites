@@ -1,0 +1,36 @@
+Basic **aquarium lights** based on **[[timers and 555|555]]**, MOSFET and leds.
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+I was a shameless sinner who made aquarium lights with a resistor to limit the current and a boost converter. I have no excuse. And when the powers of the aquarium decided that water spash would finish eating the copper of my connector, I understood the message from above (well, below in that case since the water is below the leds): make it right.<br/>
+So I'll use a proper power source, with led strip (still) and PWM modulation (which means [[timers and 555|555]]). Basic circuit, but the best answer to a basic need.
+<h2>Points of interrest</h2>
+** 555 and PWM made simple**: honnestly I didn't find aywhere on the net any //simpler// PWM with 555 circuit. 2 resistor, 1 cap, 1 diode and you get a range from 1% to 99% duty PWM, this is the //simplest 555 PWM circuit// I could find. Just what you need in most cases. Other circuits have more parts without being that much more complex to be honnest. Let's use this one and see.<br/>
+<br/>
+The idea is to set the simplest possible **astable 555 oscillator**. One other very similar circuit is [[http://www.ohmslawcalculator.com/555-astable-calculator|here]], with an online calculator.<br/>
+In a nutshell, the key ideas are (from above site):
+* Increasing C will increase the cycle time (and hence, reduce the frequency).
+* Increasing R1 will increase Time High (T1), but will leave Time Low (T0) unaffected.
+* Increasing R2 will increase Time High (T1), increase Time Low (T0) and decrease the duty cycle (down to a minimum of 50%)
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* MOSFET x1: IRFZ44N power N-Channel mosfet => **sink** (what I had in my toolbox to be clear, thank you eBay)
+* 555 x1: [[timers and 555|The 555]]
+* Resistors for PWM: R1 = x, R2 = y
+* Cap for the PWM: C1 = z
+* Diode: I used a xxxx
+* Potentiometer
+* 12v1a power supply I bought in HK years ago
+* A strip of white leds I don't remember I bought but thanks eBay anyway
+* other misc bling bling, caps for power stabilization, leds, etc...
+<h2>Schematics</h2>
+* 555 PWM driving a MOSFET [[http://www.instructables.com/id/PWM-dimmer-using-NE555-and-MOSFET-with-DIY-alumini/step3/Circuit-diagram/]]
+<img src="/files/FHDF7J2HLIDBXI1.MEDIUM.jpg" />
+* Simplest 555 PWM circuit [[http://www.instructables.com/id/Yet-Another-Simple-Pot-controlled-555-PWM-generato/step2/What-will-be-needed/]] (original [[http://electronicdesign.com/analog/wide-range-pulse-width-modulator-uses-555-timer|source of the source]])
+<img src="/files/FGN8X56GBF5KOQQ.MEDIUM.gif" />
+<h2>Source code</h2>
+None in this case, there's no mCU.
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>

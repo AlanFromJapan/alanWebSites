@@ -1,23 +1,36 @@
 <div class="wiki" id="content_view" style="display: block;">
-<img src="files/2013-08-06-18-30-48_deco.jpg" alt="2013-08-06-18-30-48_deco.jpg" title="2013-08-06-18-30-48_deco.jpg" style="width: 250px;" align="right" /><span style="
+<img src="/files/2013-08-06-18-30-48_deco.jpg" alt="2013-08-06-18-30-48_deco.jpg" title="2013-08-06-18-30-48_deco.jpg" style="width: 250px;" align="right" />
+
+<span style="
 background-color: lightgrey;
 display: block;
 border: solid 1px darkgrey;
 text-align:left;
 padding-left:40px;
-">This page is the main page for the project <strong>Alan Numitron Clock</strong>.<br />
+"> <img src="/files/todaycalendar.png" /> This page is the main page for the project <strong>Alan Numitron Clock</strong>.<br />
 Since it's at the junction of other projects and prototypes, here's the reference of other legacy projects. The first prototype derives from the <a class="wiki_link" href="WordClock.html">WordClock</a> that takes care of the timekeeping job and uses the <a class="wiki_link" href="ardReveil%20v5%20Tubed.html">ardReveil v5 Tubed</a> boards for tubes support.<br />
 <br />
 <strong>Chronology</strong>: <em><a class="wiki_link" href="WordClock.html">WordClock</a> speedup clock making ⇒ <a class="wiki_link" href="ardReveil%20v5%20Tubed.html">ardReveil v5 Tubed</a> 2 tubes chainable display ⇒　<a class="wiki_link" href="Alan%20Numitron%20Clock.html">Alan Numitron Clock</a> <b>this project</b> ⇒ [[Alan numitron clock IV6]] with blue tubes.</em>
 
-</span><br />
+</span>
+
+<br />
+<span style="
+background-color: lavender;
+display: block;
+border: solid 1px darkblue;
+text-align:left;
+padding-left:40px;
+"><img src="/files/manualuser.png" alt="manualuser.png" title="manualuser.png" />[[Alan numitron clock user manual|User manual]]: how to use, plug, set the time.</span>
+
+<br />
 <span style="
 background-color: gold;
 display: block;
 border: solid 1px orange;
 text-align:left;
 padding-left:40px;
-"><img src="files/clock48.png" alt="clock48.png" title="clock48.png" /><a class="wiki_link" href="Clocks.html">See my other clocks projects</a> : with voltmeter, with RGB dot matrix, with VFD tubes, ... </span><br />
+"><img src="/files/clock48.png" alt="clock48.png" title="clock48.png" /><a class="wiki_link" href="Clocks.html">See my other clocks projects</a> : with voltmeter, with RGB dot matrix, with VFD tubes, ... </span><br />
 <h1 id="toc0"><a name="Project summary"></a> Project summary </h1>
 I found those beautiful vintage <a class="wiki_link" href="Nixie%20tubes%20and%20alike.html">IV9 & IV16 tubes</a>  and I had to use them, clock being the perfect candidate. I made already mutliple others based on what was supposed to be a <a class="wiki_link" href="WordClock.html">WordClock</a> (hence the project name) only, but became more diversified. I did also a first test with a <a class="wiki_link" href="ardReveil%20v5%20Tubed.html">chainable 5cm x 5cm tube board</a>, this is a 5cm x 10cm dual board improved version.<br />
 <br />
@@ -36,14 +49,14 @@ The top board uses <a class="wiki_link" href="Arduino%20and%20Shift-registers.ht
 <ul><li>Top board with tubes <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FTinyNumitronBoard" rel="nofollow">on Google SVN</a>.<ul><li>It's the "extended" version a 100x50mm board</li><li>Works with tubes Tiny Numitron IV-16 and IV-9</li><li>SMD LED under the tubes for nice bling-bling</li><li>Resistors and 74hc595 can be SMD or through-hole</li></ul></li><li>Bottom board with Atmegaxx8, RTC (3 flavors), battery, voltage regulator <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FWordclock" rel="nofollow">on Google SVN</a>.<ul><li>It's the "extended" version a 100x50mm board</li><li>Micro controller is ATmel atmega328 (or any atmegaxx8 in DIP package)</li><li>RTC can be Maxim DS3231 or DS3234, EPSON RTC 4543 SA/SB</li><li>Battery, USB plug, 90degrees buttons, small area for through-hole extra components</li></ul></li></ul><h3 id="toc4"><a name="Design-Schematics-Self-criticism about the board"></a> Self-criticism about the board </h3>
 For a possible v1.1 of that board:<br />
 <ul><li>[HIGH] Was I wasted the day I put a USB connector on the front side of the board? Move that to the back side next to buttons...</li><li>[Medium] Change the pin assignments of buttons, now 2 only are usable under some conditions (if use TWI)</li><li>[low] Align the top board pinout with a similar one on the bottom board so they could become stackable (Arduino style)</li><li>[low] Make the bottom board pullups resistors, diode and caps double-traced DIP/SMD to make a lower profile board</li><li>[low] Replace the DIP ATmegaxx8 by a SMD version?</li></ul><h2 id="toc5"><a name="Design-Code"></a> Code </h2>
-(Google SVN) <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FWordclock" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FWordclock</a><br />
+(Google SVN) [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Wordclock]] <br />
 Code is Arduino v1.0 based for now (planning a ATmel Studio version one of these days <strong>Edit: see below</strong>). Edit the main <em>.ino</em> files and enable the #define directives you need :<br />
 <ul><li><span style="font-family:monospace;font-weight:bold;">#define USE_DISPLAY_NUMITRON</span> to enable the correct display logic</li><li>Choose the RTC chip you use in the list <span style="font-family:monospace;">RTC_DS3231, RTC_DS3234, RTC_4543SA</span></li><li>There's some buttons also on the main board to be used (A and B are used to set time by default, you can use C & D for otherthing if you are <em>not</em> using Numitron tubes)</li></ul>You'll need a programmer to upload the code to the main board using the ISP programmer.<br />
 <span style="background-color: #ffd600;
 text-align: center;
 display: block;
 border: solid 1px black;"><strong>Update 20141125</strong>: long time I wanted to do it, now it's a reality: I rewrote the code in a real IDE, ATmel Studio 6. Bye bye ugly Arduino IDE! I have to rewrite/adapt some libraries, so it's done step by step, but now I already ported a big part of the code. I used the occasion to fix a few things I didn't like in the original Arduino version, more logical architecture, cleaner. Have a look!<br />
-<a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAtmegaxx8%2FMultiClockManager" rel="nofollow">https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAtmegaxx8%2FMultiClockManager</a></span><br />
+[[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Atmegaxx8/MultiClockManager]]</span><br />
 <br />
 <img src="files/tinynumitronboard-extended.png" alt="tinynumitronboard-extended.png" title="tinynumitronboard-extended.png" /><img src="files/Wordclock-main-xtended.png" alt="Wordclock-main-xtended.png" title="Wordclock-main-xtended.png" /><br />
 <em>Top board and bottom main board (top views)</em><br />
@@ -79,3 +92,6 @@ Edit: the RTC was changed to be a DS3231 because I wanted to be sure of the resu
 There's an image for DS3231 here <a class="wiki_link_ext" href="https://github.com/AlanFromJapan/alanarduinotools/tree/master/Wordclock/images" rel="nofollow">https://github.com/AlanFromJapan/alanarduinotools/tree/master/Wordclock/images</a> should work out of the box, just burn it on the mCU.
     </div>
 <div class="corner-ribbon top-right sticky blue">For sale <a href="http://www.creema.jp/exhibits/show/id/785223" style="color:gold;">here!</a></div>
+
+<hr/>
+<span style="font-size:x-small;">Thanks to them for the icons : <a href="https://icons8.com/web-app/21440/User-Manual">User manual icon credits</a></span>

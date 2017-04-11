@@ -39,12 +39,39 @@ sudo /etc/init.d/samba restart
 Edit /etc/fstab<br />
 
 <pre><code class="bash">
-/dev/sda1       /media/usbhdd   ntfs    auto,user,rw,uid=smbguest,gid=smbguest,umask=0  0 0
+/dev/sda1       /media/usbhdd   ntfs-3g    rw,defaults,uid=smbuser,gid=smbuser  0 0
 </code></pre>
+
+Or on the command line:
+<pre><code class="bash">
+$ sudo mount -t ntfs-3g -o "rw,defaults,uid=smbuser,gid=smbuser" /dev/sdb1 /mnt/usbdrive02
+</code></pre>
+
 
 <br />
 <h3 id="toc7"><a name="Projects and tips-Raspi mount a USB drive [DONE!]-Stop the HDD"></a> Stop the HDD </h3>
-<ul><li><a class="wiki_link_ext" href="http://info4admins.com/tips-to-spindown-your-hard-disk-in-debian-or-ubuntu/" rel="nofollow">http://info4admins.com/tips-to-spindown-your-hard-disk-in-debian-or-ubuntu/</a></li><li><a class="wiki_link_ext" href="http://hd-idle.sourceforge.net/" rel="nofollow">http://hd-idle.sourceforge.net/</a></li></ul><br />
+Is used **hdparm** and it works though with my Japanese Buffalo 1TB USB HDD I get an error when running the command. So for the next time I check and I wonder (like today): it's normal, just ignore the error, it works.<br/>
+** How to:**
+* Install hdparm //sudo apt-get install hdparm//
+* You can use 2 ways: ① change the spindown timeout with the -S xxx (with timeout = 5sec * xxx) or ② change the power management settings with -B 127 (or whatever value, just use man)
+* For my part I use the //-S 180// to put the spindown timeout every 15 mins (more tricky than that but in my case), which so far is a good compromise for me
+* Make it permanent by editing **/etc/rc.local**
+<pre><code class="bash">
+#start the command to stop the USB drive after x-minutes
+#-S 180 = 180 x 5sec = 15 min of inactivity and drive stops motor
+#see man hdparm for that parameter, it's tricky
+#AVI20170219 Juste un reminder: ca lance des erreurs mais ca marche quand meme
+/sbin/hdparm -S 180 /dev/sda1
+
+</code></pre>
+
+**Links:**
+<ul>
+* [[http://info4admins.com/tips-to-spindown-your-hard-disk-in-debian-or-ubuntu/]]
+* [[http://hd-idle.sourceforge.net/]]
+</ul>
+<br />
+
 <h2 id="toc8"><a name="Projects and tips-Raspi as VLC server"></a> Raspi as VLC server </h2>
 <ul><li><a class="wiki_link_ext" href="http://www.esologic.com/?p=294" rel="nofollow">http://www.esologic.com/?p=294</a></li><li><a class="wiki_link_ext" href="http://wiki.videolan.org/Documentation:Streaming_HowTo_New" rel="nofollow">http://wiki.videolan.org/Documentation:Streaming_HowTo_New</a></li><li><a class="wiki_link_ext" href="http://www.videolan.org/doc/streaming-howto/fr/ch05.html" rel="nofollow">http://www.videolan.org/doc/streaming-howto/fr/ch05.html</a></li><li><a class="wiki_link_ext" href="http://www.xanetiz.com/vlc-lecteur-incontournable.html" rel="nofollow">http://www.xanetiz.com/vlc-lecteur-incontournable.html</a></li></ul><br />
 <h2 id="toc9"><a name="Projects and tips-Transform a Raspi in an arcade cabinet"></a> Transform a Raspi in an arcade cabinet </h2>
@@ -148,3 +175,6 @@ Bought April 2016, here's the different steps I used to set it up.<br/>
 * sudo easy_install pip
 ⇒ install python's //pip// tool
 * setup the wifi [[https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md]]
+
+<h1>Turn a Raspi in a Jukebox</h1>
+* [[http://lifehacker.com/how-to-build-a-raspberry-pi-jukebox-any-non-geek-can-us-1712107103]]
