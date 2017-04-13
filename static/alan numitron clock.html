@@ -39,28 +39,69 @@ The top board uses <a class="wiki_link" href="Arduino%20and%20Shift-registers.ht
 <br />
 <span style="font-size:10px;font-style:italic;">Hall of fame:<br />
 <ul><li>Thanks to Hackaday <a class="wiki_link_ext" href="http://hackaday.com/2015/01/15/numitron-tube-clock/" rel="nofollow">http://hackaday.com/2015/01/15/numitron-tube-clock/</a></li><li>Thanks to Electronics-lab <a class="wiki_link_ext" href="http://www.electronics-lab.com/blog/?p=32471" rel="nofollow">http://www.electronics-lab.com/blog/?p=32471</a></li></ul></span><br />
+
 <h1 id="toc1"><a name="Design"></a> Design </h1>
+
 <h2 id="toc2"><a name="Design-Presentation"></a> Presentation </h2>
-<img src="files/numitron-board-explained.jpg" alt="numitron-board-explained.jpg" title="numitron-board-explained.jpg" /><br />
+
+<img src="/files/numitron-board-explained.jpg" alt="numitron-board-explained.jpg" title="numitron-board-explained.jpg" /><br />
 <em>Bottom board (top view) holding the mcu, real time clocks, battery, buttons... On the under side is another potential USB connector and DS3231 footprint</em><br />
-<img src="files/numitron-topboard-explained.jpg" alt="numitron-topboard-explained.jpg" title="numitron-topboard-explained.jpg" /><br />
+<img src="/files/numitron-topboard-explained.jpg" alt="numitron-topboard-explained.jpg" title="numitron-topboard-explained.jpg" /><br />
 <em>Top board (bottom view) holding the tubes, their current limiter resistors and 4x 74HC595 8bits shift registers. Designed to be populated with through holes or SMD components, depending what you get at hand.</em><br />
+
 <h2 id="toc3"><a name="Design-Schematics"></a> Schematics </h2>
-<ul><li>Top board with tubes <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FTinyNumitronBoard" rel="nofollow">on Google SVN</a>.<ul><li>It's the "extended" version a 100x50mm board</li><li>Works with tubes Tiny Numitron IV-16 and IV-9</li><li>SMD LED under the tubes for nice bling-bling</li><li>Resistors and 74hc595 can be SMD or through-hole</li></ul></li><li>Bottom board with Atmegaxx8, RTC (3 flavors), battery, voltage regulator <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2Feagle%2FWordclock" rel="nofollow">on Google SVN</a>.<ul><li>It's the "extended" version a 100x50mm board</li><li>Micro controller is ATmel atmega328 (or any atmegaxx8 in DIP package)</li><li>RTC can be Maxim DS3231 or DS3234, EPSON RTC 4543 SA/SB</li><li>Battery, USB plug, 90degrees buttons, small area for through-hole extra components</li></ul></li></ul><h3 id="toc4"><a name="Design-Schematics-Self-criticism about the board"></a> Self-criticism about the board </h3>
+
+<ul>
+  <li>Top board with tubes [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/Wordclock|on GitHub]].
+  <ul>
+    <li>It's the "extended" version a 100x50mm board</li>
+    <li>Works with tubes Tiny Numitron IV-16 and IV-9</li>
+    <li>SMD LED under the tubes for nice bling-bling</li>
+    <li>Resistors and 74hc595 can be SMD or through-hole</li>
+  </ul>
+  </li>
+  <li>Bottom board with Atmegaxx8, RTC (3 flavors), battery, voltage regulator.
+  <ul>
+    <li>It's the "extended" version a 100x50mm board</li>
+    <li>Micro controller is ATmel atmega328 (or any atmegaxx8 in DIP package)</li>
+    <li>RTC can be Maxim DS3231 or DS3234, EPSON RTC 4543 SA/SB</li>
+    <li>Battery, USB plug, 90degrees buttons, small area for through-hole extra components</li>
+    </ul>
+    </li>
+</ul>
+
+<h3 id="toc4"><a name="Design-Schematics-Self-criticism about the board"></a> Self-criticism about the board </h3>
 For a possible v1.1 of that board:<br />
-<ul><li>[HIGH] Was I wasted the day I put a USB connector on the front side of the board? Move that to the back side next to buttons...</li><li>[Medium] Change the pin assignments of buttons, now 2 only are usable under some conditions (if use TWI)</li><li>[low] Align the top board pinout with a similar one on the bottom board so they could become stackable (Arduino style)</li><li>[low] Make the bottom board pullups resistors, diode and caps double-traced DIP/SMD to make a lower profile board</li><li>[low] Replace the DIP ATmegaxx8 by a SMD version?</li></ul><h2 id="toc5"><a name="Design-Code"></a> Code </h2>
+<ul>
+  <li>[HIGH] Was I wasted the day I put a USB connector on the front side of the board? Move that to the back side next to buttons...</li>
+  <li>[Medium] Change the pin assignments of buttons, now 2 only are usable under some conditions (if use TWI)</li>
+  <li>[low] Align the top board pinout with a similar one on the bottom board so they could become stackable (Arduino style)</li>
+  <li>[low] Make the bottom board pullups resistors, diode and caps double-traced DIP/SMD to make a lower profile board</li>
+  <li>[low] Replace the DIP ATmegaxx8 by a SMD version?</li>
+* [low] Replace the LED by RGB Led? Maybe those 1wire WS2812 ?
+* [low] Use one of the back button to select the pattern of the lightning ?
+</ul>
+
+<h2 id="toc5"><a name="Design-Code"></a> Code </h2>
 (Google SVN) [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Wordclock]] <br />
 Code is Arduino v1.0 based for now (planning a ATmel Studio version one of these days <strong>Edit: see below</strong>). Edit the main <em>.ino</em> files and enable the #define directives you need :<br />
-<ul><li><span style="font-family:monospace;font-weight:bold;">#define USE_DISPLAY_NUMITRON</span> to enable the correct display logic</li><li>Choose the RTC chip you use in the list <span style="font-family:monospace;">RTC_DS3231, RTC_DS3234, RTC_4543SA</span></li><li>There's some buttons also on the main board to be used (A and B are used to set time by default, you can use C & D for otherthing if you are <em>not</em> using Numitron tubes)</li></ul>You'll need a programmer to upload the code to the main board using the ISP programmer.<br />
+<ul>
+<li><span style="font-family:monospace;font-weight:bold;">#define USE_DISPLAY_NUMITRON</span> to enable the correct display logic</li>
+<li>Choose the RTC chip you use in the list <span style="font-family:monospace;">RTC_DS3231, RTC_DS3234, RTC_4543SA</span></li>
+<li>There's some buttons also on the main board to be used (A and B are used to set time by default, you can use C & D for otherthing if you are <em>not</em> using Numitron tubes)</li>
+</ul>
+
+You'll need a programmer to upload the code to the main board using the ISP programmer.<br />
+
 <span style="background-color: #ffd600;
 text-align: center;
 display: block;
 border: solid 1px black;"><strong>Update 20141125</strong>: long time I wanted to do it, now it's a reality: I rewrote the code in a real IDE, ATmel Studio 6. Bye bye ugly Arduino IDE! I have to rewrite/adapt some libraries, so it's done step by step, but now I already ported a big part of the code. I used the occasion to fix a few things I didn't like in the original Arduino version, more logical architecture, cleaner. Have a look!<br />
 [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Atmegaxx8/MultiClockManager]]</span><br />
 <br />
-<img src="files/tinynumitronboard-extended.png" alt="tinynumitronboard-extended.png" title="tinynumitronboard-extended.png" /><img src="files/Wordclock-main-xtended.png" alt="Wordclock-main-xtended.png" title="Wordclock-main-xtended.png" /><br />
+<img src="/files/tinynumitronboard-extended.png" alt="tinynumitronboard-extended.png" title="tinynumitronboard-extended.png" /><img src="/files/Wordclock-main-xtended.png" alt="Wordclock-main-xtended.png" title="Wordclock-main-xtended.png" /><br />
 <em>Top board and bottom main board (top views)</em><br />
-<img src="files/2012-12-09-17-30-56_deco.jpg" alt="2012-12-09-17-30-56_deco.jpg" title="2012-12-09-17-30-56_deco.jpg" style="width: 400px;" /><img src="files/2013-08-06-18-32-54_deco.jpg" alt="2013-08-06-18-32-54_deco.jpg" title="2013-08-06-18-32-54_deco.jpg" style="width: 400px;" /><br />
+<img src="/files/2012-12-09-17-30-56_deco.jpg" alt="2012-12-09-17-30-56_deco.jpg" title="2012-12-09-17-30-56_deco.jpg" style="width: 400px;" /><img src="/files/2013-08-06-18-32-54_deco.jpg" alt="2013-08-06-18-32-54_deco.jpg" title="2013-08-06-18-32-54_deco.jpg" style="width: 400px;" /><br />
 <em>The first prototype, and the final product</em><br />
 <br />
 <span style="font-style:italic;font-size:smaller;">The graphic on the top board (the gears) was done by me using the <a class="wiki_link_ext" href="http://www.obsidiandawn.com/gears-photoshop-gimp-brushes" rel="nofollow" target="_blank">Obsidian Dawn "Gears brushes"</a>, thanks to them.</span><br />
@@ -68,17 +109,17 @@ border: solid 1px black;"><strong>Update 20141125</strong>: long time I wanted t
 Not too ugly, I could do better but quality is ok now. However since I'm currently rewriting it for ATmel Studio:<br />
 <ul><li>Main loop: throw in some interrupts for the display refresh? Frequency must be parametrizable, since this board is part of the <a class="wiki_link" href="Wordclock.html">Wordclock</a> project and not only displays with tubes. A define with some watchdog-as-interrupt would do the trick?</li><li>General rewriting, currently it's messy (though I don't want to write it in C%20%20 with classes, C%20%20 gives me the hives)</li></ul><h1 id="toc7"><a name="Pictures"></a> Pictures </h1>
 <h3 id="toc8"><a name="Pictures--Serial #3 : Epson RTC, white leds, all IV-9 and no cover (SOLD)"></a> Serial #3 : Epson RTC, white leds, all IV-9 and no cover (SOLD) </h3>
-<img src="files/2013-08-03-11-43-31_deco.jpg" alt="2013-08-03-11-43-31_deco.jpg" title="2013-08-03-11-43-31_deco.jpg" style="width: 400px;" /><img src="files/2013-08-03-11-42-02_deco.jpg" alt="2013-08-03-11-42-02_deco.jpg" title="2013-08-03-11-42-02_deco.jpg" style="width: 400px;" /><img src="files/2013-08-06-18-30-48_deco.jpg" alt="2013-08-06-18-30-48_deco.jpg" title="2013-08-06-18-30-48_deco.jpg" style="width: 400px;" /><br />
+<img src="/files/2013-08-03-11-43-31_deco.jpg" alt="2013-08-03-11-43-31_deco.jpg" title="2013-08-03-11-43-31_deco.jpg" style="width: 400px;" /><img src="/files/2013-08-03-11-42-02_deco.jpg" alt="2013-08-03-11-42-02_deco.jpg" title="2013-08-03-11-42-02_deco.jpg" style="width: 400px;" /><img src="/files/2013-08-06-18-30-48_deco.jpg" alt="2013-08-06-18-30-48_deco.jpg" title="2013-08-06-18-30-48_deco.jpg" style="width: 400px;" /><br />
 Edit: the RTC was changed to be a DS3231 because I wanted to be sure of the results I announced on selling and I need to re-test the Epson chip to be sure of its drit. Just changed the main bottom board, a couple hours of work and done.<br />
 <h3 id="toc9"><a name="Pictures--Serial #4 : Maxim DS3234, orange leds, IV-9 for hours and IV-16 for minutes and wood cover red on black (SOLD)"></a> Serial #4 : Maxim DS3234, orange leds, IV-9 for hours and IV-16 for minutes and wood cover red on black (SOLD) </h3>
-<img src="files/2013-09-09-23-52-42_deco.jpg" alt="2013-09-09-23-52-42_deco.jpg" title="2013-09-09-23-52-42_deco.jpg" style="width: 400px;" /><img src="files/2013-09-09-23-51-45_deco.jpg" alt="2013-09-09-23-51-45_deco.jpg" title="2013-09-09-23-51-45_deco.jpg" style="width: 400px;" /><br />
-<img src="files/2013-09-09-23-49-23_deco.jpg" alt="2013-09-09-23-49-23_deco.jpg" title="2013-09-09-23-49-23_deco.jpg" style="width: 400px;" /><img src="files/2013-09-09-23-27-12_deco.jpg" alt="2013-09-09-23-27-12_deco.jpg" title="2013-09-09-23-27-12_deco.jpg" style="width: 400px;" /><br />
-<img src="files/2013-09-09-23-26-40_deco.jpg" alt="2013-09-09-23-26-40_deco.jpg" title="2013-09-09-23-26-40_deco.jpg" style="width: 400px;" /><br />
+<img src="/files/2013-09-09-23-52-42_deco.jpg" alt="2013-09-09-23-52-42_deco.jpg" title="2013-09-09-23-52-42_deco.jpg" style="width: 400px;" /><img src="/files/2013-09-09-23-51-45_deco.jpg" alt="2013-09-09-23-51-45_deco.jpg" title="2013-09-09-23-51-45_deco.jpg" style="width: 400px;" /><br />
+<img src="/files/2013-09-09-23-49-23_deco.jpg" alt="2013-09-09-23-49-23_deco.jpg" title="2013-09-09-23-49-23_deco.jpg" style="width: 400px;" /><img src="/files/2013-09-09-23-27-12_deco.jpg" alt="2013-09-09-23-27-12_deco.jpg" title="2013-09-09-23-27-12_deco.jpg" style="width: 400px;" /><br />
+<img src="/files/2013-09-09-23-26-40_deco.jpg" alt="2013-09-09-23-26-40_deco.jpg" title="2013-09-09-23-26-40_deco.jpg" style="width: 400px;" /><br />
 <br />
 <h3 id="toc10"><a name="Pictures--Serial #5 : Maxim DS3231, white leds, IV-9 only and metal box (on my desk, not for sell :P)"></a> Serial #5 : Maxim DS3231, white leds, IV-9 only and metal box (on my desk, not for sell :P) </h3>
 <br />
-<img src="files/2013-09-29-17-14-16_deco.jpg" alt="2013-09-29-17-14-16_deco.jpg" title="2013-09-29-17-14-16_deco.jpg" style="width: 400px;" /><img src="files/2013-09-29-16-59-09_deco.jpg" alt="2013-09-29-16-59-09_deco.jpg" title="2013-09-29-16-59-09_deco.jpg" style="width: 400px;" /><br />
-<img src="files/2013-09-23-21-21-29_deco.jpg" alt="2013-09-23-21-21-29_deco.jpg" title="2013-09-23-21-21-29_deco.jpg" style="width: 400px;" /><img src="files/2013-09-23-21-15-16_deco.jpg" alt="2013-09-23-21-15-16_deco.jpg" title="2013-09-23-21-15-16_deco.jpg" style="width: 400px;" /><br />
+<img src="/files/2013-09-29-17-14-16_deco.jpg" alt="2013-09-29-17-14-16_deco.jpg" title="2013-09-29-17-14-16_deco.jpg" style="width: 400px;" /><img src="/files/2013-09-29-16-59-09_deco.jpg" alt="2013-09-29-16-59-09_deco.jpg" title="2013-09-29-16-59-09_deco.jpg" style="width: 400px;" /><br />
+<img src="/files/2013-09-23-21-21-29_deco.jpg" alt="2013-09-23-21-21-29_deco.jpg" title="2013-09-23-21-21-29_deco.jpg" style="width: 400px;" /><img src="/files/2013-09-23-21-15-16_deco.jpg" alt="2013-09-23-21-15-16_deco.jpg" title="2013-09-23-21-15-16_deco.jpg" style="width: 400px;" /><br />
 <br />
 <h1 id="toc11"><a name="Assembly"></a> Assembly </h1>
 <h2 id="toc12"><a name="Assembly-BOM"></a>BOM </h2>

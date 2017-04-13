@@ -18,20 +18,27 @@ In a nutshell, the key ideas are (from above site):
 * 555 x1: [[timers and 555|The 555]]
 * Resistors for PWM: R1 = 100ohm, R2 = 100ohm
 * Cap for the PWM: C1 = 0.1uF
-* Diode: I used a Schottky diode, I don't think specs are ultra important here. I think a simple diode would work too (we're working in the kHz here).
-* Potentiometer 
+* Diode: source diagram calls for a Schottky diode, but a regular simple diode works just fine and makes no difference as per my tests. So I go for the cheap one.
+* Potentiometer (I used a 5k Ohm one but any other value should be ok maybe? try and tell me)
 * 12v1a power supply I bought in HK years ago
-* A strip of white leds I don't remember I bought but thanks eBay anyway
-* other misc bling bling, caps for power stabilization, leds, etc...
+* A strip of white leds I don't remember I bought but thanks SeeedStudio anyway
+* other misc bling bling, caps for power stabilization, leds, screw connector, etc...
+<h2>Settings</h2>
+With a measured duty cycle of 50%, we're at about 5-7kHz (forgot exactly), and with a bit less than 2 meters of white led strips we have a comsumption of 0.47A at 12V (says my power supply). It's bright enough, and after a couple hours of continuous running, the "hottest" component was the 555 that went lukewarm. All the rest and especially the MOSFET staid at room temperature.
 <h2>Schematics</h2>
-* 555 PWM driving a MOSFET [[http://www.instructables.com/id/PWM-dimmer-using-NE555-and-MOSFET-with-DIY-alumini/step3/Circuit-diagram/]]
-<img src="/files/FHDF7J2HLIDBXI1.MEDIUM.jpg" />
-* Simplest 555 PWM circuit [[http://www.instructables.com/id/Yet-Another-Simple-Pot-controlled-555-PWM-generato/step2/What-will-be-needed/]] (original [[http://electronicdesign.com/analog/wide-range-pulse-width-modulator-uses-555-timer|source of the source]])
-<img src="/files/FGN8X56GBF5KOQQ.MEDIUM.gif" /><br/>
-<span style="color:red;">Nota Bene: </span>if you follow [[http://www.ohmslawcalculator.com/555-astable-calculator|this link]] you'll find a simpler version with only 2 resistor and 1 cap BUT the minimum duty cycle I can get without the Schotky diode is 30%-ish (100 ohm/100ohm/0.1uF). With a simple Schotky diode, you get a 1%-90% duty easily.
+<img src="/files/555dimmer_circuitv1.jpg" /><br/>
+That's what I made↑<br/>
+**Nota bene:**
+* D1 doesn't need to be a Schottky, any cheap diode works. But it's necessary or you won't get less than 30% duty.
+* R3 is necessary to stop the enormous ripples! without it you can get +30v-10v swing !! Just put it, something between 100-500ohm seems to do the trick (I used 510 ohm in my final design) -> Thanks to [[https://www.youtube.com/watch?v=o4_NeqlJgOs|Great Scott]] video for the tip! I noticed the ripple but didn't know how to fix.
 <h2>Source code</h2>
 None in this case, there's no mCU.
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 <h2>Inspiration</h2>
+* 555 PWM driving a MOSFET [[http://www.instructables.com/id/PWM-dimmer-using-NE555-and-MOSFET-with-DIY-alumini/step3/Circuit-diagram/]]
+<img src="/files/FHDF7J2HLIDBXI1.MEDIUM.jpg" />
+* Simplest 555 PWM circuit [[http://www.instructables.com/id/Yet-Another-Simple-Pot-controlled-555-PWM-generato/step2/What-will-be-needed/]] (original [[http://electronicdesign.com/analog/wide-range-pulse-width-modulator-uses-555-timer|source of the source]])
+<img src="/files/FGN8X56GBF5KOQQ.MEDIUM.gif" /><br/>
+<span style="color:red;">Nota Bene: </span>if you follow [[http://www.ohmslawcalculator.com/555-astable-calculator|this link]] you'll find a simpler version with only 2 resistor and 1 cap BUT the minimum duty cycle I can get without the Schotky diode is 30%-ish (100 ohm/100ohm/0.1uF). With a simple Schotky diode, you get a 1%-90% duty easily.
