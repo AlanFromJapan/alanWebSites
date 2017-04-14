@@ -3,8 +3,10 @@
 
 <h1>Documentation</h1>
 <h2>Power cable</h2>
-<img src="/files/usbcables_for_clock.png" /><br/>
+<table><tr><td>
+<img src="/files/usbcables_for_clock.png" /></td><td>
 You want an USB **mini** cable, like the old generation of consoles, etc... not the USB //micro// that you use for your cellphone. Usually you can find it in your closet or at the dollar store.
+</td></tr></table>
 
 <h2>Power supply</h2>
 **Requirements: ** the clock uses regulated 5v at about **250mA** continuously, so you need to plug it to a power supply that delivers **exactly 5V** and **at minimum 250 mA**. That should be ok with any recent cell phone charger, but do check the label please!<br/>
@@ -32,6 +34,7 @@ There are 2 buttons at the back of the clock: A and B. A = Select and B = Increa
 <span style="font-size:small">Note: the A/B button clock detection is not perfect so be patient and try again. Sometime it double clicks, sometimes it takes time to get it. Apologies for that, it is a known limitation of the code as of today (2017-04-10).</span>
 </td></tr></table>
 <h2>Changing the battery</h2>
+The clock needs a Li-ion CR2032 battery to function. Without a battery, it will quickly loose time or even stop working.<br/>
 Estimated life is 2 years or more, but it depends on the battery itself.
 <ol>
 * Unplug from power
@@ -47,8 +50,10 @@ Estimated life is 2 years or more, but it depends on the battery itself.
 ← contact me to the email on the left!
 <h1>説明書</h1>
 <h2>パワーケーブル</h2>
-<img src="/files/usbcables_for_clock.png" /><br/>
+<table><tr><td>
+<img src="/files/usbcables_for_clock.png" /></td><td>
 我の時計がUSB **mini**が必要になります、現在のスマホのUSB //micro//ではありません、ご注意ください。普通に隣の１００円ショップで販売していますがどんどん珍しくなりますのでもうちょっと大きな１００円ショップに行かないと行けなくなる恐れがあります。
+</td></tr></table>
 
 <h2>充電器</h2>
 **仕様: ** 我の時計が５ｖ約**250ｍA**が必要になりますので、USBのちょうど**５Vと２５０ｍA<u>以上</u>**を出力出来る充電器しか利用しないでください。必ずチャージャーの仕様札を確認してください。<br/>
@@ -60,3 +65,35 @@ Estimated life is 2 years or more, but it depends on the battery itself.
 * 5v - 100mA: ダメです！利用禁止、火事の恐れがあります！ 😠
 <br/>
 携帯の充電器を使ったら問題がありませんとおもいます。もし自分で作りたいなら、必ず**安定化電源**を利用してください。ボードに安定化回路の部分がありません（用意していますが基本的に空いているままにしています）。もし今の話を分からないなら、スマホの充電器を使ったほうが良いと思います。
+
+<h2>時間の設定</h2>
+<table>
+<tr>
+<td>
+<img src="/files/alan_numitron_clock_front_view_buttons.png" /> 
+</td><td>
+時計の後ろにバトン二個あります：AとB。A＝選択、B＝プラス。<br/>
+<ol>
+*　Aボタンを押すと時間設定モードになります：<b>時</b>のLEDが明きます。Bボタンを押すと+1時になります。Bを長押しにしたら時がゆっくり増やします。
+*　Aボタンを改めて押したら、今回<b>分</b>の部分のLEDが明きます。Bボタンを押すと+1分になります。Bを長押しにしたら分がゆっくり増やします。
+*　Aボタンをもう一度押したら全てのLEDが消えて終わります。
+</ol>
+<br/>
+<span style="font-size:small">注意：A/Bボタンを押すときミス恐れがあります、申し訳ございません。たまにダブルクリック、たまにミスを行います。理由は現在に時計がボタンの状態を一秒に一回しかチェックしません。計画のTODOリストに入れています。ご理解をお願い致します(2017-04-10).</span>
+</td></tr></table>
+<h2>電池交換</h2>
+時計は通常通りに動くためにLiIon　CR2032ボタン電池が必要になります。電池がなければか電池が切れたら、時間を守らなくなりますし、停止になる恐れもあります。<br/>
+予想に電池が2年間以上使えますが電池自身と電池の銘柄によります。
+<ol>
+* USBケーブルを外す
+*　（任意） 時計の柱の上のねじを外す
+* 古い電池を引き取る
+* 新しい電池を入れ込む（100円ショップのCR2032電池でも良いです）
+* (任意) 時計の柱の上のねじを入れ戻す
+* USBケーブルを接続する
+* 時間設定を行う（上記をご覧下さい↑）
+* 終わり
+</ol>
+<h2>その他の問題？</h2>
+← 左にあるメールを使って連絡してください。英語でも日本語でもフランス語でもオケーです！<br/>
+<img src="/files/alanfjmail.png"/>
