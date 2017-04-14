@@ -27,7 +27,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 #Check file name to upload
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 ##########################################################################################
 #Interpretes the Wiki tags and translate to HTML
@@ -235,6 +235,9 @@ def editPage(page):
     #Debug
     #if "SaveOrPreview" in request.form and request.form["SaveOrPreview"] == "Preview":
     #    resp.set_cookie ('username', 'xyz')
+
+    #Google Chrome version 57 of April 2017 is smarter than everyone and block my code. Let's tell him to stop giving me ERR_BLOCKED_BY_XSS_AUDITOR
+    resp.headers['X-XSS-Protection'] = '0'
         
     return resp
 
