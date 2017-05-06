@@ -31,7 +31,7 @@ When the drill is operated, circuit is closed and all work as a serial bank of b
 <tr style="font-weight:bold;">
 <td>Action</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td>
 </tr>
-<tr><td>Use the battery</td><td>x</td><td>x</td><td>x</td><td>x</td><td>x</td></tr>
+<tr><td>Use the battery</td><td>⊕</td><td>x</td><td>x</td><td>x</td><td>⊝</td></tr>
 
 <tr><td>Charge cell 1</td><td>Bat+</td><td>Bat-</td><td>x</td><td>x</td><td>x</td></tr>
 <tr><td>Charge cell 2</td><td>x</td><td>Bat+</td><td>Bat -</td><td>x</td><td>x</td></tr>
@@ -41,6 +41,10 @@ When the drill is operated, circuit is closed and all work as a serial bank of b
 </table>
 
 Looking at the table we conclude there are 4 different configurations only (duh ... we have 4 cells) and all of them are mutually excluding (no overlap). So 4 transistors can drive 4 //pairs// of relays, and we can therefore charge each battery individually.<br/>
+<br/>
+Wiring: as mentionned, I use a 5 pin GX-12 connector you can easily find on eBay. And since each time I wonder: GX-12 Pin 1 = Positive (point A in above diagram) and Pin 5 is Negative (point E in the said above diagram).<br/>
+<img src="/files/gx12_5pin_connector.jpg" width="300" /><br/>
+<br/>
 Last part: when to stop? Easy. Those 2 USD chargers have leds, so just read their status. I used some optocoupler which is an overkill because we're operating on the same power source (USB) so no need to isolate, and now 2 weeks later as I type this I understand I should have used the config of the leds on that chip as a pullup: the pins 6 & 7 of the TP4056 are high impedance (not at same time), I should have soldered the resistor in place of the led and measure voltage there with my ATtiny26 (pullup so high if led should be off, low if led should be on)... anyway, now it's done and glued so I'll live with it an my over engineering of 30 JPY.<br/>
 <img src="/files/drill_liion_schema_-_leds.png" /><br/>
 <h1>Source code</h1>
