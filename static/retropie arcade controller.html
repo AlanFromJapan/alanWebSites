@@ -1,0 +1,37 @@
+My pal Sev' is building an arcade controller with a Retropie Raspi 3 inside for his daughter (for him really but hey, who hasn't used that excuse among the makers in the world ?). So I'm lending my workshop and modest expertise. Here's the lessons learnt.
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+A Raspi 3, a scavenged big ass USB arcade controller from Yahoo auction, Retropie, a couple of Li-Ion scavenged from an old PC and here we go!
+<h2>Points of interrest</h2>
+<h3>The power management of the Raspi</h3>
+We just wnat the "raw power" of the Raspi 3, not the wifi or ethernet. So we need to cut all that is useless to save the batteries. So we want to stop:
+* Wifi ✔
+* Bluetooth ✔
+* Ethernet ✔
+* Leds ?
+
+For the Wifi/Bluetooth, the [[https://raspberrypi.stackexchange.com/questions/53149/disable-power-on-wifi-and-bluetooth-interfaces-during-boot|Internet Approved™]] solution is to blacklist the kernel modules for BT and Wifi, disabling them //de facto//:
+<pre>
+in /etc/modprobe.d/raspi-blacklist.conf
+
+#wifi
+blacklist brcmfmac
+blacklist brcmutil
+#bt
+blacklist btbcm
+blacklist hci_uart
+</pre>
+
+For ethernet [[https://stackoverflow.com/questions/23487728/ethernet-disabling-in-raspberry-pi|Internet]] says this:
+<pre>
+ip link set eth0 down
+</pre>
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+<h2>Schematics</h2>
+<h2>Source code</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
