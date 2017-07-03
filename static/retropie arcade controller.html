@@ -6,7 +6,10 @@ A Raspi 3, a scavenged big ass USB arcade controller from Yahoo auction, Retropi
 <h2>Points of interrest</h2>
 <h3>The power requirements of the Raspi</h3>
 Apparently, something like 720mA at 5v with HDMI and 4 cores loaded is the mark. That means roughly 1A to source from a Li-Ion at 3.7v, which is doable totally. One 2200mAh should give us 30 mins of power under load, with 2 of them it's 1h+ (finger in the air estimation ⓒ) ... <br/>
-Source: [[http://raspi.tv/2016/how-much-power-does-raspberry-pi3b-use-how-fast-is-it-compared-to-pi2b]]
+Source: [[http://raspi.tv/2016/how-much-power-does-raspberry-pi3b-use-how-fast-is-it-compared-to-pi2b]]<br/>
+<br/>
+**Edit:** after the testing, depending on what you do it might be enough power or not: we often have the "yellow lightening bolt" in the top right corner", but in the menus of Emustation, not while playing Arcade of SNES games (I guess that N64 would make it appear but did not test).<br/>
+<br/>
 <h3>The power management of the Raspi</h3>
 We just wnat the "raw power" of the Raspi 3, not the wifi or ethernet. So we need to cut all that is useless to save the batteries. So we want to stop:
 * Wifi ✔
@@ -32,9 +35,15 @@ ip link set eth0 down
 </pre>
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
+* 1x Pair of 18650 Samsung Li-Ion batteries taken from an old laptop. Used 2 who were already in pair to limit risks.
+* 1x USB Li-ion charger over charge protection from eBay
+* 1x Step-up converter from 3.7v to 5V  (made it 5.1V)
+* 1x Switch
+* 1x Big ass arcade controller from Yahoo auctions
 <h2>Schematics</h2>
-<h2>Source code</h2>
+<img src="/files/ArcadeSeverino1logical.png" />
 <h1>Pictures</h1>
+TODO
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 <h2>Inspiration</h2>
