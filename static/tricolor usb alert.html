@@ -1,12 +1,4 @@
-<html>
-  <head>
-    <title>kalshagar - Tricolor USB alert</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
-<img src="files/5-traffic_light_colors.png" alt="5-traffic_light_colors.png" title="5-traffic_light_colors.png" style="height: 200px;" align="right" /><br />
+<img src="/files/5-traffic_light_colors.png" alt="5-traffic_light_colors.png" title="5-traffic_light_colors.png" style="height: 200px;" align="right" /><br />
 <h1 id="toc0"><a name="Software"></a> Software </h1>
 <h2 id="toc1"><a name="Software-Firmware"></a> Firmware </h2>
 <span style="background-color: #ffb500;
@@ -22,23 +14,31 @@ Who said C# programming ? <a class="wiki_link_ext" href="http://www.codeproject.
 
 <table class="wiki_table">
     <tr>
-        <td><img src="files/level-conversion-with-zener.gif" alt="level-conversion-with-zener.gif" title="level-conversion-with-zener.gif" /><br />
+        <td><img src="/files/level-conversion-with-zener.gif" alt="level-conversion-with-zener.gif" title="level-conversion-with-zener.gif" /><br />
 </td>
         <td><strong>Wiring:</strong> <a class="wiki_link_ext" href="http://vusb.wikidot.com/hardware" rel="nofollow">http://vusb.wikidot.com/hardware</a> using the 3.6v zener diode design, so it allows the micro controller to run at 5V. <br />
 On the diagram the pins are:<br />
-<ol><li>Vcc (5v)</li><li>D-</li><li>D%20</li><li>GND</li></ol><br />
+<ol>
+<li>Vcc (5v)</li>
+<li>D-</li>
+<li>D+</li>
+<li>GND</li>
+</ol>
+<br />
 <strong>IMPORTANT:</strong> I failed many time at this design (at least twice) before understanding what I did wrong. So follow these rules:<br />
-<ul><li>USB data is 3.3v but as stated in the V-USB wiki use <strong>3.6v zener diodes</strong> (3.3v is doomed to fail)</li><li>If you use the sample codes from V-USB be careful to use the same pins as them, especially for D- which uses an interrupt. If you change the pin, mind changing the interrupt that is associated. All is done in the <em>usbconfig.h</em> file, read it carefully, it will save you hours of problem solving.</li><li>Some people pullup the D%20 with a 1 MOhm resistor, I don't and it still work so ignore this</li></ul></td>
+<ul>
+<li>USB data is 3.3v but as stated in the V-USB wiki use <strong>3.6v zener diodes</strong> (3.3v is doomed to fail)</li><li>If you use the sample codes from V-USB be careful to use the same pins as them, especially for D- which uses an interrupt. If you change the pin, mind changing the interrupt that is associated. All is done in the <em>usbconfig.h</em> file, read it carefully, it will save you hours of problem solving.</li>
+<li>Some people pullup the D+ with a 1 MOhm resistor, I don't and it still work so ignore this</li>
+</ul></td>
     </tr>
 </table>
 
 <ul><li>MCU : <a class="wiki_link" href="Attiny2313.html">Attiny2313</a> running at 12MHz (ext crystal)</li><li>Board: <a class="wiki_link" href="Rapide2313.html">Rapide2313</a> that I made and had still lying around. Not a great success this board in terms of silking, plus a few minor issues, but it works.</li></ul><br />
-<img src="files/TricolorUsbSignal-basic.png" alt="TricolorUsbSignal-basic.png" title="TricolorUsbSignal-basic.png" /><br />
+<img src="/files/TricolorUsbSignal-basic.png" alt="TricolorUsbSignal-basic.png" title="TricolorUsbSignal-basic.png" /><br />
 <em>Basic diagram: signal leds will be replace by big 1cm diameter leds and driven by a transistor each, that will be the only change (see <a class="wiki_link" href="USB%20without%20Arduino.html">USB without Arduino</a> for details)</em><br />
 <br />
 <br />
 <h1 id="toc4"><a name="Documentation"></a> Documentation</h1>
- <ul><li>All the USB documentation <a class="wiki_link_ext" href="http://www.usb.org/developers/hidpage/" rel="nofollow">http://www.usb.org/developers/hidpage/</a></li><li><a href="http://kalshagar.wikispaces.com/USB%20without%20Arduino">http://kalshagar.wikispaces.com/USB%20without%20Arduino</a></li><li>Links to tutorials <a class="wiki_link_ext" href="http://www.avrfreaks.net/forum/tut-hard-soft-c-usb-tutorial-v-usb-attiny" rel="nofollow">http://www.avrfreaks.net/forum/tut-hard-soft-c-usb-tutorial-v-usb-attiny</a></li></ul>
-    </div>
-  </body>
-</html>
+* All the USB documentation [[http://www.usb.org/developers/hidpage/]]
+* [[usb without arduino]]
+* Links to tutorials [[http://www.avrfreaks.net/forum/tut-hard-soft-c-usb-tutorial-v-usb-attiny]]
