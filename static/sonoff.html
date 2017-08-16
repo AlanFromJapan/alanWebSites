@@ -1,5 +1,6 @@
-<img src="/files/sonoff_small.jpg" align="right"/>**Sonoff** from iTead.cc is a small box with an ESP8266, a transformer and a relay, 2 connectors for input and output AC, supports 110-220v AC and costs 5 USD on eBay! How to resist? [[https://www.itead.cc/sonoff-wifi-wireless-switch.html| Don't! Just buy it!]]
-
+<img src="/files/sonoff_small.jpg" align="right"/>**Sonoff** from iTead.cc is a small box with an ESP8266, a transformer and a relay, 2 connectors for input and output AC, supports 110-220v AC and costs 5 USD on eBay! How to resist? [[https://www.itead.cc/sonoff-wifi-wireless-switch.html| Don't! Just buy it!]]<br/>
+<br/>
+**Usage?** I use one of these puppies now to control my home file server: it's a Raspi 2 with an USB HDD connected. I use it once a month these days, it doesn't need to be always on (waste of energy and ageing of the Raspi & HDD). Now, [[http://192.168.0.14|my SonOFF]] controls them so I can turn on the pair, do what I need, watch that movie, and turn it off after. Big saving of energy ! (^_^)v
 <h1>Presentation</h1>
 <h2>Specification</h2>
 *    Voltage range: 90-250v AC(50/60Hz)
@@ -23,9 +24,9 @@ That has been done somewhere else on the net, just let me write down my thoughts
 
 **Negative points:**
 * Clearance between the pins of the AC connector: there's a nice wide gap, but they still seem a bit close-ish to me.
-* AC screw connector: couldn't they have made it a bit bigger? You can't use any wire size you'd find at home center, the bigger ones won't fit.<br/>
-Edit: I tried with Ø 0.75mm (max 7A at 100V) wire it works just fine. I think it should work until Ø 1.6mm.
-* A little marking on the board and in the box for the "IN" / "OUT" would have been most welcome
+* AC screw connector: couldn't they have made it a bit bigger? You can't use every wire size you'd find at home center, the bigger ones won't fit.<br/>
+Edit: I tried with Ø 0.75mm (max 7A at 100V) and wire 1.25mm it works just fine. I think the max is Ø 1.25mm.
+* A little marking on the PCB board and in the box for the "IN" / "OUT" would have been most welcome
 
 <h1>Implementation</h1>
 <h2>How to program</h2>
@@ -39,9 +40,9 @@ Wiring schematics is below: plug your **3.3v** voltage converter, and hit upload
 
 <br/>
 <ol>
-* Turn off the Sonoff
+* Turn off the Sonoff **and UNPLUG it from the wall**
 * Press the Sonoff button and stay pressed
-* Turn on the Sonoff (with the 3.3v serial usb converter and **NOT** with the AC plugged of course. Seriously, don't be an idiot and //do unplug the AC//)
+* Turn on the Sonoff (with the **3.3v** serial usb converter and **NOT** with the AC plugged of course. Seriously, don't be an idiot and //do unplug the AC//)
 * Release the Sonoff button
 * You're in programming mode now, and your Arduino IDE should do that for you as a charm
 </ol>

@@ -1,4 +1,4 @@
-I looooove woodworking, my heart always balances between that and electronics. I work on it to get better, so I get to guy tools. But I'm cheap, and I decided to buy a cheap drill powered battery (a Bosch if you care) with old dead 14.4v Ni-Mh batteries. I got changed the battery of my office laptop the other day and got to keep the old ones; they would still last 1h30 but after that they'd let me down. But it's enough for drilling a few holes!<br/>
+<img src="/files/20170811_201318.jpg" align="right" width="300"/>I looooove woodworking, my heart always balances between that and electronics. I work on it to get better, so I get to guy tools. But I'm cheap, and I decided to buy a cheap drill powered battery (a Bosch if you care) with old dead 14.4v Ni-Mh batteries. I got changed the battery of my office laptop the other day and got to keep the old ones; they would still last 1h30 but after that they'd let me down. But it's enough for drilling a few holes!<br/>
 So let me explain how I did it...<br/>
 
 <h1>Principle</h1>
@@ -8,7 +8,8 @@ I like the idea of reusing different components, combining them together and mak
 PS: yes I know I made a few blunders in this project, mainly I must have been very tired when this idea of optocoupler came to me where a simple pull-up would have sufficed. Don't hit a man on the ground please, he's ashamed enough.
 </div>
 <h1>Schematics</h1>
-<img src="/files/drill_liion_schema_-_full.png" />
+<img src="/files/drill_liion_schema_-_full.png" /><br/>
+//Schematics for just 2 batteries but you get the idea: MCU controls the relays via transistors and reads the led status of the Li-Ion charger module//
 <h2>Bill of materials</h2>
 For the battery:
 * 4x Li-Ion 18650 batteries scavenged from my office laptop old battery
@@ -25,7 +26,7 @@ For the charger:
 If the 4 liion batteries were in parallel, since they come from the same pack originally, one could assume it's safe to charge them in parallel. However one would have only ~4v output and one would sit on his drill because it would never turn...<br/>
 So the liion cells are in serie, the 4 of them for an output that will be in the range [14.8 ~ 16.8]. That's more than the nominal of the drill, but it's just a motor, and it will just eat a +10% overvoltage, so nothing to worry much about. Plus it's a drill which you run by bursts, not continuous so we'll live with it.<br/>
 <img src="/files/drill_liion_schema.png" /><br/>
-When the drill is operated, circuit is closed and all work as a serial bank of batteries. Now problem is when to charge: you can't charge liion in serie (nope). So simple solution is to isolate each cell and charge them individually. In the above schema, to charge cell (1), you connect the point (A) to the (Bat+) of the charger, (B) to (Bat-) and you're in business! Electrons will flow between these points only, leaving the other celles untouched. Then to the next cell, plug (B) to (Bat+) this time, (C) to (Bat-) and repeat. That pluging thing is done by some MOSFET I guess on the charging board that is in the laptop battery. In my case, because I <span style="text-decoration:line-through;">didn't thought of it</span> preferred to use small relays I bought before. More seriously, with relays I get a physical connection and disconnection of the circuit. I felt more safe for now due to my current knowledge of Liions cells and MOSFETs.
+When the drill is operated, circuit is closed and all work as a serial bank of batteries. Now problem is when to charge: you can't charge liion in serie (nope). So simple solution is to isolate each cell and charge them individually. In the above schema, to charge cell (1), you connect the point (A) to the (Bat+) of the charger, (B) to (Bat-) and you're in business! Electrons will flow between these points only, leaving the other celles untouched. Then to the next cell, plug (B) to (Bat+) this time, (C) to (Bat-) and repeat. That pluging thing is done by some MOSFET I guess on the charging board that is in the laptop battery. In my case, because I <span style="text-decoration:line-through;">didn't thought of it</span> preferred to use small relays I bought before. More seriously, with relays I get a physical connection and disconnection of the circuit. I felt more safe for now due to my current knowledge of Liions cells and MOSFETs (*cough cough* rationalization).
 
 <table>
 <tr style="font-weight:bold;">
@@ -52,4 +53,8 @@ All the source code <a href="https://github.com/AlanFromJapan/alanarduinotools/t
 <h1>Pictures</h1>
 <img src="/files/Liion_charger_schema_explained.jpg" /><br/>
 <img src="/files/20170112_225248.jpg" /><br/>
-<img src="/files/20170112_225306.jpg" />
+//Inside a refurbished battery//<br/>
+<img src="/files/20170112_225306.jpg" /><br/>
+//Inside a refurbished battery before drowning everything in snortglue for stability and insulation//<br/>
+<img src="/files/20170811_201318.jpg" /><br/>
+//The final version, on the wall in its box, charging a battery//<br/>
