@@ -1,11 +1,29 @@
-This is a new Template for **dns server at home**!
+Who needs a DNS server at home? Well, guys with a mostly linux ecosystem, tired of calling their servers by IPs, a good Japanese main router that unfortunately lacks that function and who searches for a good excuse to play with Linux. And the additional "performance improvement".
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
+Normally, you LAN/Wifi router does the DHCP and DNS. Mine is an idiot, it does DHCP but not DNS. And no, I can't flash it with DD-WRT (my other DMZ and else routers are under DD-WRT). And no, I don't want to change if for a newer one because it works perfectly otherwise and I don't want to redo all the settings on a new router. Once it will die of old age yes, but not if I can avoid.<br/>
+So,there's going to have a small [[Raspi|Raspberry Pi]] connected to the router and it will be the DNS cache and service for the whole home NW. Basically, it will:
+* Have fixed well known DNS for the fixed IP in the home network
+* Use Google or whatever other DNS service for the rest of the DNS
+* Do some caching for the tiny performance improvement (afterall it's here so let's use it)
+Solution is according internet to use **dnsmasq**, which is (as per my readings) better in simplicity than **bind** and does all what one need for a home network. So let's give it a try.
 <h2>Points of interrest</h2>
+* dnsmasq implementation and config
+* [[Raspi]] Zero and an USB ethernet
+* Making my life more comfortable
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
+* Raspberry Pi Zero: the best balance between performance (low requirements) and power consumption (low too) so will be gentle with my electricity bill
+* USB to Ethernet module: [[http://www.ebay.com/itm/USB-2-0-to-RJ45-LAN-Ethernet-Network-Adapter-For-Apple-Mac-MacBook-Air-Laptop-PC-/172365741860?epid=1985584390&hash=item2821cc7f24:g:pbsAAOSwNRdX9gkq|cheapo eBay]] one needed because Raspi Zero has no onboard ethernet and I have no Raspi 1 free at hand, and any other Rapi (2 or 3) would be an immense overkill
 <h2>Schematics</h2>
+<h2>Setup</h2>
+**USB Ethernet**<br/>
+The one I bought (like 3 USD delivered) is a Kontron DM9601 based one and contrary to what [[http://elinux.org/RPi_USB_Ethernet_adapters|Internet might say]], it works flawlessly so far (now the kernel module was fixed). Just plug it and boum, //eth0// appears in //ifconfig// list.<br/>
+After that you can turn off the wifi (if Raspi ZeroW) with //sudo ifconfig wlan0 down// (temp fix, TODO add permanent fix here).<br/>
+<br/>
+**USB OTG on the cheap**<br/>
+You don't want to pay 77 JPY for a cable delivered? (seriously?) Or you just need to put some USB stuff on your Zero //now//? [[http://www.instructables.com/id/Raspberry-Pi-Zero-OTG-Hack-Add-a-Fullsize-Connecto/|Solder an USB female connector to the solderpads on the bottom]], though only 4 wires you get a regular USB port (not OTG). Did that on mine, D+/D- are a bit close so don't make a solder bridge but that's average solder level job.<br/>
 <h2>Source code</h2>
 <h1>Pictures</h1>
 <h1>Links</h1>
