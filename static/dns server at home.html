@@ -1,4 +1,4 @@
-Who needs a DNS server at home? Well, guys with a mostly linux ecosystem, tired of calling their servers by IPs, a good Japanese main router that unfortunately lacks that function and who searches for a good excuse to play with Linux. And the additional "performance improvement".
+<img src="/files/raspizero.JPG" align="right" width="250"/>Who needs a DNS server at home? Well, guys with a mostly linux ecosystem, tired of calling their servers by IPs, a good Japanese main router that unfortunately lacks that function and who searches for a good excuse to play with Linux. And the additional "performance improvement".
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
@@ -24,7 +24,74 @@ After that you can turn off the wifi (if Raspi ZeroW) with //sudo ifconfig wlan0
 <br/>
 **USB OTG on the cheap**<br/>
 You don't want to pay 77 JPY for a cable delivered? (seriously?) Or you just need to put some USB stuff on your Zero //now//? [[http://www.instructables.com/id/Raspberry-Pi-Zero-OTG-Hack-Add-a-Fullsize-Connecto/|Solder an USB female connector to the solderpads on the bottom]], though only 4 wires you get a regular USB port (not OTG). Did that on mine, D+/D- are a bit close so don't make a solder bridge but that's average solder level job.<br/>
-<h2>Source code</h2>
+* VCC on PP1
+* GND on PP6
+* D+ on PP22 (green)
+* D- on PP23 (white)
+<img src="/files/20170819_002749.jpg" /><br/>
+//Left cable is for Power (you can see the data wires unplugged) and bottom is the USB de-OTG-ized//<br/>
+<h2>Steps</h2>
+<ul>
+* **sudo apt-get install dnsutils dnsmasq //htop emacs-nox//**<br/>italic ones are non-mandatory
+* **sudo service dnsmasq stop **
+* **sudo emacs /etc/dnsmasq.conf**
+* Just change one line to tell it to read sub-config files in /etc/dnsmasq.d/<br/>**conf-dir=/etc/dnsmasq.d**
+* Make your custom config file in /etc/dnsmasq.d (in my case **local.dnsmasq**)
+* Edit your **local.dnsmasq** as below:
+</ul>
+<pre>
+# config file for DNSMASQ for home
+# Alan 20170818
+#
+# Taken from https://www.raspberrypi.org/forums/viewtopic.php?t=46154
+
+############################################################################################
+##  Domain so that all servers are xxxx.at.home
+#
+domain=at.home
+
+
+############################################################################################
+##  File for the named resolutions
+#
+# Change this line if you want dns to get its upstream servers from
+# somewhere other that /etc/resolv.conf
+#resolv-file=/etc/resolv.dnsmasq.conf
+# ==> don't use the above it doesn't work for forcing some fixed IPs. Use the below **addn-hosts**
+
+# If you don't want dnsmasq to read /etc/hosts, uncomment the
+# following line.
+#no-hosts
+# or if you want it to read another file, as well as /etc/hosts, use
+# this.
+addn-hosts=/etc/dnsmasq.hosts
+
+
+############################################################################################
+##  Fallback DNS servers
+#
+# Google
+server=8.8.8.8
+server=8.8.4.4
+
+
+############################################################################################
+##  Other settings
+#
+# Max cache size dnsmasq can give us, and we want all of it!
+cache-size=10000
+
+# Set this (and domain: see below) if you want to have a domain
+# automatically added to simple names in a hosts-file.
+expand-hosts
+</pre>
+<ul>
+* Make a file **/etc/dnsmasq.hosts** where you will put your custom DNS entries (or you can put it in the //hosts// file of the server, up to you). Format is:<br/>192.168.0.123 fileserver<br/>192.168.0.11 router
+* Restart the service **sudo service dnsmasq restart **
+* Test with **dig fileserver.at.home** and you should see in the trace 192.168.0.123
+* Change the settings of your other PC or router to use your new DNS server and you're good to go. 
+* Now go to your router and tell it to use your DNS server. Usually it's by editing the list of DNS server (primary & secondary) and/or doing that by domain like with mine where I registered that for whatever "at.home" request, ask my new DNS server. 
+</ul>
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
