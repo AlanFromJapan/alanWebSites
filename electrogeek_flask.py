@@ -7,6 +7,8 @@ from logging.handlers import RotatingFileHandler
 import re
 from werkzeug import secure_filename
 
+import ledz
+
 #http://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
 app = Flask(__name__, static_url_path='')
 Config = ConfigParser.ConfigParser()
@@ -20,7 +22,7 @@ ISPROD = False
 StaticPagesCache = dict()
 
 #Werkzeug and Flask global constants
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'ico'])
 
 
 ##########################################################################################
@@ -140,7 +142,7 @@ def newPage(page):
     if None == request.cookies.get('username'):
         return redirect("/home.html")
 
-    targetFilePath = ROOTDIR + page.lower() + ".html"
+    targetFilePath = os.path.join(ROOTDIR, page.lower() + ".html")
     #if page already exists just go there
     if os.path.isfile(targetFilePath):
         return redirect("/"+ page.lower() +".html")
@@ -178,7 +180,7 @@ def editPage(page):
     vFormContent = ""
     vYear = datetime.now().strftime('%Y')
     #make sure this path is a *safe* path
-    vFilePath = ROOTDIR + page.lower() + ".html"
+    vFilePath = os.path.join(ROOTDIR, page.lower() + ".html")
     vRecentlyUploaded = ""
 
     
@@ -250,7 +252,7 @@ def serveTemplate(page):
     vBody = None
 
     #make sure this path is a *safe* path
-    vFilePath = ROOTDIR + page.lower() + ".html"
+    vFilePath = os.path.join(ROOTDIR, page.lower() + ".html")
 
     #caching or read from disk
     if Config.getboolean("WebConfig", "CACHING"):
@@ -287,36 +289,53 @@ def searchPage():
 
 #THE function that calls the page rendering and returns the result
 def renderPageInternal (pPageName, pBody):
+
+    ledz.ledz_blink()
+
     vYear = datetime.now().strftime('%Y')
     #generate the output by injecting static page content and a couple of variables in the template page
     return render_template(Config.get("Design", "Template"), pagename=pPageName, pagecontent=wikilize(pBody), year=vYear, isprod=ISPROD)
 
 
+##########################################################################################
+# Return the favicon file
+@app.route('/favicon.ico')
+def getFavicon():
+    return app.send_static_file("favicon.ico")
+
 
 ########################################################################################
 ## Main entry point
+#
 if __name__ == '__main__':
-    #load config file
-    Config.read("electrogeek.ini")
+    try:
+        #load config file
+        Config.read("electrogeek.ini")
+        
+        #loading once and for all the config values
+        ROOTDIR  = Config.get("WebConfig", "ROOTDIR")
+        LOGFILE  = Config.get("WebConfig", "LOGFILE")
+        HTTPPORT = int(Config.get("WebConfig", "HTTPPORT"))
+        ISPROD = Config.getboolean("WebConfig", "ISPROD")
+        UPLOAD_FOLDER = os.path.join(ROOTDIR, 'files')
 
-    #loading once and for all the config values
-    ROOTDIR  = Config.get("WebConfig", "ROOTDIR")
-    LOGFILE  = Config.get("WebConfig", "LOGFILE")
-    HTTPPORT = int(Config.get("WebConfig", "HTTPPORT"))
-    ISPROD = Config.getboolean("WebConfig", "ISPROD")
-    UPLOAD_FOLDER = os.path.join(ROOTDIR, 'files')
+        #start the logfile
+        #logging.basicConfig(filename="/tmp/flasklogging.log",level=logging.DEBUG)
+        handler = RotatingFileHandler(LOGFILE, maxBytes=10000, backupCount=1)
+        handler.setLevel(logging.INFO)
+        app.logger.addHandler(handler)
 
-    #start the logfile
-    #logging.basicConfig(filename="/tmp/flasklogging.log",level=logging.DEBUG)
-    handler = RotatingFileHandler(LOGFILE, maxBytes=10000, backupCount=1)
-    handler.setLevel(logging.INFO)
-    app.logger.addHandler(handler)
+        if not ISPROD:
+            app.debug = True
 
-    if not ISPROD:
-        app.debug = True
+        #set the upload folder
+        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-    #set the upload folder
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+        ledz.ledz_init()
+    
+        #start serving pages
+        app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
+    finally:
+        #cleanup
+        ledz.ledz_finalize()
 
-    #start serving pages
-    app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
