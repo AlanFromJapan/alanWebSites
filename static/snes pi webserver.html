@@ -6,7 +6,7 @@ The whole thing is stuffed inside a SNES body that was the empty shell of my <a 
 
 <table class="wiki_table">
     <tr>
-        <td><img src="files/snespi1.jpg" alt="snespi1.jpg" title="snespi1.jpg" /><br />
+        <td><img src="/files/snespi1.jpg" alt="snespi1.jpg" title="snespi1.jpg" /><br />
 </td>
         <td>1- Raspberry Pi2<br />
 2- AC/DC converter (110V AV -> 10.5V DC)<br />
@@ -15,12 +15,12 @@ The whole thing is stuffed inside a SNES body that was the empty shell of my <a 
 </td>
     </tr>
     <tr>
-        <td><img src="files/snespi2.jpg" alt="snespi2.jpg" title="snespi2.jpg" /></td>
+        <td><img src="/files/snespi2.jpg" alt="snespi2.jpg" title="snespi2.jpg" /></td>
         <td>Nearly final product. Looks not bad huh?</td>
     </tr>
     <tr>
-        <td><img src="files/2015-09-02-23-15-50_photo.jpg" alt="2015-09-02-23-15-50_photo.jpg" /></td>
-        <td>Final product: there's a small fan in the cartridge to help with air convection (the router gets quite hot). This website you read now is hosted from my toilets :)</td>
+        <td><img src="/files/2015-09-02-23-15-50_photo.jpg" alt="2015-09-02-23-15-50_photo.jpg" /></td>
+        <td>Final product: there's a small fan in the cartridge to help with air convection (the router gets quite hot). This website you read now is hosted from <span style="text-decoration:line-through;">my toilets :)</span> my living room (I moved house). But that is cool to say that this website ran for 2-3 years from my toilets.</td>
     </tr>
 </table>
 
@@ -29,19 +29,39 @@ The whole thing is stuffed inside a SNES body that was the empty shell of my <a 
 Now comes the fun. My goals are to:
 <ul><li>Serve static content: html, css, images... I don't care/desire php modules or else, I'm fine editing my site with emacs (yes, I do)</li><li>A little dynamic though: if I could do some page combination on the fly like ASP.Net master page or maybe have a few tags dynamcally parsed, that would be cool but I <em>could</em> live without it.</li></ul>
 <h3 id="toc2"><a name="Purpose-Software-Option 1 use a home made Python webserver"></a> Option 1 use a home made Python webserver </h3>
-<span style="color: #ff0000;font-size: 140%;">✗</span>Which is what I did first, it handled bravely a few attacks until some a$$hole found a breach and killed it with a few commands. Yeah, BaseHTTPServer is not the most robust implementation. <br />
+<span style="color: #ff0000;font-size: 140%;">✗</span> Which is what I did first, it handled bravely a few attacks until some a$$hole found a breach and killed it with a few commands. Yeah, BaseHTTPServer is not the most robust implementation. <br />
 <br />
 <h3 id="toc3"><a name="Purpose-Software-Option 2 a existing Python framework"></a> Option 2 a existing Python framework </h3>
-<span style="font-weight:bold;">Flask</span> is the answer. and that's the way to go!<br/>
+<span style="font-weight:bold;color:limegreen;">✔</span> <span style="font-weight:bold;">Flask</span> is the answer. and that's the way to go!<br/>
 I used the **Flask** to build a custom single editor multithreaded webservice. I can edit pages on the site live, that works quite fine. It's a work in progress, but if you're interrested do check on github, there's the **full site**: [[https://github.com/AlanFromJapan/alanWebSites]] <br/>
 <br />
 <h3 id="toc4"><a name="Purpose-Software-Option 3 a fullfledge web server"></a> Option 3 a fullfledge web server </h3>
-<span style="color: #ff0000;font-size: 140%;">✗</span>Not Apache (robust but cabalistic config), but maybe an easier/lighter Nginx? Would have worked but I wanted some flexibility.
+<span style="color: #ff0000;font-size: 140%;">✗</span> Not Apache (robust but cabalistic config), but maybe an easier/lighter Nginx? Would have worked but I wanted some flexibility.
+
+<h1>Installation</h1>
+I put it here for memory, since when I make update I work on other servers now (all the content is on Github so why not?).<br/>
+<br/>
+The site executes under **Python 2.7+**:<code>
+* sudo apt-get install python-setuptools
+* sudo easy_install pip
+* sudo pip install Flask
+* sudo pip install futures
+</code>
+You need //flask// as the main engine, and you need //futures// for multithreading thread-pool for blinking leds. The above commands get you //easy_install// to get //pip// to get the before mentionned packages.<br/>
+<br/>
+Now to get the site source : <code>git clone https://github.com/AlanFromJapan/alanWebSites.git</code> and go get a small coffee.<br/>
+Once downloaded, edit the <code>electrogeek.ini</code> file and run by <code>python electrogeek_flask.py</code> or use the start script.<br/>
+<br/>
+Notes regarding the Leds: adding the leds support came with a few tricks (and thanks to [[https://raspberrypi.stackexchange.com/questions/40105/access-gpio-pins-without-root-no-access-to-dev-mem-try-running-as-root|this person]] for sharing):
+* Need to run a Jessie debian so go for a <code>sudo rpi-update</code> and the usual apt-get update/upgrade
+* Does not run as root so the web server user must be in the gpio group <code>sudo adduser webuser gpio</code>
+* And in case you still get a no access to /dev/mem, check the permissions and do <code>sudo chown root.gpio /dev/gpiomem ; sudo chmod g+rw /dev/gpiomem</code> 
 
 <h1>Network</h1>
 <h2>Topology</h2>
-I won't go into micro details here because it will change between your house and me, and it gets a little too private. I'm no network expert, so forgive if some details I keep before me.
-+++ network diagram +++
+I won't go into micro details here because it will change between your house and me, and it gets a little too private. I'm no network expert, so forgive if some details I keep before me.<br/>
+<img src="/files/website_architecture.png" /><br/>
+//Dashed lines are wifi, plain are wired, red is DMZ (as setup in the main router) and blue is regular intranet//
 <h2>Security</h2>
 On the main router:
 * "DMZ router" is the DMZ target for the main router: all incoming extrnal traffic is redirected to that DMZ router
