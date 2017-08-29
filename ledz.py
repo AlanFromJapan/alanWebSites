@@ -8,7 +8,7 @@ import time
 from concurrent import futures
 
 # Pin Definitons:
-_ledPin = 19
+_ledPin = 21
 # blink ON duration in sec
 _blink_duration = 0.15
 
@@ -35,8 +35,12 @@ class _blinker:
 
 ########################################################################
 ## Init function, call it on startup        
-def ledz_init():
+def ledz_init(c):
     print ("INFO: called ledz_init()")
+
+    #read pin from config
+    global _ledPin
+    _ledPin = c.getint("Ledz", "pin")
     # Pin Setup:
     GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
     GPIO.setup(_ledPin, GPIO.OUT) # LED pin set as output

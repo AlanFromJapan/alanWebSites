@@ -331,7 +331,8 @@ if __name__ == '__main__':
         #set the upload folder
         app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-        ledz.ledz_init()
+        #init the leds
+        ledz.ledz_init(Config)
     
         #start serving pages
         app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
