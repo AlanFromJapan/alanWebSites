@@ -85,7 +85,16 @@ Is used **hdparm** and it works though with my Japanese Buffalo 1TB USB HDD I ge
 
 
 <h2>Setup DNS cache service</h2>
-See [[DNS server at home]].
+See [[DNS server at home]].<br/>
+<br/>
+
+
+<h2>Extend the SD life : use a /tmp in RAM</h2>
+Plenty [[https://askubuntu.com/questions/173094/how-can-i-use-ram-storage-for-the-tmp-directory-and-how-to-set-a-maximum-amount|of]] [[http://www.zdnet.com/article/raspberry-pi-extending-the-life-of-the-sd-card/|sources]] but in a nutshell:
+* In <code> /etc/fstab </code> add the below ↓ line and reboot to get a maximum 150MB /tmp in RAM (only the really used amount of mem is consumed, not a reservation like a malloc):
+<code>tmpfs    /tmp     tmpfs   defaults,noatime,nosuid,nodev,noexec,mode=1777,size=150M 0 0</code><br/>
+<br/>
+
 
 <h1 id="toc10"><a name="Raspberry Pi Hardware"></a> Raspberry Pi Hardware </h1>
 <h2 id="toc11"><a name="Raspberry Pi Hardware-Hardware details"></a> Hardware details </h2>

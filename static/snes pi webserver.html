@@ -1,17 +1,27 @@
 <h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
-Need a web server for self hosting, use a Raspberry Pi 2 of course (seeing I expect 200-300 page views a day we're safe). I need a DMZ in my internal network so the old router sleeping in the closet found a new life. I also had those beefy AC/DC modules in my lucky bag in Akihabara years ago, make the 110v a steady 10.5V with a decent amount of amps (measured 4 when short cutting I think). Throw in a couple of step down "buck" converters (no 7805) from eBay to have a decent efficiency and get my 5v for the Raspi as 3.3v for the router. Interresting fact this SoB of router does not work with 3.3v but is fed about 3.5-3.6v otherwise it doesn't start or keep rebooting. Not the fault of the power module, I tested with my beefy DC supply and with a precise 3.3v it keep on rebooting. The original power plug was measured 3.47V (though labelled 3.3v), so, what the hell, it works, maybe not for a century but I'll manage.<br />
+Need a web server for self hosting, use a [[Raspi|Raspberry Pi 2]] of course (seeing I expect 200-300 page views a day we're safe). I need a DMZ in my internal network so the old router sleeping in the closet found a new life. I also had those beefy AC/DC modules in my lucky bag in Akihabara years ago, make the 110v a steady 10.5V with a decent amount of amps (measured 4 when short cutting I think). Throw in a couple of step down "buck" converters (no 7805) from eBay to have a decent efficiency and get my 5v for the Raspi as 3.3v for the router. Interresting fact this SoB of router does not work with 3.3v but is fed about 3.5-3.6v otherwise it doesn't start or keep rebooting. Not the fault of the power module, I tested with my beefy DC supply and with a precise 3.3v it keep on rebooting. The original power plug was measured 3.47V (though labelled 3.3v), so, what the hell, it works, maybe not for a century but I'll manage.<br />
 The whole thing is stuffed inside a SNES body that was the empty shell of my <a class="wiki_link" href="Around%20a%20SNES.html">Arcade cabinet made with a SNES</a>. I had to make fake joypad port, just wood with a few holes and painted/varnished the same as the SNES original grey, ... if you don't pay attention it makes acceptable illusion.<br />
 <br />
 
+<h2>Bill of materials</h2>
+<ul>
+* [[Raspi|Raspberry Pi 2]] for the web server: could be any of the Raspi familly in fact if you have a small site, just runs a website in python and maybe nginx
+* AC/DC converter from 110V to something like 5~12V. Mine gives 10.5V at 4A when shorted, more than enough
+* An old Buffalo router that you bring back from the closet of the dead with [[http://www.dd-wrt.com|DD-WRT]] a fantastic alternate firmware. Luckily my old router was in the list, installation was a bit tricky but it worked.
+* Buck converters (no 7805) to lower the AC/DC converter output DC voltage to the 5V needed by the Raspi and 3.5V needed by the router (it says 3.3V but that doesn't work, it needs a tad bit more to boot).
+* A old Super Famicon to host your project with nobility and nostalgy
+* I sacrificed a cartridge and stuck a fan inside to suck out the hot air in summer, but it ended up making so much vibrations that I turned it off (not documented)
+</ul>
 
+<h2>Pictures</h2>
 <table class="wiki_table">
     <tr>
         <td><img src="/files/snespi1.jpg" alt="snespi1.jpg" title="snespi1.jpg" /><br />
 </td>
         <td>1- Raspberry Pi2<br />
-2- AC/DC converter (110V AV -> 10.5V DC)<br />
+2- AC/DC converter (110V AC -> 10.5V DC)<br />
 3- Old router<br />
-4- Step down buck converters<br />
+4- Step down buck converters (to 5v and 3.5v)<br />
 </td>
     </tr>
     <tr>
