@@ -3,6 +3,11 @@
 ROOTFOLDER=/usr/local/websites/electrogeek.DEV
 #change the file owner, just to be sure (for page edition)
 sudo chown -R webuser $ROOTFOLDER/static/*
+
+#reset the group owner of the GPIO 
+sudo chown root.gpio /dev/gpiomem 
+sudo chmod g+rw /dev/gpiomem
+
 #start
 sudo -u webuser -s nohup /usr/bin/python $ROOTFOLDER/electrogeek_flask.py &
 
