@@ -2,15 +2,23 @@ The idea is to add a few inputs/outputs on a Raspberry Pi puppy.
 
 <h1>Presentation</h1>
 <h2>Idea</h2>
-* I want a proper shutdown button for my webserver (Raspi 2)
+* I want a proper shutdown button for [[snes pi webserver|my webserver (Raspi 2)]]
 * I want to add some bling bling like blinking a led at each file served
 * Pilot so display to show message on a led board?
 <h2>Points of interrest</h2>
-* Any pin is caoable of GPIO. Not maybe 100% pure hardware (in terms of timing) but jsut any pin will be ok
+* Any pin is capable of GPIO. Not maybe 100% pure hardware (in terms of timing) but just any pin will be ok
 * RPi.GPIO lib can't do hardware PWM, all the PWM are software but at least you can have it on any pin
+* You can make the calls asynchronous by using the <code>futures</code> python package to run it on a threadpool
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <h2>Schematics</h2>
+<h2>OS Settings</h2>
+Thanks to [[https://raspberrypi.stackexchange.com/questions/40105/access-gpio-pins-without-root-no-access-to-dev-mem-try-running-as-root|this person]] for sharing:
+* Need to run a **Jessie** raspbian so go for a <code>sudo rpi-update</code> and the usual <code>sudo apt-get update ; sudo apt-get upgrade</code>
+* If you do not run as //root// so the application user must be in the gpio group <code>sudo adduser //my-app-user// gpio</code>
+* And in case you still get a no access to /dev/mem, check the permissions and do <code>sudo chown root.gpio /dev/gpiomem ; sudo chmod g+rw /dev/gpiomem</code> 
+* The above gpiomem change might be lost at reboot, so add it to your /etc/rc.local or in your startup script of your app
+
 <h2>Source code</h2>
 **PCB components**<br/>
 Found the basic outline [[https://github.com/awjlogan/awjlogan_eagle_lbr|here]] so thanks for sharing mate!<br/>
@@ -20,6 +28,9 @@ On my [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle|gith
 
 <h1>Pictures</h1>
 <img src="/files/raspi_header_pinout.jpg" width="600" /><br/>
+//Pinout from Element14//<br/>
+<img src="/files/20170831_164937.jpg" /><br/>
+//Circuit for my own version of a //[[https://blog.petrockblock.com/2015/07/04/powerblock-another-power-switch-for-the-raspberry-pi/|PowerBlock]]<br/>
 
 <h1>Links</h1>
 <h2>Helpful sources</h2>

@@ -9,7 +9,7 @@
 <img src="files/pinout10large.png" alt="pinout10large.png" title="pinout10large.png" /><br />
 <h2 id="toc0"><a name="x-Memo fact sheet"></a> Memo fact sheet <img src="files/I-04575.JPG" alt="I-04575.JPG" title="I-04575.JPG" style="width: 300px;" align="right" /></h2>
 <br />
-<ul><li><strong>Code</strong> : 1024 Bytes / <strong>EEPROM</strong> : <span style="color: red;">0 bytes</span> / <strong>RAM</strong> : 32 Bytes</li><li><strong>Size</strong>: about 3mm x 3mm legs included !! (0&#x3002;0)</li><li>2 PWM on PB0 and PB1</li><li>Default speed : internal oscillator 8 MHz</li><li>Homepage <a class="wiki_link_ext" href="http://www.atmel.com/devices/ATTINY10.aspx" rel="nofollow">http://www.atmel.com/devices/ATTINY10.aspx</a></li></ul><br />
+<ul><li><strong>Code</strong> : 1024 Bytes / <strong>EEPROM</strong> : <span style="color: red;">0 bytes</span> / <strong>RAM</strong> : 32 Bytes</li><li><strong>Size</strong>: about 3mm x 3mm legs included !! (0。0)</li><li>2 PWM on PB0 and PB1</li><li>Default speed : internal oscillator 8 MHz</li><li>Homepage <a class="wiki_link_ext" href="http://www.atmel.com/devices/ATTINY10.aspx" rel="nofollow">http://www.atmel.com/devices/ATTINY10.aspx</a></li></ul><br />
 <br />
 <h1 id="toc1"><a name="Usage"></a> Usage </h1>
 <h2 id="toc2"><a name="Usage-Programming"></a> Programming </h2>
@@ -25,7 +25,7 @@ The chip is so small it cannot use a SPI interface but uses instead the TPI (Tin
 <span style="text-align: center;
 display: block;
 background-color: #ffd600;
-border: 1px black solid;">All the source codes and samples programs in 1 solution : <a class="wiki_link_ext" href="https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny10" rel="nofollow" target="_blank">https://code.google.com/p/alanarduinotools/source/browse/#svn%2Ftrunk%2FAttiny10</a></span><br />
+border: 1px black solid;">All the source codes and samples programs in 1 solution : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny10]]</span><br />
 <h2 id="toc5"><a name="Sample codes-Random number generator in assembler"></a> Random number generator in assembler </h2>
 I found it <a class="wiki_link_ext" href="http://www.avrfreaks.net/forum/very-fastsmall-random-number-generator" rel="nofollow">here</a>. Adapted it to use with Attiny10, it uses 4 registers r16-19. A bit more work and you could store the last value in SRAM instead, but I didn't need to so I let it as-is...<br />
 
@@ -59,10 +59,10 @@ I found it <a class="wiki_link_ext" href="http://www.avrfreaks.net/forum/very-fa
     ldi r17<span class="sy1">,</span> <span class="nu0">0xad</span>
     ldi r18<span class="sy1">,</span> <span class="nu0">0xad</span>
     ldi r19<span class="sy1">,</span> <span class="nu0">0xad</span>
-&nbsp;
+ 
 main<span class="sy1">:</span>
     rjmp main <span class="co1">; your program here</span>
-&nbsp;
+ 
 <span class="co1">; http://www.avrfreaks.net/forum/very-fastsmall-random-number-generator</span>
 <span class="co1">; 31-bit random number</span>
 <span class="co1">; primitive polynomial order 31</span>
@@ -70,15 +70,15 @@ main<span class="sy1">:</span>
 <span class="co1">; shift before XOR</span>
 rand_31<span class="sy1">:</span>
     <span class="kw1">push</span> r24
-&nbsp;
+ 
     <span class="kw1">lsl</span>    r16            <span class="co1">; shift first</span>
     <span class="kw1">rol</span>    r17
     <span class="kw1">rol</span>    r18
     <span class="kw1">rol</span>    r19
-&nbsp;
+ 
     sbrs    r19<span class="sy1">,</span><span class="nu0">7</span>            <span class="co1">; test MSB</span>
     rjmp    rand_31_outro            <span class="co1">; clear, no XOR</span>
-&nbsp;
+ 
     ldi    r24<span class="sy1">,</span><span class="nu0">0xB5</span>        <span class="co1">; first poly byte</span>
     eor    r16<span class="sy1">,</span>r24            <span class="co1">; XOR it in</span>
     ldi    r24<span class="sy1">,</span><span class="nu0">0x95</span>        <span class="co1">; second byte of poly</span>
@@ -87,7 +87,7 @@ rand_31<span class="sy1">:</span>
     eor    r18<span class="sy1">,</span>r24
     ldi    r24<span class="sy1">,</span><span class="nu0">0x20</span>
     eor    r19<span class="sy1">,</span>r24
-&nbsp;
+ 
 rand_31_outro<span class="sy1">:</span>
     <span class="kw1">pop</span> r24
     <span class="kw1">ret</span></pre>
@@ -134,34 +134,34 @@ rjmp neant        <span class="co1">;8 0x0007 ANA_COMP Analog Comparator</span>
 rjmp WDT_off    <span class="co1">;9 0x0008 WDT Watchdog Time-out</span>
 rjmp neant        <span class="co1">;10 0x0009 VLM VCC Voltage Level Monitor</span>
 rjmp neant        <span class="co1">;11 0x000A ADC ADC Conversion Complete (1)</span>
-&nbsp;
+ 
 <span class="co1">; ---------------------------------------------------------</span>
 <span class="co1">; a dummy handler for unused interrupts</span>
 neant<span class="sy1">:</span>
     reti
-&nbsp;
+ 
 main<span class="sy1">:</span>    
     <span class="co1">;----------- Watchdog setup start ----------------------------------------</span>
     <span class="co1">;No interrupts temporarily please</span>
     <span class="kw1">cli</span>
-&nbsp;
+ 
     <span class="co1">;no reset on watchdog! (clear bit WDRF in RSTFLR)</span>
     <span class="kw1">in</span> r16<span class="sy1">,</span> RSTFLR
-    andi r16<span class="sy1">,</span> ~<span class="br0">&#40;</span><span class="nu0">1</span> &lt;&lt; WDRF<span class="br0">&#41;</span>
+    andi r16<span class="sy1">,</span> ~<span class="br0">(</span><span class="nu0">1</span> << WDRF<span class="br0">)</span>
     <span class="kw1">out</span> RSTFLR<span class="sy1">,</span> r16
-&nbsp;
-    <span class="co1">; WDP2 | WDP1 =&gt; every second %20 !WDE | WDIE =&gt; interrupt on watchdog timeout</span>
-    ldi r17<span class="sy1">,</span> <span class="br0">&#40;</span><span class="nu0">1</span> &lt;&lt; WDIE | <span class="nu0">1</span> &lt;&lt; WDP2 | <span class="nu0">1</span> &lt;&lt; WDP1 | <span class="nu0">0</span> &lt;&lt; WDE<span class="br0">&#41;</span>
+ 
+    <span class="co1">; WDP2 | WDP1 => every second %20 !WDE | WDIE => interrupt on watchdog timeout</span>
+    ldi r17<span class="sy1">,</span> <span class="br0">(</span><span class="nu0">1</span> << WDIE | <span class="nu0">1</span> << WDP2 | <span class="nu0">1</span> << WDP1 | <span class="nu0">0</span> << WDE<span class="br0">)</span>
     ldi r16<span class="sy1">,</span> <span class="nu0">0xD8</span>    <span class="co1">;0xD( magic value to write in CCP, and then within 4 cycles you can update WDTCSR</span>
     <span class="kw1">out</span> CCP<span class="sy1">,</span> r16
     <span class="kw1">out</span> WDTCSR<span class="sy1">,</span> r17
     sei
     <span class="co1">;----------- Watchdog setup end ----------------------------------------</span>
-&nbsp;
+ 
 <span class="kw1">loop</span><span class="sy1">:</span>
     <span class="kw1">nop</span> <span class="co1">; main body</span>
     rjmp <span class="kw1">loop</span>
-&nbsp;
+ 
 <span class="co1">; Watchdog interrupt body</span>
 WDT_off<span class="sy1">:</span>
     <span class="kw1">cli</span>
