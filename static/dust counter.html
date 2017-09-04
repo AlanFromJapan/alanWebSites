@@ -19,10 +19,44 @@ On mine, the connector wire colors are (looking at the plug on the sensor, wires
 * <span style="color:red;">Red</span>: VCC
 <img src="/files/sharpFromDoc-300x150.png" /><br/>
 // The dust sensor wiring schema from the doc //<br/>
+**Voltage to dust density approximation**<br/>
+<img src="/files/SharpDensitycurve.png" width="400" /><img src="/files/SharpDensityCurveApprox.PNG"  /><br/>
+//Datasheet vs. homemade approximation//<br/>
+I decided to use 2 linear approximations, using 5V:
+* The blue one Y = 6 X + 0.6
+* The orange one Y = 0.5 X + 3.25
+And use one or the other depending where you are:
+<script>hljs.initHighlightingOnLoad();</script>
+
+<pre><code class="cpp">
+/* Takes the voltage (in V) read and return the dust density based on the graph provided in the Datasheet
+ */
+float voltage2DustDensity (float pVoltage) {
+  if (pVoltage <= 0.6) {
+    return 0;
+  }
+  if (pVoltage <= 3.4) {
+    /*
+     linear regression calulated from key values at (v=0.6 dust=0) and (v=3 dust=0.4)
+     x = (y  - b) / a
+    */
+    return (pVoltage - 0.6)/6.0;  
+  }
+
+  /*
+   voltage > 3.4 same with [0.5;3.5] and [0.8;3.65]
+   x = (y  - b) / a
+   */
+  return (pVoltage - 3.25)/0.5;  
+}
+</code></pre>
+
 
 <h2>Schematics</h2>
 
 <h2>Source code</h2>
+
+[[https://github.com/AlanFromJapan/alanarduinotools/tree/master/DustCounter|On GitHub]].
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
