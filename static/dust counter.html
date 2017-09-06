@@ -1,4 +1,4 @@
-This is a new Template for **dust counter**!
+<img src="/files/GP2Y1010AU0F_mini.jpg" align="right" />I found these 5USD dust sensor (counter is a big word in fact) on eBay and tried it. Since I do woodworking as a second hobby, having a sensor to make sure I'm now brownlungig myself into pneumonia. So one stone two birds.
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
@@ -53,11 +53,11 @@ float voltage2DustDensity (float pVoltage) {
 
 
 <h2>Schematics</h2>
-
+Follow the schematic from the datasheet for the Dust sensor. The board is a [[WordClock]] board because it was proper in term of size. The Led bar is linked via a bunch of 1k ohm resistors to pins 27 to 15 (arduino A4 to 9), and the Dust sensor pin connected to A5 for reading and 8 (arduino) for driving the LED.
 <h2>Source code</h2>
-
-[[https://github.com/AlanFromJapan/alanarduinotools/tree/master/DustCounter|On GitHub]].
+It's an arduino script because I was too lazy to write it properly in C in Atmel Studio. Code is here [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/DustCounter|on GitHub]].
 <h1>Pictures</h1>
+<img src="/files/dustcounteranim.gif" />
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 People who had problem with this LCD:
