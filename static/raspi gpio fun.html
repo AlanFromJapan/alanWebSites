@@ -24,7 +24,44 @@ Thanks to [[https://raspberrypi.stackexchange.com/questions/40105/access-gpio-pi
 Found the basic outline [[https://github.com/awjlogan/awjlogan_eagle_lbr|here]] so thanks for sharing mate!<br/>
 <br/>
 **THE PCB**<br/>
-On my [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle|github]] as usual.
+On my [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle|github]] as usual.<br/>
+<br/>
+**SHUTDOWN SCRIPT**<br/>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<pre><code class="python">
+# External module imports                                                                                               
+import RPi.GPIO as GPIO
+import time, os
+
+# Pin Definitons:  
+buttonPin = 21
+
+
+def my_callback_shutdown(channel):
+    print ("Shut down!")
+    os.system("sudo shutdown -h now")
+
+
+# Pin Setup:           
+GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
+GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(buttonPin, GPIO.FALLING, callback=my_callback_shutdown, bouncetime=300)
+
+
+print("Waiting for shudown switch on GPIO%d" % (buttonPin))
+try:
+    while 1:
+        time.sleep(10)
+
+except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
+    GPIO.cleanup() # cleanup all GPIO
+</code></pre>
+<br/>
+**LED BLINK**<br/>
+It's done in the project [[SNES Pi webserver]] check the file <code>ledz.py</code>.<br/>
+There's an interresting trick to use the <code>concurrent.futures</code> functions to have the blink running on another thread. Have a peek.<br/>
 
 <h1>Pictures</h1>
 <img src="/files/raspi_header_pinout.jpg" width="600" /><br/>
