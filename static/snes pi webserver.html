@@ -67,6 +67,11 @@ Notes regarding the Leds: adding the leds support came with a few tricks (and th
 * Does not run as root so the web server user must be in the gpio group <code>sudo adduser webuser gpio</code>
 * And in case you still get a no access to /dev/mem, check the permissions and do <code>sudo chown root.gpio /dev/gpiomem ; sudo chmod g+rw /dev/gpiomem</code> 
 
+<h2>Upgrades</h2>
+<h3>Shutdown button</h3>
+It's documented on the [[Raspi GPIO fun]] page, just check. Now there's a kill button hidden behind the cartridge.
+<h3>Page served LED</h3>
+Following the code change in the present project [[https://github.com/AlanFromJapan/alanWebSites|source code]], check the <code>ledz.pi</code> thing and documented [[Raspi GPIO fun|here]], each time a page is served a small <span style="color:green;">green led</span> blinks. It's next to the red power led.
 <h1>Network</h1>
 <h2>Topology</h2>
 I won't go into micro details here because it will change between your house and me, and it gets a little too private. I'm no network expert, so forgive if some details I keep before me.<br/>
