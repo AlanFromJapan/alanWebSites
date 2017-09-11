@@ -161,9 +161,21 @@ height:64px;
 height:100px;
 background-color: #808080;
 
-background-image:url('/files/header_right1.png'); 
+background-image:url('/files/header_circuit_Sept2017b.jpg'); 
 background-repeat: no-repeat;
 background-position: top right;
+
+border-spacing: 0px;
+border-collapse:collapse;
+}
+
+#header_logo {
+height:100px;
+width:640px;
+
+background-image:url('/files/electrogeek_logo3.png'); 
+background-repeat: no-repeat;
+background-position: top left;
 
 border-spacing: 0px;
 border-collapse:collapse;
