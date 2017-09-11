@@ -13,7 +13,17 @@ Small board, monopurposed or multipurposed if better. For me 555 rhymes with PWM
 * Solder switch ready to close to immediately get a PWM config
 * Optional status LED
 <h2>Schematics</h2>
-<img src="/files/rapide555.png" />
+<h3>PWM555 (as in [[Aquarium Lights]])</h3>
+<img src="/files/rapide555.png" /><br/>
+Gives a nice 98% - 8% or less range. Could be made better though.
+* IC1: 555 in DIP format
+* R1 and R2: 100 ohm
+* R3: 470 ohm
+* D1: Schottky diode
+* C1: 0.1 uF
+* Q1: IRFZ44N MOSFET
+* R6: potentiometer, 1k - 10k
+
 <h2>Source code</h2>
 [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/Rapide555|On GitHub]].
 <h1>Pictures</h1>
