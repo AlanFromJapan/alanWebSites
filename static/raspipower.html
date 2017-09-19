@@ -1,0 +1,76 @@
+Target (following the [[Raspi GPIO fun]]) is to be able to turn off a Raspi with a tact switch AND cut the power (for real). This means I use a little uC ([[ATTiny10]]) which sends the shutdown signal to the [[Raspi]] (like done on the [[SNES Web server]]) and then closes the relay to cut the power completely. You will just feed continuously the uC which can be tuned to have a microscopic power consumption.<br/>
+Target is to use that in my [[Bedside mood companion]] project but more on that later...
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+<h2>Points of interrest</h2>
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+<table>
+<tr><td><b>Mandatory</b></td><td><b>Part</b></td><td><b>Value</b></td><td><b>Device</b></td><td><b>Package</b></td><td><b>Description</b></td><td><b></b></td></tr>
+<tr><td>M</td><td>C1</td><td>10uF</td><td>CPOL-EUE2.5-5</td><td>E2,5-5</td><td>POLARIZED CAPACITOR, European symbol</td><td></td></tr>
+<tr><td>M</td><td>D1</td><td></td><td>DIODE-D-5</td><td>D-5</td><td>DIODE</td><td></td></tr>
+<tr><td></td><td>J2</td><td></td><td>CONN_05X2PTH</td><td>2X5</td><td></td><td></td></tr>
+<tr><td></td><td>J3</td><td></td><td>CONN_03</td><td>1X03</td><td></td><td></td></tr>
+<tr><td></td><td>J4</td><td></td><td>CONN_03</td><td>1X03</td><td></td><td></td></tr>
+<tr><td></td><td>J7</td><td></td><td>CONN_05X2PTH</td><td>2X5</td><td></td><td></td></tr>
+<tr><td></td><td>J8</td><td></td><td>CONN_05X2PTH</td><td>2X5</td><td></td><td></td></tr>
+<tr><td></td><td>JIN</td><td></td><td>CONN_02LOCK_LONGPADS</td><td>1X02_LOCK_LONGPADS</td><td></td><td></td></tr>
+<tr><td></td><td>JIN1</td><td>USB_MINI-B_SMT</td><td>USB_MINI-B_SMT</td><td>USB-MINIB</td><td>USB type Mini-B Connector</td><td></td></tr>
+<tr><td></td><td>JIN2</td><td></td><td>USB_MICRO-B_FEMALE-SMT</td><td>USB-B-MICRO-SMD</td><td>USB Type Micro-B Connector</td><td></td></tr>
+<tr><td></td><td>JOUT</td><td></td><td>CONN_02LOCK_LONGPADS</td><td>1X02_LOCK_LONGPADS</td><td></td><td></td></tr>
+<tr><td></td><td>JP1</td><td></td><td>JUMPER-SMT_3_NO_SILK</td><td>SMT-JUMPER_3_NO_SILK</td><td>Normally open jumper</td><td></td></tr>
+<tr><td></td><td>JP3</td><td></td><td>JUMPER-SMT_3_NO_SILK</td><td>SMT-JUMPER_3_NO_SILK</td><td>Normally open jumper</td><td></td></tr>
+<tr><td></td><td>JSPIPROG</td><td>AVR_SPI_PROG_3X2PTH</td><td>AVR_SPI_PROG_3X2PTH</td><td>2X3</td><td>AVR ISP 6 Pin</td><td></td></tr>
+<tr><td>I</td><td>K1</td><td>4052</td><td>4052</td><td>F4052</td><td>RELAY</td><td></td></tr>
+<tr><td></td><td>LED_POWER2</td><td></td><td>LED-FKIT-1206</td><td>FKIT-LED-1206</td><td>LED (Generic)</td><td></td></tr>
+<tr><td></td><td>NPNOR1</td><td>2SC2120</td><td>-NPN-TO92-ECB</td><td>TO92-ECB</td><td>NPN Transistror</td><td></td></tr>
+<tr><td></td><td>NPNOR2</td><td>2SC2120</td><td>-NPN-TO92-ECB</td><td>TO92-ECB</td><td>NPN Transistror</td><td></td></tr>
+<tr><td>M</td><td>NRELAY</td><td>2SC2120</td><td>-NPN-TO92-ECB</td><td>TO92-ECB</td><td>NPN Transistror</td><td></td></tr>
+<tr><td></td><td>R1</td><td>1k</td><td>R-EU_0207/2V</td><td>0207/2V</td><td>RESISTOR, European symbol</td><td></td></tr>
+<tr><td></td><td>R2</td><td>1k</td><td>R-EU_0207/2V</td><td>0207/2V</td><td>RESISTOR, European symbol</td><td></td></tr>
+<tr><td>M</td><td>R3</td><td>1k</td><td>R-EU_0204/7</td><td>0204/7</td><td>RESISTOR, European symbol</td><td></td></tr>
+<tr><td></td><td>R4</td><td>10k</td><td>R-EU_0207/2V</td><td>0207/2V</td><td>RESISTOR, European symbol</td><td></td></tr>
+<tr><td></td><td>R5</td><td>10k</td><td>R-EU_0207/2V</td><td>0207/2V</td><td>RESISTOR, European symbol</td><td></td></tr>
+<tr><td></td><td>R6</td><td>1k</td><td>R-EU_R1206W</td><td>R1206W</td><td>RESISTOR, European symbol</td><td></td></tr>
+<tr><td></td><td>S1</td><td>MOMENTARY-SWITCH-SPST-PTH-6.0MM</td><td>MOMENTARY-SWITCH-SPST-PTH-6.0MM</td><td>TACTILE_SWITCH_PTH_6.0MM</td><td>Momentary Switch (Pushbutton) - SPST</td><td></td></tr>
+<tr><td>M</td><td>U$1</td><td>ATTINY10</td><td>ATTINY10</td><td>SOT23</td><td></td><td></td></tr>
+<tr><td>I</td><td>U$2</td><td>HK4100F-DC5V</td><td>HK4100F-DC5V</td><td>SMR1</td><td>HUIKE (Fujitsu) subminaiture relay</td><td></td></tr>
+</table>
+
+
+Mandatory status:
+* M: mandatory
+* I: pick one or the other, no difference
+
+<h2>Schematics</h2>
+<img src="/files/raspipower-schema.png" /><br/>
+<br/>
+<h3>Variants</h3>
+** JP1 **<br/>
+By default it can be left opened. Leave all opened if use the OR resistor pair below.
+* JP1-A: close this to pull up the reset pin
+* JP1-B: close to connect pin PB3 (/RESET) to the Raspi GPIO13, used as //PI_IS_ON//: should be set as HIGH 5V when the Pi is running. Can be used only if the /RESET pin is overriden disabled, meaning you won't be able to reprogram the chip after
+<br/>
+** JP3 **<br/>
+By default you should close JP3-B to enable simple control of the relay transistor NRELAY.
+* JP3-A: close this to enable the OR circuit 
+* JP3-B: connects ATtiny10 pin PB2 to the relay's NPN transistor for the simplest scenario
+<br/>
+** OR Circuit **<br/>
+A [[http://www.waitingforfriday.com/?p=529|transistor based OR]] that drives the relay's transistor by implementing "uC pin PB2 **OR** GPIO13". GPIO13 is //PI_IS_ON// and should be HIGH when the Raspi is running. <br/>
+One idea is that if the script makes //PI_IS_ON// HIGH as long as the Raspi runs, and the uC pin PB2 is high the relay will be closed. And when turning off, the tiny sends //DATA-DO_SHUTDN// to turn off the Raspi, and keeps the relay on for 30 sec. 
+  
+<h2>Source code</h2>
+<h3>Board</h3>
+On [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RaspiPower|my GitHub]].
+<h3>ATTiny10 uC</h3>
+TODO
+<h1>Pictures</h1>
+<img src="/files/raspipower_top.png" /><br/>
+//Top side of the board//<br/>
+<img src="/files/20170831_164937.jpg" /><br/>
+//Initial circuit for my own version of a //[[https://blog.petrockblock.com/2015/07/04/powerblock-another-power-switch-for-the-raspberry-pi/|PowerBlock]]<br/>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
