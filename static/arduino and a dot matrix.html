@@ -194,7 +194,11 @@ void test3() {
     
     for (int x =0; x < 16; x++) {
       if (x == y) {
-        /*NEW LINE! I don't get why this works, found that in the links above ... for me I made a new line at each for (y) but I had only the top line working... (0_0)*/
+        /*
+          NEW LINE! This one kept me searching for a couple of evenings. The reason is that the SIN1 "new line" is not an active signal (like "go next line"),
+          it's an information of which line to display. First time it's on the zero clock, then on clock 1, then clock 2, ... Once you understand that it's 
+          very logical in fact. 
+        */
         digitalWrite(PINSIN1, HIGH);
       }
       
