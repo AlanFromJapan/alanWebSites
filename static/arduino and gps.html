@@ -1,8 +1,28 @@
-This is a new Template for **Arduino and GPS**!
+<img src="/files/ublok6gps1.JPG" align="right" width="250" />I just bought on [[http://www.ebay.com/itm/GY-NEO6MV2-NEO-6M-GPS-Module-Board-with-Antenna-for-Arduino-Raspberry-Pi/142233250679|eBay]] a **GY-NEO6MV2 NEO-6M** board for less than 5 USD. Looks neat, came with a small antenna, and get easily a fix from nearby satellites ... sweet!<br/>
+Originally I plan to use it as a GPS based clock, but maybe it will become more? Who knows. Anyway, this is a technical page for future reference.
 
 <h1>Presentation</h1>
-<h2>Principle</h2>
 <h2>Points of interrest</h2>
+* Cheap!
+* GPS!
+* working fine
+<h1>Points of concern</h1>
+<h2>Antenna</h2>
+Antenna ain't not the strongest, need to be close to a window to get the signal. Could be improved?
+
+<h2>Time message (NMEA ZDA)</h2>
+By default the standard time message NMEA ZDA is no issued (at least on my model), but there's different workarounds.<br/>
+<h3>Use UBLOX custom message</h3>
+Seems the <code>UBX 04</code> message is a good alternate and will send me the time! To be tested. Just send <code>$PUBX,04*37<CR><LF></code> and we're good to go.<br/>
+EDit: and it works ! I got the below line:
+<pre>
+$PUBX,04,113011.00,041017,300611.00,1969,15D,-45227909,0.000,21*73
+</pre>
+Meaning it is now UTC 11:30:11.00 (+9h for Tokyo), on the 4th October 2017. Perfect.<br/>
+<img src="/files/ublok6gpstime1.PNG" />
+<h3>Enable the ZDA</h3>
+Seems you need to send some CFG-MSG to force the frequency of the ZDA message... will call this option B.
+
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <h2>Schematics</h2>
@@ -11,8 +31,8 @@ This is a new Template for **Arduino and GPS**!
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 * [[http://www.gpsinformation.org/dale/nmea.htm#ZDA]]
-* [[https://www.u-blox.com/sites/default/files/products/documents/u-blox6_ReceiverDescrProtSpec_%28GPS.G6-SW-10018%29_Public.pdf?utm_source=en%2Fimages%2Fdownloads%2FProduct_Docs%2Fu-blox6_ReceiverDescriptionProtocolSpec_%28GPS.G6-SW-10018%29.pdf]]
+* RTFM [[https://www.u-blox.com/sites/default/files/products/documents/u-blox6_ReceiverDescrProtSpec_%28GPS.G6-SW-10018%29_Public.pdf?utm_source=en%2Fimages%2Fdownloads%2FProduct_Docs%2Fu-blox6_ReceiverDescriptionProtocolSpec_%28GPS.G6-SW-10018%29.pdf]]
 * [[https://forum.u-blox.com/index.php?qa=1684&qa_1=disable-nmea-sentence]] see above
 * NMEA online decoder [[http://freenmea.net/decoder]]
-* TinyGPS [[http://arduiniana.org/libraries/TinyGPS/]]
+* TinyGPS [[http://arduiniana.org/libraries/TinyGPS/]] (not used)
 <h2>Inspiration</h2>
