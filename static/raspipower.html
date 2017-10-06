@@ -1,9 +1,15 @@
-Target (following the [[Raspi GPIO fun]]) is to be able to turn off a Raspi with a tact switch AND cut the power (for real). This means I use a little uC ([[ATTiny10]]) which sends the shutdown signal to the [[Raspi]] (like done on the [[SNES Web server]]) and then closes the relay to cut the power completely. You will just feed continuously the uC which can be tuned to have a microscopic power consumption.<br/>
+<img src="/files/raspipowerboard1.jpg" align="right" width="250"/>Target (following the [[Raspi GPIO fun]]) is to be able to turn off a Raspi with a tact switch AND cut the power (for real). This means I use a little uC ([[ATTiny10]]) which sends the shutdown signal to the [[Raspi]] (like done on the [[SNES Web server]]) and then closes the relay to cut the power completely. You will just feed continuously the uC which can be tuned to have a microscopic power consumption.<br/>
 Target is to use that in my [[Bedside mood companion]] project but more on that later...
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
-<h2>Points of interrest</h2>
+<h2>Issues</h2>
+<h3>Version 1.0</h3>
+I am a f#$&ing  idiot, I wired the version 1.0 as the relay closed by default. Need to cut some tracks and airwire it to work ... I feel stupid.<br/>
+<img src="/files/raspipowerboard1_fix10.jpg" width="1000" /><br/>
+Need to do the following:
+* 3 trace puts on the PCB front: there's space, should be ok.
+* minimum 2 airwire to connect the incoming USB VCC to the right relay pin as well as the top part of the circuit
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <table>
@@ -71,6 +77,8 @@ TODO
 //Top side of the board//<br/>
 <img src="/files/20170831_164937.jpg" /><br/>
 //Initial circuit for my own version of a //[[https://blog.petrockblock.com/2015/07/04/powerblock-another-power-switch-for-the-raspberry-pi/|PowerBlock]]<br/>
+<img src="/files/raspipowerboard1.jpg" /><br/>
+//The v1.0 of the board ... with its bug :(//<br/>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 <h2>Inspiration</h2>
