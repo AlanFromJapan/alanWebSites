@@ -11,7 +11,7 @@ Need to do the following:
 * A trace cuts on the PCB front: there's space, should be ok.
 * Some airwire to connect the incoming USB VCC to the right relay pin as well as the top part of the circuit
 <h3>Version 1.2</h3>
-I skipped the v1.1, this one should work with both relays.
+I skipped the v1.1, this one should work with both relays, and I implemented the HK4100F component in my homemade library.
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <table>
@@ -71,9 +71,10 @@ One idea is that if the script makes //PI_IS_ON// HIGH as long as the Raspi runs
   
 <h2>Source code</h2>
 <h3>Board</h3>
-On [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RaspiPower|my GitHub]].
-<h3>ATTiny10 uC</h3>
-TODO
+Source code [https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny10/RaspiPower_tiny10|on GitHub]].<br/>
+<h3>ATTiny10 micro-controller</h3>
+On [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RaspiPower|my GitHub]] based on [[ATTiny10]] microcontroller.<br/>
+<img src="/files/Raspipower_logic.png" />
 <h1>Pictures</h1>
 <img src="/files/raspipower_top.png" /><br/>
 //Top side of the board//<br/>

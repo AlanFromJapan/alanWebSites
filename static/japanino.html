@@ -1,0 +1,74 @@
+<img src="/files/japaninologo.gif" width="400" align="right" />I'm the happy owner of a rare **[[http://otonanokagaku.net/japanino/|Japanino]]**.
+
+<h1>Presentation</h1>
+A small minor [[http://otonanokagaku.net/japanino/|Japanese board]], clone of Arduino, and that I bought years ago to support Japan industry.
+<h2>Points of interrest</h2>
+Well it's a rare Arduino clone, with a [[atmega168]] and a 8MHz crystal, and a [[https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers|CP210x USB to UART Bridge]].
+<h1>Implementation</h1>
+<h2>Integration in Arduino IDE</h2>
+Edit the <code>\arduino-1.6.13\hardware\arduino\avr\boards.txt</code>:
+<pre>
+##############################################################
+
+atmegang.name=Arduino NG or older
+
+atmegang.upload.tool=avrdude
+atmegang.upload.protocol=arduino
+atmegang.upload.speed=19200
+
+atmegang.bootloader.tool=avrdude
+atmegang.bootloader.unlock_bits=0x3F
+atmegang.bootloader.lock_bits=0x0F
+
+atmegang.build.mcu=atmegang
+atmegang.build.f_cpu=16000000L
+atmegang.build.board=AVR_NG
+atmegang.build.core=arduino
+atmegang.build.variant=standard
+
+## Arduino NG or older w/ ATmega168
+## --------------------------------
+atmegang.menu.cpu.atmega168=ATmega168
+
+atmegang.menu.cpu.atmega168.upload.maximum_size=14336
+atmegang.menu.cpu.atmega168.upload.maximum_data_size=1024
+
+atmegang.menu.cpu.atmega168.bootloader.low_fuses=0xff
+atmegang.menu.cpu.atmega168.bootloader.high_fuses=0xdd
+atmegang.menu.cpu.atmega168.bootloader.extended_fuses=0x00
+atmegang.menu.cpu.atmega168.bootloader.file=atmega/ATmegaBOOT_168_ng.hex
+
+atmegang.menu.cpu.atmega168.build.mcu=atmega168
+
+## Arduino NG or older w/ ATmega8
+## ------------------------------
+atmegang.menu.cpu.atmega8=ATmega8
+
+atmegang.menu.cpu.atmega8.upload.maximum_size=7168
+atmegang.menu.cpu.atmega8.upload.maximum_data_size=1024
+
+atmegang.menu.cpu.atmega8.bootloader.low_fuses=0xdf
+atmegang.menu.cpu.atmega8.bootloader.high_fuses=0xca
+atmegang.menu.cpu.atmega8.bootloader.file=atmega8/ATmegaBOOT-prod-firmware-2009-11-07.hex
+
+atmegang.menu.cpu.atmega8.build.mcu=atmega8
+<span style="color:red;">
+## Japanino Atmega 168 + 8MHz
+## --------------------------------
+atmegang.menu.cpu.japanino=Japanino
+
+atmegang.menu.cpu.japanino.upload.maximum_size=14336
+atmegang.menu.cpu.japanino.upload.maximum_data_size=1024
+
+atmegang.menu.cpu.japanino.bootloader.low_fuses=0xff
+atmegang.menu.cpu.japanino.bootloader.high_fuses=0xdd
+atmegang.menu.cpu.japanino.bootloader.extended_fuses=0x00
+atmegang.menu.cpu.japanino.bootloader.file=atmega/ATmegaBOOT_168_ng.hex
+
+atmegang.menu.cpu.japanino.build.mcu=atmega168
+atmegang.menu.cpu.japanino.build.f_cpu=8000000L
+</span>
+##############################################################
+</pre>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
