@@ -205,10 +205,15 @@ input[type="text"].focus {
 }
 
 h1.PageTitle {
- font-weight: bold; 
- font-size: 2em; 
+ font-weight: bolder;
+ font-size: 3em;
  border-bottom:none;
+ text-transform: capitalize;
 
+}
+
+h1.PageTitle::before {
+    content:"\bb\a0";
 }
 
 pre {
