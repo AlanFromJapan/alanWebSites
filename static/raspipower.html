@@ -1,4 +1,4 @@
-<img src="/files/raspipowerboard1.jpg" align="right" width="250"/>Target (following the [[Raspi GPIO fun]]) is to be able to turn off a Raspi with a tact switch AND cut the power (for real). This means I use a little uC ([[ATTiny10]]) which sends the shutdown signal to the [[Raspi]] (like done on the [[SNES Web server]]) and then closes the relay to cut the power completely. You will just feed continuously the uC which can be tuned to have a microscopic power consumption.<br/>
+<img src="/files/20171013_230931.jpg" align="right" width="250"/>Target (following the [[Raspi GPIO fun]]) is to be able to turn off a Raspi with a tact switch AND cut the power (for real). This means I use a little uC ([[ATTiny10]]) which sends the shutdown signal to the [[Raspi]] (like done on the [[SNES Web server]]) and then closes the relay to cut the power completely. You will just feed continuously the uC which can be tuned to have a microscopic power consumption.<br/>
 Target is to use that in my [[Bedside mood companion]] project but more on that later...
 
 <h1>Presentation</h1>
@@ -6,7 +6,8 @@ Target is to use that in my [[Bedside mood companion]] project but more on that 
 An in place programmable [[ATTiny10]] watches for a button press: on press close the realy (turning on the Raspi) and on another press sends a signal to Raspi (see the [[Raspi GPIO fun|Raspberry Pi shutdown python script]]) then waits for ~30sec to turn off the power for real by opening the relay. Simple as they come.
 <h2>Issues</h2>
 <h3>Version 1.0</h3>
-I am a f#$&ing  idiot, I wired the version 1.0 as the relay closed by default and I used the wrong part for the HK4100F relay. Need to cut some tracks and airwire it to work with the big F4052 relay  ... I feel stupid.<br/>
+I am a f#$&ing  idiot, I wired the version 1.0 as the relay closed by default and I used the wrong part for the HK4100F relay so you can't use it with that HK4100F relay. Need to cut some tracks and airwire it to work with the big F4052 relay  ... I feel stupid. <br/>
+At least it's fixable and it works fine with the big ass relay now.<br/>
 <img src="/files/raspipowerboard1_fix10.jpg" width="1000" /><br/>
 Need to do the following:
 * A trace cuts on the PCB front: there's space, should be ok.
@@ -47,11 +48,11 @@ I skipped the v1.1, this one should work with both relays, and I implemented the
 <tr><td>I</td><td>U$2</td><td>HK4100F-DC5V</td><td>HK4100F-DC5V</td><td>SMR1</td><td>HUIKE (Fujitsu) subminaiture relay</td><td></td></tr>
 </table>
 
-
+//
 Mandatory status:
 * M: mandatory
-* I: pick one or the other, no difference
-
+* I: pick one or the other, no difference (Beware: board v1.0 works only with F4052 relay, only from v1.2 both relays type are properly accepted)
+//
 <h2>Schematics</h2>
 <img src="/files/raspipower-schema.png" /><br/>
 <br/>
@@ -68,15 +69,17 @@ By default you should close JP3-B to enable simple control of the relay transist
 <br/>
 ** OR Circuit **<br/>
 A [[http://www.waitingforfriday.com/?p=529|transistor based OR]] that drives the relay's transistor by implementing "uC pin PB2 **OR** GPIO13". GPIO13 is //PI_IS_ON// and should be HIGH when the Raspi is running. <br/>
-One idea is that if the script makes //PI_IS_ON// HIGH as long as the Raspi runs, and the uC pin PB2 is high the relay will be closed. And when turning off, the tiny sends //DATA-DO_SHUTDN// to turn off the Raspi, and keeps the relay on for 30 sec. 
+One idea is that if the script makes //PI_IS_ON// HIGH as long as the Raspi runs, and the uC pin PB2 is high the relay will be closed. And when turning off, the tiny sends //DATA-DO_SHUTDN// to turn off the Raspi, and keeps the relay on for 30 sec. So as long as the uC consider it should keep the Raspi powered (=until shutdown button pressed and notified +30sec) OR the Raspi says "I'm running" (the //PI_IS_ON// GPIO) the relay will stay closed.
   
 <h2>Source code</h2>
 <h3>Board</h3>
-Source code [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny10/RaspiPower_tiny10|on GitHub]].<br/>
+Source code on [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RaspiPower|my GitHub]].<br/>
 <h3>ATTiny10 micro-controller</h3>
-On [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RaspiPower|my GitHub]] based on [[ATTiny10]] microcontroller.<br/>
+On [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny10/RaspiPower_tiny10|my GitHub]] based on [[ATTiny10]] microcontroller.<br/>
 <img src="/files/Raspipower_logic.png" />
 <h1>Pictures</h1>
+<img src="/files/20171013_230931.jpg" /><br/>
+//The assembled version with its big ass relay//<br/>
 <img src="/files/raspipower_top.png" /><br/>
 //Top side of the board//<br/>
 <img src="/files/20170831_164937.jpg" /><br/>
