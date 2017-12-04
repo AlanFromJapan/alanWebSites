@@ -5,7 +5,24 @@ This is a new Template for **eink weather station**!
 <h2>Points of interrest</h2>
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
-<h2>Schematics</h2>
+<h2>Installation</h2>
+<u>For the eInk:</u><br/>
+All is here: [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT]]
+* sudo apt-get install python-dev
+* sudo pip install wiringpi spidev
+* wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz <br/>
+tar zxvf bcm2835-1.xx.tar.gz<br/>
+cd bcm2835-1.xx<br/>
+./configure<br/>
+make<br/>
+sudo make check<br/>
+sudo make install<br/>
+* sudo apt-get install python-smbus  python-serial python-imaging python-rpi.gpio
+
+<u>For the weather:</u><br/>
+* sudo pip install weather-api
+
+
 <h2>Source code</h2>
 <h1>Pictures</h1>
 <h1>Links</h1>
