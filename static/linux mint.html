@@ -12,7 +12,9 @@ Use **synaptic** to do the installs unless otherwise specified:
 * emacs
 * htop
 * iBus for [[http://www.localizingjapan.com/blog/2014/07/29/japanese-input-on-linux-mint-17-qiana-cinnamon/|Japanese input]]
-* keepass
+* keepass2
+* git
+* owncloud client
 </ul>
 
 <h2>Additional setup</h2>
@@ -53,9 +55,23 @@ sudo apt-get install owncloud-client
 <h2>Netflix</h2>
 Just install google Chrome and you're done. Go to [[https://www.google.com/chrome/browser/]] and you're done...
 
+<h2>Shortcuts</h2>
+My usual shortcuts to add to //.profile// for instance...
+<pre>
+alias als="ls -alF"
+alias gitpush="git push origin master"
+alias gitadd="git add -A"
+alias gitcommit="git commit"
+alias gitALL="gitadd;gitcommit;gitpush"
+</pre>
 <h1>Troubleshooting</h1>
 //It doesn't work and I fixed or worked around it. So if it helps you...//
 <h2>⇒　My Linux Mint keeps on loosing internet (Mint 18.1 Serena)</h2>
 **Situation: **in fact Wifi does work, try putting an IP and you're good. Restarting your wireless connection fix the problem. So it drills down to "DNS resolution failing after a few minutes". <br/>
 **Guilty: **dnsmasq. <br/>
 **Solution:** deactivate that "addition" by editing /etc/NetworkManager/NetworkManager.conf and #comment out the line dns=dnsmasq, and reboot (you can restart the NW manager only but ...)
+<br/>
+<h2>⇒　My Linux Mint lost Windows 7 in double boot</h2>
+**Situation: **you finally decided to give up on Windows 7/8/10 and install mint, double boot setup but no "Windows" option on the grub boot.<br/>
+**Guilty: **grub <br/>
+**Solution:** update grub: //sudo update-grub// and that should fix it. If not, enjoy updating grub manually...
