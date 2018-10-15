@@ -31,6 +31,9 @@ Won't be supported ('cause I don't care):
 
 Make a user to run _webuser_ the website only, no login possible (_passwd -l webuser_), minimum rights.  
 Make a folder /use/local/website/electrogeek.PROD/  
-In that folder, do _git clone https://github.com/AlanFromJapan/alanWebSites.git ._  
+Make the owner of the folder _webuser_, he should be the only one with write access.  
+In that folder, as user _webuser_, do _git clone https://github.com/AlanFromJapan/alanWebSites.git ._  
 Rename and edit the _electrogeek.sample.ini_ as _electrogeek.ini_  
 If you don't run on a RPI, comment out all the RPI GPIO reference in the ledz.py  
+Edit the start/stop scripts to reflect the DEV or PROD you run.  
+
