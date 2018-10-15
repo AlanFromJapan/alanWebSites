@@ -16,3 +16,17 @@ Won't be supported ('cause I don't care):
 * Blog engine
 * Collaborative system with multiple users
 * Extensive fancy new stuff
+
+## Install
+###Prepare
+* sudo apt-get install emacs-nox git python-setuptools
+* sudo easy_install pip
+* sudo pip install Flask
+* sudo pip install futures
+* sudo pip install RPi.GPIO
+###Install
+Make a user to run _webuser_ the website only, no login possible (_passwd -l webuser_), minimum rights.
+Make a folder /use/local/website/electrogeek.PROD/
+In that folder, do _git clone https://github.com/AlanFromJapan/alanWebSites.git ._
+Rename and edit the _electrogeek.sample.ini_ as _electrogeek.ini_
+If you don't run on a RPI, comment out all the RPI GPIO reference in the ledz.py
