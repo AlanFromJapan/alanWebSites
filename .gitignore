@@ -1,4 +1,7 @@
 electrogeek.ini
 *~
+*.pyc
+*.out
 doBackup.sh
 desktop.ini
+				

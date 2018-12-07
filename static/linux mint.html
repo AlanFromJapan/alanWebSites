@@ -64,6 +64,17 @@ alias gitadd="git add -A"
 alias gitcommit="git commit"
 alias gitALL="gitadd;gitcommit;gitpush"
 </pre>
+
+<h2>Disable root login via SSH</h2>
+First, disable root login. Just make sure you have another sudoer user somewhere, or you'll just lock yourself out of the admin mode. 
+<pre>
+passwd -l root
+</pre>
+Then, to be clean, disable root login in /etc/ssh/sshd_config:
+<pre>
+PermitRootLogin no
+</pre> 
+
 <h1>Troubleshooting</h1>
 //It doesn't work and I fixed or worked around it. So if it helps you...//
 <h2>⇒　My Linux Mint keeps on loosing internet (Mint 18.1 Serena)</h2>

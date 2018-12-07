@@ -1,31 +1,37 @@
-This is a new Template for **eink weather station**!
+I want to make a small weather & reminder to throw the trash for my home entrance. Depending on the day in Japan you're supposed to throw one or another type of garbage and I //always// miss the "non-burnable" one, because it's the "second and fourth Thursday of the month"... So this toy will show me the weather, a few other interresting info and if it's the day for what type of trash.
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
+<img src="/files/einkweather-blockdiagram.PNG" />
 <h2>Points of interrest</h2>
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <h2>Installation</h2>
 <u>For the eInk:</u><br/>
 All is here: [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT]]
-* sudo apt-get install python-dev
-* sudo pip install wiringpi spidev
-* wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz <br/>
-tar zxvf bcm2835-1.xx.tar.gz<br/>
-cd bcm2835-1.xx<br/>
-./configure<br/>
-make<br/>
-sudo make check<br/>
-sudo make install<br/>
-* sudo apt-get install python-smbus  python-serial python-imaging python-rpi.gpio
+<pre>
+sudo apt-get install python-dev
+sudo pip install wiringpi spidev
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz
+tar zxvf bcm2835-1.xx.tar.gz
+cd bcm2835-1.xx
+./configure
+make
+sudo make check
+sudo make install
+sudo apt-get install python-smbus  python-serial python-imaging python-rpi.gpio
+</pre>
 
 <u>For the weather:</u><br/>
 Python [[https://code.google.com/p/python-weather-api/|Weather API]] based on Yahoo!:
-* sudo pip install weather-api
+<pre>
+sudo pip install weather-api
+</pre>
 
 
 
 <h2>Source code</h2>
+On the git : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/EinkWeatherStation]]
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>

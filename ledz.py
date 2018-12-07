@@ -3,7 +3,7 @@
 ##################################################################################################
 
 # External module imports
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import time
 from concurrent import futures
 
@@ -29,9 +29,9 @@ def ledz_blink():
 # https://stackoverflow.com/questions/19033818/how-to-call-a-function-on-a-running-python-thread
 class _blinker:
     def blink(self):
-        GPIO.output(_ledPin, True)
+#        GPIO.output(_ledPin, True)
         time.sleep(_blink_duration)    
-        GPIO.output(_ledPin, False)
+#        GPIO.output(_ledPin, False)
 
 ########################################################################
 ## Init function, call it on startup        
@@ -42,13 +42,13 @@ def ledz_init(c):
     global _ledPin
     _ledPin = c.getint("Ledz", "pin")
     # Pin Setup:
-    GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
-    GPIO.setup(_ledPin, GPIO.OUT) # LED pin set as output
+#    GPIO.setmode(GPIO.BCM) # Broadcom pin-numbering scheme
+#    GPIO.setup(_ledPin, GPIO.OUT) # LED pin set as output
     # Initial state for LEDs:
-    GPIO.output(_ledPin, GPIO.LOW)
+#    GPIO.output(_ledPin, GPIO.LOW)
 
 ########################################################################
 ## Finalization, call on close    
 def ledz_finalize():
     print ("INFO: called ledz_finalize()") 
-    GPIO.cleanup() # cleanup all GPIO
+#    GPIO.cleanup() # cleanup all GPIO
