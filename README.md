@@ -31,6 +31,14 @@ Won't be supported ('cause I don't care):
 
 Make a user to run _webuser_ the website only, no login possible (_passwd -l webuser_), minimum rights.  
 Make a folder /use/local/website/electrogeek.PROD/  
-In that folder, do _git clone https://github.com/AlanFromJapan/alanWebSites.git ._  
+Make the owner of the folder _webuser_, he should be the only one with write access.  
+In that folder, as user _webuser_, do _git clone https://github.com/AlanFromJapan/alanWebSites.git ._  
 Rename and edit the _electrogeek.sample.ini_ as _electrogeek.ini_  
 If you don't run on a RPI, comment out all the RPI GPIO reference in the ledz.py  
+Edit the start/stop scripts to reflect the DEV or PROD you run.  
+Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  
+
+###Finish  
+Remove write access to electrogeek.ini to all, and change owner to root (but leave read all), so even if server is compromised you cant change settings to show other places.  
+
+
