@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Schedule me with cron
+#52 13 * * * /path/to/electrogeek.PROD/autocommit.sh >> /tmp/autocommit.log 2>&1
+
 #datetime of the commit
 X=`date +"%Y/%m/%d@%H:%M:%S"`
 
