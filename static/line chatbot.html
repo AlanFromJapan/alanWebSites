@@ -7,11 +7,21 @@ Started that in December 2016, idea would be a line chatbot that can do some dom
 <h1>Implementation</h1>
 * Create a **business account**, as a developer
 * Make a **Channel**, but for that you'll need a **Provider**
-* On the backend server, make a user //linebot// : sudo adduser --disabled-login linebot
-* sudo pip install line-bot-sdk flask
-* git clone https://github.com/line/line-bot-sdk-python
+* On the backend server, make a user //linebot// : <code>sudo adduser --disabled-login linebot</code>
+* If python pip is not here, you can :<code>python -m ensurepip --default-pip</code> //or// <code>curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py;python get-pip.py </code>//or// <code>python -m ensurepip --default-pip</code>
+* <code>sudo pip install line-bot-sdk flask</code>
+* <code>git clone https://github.com/line/line-bot-sdk-python</code>
 * Make yourself a DNS name, [[http://duckdns.org|Duck DNS]] is fantastic and free (thanks guys!)
-* Now you need a certificate, so use certbot ([[https://letsencrypt.org/|let's encrypt]] thanks for your free service!) for that. I tried many options, but ended by using the manual method: //sudo certbot certonly --manual  -d myserver.duckdns.org// <br/> you'll need to run a parallel simple webserver, but it's all explained on the screen, just read it, you'll end up with you 2 .pem certificate files. You want that key file and your fullchain.pem that is stored in /etc/letsencrypt/live/myserver.duckdns.org/. You can use the privkey that is there too, it's the same as the key file you generated above.
+* Now you need a certificate, so use certbot ([[https://letsencrypt.org/|let's encrypt]] thanks for your free service!) for that. I tried many options, but ended by using the manual method: <code>sudo certbot certonly --manual  -d myserver.duckdns.org</code> <br/> you'll need to run a parallel simple webserver, but it's all explained on the screen, just read it, you'll end up with you 2 .pem certificate files. You want that key file and your fullchain.pem that is stored in /etc/letsencrypt/live/myserver.duckdns.org/. You can use the privkey that is there too, it's the same as the key file you generated above.
+<pre>
+mkdir -p /tmp/certbot/public_html/.well-known/acme-challenge
+cd /tmp/certbot/public_html
+printf "%s" ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX > .well-known/acme-challenge/ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+
+sudo $(command -v python2 || command -v python2.7 || command -v python2.6) -c "import BaseHTTPServer, SimpleHTTPServer; \
+s = BaseHTTPServer.HTTPServer(('', 80), SimpleHTTPServer.SimpleHTTPRequestHandler); \
+s.serve_forever()" 
+</pre>
 * You should now be able to run the basic samples of Line, after editing the code as below to enable listening to outside request (host="0.0.0.0") and enabling the certificates:
 <pre>
 if __name__ == "__main__":
