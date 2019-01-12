@@ -5,6 +5,7 @@ This is a new Template for **line chatbot**!
 Started that in December 2016, idea would be a line chatbot that can do some domotics... First we'll work with the **Messaging API** of Line.
 <h2>Points of interest</h2>
 <h1>Implementation</h1>
+<h2>Basics: get a service running and plugged in Line</h2>
 * Create a **business account**, as a developer
 * Make a **Channel**, but for that you'll need a **Provider**
 * On the backend server, make a user //linebot// : <code>sudo adduser --disabled-login linebot</code>
@@ -31,7 +32,15 @@ if __name__ == "__main__":
 * Use webhooks: set to //Enabled//
 * Webhook URL: put the url of your callback service, ie <i>https://myserver.duckdns.org/callback</i> You can even test, though it fails for me with the sample "flask-echo" but it works when you call it by talking to your line bot!
 Victory, as you're here, you have a beta prototype working. Good job, go grab a beer. Yes you can, you deserve it.
-<h2>Bill of materials</h2>
+<h2>Natural Language Processing : SpaCy</h2>
+* Install Spacy, Python 2.x, in a Virtualenv, and English catalog
+<pre>
+python -m pip install -U virtualenv
+virtualenv .env
+source .env/bin/activate
+pip install -U spacy
+python -m spacy download en
+</pre>
 <h2>Schematics</h2>
 <h2>Source code</h2>
 <h1>Pictures</h1>
