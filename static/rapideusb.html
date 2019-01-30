@@ -3,7 +3,7 @@ text-align: center;
 display: block;
 font-weight:bold;">How to use this? <a class="wiki_link" href="USB%20without%20Arduino.html">USB without Arduino</a>  </span><br />
 <h1 id="toc0"><a name="Summary"></a>Summary </h1>
-<img src="files/Rapideusb_silktoponly2.png" alt="Rapideusb_silktoponly2.png" title="Rapideusb_silktoponly2.png" align="right" />A one afternoon work to make this board. Goal: make the <a class="wiki_link" href="USB%20without%20Arduino.html">V-USB project simple</a> , with a board that already has everything you need. Populate it, burn the program and you're good to go! Works for <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a> DIP or <a class="wiki_link" href="ATmega328.html">ATmega328</a> (all the ATmegaxx8 family in fact) in SMD package.<br />
+<img src="/files/Rapideusb_silktoponly2.png" alt="Rapideusb_silktoponly2.png" title="Rapideusb_silktoponly2.png" align="right" />A one afternoon work to make this board. Goal: make the <a class="wiki_link" href="USB%20without%20Arduino.html">V-USB project simple</a> , with a board that already has everything you need. Populate it, burn the program and you're good to go! Works for <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a> DIP or <a class="wiki_link" href="ATmega328.html">ATmega328</a> (all the ATmegaxx8 family in fact) in SMD package.<br />
 <br />
 This board is made to make your life easier if:<br />
 <ul><li>You go with the Zener diodes approach: your mCU runs on 5v, life is easy. For the small downsides see <a class="wiki_link_ext" href="http://vusb.wikidot.com/hardware" rel="nofollow">V-USB hardware documentation</a>.</li><li>You plan to use pins D2 and D4 for your connectivity. You can use other pins though, you'll have to <em>not</em> solder the jumpers and wire D+/D- to the pins you want</li><li>You plan to use ATtiny 2313 DIP or ATmegaxx8 SMD family</li></ul><br />
@@ -13,7 +13,7 @@ If you have suggestions about how to improve the layout, please let me hear.<br 
 Self-criticizing and possible improvements:<br />
 <ul><li>[High] Add holes for D+/D- to plug a USB cable directly instead of a micro/mini plug</li><li>[Medium] Make those lines that carry power (VCC & GND) bigger, it's just signal size now, no way it can draw more than a few tens of mA)</li><li>[Medium] Put a solder mask on the bottom for the power rail! Hard to figure where is gnd/vcc...</li><li>[low] Add a V-USB logo</li><li>[low] The power rail have solder mask on top (bottom is ok)... how did I do this miracle? Replace with regular ones</li></ul><br />
 <h1 id="toc1"><a name="Schematics"></a> Schematics </h1>
-On Google SVN : <a class="wiki_link_ext" href="https://alanarduinotools.googlecode.com/svn/trunk/eagle/RapideUSB" rel="nofollow">https://alanarduinotools.googlecode.com/svn/trunk/eagle/RapideUSB</a> <br />
+On GitHub : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RapideUSB]] <br />
 <br />
 <h2 id="toc2"><a name="Schematics-README ! Things to know"></a> README ! Things to know </h2>
 <ul><li>The board has 2 solder jumpers labelled <em>D+=D2</em> and <em>D-=D4</em>: if you use D2 (as D+) and D4 (as D-) as default, just solder close these jumpers. If not, let them open and join the solder pad to the pin you're using.<ul><li>Corollary: if you don't solder these pads but use my default pins, nothing will work.</li></ul></li><li>PORT D is common to both mCU, PORT C is only available for ATmega328 and PORT B is implemented <em>separately</em>. Reason is that the ISP wiring on both mCU go to PORT B but the pins are different: MISO is PB6 on the tiny and PB4 on the mega. It would result in a big mess shorting pins. I could have put solder jumpers but I had space so...</li><li>For all the ports the pin 0 is the <em>square</em> 口 pad. Count up from there, farthest is number 7.</li><li>Board is a default 5cm x 5cm<ul><li>You can cut the board at the level of the 3rd free row (where there's the "<em>cut ok</em>" top silk message). You board will become a 5cm x 3.3cm in case you need space.</li></ul></li></ul><br />
@@ -241,11 +241,16 @@ On Google SVN : <a class="wiki_link_ext" href="https://alanarduinotools.googleco
 C3/C5: 1uF caps to put the closest to the mCU, not mandatory but encouraged<br />
 R4: some people put a 1Mohm pullup, some don't. Not mandatory.<br />
 <br />
-<h1 id="toc5"><a name="Code"></a> Code </h1>
+<h2>Things to improve</h2>
+* [Medium] Add some solder pads in case I don't want to use an USB connector but solder a cable
+* [Medium] OTG connection as a client? Maybe with a solder jump or allow to solder these special connectors? (ie: to be able to connect a smartphone)
+* [low] Provision for external power + USB connection, like a self powered hub or allow the conencted smartphone to connect //and// charge
+<h1>Code </h1>
+The Eagle schematics are [[@https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RapideUSB|on GitHub]] as usual.
 Look into my other <a class="wiki_link" href="USB%20gadgets.html">USB gadgets</a> projects : <a class="wiki_link" href="Tricolor%20USB%20alert.html">Tricolor USB alert</a> (ATtiny2313) or <a class="wiki_link" href="Finger%20Password%20Keyboard.html">Finger Password Keyboard</a> (ATmega328).<br />
 <br />
-<h1 id="toc6"><a name="Pictures"></a> Pictures </h1>
-<img src="files/2015-01-17-18-00-53_deco.jpg" alt="2015-01-17-18-00-53_deco.jpg" title="2015-01-17-18-00-53_deco.jpg" /><br />
+<h1> Pictures </h1>
+<img src="/files/2015-01-17-18-00-53_deco.jpg" alt="2015-01-17-18-00-53_deco.jpg" title="2015-01-17-18-00-53_deco.jpg" /><br />
 <em> See the BOM for details. Took 25 minutes to assemble, no big issue.</em><br />
-<img src="files/2015-01-17-18-32-44_deco.jpg" alt="2015-01-17-18-32-44_deco.jpg" title="2015-01-17-18-32-44_deco.jpg" /><br />
+<img src="/files/2015-01-17-18-32-44_deco.jpg" alt="2015-01-17-18-32-44_deco.jpg" title="2015-01-17-18-32-44_deco.jpg" /><br />
 <em>2313 version assembled. Just be careful next to the USB connector with the diodes and resistor, space is tight, you might want to place them wisely (see the 3 vertical resistors next to USB connector)</em>

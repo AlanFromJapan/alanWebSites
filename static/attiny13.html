@@ -1,3 +1,5 @@
+<script>hljs.initHighlightingOnLoad();</script>
+
 <img src="files/pinout13large.png" alt="pinout13large.png" title="pinout13large.png" /><br />
 <h2 id="toc0"><a name="x-Memo fact sheet"></a> Memo fact sheet </h2>
 <ul>
@@ -16,79 +18,40 @@
 <h1 id="toc2"><a name="Samples"></a> Samples </h1>
 <h2 id="toc3"><a name="Samples-Blink"></a> Blink </h2>
 
-<style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.cpp  {font-family:monospace;}
-.cpp .imp {font-weight: bold; color: red;}
-.cpp .kw1 {color: #0000ff;}
-.cpp .kw2 {color: #0000ff;}
-.cpp .kw3 {color: #0000dd;}
-.cpp .kw4 {color: #0000ff;}
-.cpp .co1 {color: #666666;}
-.cpp .co2 {color: #339900;}
-.cpp .coMULTI {color: #ff0000; font-style: italic;}
-.cpp .es0 {color: #000099; font-weight: bold;}
-.cpp .es1 {color: #000099; font-weight: bold;}
-.cpp .es2 {color: #660099; font-weight: bold;}
-.cpp .es3 {color: #660099; font-weight: bold;}
-.cpp .es4 {color: #660099; font-weight: bold;}
-.cpp .es5 {color: #006699; font-weight: bold;}
-.cpp .br0 {color: #008000;}
-.cpp .sy0 {color: #008000;}
-.cpp .sy1 {color: #000080;}
-.cpp .sy2 {color: #000040;}
-.cpp .sy3 {color: #000040;}
-.cpp .sy4 {color: #008080;}
-.cpp .st0 {color: #FF0000;}
-.cpp .nu0 {color: #0000dd;}
-.cpp .nu6 {color: #208080;}
-.cpp .nu8 {color: #208080;}
-.cpp .nu12 {color: #208080;}
-.cpp .nu16 {color:#800080;}
-.cpp .nu17 {color:#800080;}
-.cpp .nu18 {color:#800080;}
-.cpp .nu19 {color:#800080;}
-.cpp .me1 {color: #007788;}
-.cpp .me2 {color: #007788;}
-.cpp span.xtra { display:block; }
-
--->
-</style><pre class="cpp"><span class="co1">// includes</span>
-<span class="co2">#include <avr/io.h></span>
-<span class="co2">#include <util/delay.h></span>
- 
-<span class="co1">//</span>
-<span class="co1">// main function</span>
-<span class="co1">//</span>
-<span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span> <span class="br0">{</span>
- 
-    <span class="co1">//factory settings is to divide internal clock 8MHz by 8.</span>
-    <span class="co1">//don't, and just run at 8 MHz (set the clock divider to 1 so no effect)</span>
-    CLKPR <span class="sy1">=</span> <span class="br0">(</span><span class="nu0">1</span><span class="sy1"><<</span>CLKPCE<span class="br0">)</span><span class="sy4">;</span>
-    CLKPR <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> <span class="co1">// Divide by 1 </span>
- 
-    <span class="co1">//port B pins 0-5 go OUTPUT</span>
-    DDRB <span class="sy1">=</span> <span class="nu12">0xFF</span><span class="sy4">;</span>
- 
-    <span class="kw1">while</span> <span class="br0">(</span><span class="nu0">1</span><span class="sy1">==</span><span class="nu0">1</span><span class="br0">)</span><span class="br0">{</span>
-        <span class="co1">//all on</span>
-        PORTB <span class="sy1">=</span> <span class="nu12">0xFF</span><span class="sy4">;</span>
- 
-        <span class="co1">//wait a little</span>
-        _delay_ms<span class="br0">(</span><span class="nu0">500</span><span class="br0">)</span><span class="sy4">;</span>
- 
-        <span class="co1">//all off</span>
-        PORTB <span class="sy1">=</span> <span class="nu12">0x00</span><span class="sy4">;</span>
- 
-        <span class="co1">//wait again</span>
-        _delay_ms<span class="br0">(</span><span class="nu0">200</span><span class="br0">)</span><span class="sy4">;</span>
- 
-    <span class="br0">}</span>
-<span class="br0">}</span></pre>
-
+<pre><code class="c">
+/* includes */
+#include "avr/io.h"
+#include "util/delay.h"
+ 
+/*
+ main function
+*/
+int main(void) {
+ 
+    /*factory settings is to divide internal clock 8MHz by 8.
+    don't, and just run at 8 MHz (set the clock divider to 1 so no effect) */
+    CLKPR = (1 < < CLKPCE);
+    CLKPR = 0; /* Divide by 1 */
+ 
+    /* port B pins 0-5 go OUTPUT */
+    DDRB = 0xFF;
+ 
+    while (1==1){
+        /*all on*/
+        PORTB = 0xFF;
+ 
+        /*wait a little*/
+        _delay_ms(500);
+ 
+        /*all off*/
+        PORTB = 0x00;
+ 
+        /*wait again*/
+        _delay_ms(200);
+ 
+    }
+}
+</code></pre>
 <br />
 <h2 id="toc4"><a name="Samples-PWM"></a> PWM </h2>
 See <a href="http://avrbasiccode.wikispaces.com/">http://avrbasiccode.wikispaces.com/</a><br />

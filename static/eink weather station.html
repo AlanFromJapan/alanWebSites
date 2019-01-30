@@ -1,3 +1,5 @@
+<script>hljs.initHighlightingOnLoad();</script>
+
 I want to make a small weather & reminder to throw the trash for my home entrance. Depending on the day in Japan you're supposed to throw one or another type of garbage and I //always// miss the "non-burnable" one, because it's the "second and fourth Thursday of the month"... So this toy will show me the weather, a few other interresting info and if it's the day for what type of trash.
 
 <h1>Presentation</h1>
@@ -9,7 +11,7 @@ I want to make a small weather & reminder to throw the trash for my home entranc
 <h2>Installation</h2>
 <u>For the eInk:</u><br/>
 All is here: [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT]]
-<pre>
+<pre><code class="bash">
 sudo apt-get install python-dev
 sudo pip install wiringpi spidev
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz
@@ -20,11 +22,11 @@ make
 sudo make check
 sudo make install
 sudo apt-get install python-smbus  python-serial python-imaging python-rpi.gpio
-</pre>
+</code></pre>
 
 <u>For the weather:</u><br/>
 Python [[https://code.google.com/p/python-weather-api/|Weather API]] based on Yahoo!:
-<pre>
+<pre><code class="bash">
 sudo pip install weather-api
 </pre>
 

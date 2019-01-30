@@ -16,6 +16,14 @@ That one is easy: go to the [[https://www.arduino.cc/en/main/software|arduino we
 I'm using LInux Mint 19 (based on Ubunto 18.04 LTS). **DO NOT USE THE PACKAGES THAT COME WITH MINT 19**, they are totally outdated. It's a shame but that's how it is.<br/>
 We need to take a detour for doing the install the right way.
 <h2>Install</h2>
+I followed [[https://www.instructables.com/id/How-to-get-started-with-Eclipse-and-AVR/|this doc]] with minor editions/customizations. We'll use the [[http://avr-eclipse.sourceforge.net/wiki/index.php/The_AVR_Eclipse_Plugin|AVR Eclipse plugin]].
+* Get Eclipse, download the **[[https://www.eclipse.org/downloads/packages/|Eclipse IDE for C/C++ Developers]]**, not the regular (Java).
+* Get some packages while it downloads <code>sudo apt-get install gcc-avr binutils-avr gdb-avr avr-libc avrdude</code>
+* Install Eclipse in your /opt folder, //tar zxvf// the file
+* In Eclipse, Help > Install new software ... > add this source "http://avr-eclipse.sourceforge.net/updatesite/" and install
+* Manual for a first build is [[http://avr-eclipse.sourceforge.net/user%20manual/gettingstarted/gs_newproj.html|here]]
+* (note that on Linux Mint 19 I didn't have to do the operations I described [[linux mint|here]] to enable my mkII programmer, it worked out of the box)
+
 <h2>Setup</h2>
 <h1>Pictures</h1>
 <h1>Links</h1>
