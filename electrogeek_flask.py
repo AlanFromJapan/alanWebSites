@@ -6,8 +6,9 @@ import logging
 from logging.handlers import RotatingFileHandler
 import re
 from werkzeug import secure_filename
+import operator
 
-import ledz
+#import ledz
 
 #http://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
 app = Flask(__name__, static_url_path='')
@@ -34,6 +35,13 @@ def allowed_file(filename):
 ##########################################################################################
 #Interpretes the Wiki tags and translate to HTML
 def wikilize(html):
+    #jauge percentage
+    html = html.replace("[[0%]]", r"""<img src="/files/jauger0.gif"/>""")
+    html = html.replace("[[25%]]", r"""<img src="/files/jauger1.gif"/>""")
+    html = html.replace("[[50%]]", r"""<img src="/files/jauger2.gif"/>""")
+    html = html.replace("[[75%]]", r"""<img src="/files/jauger3.gif"/>""")
+    html = html.replace("[[100%]]", r"""<img src="/files/jauger4.gif"/>""")
+
     #links
     link = r"((?<!\<code\>)\[\[([^<].+?) \s*([|] \s* (.+?) \s*)?]])"
     compLink = re.compile(link, re.X | re.U)
@@ -271,6 +279,7 @@ def serveTemplate(page):
 def searchPage():
     searchstring = request.args.get('txbSearch')
     vBody = "<h1>All pages containing text '%s':</h1>" % (searchstring)
+    resultDict = dict()
 
     for filename in os.listdir(ROOTDIR):
 	if os.path.isfile(os.path.join(ROOTDIR, filename)) and filename.lower().endswith(".html"):
@@ -280,7 +289,16 @@ def searchPage():
                 vCount = t.count(searchstring) + filename.count(searchstring)
                 #if searchstring in t:
                 if vCount > 0:
-                    vBody = vBody + ('&#x2771; <a href="%s">%s</a> (%d occurences)<br/>' % (filename, filename[:-5], vCount))
+                    resultDict[filename[:-5]] = vCount
+
+    vBody = vBody + "<br/>"
+
+    sorted_x = sorted(resultDict.items(), key=operator.itemgetter(1))
+    vResults = ""
+    for t in sorted_x:
+        vResults = '&#x2771; <a href="%s">%s</a> <span style="font-size:x-small;">(%d)</span><br/>' % (t[0]+".html",t[0], t[1]) + vResults
+    
+    vBody = vBody + vResults
 
     #renders
     return renderPageInternal (pPageName="Search results", pBody=vBody)
@@ -290,7 +308,7 @@ def searchPage():
 #THE function that calls the page rendering and returns the result
 def renderPageInternal (pPageName, pBody):
 
-    ledz.ledz_blink()
+#    ledz.ledz_blink()
 
     vYear = datetime.now().strftime('%Y')
     #generate the output by injecting static page content and a couple of variables in the template page
@@ -332,11 +350,11 @@ if __name__ == '__main__':
         app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
         #init the leds
-        ledz.ledz_init(Config)
+#        ledz.ledz_init(Config)
     
         #start serving pages
         app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
     finally:
         #cleanup
-        ledz.ledz_finalize()
-
+#        ledz.ledz_finalize()
+        pass
