@@ -10,8 +10,17 @@ This board is made to make your life easier if:<br />
 I know the board is tight and some solderings might require a little attention but unless you have Parkinson disease (wish you not, terrible stuff) or solder with a blowtorch, that should be fine. Just be a little careful.<br />
 If you have suggestions about how to improve the layout, please let me hear.<br />
 <br />
-Self-criticizing and possible improvements:<br />
-<ul><li>[High] Add holes for D+/D- to plug a USB cable directly instead of a micro/mini plug</li><li>[Medium] Make those lines that carry power (VCC & GND) bigger, it's just signal size now, no way it can draw more than a few tens of mA)</li><li>[Medium] Put a solder mask on the bottom for the power rail! Hard to figure where is gnd/vcc...</li><li>[low] Add a V-USB logo</li><li>[low] The power rail have solder mask on top (bottom is ok)... how did I do this miracle? Replace with regular ones</li></ul><br />
+<h2>Self-criticizing and possible improvements</h2>
+<ul>
+* [High] Add holes for D+/D- to plug a USB cable directly instead of a micro/mini plug 
+* [High] OTG connection as a client? Maybe with a solder jump or allow to solder these special connectors? (ie: to be able to connect a smartphone)
+* [Medium] Make those lines that carry power (VCC & GND) bigger, it's just signal size now, no way it can draw more than a few tens of mA)
+* [Medium] Put a solder mask on the bottom for the power rail! Hard to figure where is gnd/vcc...
+* [low] Add a V-USB logo
+* [low] The power rail have solder mask on top (bottom is ok)... how did I do this miracle? Replace with regular ones
+* [low] Provision for external power + USB connection, like a self powered hub or allow the connected smartphone to connect //and// charge
+</ul>
+<br />
 <h1 id="toc1"><a name="Schematics"></a> Schematics </h1>
 On GitHub : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RapideUSB]] <br />
 <br />
@@ -241,10 +250,6 @@ On GitHub : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagl
 C3/C5: 1uF caps to put the closest to the mCU, not mandatory but encouraged<br />
 R4: some people put a 1Mohm pullup, some don't. Not mandatory.<br />
 <br />
-<h2>Things to improve</h2>
-* [Medium] Add some solder pads in case I don't want to use an USB connector but solder a cable
-* [Medium] OTG connection as a client? Maybe with a solder jump or allow to solder these special connectors? (ie: to be able to connect a smartphone)
-* [low] Provision for external power + USB connection, like a self powered hub or allow the conencted smartphone to connect //and// charge
 <h1>Code </h1>
 The Eagle schematics are [[@https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/RapideUSB|on GitHub]] as usual.
 Look into my other <a class="wiki_link" href="USB%20gadgets.html">USB gadgets</a> projects : <a class="wiki_link" href="Tricolor%20USB%20alert.html">Tricolor USB alert</a> (ATtiny2313) or <a class="wiki_link" href="Finger%20Password%20Keyboard.html">Finger Password Keyboard</a> (ATmega328).<br />
