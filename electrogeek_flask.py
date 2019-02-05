@@ -277,7 +277,7 @@ def serveTemplate(page):
 #Search page
 @app.route('/search.aspx')
 def searchPage():
-    searchstring = request.args.get('txbSearch')
+    searchstring = request.args.get('txbSearch').lower()
     vBody = "<h1>All pages containing text '%s':</h1>" % (searchstring)
     resultDict = dict()
 
@@ -286,7 +286,7 @@ def searchPage():
             with open(os.path.join(ROOTDIR, filename), mode="r") as f:
                 t = f.read().decode("utf-8")
                 #count in the file and the filename
-                vCount = t.count(searchstring) + filename.count(searchstring)
+                vCount = t.lower().count(searchstring) + filename.lower().count(searchstring)
                 #if searchstring in t:
                 if vCount > 0:
                     resultDict[filename[:-5]] = vCount
