@@ -1,14 +1,22 @@
+<script>hljs.initHighlightingOnLoad();</script>
+
 Need to press Play/Pause quickly on your cellphone while listening to music and charging at the same time.
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
-A small USB keyboard you'd plug on your cellphone and allow to 1) charge it and 2) do basic media function such as Play/Pause, Next, Prev, and Vol+ and Vol- if I feel fancy. The reason is that while I like to work with my music, going next forces me to touch button to see the screen, then touch another tiny tiny button to press Next or Pause. I like to surf through my music to find something that match the mood or the task at hand, so I do that often and that's a (minor) pain. And an excellent pretext to tinker :)
+A small USB **Consumer device** (not a keyboard!) you'd plug on your cellphone and allow to 1) charge it and 2) do basic media function such as Play/Pause, Next, Prev, and Vol+ and Vol- if I feel fancy. The reason is that while I like to work with my music, going next forces me to touch button to see the screen, then touch another tiny tiny button to press Next or Pause. I like to surf through my music to find something that match the mood or the task at hand, so I do that often and that's a (minor) pain. And an excellent pretext to tinker :)
 <h2>Points of interrest</h2>
 * As simple implementation of a media keyboard, very very similar to the [[Usb Volume Control]] I made (and works just fine)
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <h2>Schematics</h2>
 <h2>Source code</h2>
+<pre><code class="c">
+#define VOL_UP		0xe9
+#define VOL_DOWN	0xea
+#define PLAY_PAUSE 	0xcd
+#define NEXT            0x??
+</code></pre>
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
