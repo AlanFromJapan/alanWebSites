@@ -26,12 +26,15 @@ sudo apt-get install python-smbus  python-serial python-imaging python-rpi.gpio
 </code></pre>
 
 <u>For the weather:</u><br/>
+<div style="text-decoration: line-through;">
 Python [[https://pypi.org/project/weather-api/|Weather API]] based on Yahoo!:
 <pre><code class="bash">
 sudo pip install weather-api
 </code></pre>
+</div>
 
-
+The above stopped working Jan 2019, so I moved to [[http://www.WeatherBit.io|WeatherBit.io]]. 
+You register, they have a free plan and comprehensive and simple Json API. I added a class to parse it and extract what I need. You'll need to put your private key in the //config.py// file though.
 
 <h2>Source code</h2>
 On the git : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/EinkWeatherStation]]
