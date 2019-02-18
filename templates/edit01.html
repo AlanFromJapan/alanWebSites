@@ -4,7 +4,30 @@
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <!-- For code formatting and pretty print: https://github.com/google/code-prettify -->
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <!-- <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> -->
+
+    <!--  For Highlight.js for color syntac highlighting -->
+    <link rel="stylesheet" href="/highlight/styles/default.css">
+    <script src="/highlight/highlight.pack.js"></script>
+
+    <!-- Real time syntax highlight with codemirror -->
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css" />
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <script src="/codemirror/mode/xml/xml.js"></script>
+    <script src="/codemirror/mode/css/css.js"></script>
+    <script src="/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+    <link rel="stylesheet" href="/codemirror/theme/neo.css" />
+
+    <style>
+    .CodeMirror {
+      width:1200px;
+      height: 600px;
+      border: solid 1px black;
+
+    }
+  </style>
 
   </head>
 <body class="wiki">
@@ -25,7 +48,7 @@ EDIT mode<br/>
 Logged in
 {% endif %}
 <!-- /Left menu --></td>
-    <td style="background-color:white;width:100%;padding: 10px;vertical-align: top;">
+    <td style="background-color:white;padding: 10px;vertical-align: top;">
 <!-- Content -->
 {% if not isprod %}
 <div style="border: solid 2px red;text-align:center;color:red;background:#FFA0A0;font-weight:bold;"> Non production site - this is the test site !</div>
@@ -46,8 +69,14 @@ Logged in
     <a href="/{{ pagename }}.html">Cancel edit</a><br/>
   </div>
   <!--  /Floating buttons -->
+  
 
-  <textarea  name="text" style="width:100%; height:450px;">{% autoescape false %}{{ pagecontent }}{% endautoescape %}</textarea>
+  <div >
+  <!-- **************************************************************************************************************** -->
+  <textarea  name="text" id="text">{% autoescape false %}{{ pagecontent }}{% endautoescape %}</textarea>
+  <!-- **************************************************************************************************************** -->
+  </div>
+
 
 {% if None != request.cookies.get('username') %}
 <button type="submit" name="SaveOrPreview" value="Save" style="width:100px;font-weight:bold;color:darkred;">Save</button> 
@@ -92,6 +121,28 @@ All content on this site is shared under the <span style="font-weight:bold;">MIT
 <!-- /Footer --></td>
   </tr>
 </table>
+
+    <!-- Enable the text zone highlight in realtime -->
+    <script type="text/javascript">
+      //var myTextArea = document.getElementById("text");
+
+      // Define an extended mixed-mode that understands  and
+      // leaves mustache/handlebars embedded templates in html mode
+      var mixedMode = {
+        name: "htmlmixed",
+        scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
+                       mode: null}]
+      };
+      
+      var editor = CodeMirror.fromTextArea(document.getElementById("text"), {
+        mode: mixedMode,
+        lineNumbers: true,
+        lineWrapping: true,
+        selectionPointer: true,
+        theme: "neo"
+      });
+    
+    </script>
 
 </body>
 </html>
