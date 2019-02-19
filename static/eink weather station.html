@@ -1,6 +1,7 @@
 <script>hljs.initHighlightingOnLoad();</script>
 
-I want to make a small weather & reminder to throw the trash for my home entrance. Depending on the day in Japan you're supposed to throw one or another type of garbage and I //always// miss the "non-burnable" one, because it's the "second and fourth Thursday of the month"... So this toy will show me the weather, a few other interresting info and if it's the day for what type of trash.
+I want to make a small weather & reminder to throw the trash for my home entrance. Depending on the day in Japan you're supposed to throw one or another type of garbage and I //always// miss the "non-burnable" one, because it's the "second and fourth Thursday of the month"... So this toy will show me the weather, a few other interresting info and if it's the day for what type of trash.<br/>
+<img src="/files/sampleeinkwether1.png" style="border:solid 1px black;"/>
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
@@ -25,15 +26,36 @@ sudo apt-get install python-smbus  python-serial python-imaging python-rpi.gpio
 </code></pre>
 
 <u>For the weather:</u><br/>
-Python [[https://code.google.com/p/python-weather-api/|Weather API]] based on Yahoo!:
+<div style="text-decoration: line-through;">
+Python [[https://pypi.org/project/weather-api/|Weather API]] based on Yahoo!:
 <pre><code class="bash">
 sudo pip install weather-api
-</pre>
+</code></pre>
+</div>
 
-
+The above stopped working Jan 2019, so I moved to [[http://www.WeatherBit.io|WeatherBit.io]]. 
+You register, they have a free plan and comprehensive and simple Json API. I added a class to parse it and extract what I need. You'll need to put your private key in the //config.py// file though.
 
 <h2>Source code</h2>
 On the git : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/EinkWeatherStation]]
+
+<h2>Assembly</h2>
+<table>
+<tr>
+<td> <!-- The text -->
+
+<ol>
+* Soldered the eInk screen to some perfboard I hadso I don't have to stack it on the Raspi Zero W and I can access the other pins (I'll need some buttons and LED)
+* Add buttons and LED!
+</ol>
+
+</td><td> <!-- image on the right-->
+ <div align="right">
+<img src="/files/2.13inch-e-paper-hat.png" /><br/>
+//Pinout of the eInk screen from the link above//<br/>
+</div>
+</td></tr></table>
+
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
