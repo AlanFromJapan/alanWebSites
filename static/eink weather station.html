@@ -9,9 +9,12 @@ I want to make a small weather & reminder to throw the trash for my home entranc
 <h2>Points of interrest</h2>
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
+* Raspi Zero W but any clone will do. You will want internet.
+* in my case a [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT|2.13 inches eInk display]] from eBay (250x128 pixels)
+* Perfboard, buttons, led, etc...
 <h2>Installation</h2>
 <u>For the eInk:</u><br/>
-All is here: [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT]]
+All is here: [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT]]. Now I think of it I think the bcm2835 extra stuff is not needed if you use Python and GPIO... give a try and tell me.
 <pre><code class="bash">
 sudo apt-get install python-dev
 sudo pip install wiringpi spidev
@@ -49,6 +52,9 @@ On the git : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Pyt
 * Add buttons and LED!
 </ol>
 
+<img src="/files/eink_weatherstation_pinout.jpg" width="450"/><br/>
+//Red is for the eInk display, Blue is for the buttons //
+  
 </td><td> <!-- image on the right-->
  <div align="right">
 <img src="/files/2.13inch-e-paper-hat.png" /><br/>
