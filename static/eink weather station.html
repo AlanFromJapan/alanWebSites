@@ -40,20 +40,25 @@ The above stopped working Jan 2019, so I moved to [[http://www.WeatherBit.io|Wea
 You register, they have a free plan and comprehensive and simple Json API. I added a class to parse it and extract what I need. You'll need to put your private key in the //config.py// file though.
 
 <h2>Source code</h2>
-On the git : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/EinkWeatherStation]]
+On the git : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/EinkWeatherStation]]<br/>
+<br/>
+
+Pretty simple, you have 2 buttons [next and validate], the code revolves around 3 main panels that you can go through by clicking [next]:
+* Main panel: shows the weather of now and tells you what it will look like in a few hours. It also shows today's date and the latest update time
+* Shutdown panel: if you click [validate] the raspi will shutdown and show you a "the end" screen
+* Others panel: misc stuffs, for now only shows the current IP 
 
 <h2>Assembly</h2>
 <table>
 <tr>
 <td> <!-- The text -->
-
 <ol>
 * Soldered the eInk screen to some perfboard I hadso I don't have to stack it on the Raspi Zero W and I can access the other pins (I'll need some buttons and LED)
 * Add buttons and LED!
 </ol>
 
 <img src="/files/eink_weatherstation_pinout.jpg" width="450"/><br/>
-//Red is for the eInk display, Blue is for the buttons //
+//Red is for the eInk display, Blue is for the buttons, Pin 29 (GPIO05) is for the "we're the non-burrnable day" LED //
   
 </td><td> <!-- image on the right-->
  <div align="right">
