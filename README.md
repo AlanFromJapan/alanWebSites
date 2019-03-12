@@ -36,7 +36,8 @@ In that folder, as user _webuser_, do _git clone https://github.com/AlanFromJapa
 Rename and edit the _electrogeek.sample.ini_ as _electrogeek.ini_  
 If you don't run on a RPI, comment out all the RPI GPIO reference in the ledz.py  
 Edit the start/stop scripts to reflect the DEV or PROD you run.  
-Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  
+Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : _iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  _
+NB: that rule won't be saved by default, check for appropriate tricks
 
 ###Finish  
 Remove write access to electrogeek.ini to all, and change owner to root (but leave read all), so even if server is compromised you cant change settings to show other places.  
