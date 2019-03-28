@@ -11,12 +11,27 @@ This is a new Template for **bedside mood companion**!
 <h2>Source code</h2>
 Get pygame running: not easy, lots of libs missing. Do the below at minimum and cross fingers↓
 <pre>
+#to feel at home
+sudo apt-get install git emacs-nox htop
+#pygame install (last step takes time to build, it's normal)
 sudo apt-get install libsdl-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev 
 sudo apt-get install libsmpeg-dev libportmidi-dev libavformat-dev libswscale-dev
 sudo apt-get install python3-dev python3-numpy
 sudo pip install pygame
 </pre>
 
+Get the scren going on (in my case a KeDei 3.5" HDMI):
+<pre>
+git clone https://github.com/goodtft/LCD-show.git
+cd LCD-show/
+
+#In case of 3.5" High Speed display(MHS35)
+chmod a+x MHS35-show
+sudo ./MHS35-show
+
+#let it reboot 
+#then edit /boot/config.txt to force a higher resolution than 480x320
+</pre>
 Test it works with Framebuffer ([[https://learn.adafruit.com/pi-video-output-using-pygame/pointing-pygame-to-the-framebuffer|link at Adafruit]]) : check!<br/>
 
 <h1>Pictures</h1>
