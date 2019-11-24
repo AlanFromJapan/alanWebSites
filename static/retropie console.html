@@ -1,0 +1,24 @@
+This is my attempt to build a [[https://retropie.org.uk/|Retropie]] console. The """original""" point here is the sound: I'm using a [[signal amplification (opamp)|HT28V739]] and made a nice box that should double as a nice speaker (hopefully).
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Just a retropie console, running on a Raspi 2 and with an opamp to drive a speaker, and cram everything in a wooden box that doubles up as a speaker enclosure.
+<h3>But hey, why don't you use the GPIO pins in PWM mode instead of the audio jack?</h3>
+Good question. 2 reasons:
+* Don't want to change the Retropie config too much and just plugging the cable works fine. I'm lazy if you want.
+* The PWM signal from the GPIO will not be 0v centered, basically we'd get the "upper" part of the wave only, so sound as is should be bad. (this is just my guess and I did not do any work to check, maybe 5 min of google would prove me wrong but I'm lazy right?)
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* Raspberry pi 2
+* HT28V739 op amp
+* Speaker 8ohm
+<h2>Schematics</h2>
+Raspberry pi pinout:
+* Official [[https://www.raspberrypi.org/documentation/usage/gpio/]]
+* Sorry but clearer than official [[https://pinout.xyz/#]]
+<img src="/files/gpio-numbers-pi2.png" width="650" alt="Pinout from the OFFICIAL site - link above"/><br/>
+<h2>Source code</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
