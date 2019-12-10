@@ -25,12 +25,14 @@ I followed [[https://www.instructables.com/id/How-to-get-started-with-Eclipse-an
 * (note that on Linux Mint 19 I didn't have to do the operations I described [[linux mint|here]] to enable my mkII programmer, it worked out of the box)
 <h2>Setup</h2>
 Well it just works, that's great. As [[https://www.instructables.com/id/How-to-get-started-with-Eclipse-and-AVR/|this doc]] explains:
-* New "C Project"
+* File > New > Project ... > "C Project"
 * Pick "AVR Cross Target Application"
 * Choose the mCU and F_CPU
 * Once project created, right-click > Properties 
-* AVR > AVRDude pick your programmer
-* C/C++ Build > Settings: Set the optimization and make sure to generate the HEX for Flash in your Release config (and check AVRDude for update on the fly)
+* AVR > AVRDude : pick your programmer
+* C/C++ Build > Settings: 
+* * Optimization : set the optimization (default none)
+* * Additional tools in the toolchain: make sure to check "generate the HEX for Flash" in your Release config (and check AVRDude for update on the fly if you want)
 
 I tried 2 projects, one hello world and the [[USB without Arduino|USB keyboard]] sample: just worked like a breeze. No issue or none worth even mentionning. Linux rules! (^_^)b
 <h1>Pictures</h1>
