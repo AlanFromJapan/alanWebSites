@@ -11,7 +11,8 @@ Hardware: <a class="wiki_link" href="RapideUSB.html">RapideUSB</a> </span><br />
 <h2>Points of interrest</h2>
 <img src="/files/20161210_131259.jpg" align="right"/>Important subtlety I didn't get at first: we implement a "<u>Consumer device</u>" **not** a "Keyboard"! Hence my surprise that the codes for the Volume control on Keyboard and the ones implemented were different (see the [[http://www.usb.org/developers/hidpage#HID_Usage|HID doc]] chapter 10 vs. chapter 15).<br/>
 Good thing is there are lots of nice functions possible to implement too, like a "Next" button that I'm much more interrested to bind to the click of the rotary encoder to that rather than mute.<br/> 
-
+<h2>Alternate version 3 buttons</h2>
+Late December 2019 I changed my keyboard to one I like //but// has no media keys, so I made a 3 buttons one for mute/vol+/vol- and on LInux/Eclipse.
 <h1>Schematics</h1>
 <h2>Bill of materials</h2>
 <ul>
@@ -33,12 +34,17 @@ B        \________/  |  \________/
          Left              Right
 </pre>
 <h1>Source code</h1>
-As usual [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Atmegaxx8/UsbVolumeControl|in Github]].
+As usual in GitHub:
+* [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Atmegaxx8/UsbVolumeControl|The version with the rotary encoder]] (Atmel Studio project)
+* [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny2313/UsbMiniMediaKeyboard|The version with just 3 buttons]] (Eclipse project)
+
 <h1>Pictures</h1>
 <img src="/files/usbvolumecontrol_woodbox1.jpg" /><br/>
 //In built status box... it's a cypress block carved inside//<br/>
 <img src="/files/20161217_195758.jpg" /><br/>
-//With its perfectly rounded pao-santo button. Lineseed oil finish.//
+//With its perfectly rounded pao-santo button. Lineseed oil finish.//<br/>
+<img src="/files/20191216_235919.jpg" /><br/>
+//Another version for another PC with 3 buttons: sound up/down/mute //<br/> 
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 * [[http://hackaday.com/2017/01/11/encoders-spin-us-right-round/]]
