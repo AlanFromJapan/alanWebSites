@@ -19,7 +19,7 @@ Won't be supported ('cause I don't care):
 
 ## Install
 
-###Prepare
+### Prepare
 
 * sudo apt-get install emacs-nox git python-setuptools
 * sudo easy_install pip
@@ -27,7 +27,7 @@ Won't be supported ('cause I don't care):
 * sudo pip install futures
 * sudo pip install RPi.GPIO
 
-###Install
+### Install
 
 Make a user to run _webuser_ the website only, no login possible (_passwd -l webuser_), minimum rights.  
 Make a folder /use/local/website/electrogeek.PROD/  
@@ -36,10 +36,16 @@ In that folder, as user _webuser_, do _git clone https://github.com/AlanFromJapa
 Rename and edit the _electrogeek.sample.ini_ as _electrogeek.ini_  
 If you don't run on a RPI, comment out all the RPI GPIO reference in the ledz.py  
 Edit the start/stop scripts to reflect the DEV or PROD you run.  
-Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : _iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  _
-NB: that rule won't be saved by default, check for appropriate tricks
+Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : `iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  `
 
-###Finish  
+NB: that rule won't be saved by default, unless you install some extra package on debian (`iptables-persistent`)
+
+### Troubleshooting
+
+#### Everything looks running but I get a connection error when I access the site
+Most likely the port redirection rule is gone, give it a try again : you need to reinput it at each reboot unless made persistent.
+
+### Finish  
 Remove write access to electrogeek.ini to all, and change owner to root (but leave read all), so even if server is compromised you cant change settings to show other places.  
 
 
