@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, render_template, redirect, url_for, request, make_response
 import os
 import ConfigParser
@@ -133,7 +133,7 @@ def doLogin():
             #Login is correct
             resp = make_response( redirect("home.html") )
             
-            resp.set_cookie ('username', vLogin, expires=datetime.now() + datetime.timedelta(days=30))
+            resp.set_cookie ('username', vLogin, expires=datetime.now() + timedelta(days=30))
                 
             return resp
         else:
