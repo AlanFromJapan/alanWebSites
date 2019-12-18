@@ -133,7 +133,7 @@ def doLogin():
             #Login is correct
             resp = make_response( redirect("home.html") )
             
-            resp.set_cookie ('username', vLogin)
+            resp.set_cookie ('username', vLogin, expires=datetime.now() + datetime.timedelta(days=30))
                 
             return resp
         else:
