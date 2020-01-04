@@ -46,6 +46,13 @@ You don't want the system to drive so much more than that, so be safe, or double
 
 <h1 id="toc7"><a name="Points of interrest"></a> Points of interrest </h1>
 <ul><li>Compared to the <a class="wiki_link" href="Clapclap2313.html">Clapclap2313</a> version, a generous part of the code was rewritten, such as the general logic of the program.</li><li>All the job is done with interrupts, main code is just an empty loop:<ul><li>One interrupt counts hundredth of seconds and keep a rough idea of time passing (so it can validate that 2 claps happen in the predefined timespan)</li><li>One interrupt is triggered when the comparator detects that the mic input (post amplification) goes higher than reference voltage (MIN_LVL potentiometer) and saves the clap time</li></ul></li></ul><br />
+
+<h1>Alternate version : a smart footswitch</h1>
+Replace the mic by a cheap footswitch, drop the LM386, a few airwires. Now the switch turns on after a long press only, and turns off on a simple click (for safety).<br/>
+<img src="/files/smart_footswitch_-_status_diagram.png" /><br/>
+<br/>
+Code (Eclipse project) on [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny13/SmartFootSwitch13|my GitHub repo]].
+
 <h1 id="toc8"><a name="Pictures"></a> Pictures </h1>
 <img src="/files/2014-03-09-22-04-59_deco.jpg" alt="2014-03-09-22-04-59_deco.jpg" title="2014-03-09-22-04-59_deco.jpg" /><br />
 <em>Board assembled without the relay though. Working fine, just J1 and J2 needed to program it.</em>
