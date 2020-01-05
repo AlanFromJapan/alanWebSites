@@ -7,7 +7,47 @@ Official documentation : <a class="wiki_link_ext" href="http://elinux.org/R-Pi_H
 <h1 id="toc0"><a name="Projects and tips"></a> Projects and tips </h1>
 <br />
 <h2 id="toc1"><a name="Projects and tips-Startup setup"></a> Startup setup </h2>
-<ul><li>With the config tool: expand the disk size, set 16MB for the GPU, set the locale to something en_US.UTF8, change pi default password</li><li>Minimal tools:<ul><li>sudo apt-get install emacs</li></ul></li><li>Change machine name : <a class="wiki_link_ext" href="http://www.howtogeek.com/167195/how-to-change-your-raspberry-pi-or-other-linux-devices-hostname/" rel="nofollow">see here</a></li><li>Change SSH port: <a class="wiki_link_ext" href="http://www.raspians.com/Knowledgebase/how-to-change-ssh-port/" rel="nofollow">see here</a> and <a class="wiki_link_ext" href="http://www.raspians.com/Knowledgebase/how-to-change-ssh-port/" rel="nofollow">here</a></li><li>Router:<ul><li>IP reservation to the Pi mac</li></ul></li></ul><br />
+<ul>
+  <li>With the config tool: expand the disk size, set 16MB for the GPU, set the locale to something en_US.UTF8, change pi default password</li>
+  <li>Minimal tools:<ul><li>sudo apt-get install emacs</li>
+</ul>
+  </li>
+  <li>Change machine name : <a class="wiki_link_ext" href="http://www.howtogeek.com/167195/how-to-change-your-raspberry-pi-or-other-linux-devices-hostname/" rel="nofollow">see here</a></li>
+  <li>Change SSH port: <a class="wiki_link_ext" href="http://www.raspians.com/Knowledgebase/how-to-change-ssh-port/" rel="nofollow">see here</a> and <a class="wiki_link_ext" href="http://www.raspians.com/Knowledgebase/how-to-change-ssh-port/" rel="nofollow">here</a></li>
+  <li>Router:<ul><li>IP reservation to the Pi mac</li>
+    </ul>
+  </li>
+</ul><br />
+
+<h2>Install the OS image on SD card from Linux</h2>
+Get it at [[https://www.raspberrypi.org/downloads/raspbian/]] and then:
+<pre><code class="bash">
+sudo dd bs=4M if=retropie-xxxxxxxxxxx.img of=/dev/sde conv=fsync
+</code></pre>
+To **enable the SSH from first boot** (meaning working directly headless), do that:
+* After copying, got to the /boot partition
+* Create an empty file named 'ssh'
+* Done, the file will be used as a flag for the first boot and enable ssh.
+* SSH user : **pi** / SSH password : **raspberry**
+To **setup wifi on first boot**, do that:
+* In the SD card /boot
+* Make a 'wpa_supplicant.conf' file with contents:
+<pre>
+country=JP
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+ ssid="//YOUR WIFI SSID//"
+ psk="//YOUR PASSWORD//"
+ key_mgmt=WPA-PSK
+}
+</pre>
+<br/>
+
+<h2>Change hostname</h2>
+Edit the 2 files <code>/etc/hostname</code> and <code>/etc/hosts</code>.<br/>
+<br/>
 
 <h2 id="toc2"><a name="Projects and tips-Raspi web server with Flask"></a> Raspi web server with Flask </h2>
 * Use [[http://flask.pocoo.org/|Flask]]
@@ -79,7 +119,12 @@ Is used **hdparm** and it works though with my Japanese Buffalo 1TB USB HDD I ge
 <br />
 
 <h2 id="toc8"><a name="Projects and tips-Raspi as VLC server"></a> Raspi as VLC server </h2>
-<ul><li><a class="wiki_link_ext" href="http://www.esologic.com/?p=294" rel="nofollow">http://www.esologic.com/?p=294</a></li><li><a class="wiki_link_ext" href="http://wiki.videolan.org/Documentation:Streaming_HowTo_New" rel="nofollow">http://wiki.videolan.org/Documentation:Streaming_HowTo_New</a></li><li><a class="wiki_link_ext" href="http://www.videolan.org/doc/streaming-howto/fr/ch05.html" rel="nofollow">http://www.videolan.org/doc/streaming-howto/fr/ch05.html</a></li><li><a class="wiki_link_ext" href="http://www.xanetiz.com/vlc-lecteur-incontournable.html" rel="nofollow">http://www.xanetiz.com/vlc-lecteur-incontournable.html</a></li></ul><br />
+<ul>
+  <li><a class="wiki_link_ext" href="http://www.esologic.com/?p=294" rel="nofollow">http://www.esologic.com/?p=294</a></li>
+  <li><a class="wiki_link_ext" href="http://wiki.videolan.org/Documentation:Streaming_HowTo_New" rel="nofollow">http://wiki.videolan.org/Documentation:Streaming_HowTo_New</a></li><li><a class="wiki_link_ext" href="http://www.videolan.org/doc/streaming-howto/fr/ch05.html" rel="nofollow">http://www.videolan.org/doc/streaming-howto/fr/ch05.html</a></li>
+  <li><a class="wiki_link_ext" href="http://www.xanetiz.com/vlc-lecteur-incontournable.html" rel="nofollow">http://www.xanetiz.com/vlc-lecteur-incontournable.html</a></li>
+</ul><br />
+
 <h2 id="toc9"><a name="Projects and tips-Transform a Raspi in an arcade cabinet"></a> Transform a Raspi in an arcade cabinet </h2>
 <ul><li>The debian package of mame <a class="wiki_link_ext" href="http://blog.sheasilverman.com/" rel="nofollow">http://blog.sheasilverman.com/</a></li><li>A very well done project <a class="wiki_link_ext" href="http://www.kickstarter.com/projects/pimoroni/picade-the-arcade-cabinet-kit-for-your-raspberry-p" rel="nofollow">http://www.kickstarter.com/projects/pimoroni/picade-the-arcade-cabinet-kit-for-your-raspberry-p</a></li></ul><br />
 

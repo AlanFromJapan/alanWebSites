@@ -1,0 +1,34 @@
+A Raspberry pi zero W used as a WebRadio player! Because I can't work without music and turning on the PC to open Youtube is taking too much of my productivity away. So webradio looks like the way to go!
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Seems you just need to MPD/MPC to play the web streams, a way to output the sound (I have somewhere an eBay soundcard or default sound output?), a display of what is the current track, and some way to control it (change station at least).
+<h2>Points of interrest</h2>
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* Raspberry pi zero W
+<h2>Schematics</h2>
+<h3>Make sound from a raspi zero without soundcard</h3>
+Explained [[https://www.raspberrypi.org/blog/tinkernut-diy-pi-zero-audio/|here]] and [[https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs|here]], you need to redirect 2 pins on their alternate pin, and make a small low/high pass filter with resistors and caps.
+<h2>Source code</h2>
+<pre><code class="bash">
+#install MPC/MPD to play the audio streams
+sudo apt-get install mpc mpd
+
+#install VLC and pulseaudio
+sudo apt-get install vlc pulseaudio
+
+</code></pre>
+edit the etc mpd.conf change the folder for music and add correct HW -> hw:1,0
+list hw avec aplay -l
+put files in fodler
+mpc add / (add all)
+mpc play
+mpc volume 100
+
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Inspiration</h2>
+* Recent and pretty good [[https://www.lesbonscomptes.com/pages/raspmpd.html]]
+* Old things [[http://jan-holst.dk/pi-radio/pi-radio.html]]
+* Very old things [[http://doc-diy.blogspot.com/2014/04/tubenetradio-raspberry-pi-powered-tube.html]]
