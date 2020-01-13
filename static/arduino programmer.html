@@ -1,19 +1,35 @@
-<html>
-  <head>
-    <title>kalshagar - Arduino programmer</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
 <h1 id="toc0"><a name="Purpose"></a> Purpose </h1>
-I have a nice <strong>AVR ISP mkII</strong> and I'm living a happy relation ship with it, a nice <em>menage a trois</em> with <strong>Atmel Studio 6</strong>. But recently (2014/01/13) I bought a <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Fukubukuro" rel="nofollow" target="_blank">lucky bag</a> at one of my favorites shop Akizukidenshi in Akihabara. Inside there was a handful of old discontinued ATmel chips like <a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?module=Freaks%20Devices&amp;func=displayDev&amp;objectid=48" rel="nofollow" target="_blank">AT90S4414</a>  or Attiny26L that can not be programmed with Atmel Studio 6. <br />
+I have a nice <strong>AVR ISP mkII</strong> and I'm living a happy relation ship with it, a nice <em>menage a trois</em> with <strong>Atmel Studio 6</strong>. But recently (2014/01/13) I bought a <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Fukubukuro" rel="nofollow" target="_blank">lucky bag</a> at one of my favorites shop Akizukidenshi in Akihabara. Inside there was a handful of old discontinued ATmel chips like <a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?module=Freaks%20Devices&func=displayDev&objectid=48" rel="nofollow" target="_blank">AT90S4414</a>  or Attiny26L that can not be programmed with Atmel Studio 6. <br />
 <br />
 Ok so solution is to use avrdude and the avg-gcc solution. So far so good. But to use the AVR ISP mkII I need to install alternate drivers, which I did try. <br />
 And there started problems: both drivers can't work <em>at the same time</em> (of course) means that I can use my programmer with Atmel Studio 6 or with avrdude, not both (unless some driver switching magic). So let's dig in that pile of various Arduinos I have and make something useful.<br />
 <br />
+<br/>
+(5~6 years later) Jan 2020: ok I finally did it v(^_^)v It works, yet not perfect. In the meanwhile my environment changed from Windows to Linux and from AVR Studio to Eclipse, but yes, there we are!
+
 <h2 id="toc1"><a name="Purpose-Documentations"></a> Documentations </h2>
-<ul><li>Some guys having the same issue <a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=printview&amp;t=132953&amp;start=20" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&amp;file=printview&amp;t=132953&amp;start=20</a></li><li>A nice explanation of how to do this <a class="wiki_link_ext" href="http://letsmakerobots.com/node/35649" rel="nofollow">http://letsmakerobots.com/node/35649</a></li><li>Firmware <a class="wiki_link_ext" href="http://arduino.cc/en/Tutorial/ArduinoISP" rel="nofollow">http://arduino.cc/en/Tutorial/ArduinoISP</a></li></ul>
-    </div>
-  </body>
-</html>
+<ul>
+* **The official firmware and the one I used [[https://www.arduino.cc/en/Tutorial/ArduinoISP|Arduino as ISP]]**
+  <li>Some guys having the same issue <a class="wiki_link_ext" href="http://www.avrfreaks.net/index.php?name=PNphpBB2&file=printview&t=132953&start=20" rel="nofollow">http://www.avrfreaks.net/index.php?name=PNphpBB2&file=printview&t=132953&start=20</a></li>
+  <li>A nice explanation of how to do this <a class="wiki_link_ext" href="http://letsmakerobots.com/node/35649" rel="nofollow">http://letsmakerobots.com/node/35649</a></li>
+</ul>
+
+<h2>Bill of Materials</h2>
+* Arduino 1.0 (I think), it even has the Italian flag sticker!
+* An old board I got from Sparkfun discarded boards like 10y ago, apparently was made to be used with a GPS thingy?
+* Wire, leds, resistors
+
+<h2>Commands</h2>
+<span style="color:red">READ ME: </span> it works, but sometimes refuses commands, need to try a few time. One thing that came out of my testing is that forcing the baudrate (-b 19200) seems important, so do that future me.<br/>
+<br/>
+Read low fuse: <code>avrdude -c avrisp -p m328p -P/dev/ttyUSB0 -b 19200 -U lfuse:r:-:i -v</code> <br/>
+<br/>
+Program: <code>avrdude -v -patmega328p -c avrisp -P/dev/ttyUSB0 -b19200 -Uflash:w:/path/to/program.hex:i </code>
+
+<h2>Code</h2>
+In the arduino samples, the "ArduinoISP".<br/>
+Following changes:
+* defined the <code>USE_OLD_STYLE_WIRING</code> because I started wiring like that before reading that we could use the SPI module itself and not bitbang it...
+* as stated in the tutorial I edited the <code>heartbeat()</code> to set a 40ms delay (not sure why, must mess up the timing of something else elsewere)
+<h2>Pictures</h2>
+<img src="/files/20200113_002340.jpg" />
