@@ -10,21 +10,44 @@ Seems you just need to MPD/MPC to play the web streams, a way to output the soun
 <h2>Schematics</h2>
 <h3>Make sound from a raspi zero without soundcard</h3>
 Explained [[https://www.raspberrypi.org/blog/tinkernut-diy-pi-zero-audio/|here]] and [[https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs|here]], you need to redirect 2 pins on their alternate pin, and make a small low/high pass filter with resistors and caps.
-<h2>Source code</h2>
+
+<h2>Source code : with VLC</h2>
+VLS is more power hungry but this Raspi will only play radio so... even if it uses 40% CPU, it won't make a difference.
+<pre><code class="bash">
+#install VLC and pulseaudio
+sudo apt-get install vlc pulseaudio
+
+#make a user named "radio"
+sudo adduser radio
+#add user to the audio group if you want sound :)
+sudo usermod -a -G audio radio
+#add user to the netdev group if you want to access the internet
+sudo usermod -a -G netdev radio
+
+#add to your .bashrc the below 2 lines to start pulseaudio as a user daemon (apparently it shouldn't be a system daemon)
+#START PULSEAUDIO as a per user daemon
+pulseaudio -D
+</code></pre>
+
+Now it should work, so listen to music with:
+* Normal case: <code>vlc //your-URL-here// -I dummy </code>
+* If you need details when things go south : <code>vlc //your-URL-here// -I dummy **--verbose=2**</code>
+
+
+
+<h2>Source code : with MPC</h2>
 <pre><code class="bash">
 #install MPC/MPD to play the audio streams
 sudo apt-get install mpc mpd
 
-#install VLC and pulseaudio
-sudo apt-get install vlc pulseaudio
-
-</code></pre>
+</code>
 edit the etc mpd.conf change the folder for music and add correct HW -> hw:1,0
 list hw avec aplay -l
 put files in fodler
 mpc add / (add all)
 mpc play
 mpc volume 100
+</pre>
 
 <h2>Power consideration</h2>
 I'd like to put the raspi zero W in sleep mode when unused to minimize power consumption AND maximize the benefit on start time. There's no real power management on the Raspi HW, so basically you have to cut the power on everything that is unused to save a few watts.<br/>
@@ -33,6 +56,13 @@ Here's a few links I found:
 
 <h1>Pictures</h1>
 <h1>Links</h1>
+<h2>Radios!</h2>
+Go to the radio site or [[https://tunein.com|TuneIn]], F12, Network tab and look for a .mp3 or .m3u file. No magical solution apparently.
+* Radio classique [[https://radioclassique.ice.infomaniak.ch/radioclassique-high.mp3]]
+* Classic Rock radio [[http://144.217.158.59:5338/live]]
+* Alpes 1 [[http://alpes1grenoble.ice.infomaniak.ch/alpes1grenoble-high.mp3]]
+* Couleur 3 [[http://stream.srg-ssr.ch/m/couleur3/mp3_128]]
+* Rire et chanson [[http://185.52.127.163/fr/30401/mp3_128.mp3]]
 <h2>Inspiration</h2>
 * Recent and pretty good [[https://www.lesbonscomptes.com/pages/raspmpd.html]]
 * Old things [[http://jan-holst.dk/pi-radio/pi-radio.html]]
