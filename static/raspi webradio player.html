@@ -49,6 +49,18 @@ mpc play
 mpc volume 100
 </pre>
 
+<h2>Display screen</h2>
+Using a small 2.13 inch I2C SSD1306 with [[https://github.com/adafruit/Adafruit_Python_SSD1306|Adafruit library]]:
+<pre>
+sudo apt-get install python-pip python3-pip
+sudo python -m pip install --upgrade pip setuptools wheel
+#doesn't work - unmaintained since 2014
+#sudo pip install Adafruit-SSD1306
+
+sudo pip3 install adafruit-circuitpython-ssd1306
+sudo python3 -m pip install pillow
+</pre>
+
 <h2>Power consideration</h2>
 I'd like to put the raspi zero W in sleep mode when unused to minimize power consumption AND maximize the benefit on start time. There's no real power management on the Raspi HW, so basically you have to cut the power on everything that is unused to save a few watts.<br/>
 Here's a few links I found:
