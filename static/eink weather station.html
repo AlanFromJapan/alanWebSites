@@ -38,8 +38,12 @@ sudo pip install weather-api
 </code></pre>
 </div>
 
+<div style="text-decoration: line-through; text-decoration-style: double;">
 The above stopped working Jan 2019, so I moved to [[http://www.WeatherBit.io|WeatherBit.io]]. 
 You register, they have a free plan and comprehensive and simple Json API. I added a class to parse it and extract what I need. You'll need to put your private key in the //config.py// file though.
+</div>
+<br/>
+The above stopped working Jan 2020, when WeatherBit.io removed the hourly forecast from the free plan. So you know the story, I wrote another provider that uses [[https://openweathermap.org/|OpenWeatherMap]] and we're back in business. Really happy I took time to rewrite things last time, it went like a breeze.
 
 <h2>Source code</h2>
 On the git : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/EinkWeatherStation]]<br/>
