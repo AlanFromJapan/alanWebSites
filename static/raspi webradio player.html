@@ -50,7 +50,7 @@ mpc volume 100
 </pre>
 
 <h2>Display screen</h2>
-Using a small 2.13 inch I2C SSD1306 with [[https://github.com/adafruit/Adafruit_Python_SSD1306|Adafruit library]]:
+Using a small [[https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf|2.13 inch I2C SSD1306]] (address 0x3c) with [[https://github.com/adafruit/Adafruit_Python_SSD1306|Adafruit library]]:
 <pre>
 sudo apt-get install python-pip python3-pip
 sudo python -m pip install --upgrade pip setuptools wheel
@@ -59,6 +59,11 @@ sudo python -m pip install --upgrade pip setuptools wheel
 
 sudo pip3 install adafruit-circuitpython-ssd1306
 sudo python3 -m pip install pillow
+
+#install necessary packages
+sudo apt-get install python-smbus python3-smbus
+#to check that you can see the 0x3c on the I2C bus #1
+i2cdetect 1
 </pre>
 
 <h2>Power consideration</h2>
