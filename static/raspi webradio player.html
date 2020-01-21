@@ -50,7 +50,7 @@ mpc volume 100
 </pre>
 
 <h2>Display screen</h2>
-Using a small [[https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf|2.13 inch I2C SSD1306]] (address 0x3c) with [[https://github.com/adafruit/Adafruit_Python_SSD1306|Adafruit library]]:
+Using a small [[https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf|2.13 inch I2C SSD1306]] (address 0x3c) with [[https://github.com/adafruit/Adafruit_CircuitPython_SSD1306|Adafruit library]] (for python3):
 <pre>
 sudo apt-get install python-pip python3-pip
 sudo python -m pip install --upgrade pip setuptools wheel
@@ -65,6 +65,10 @@ sudo apt-get install python-smbus python3-smbus
 #to check that you can see the 0x3c on the I2C bus #1
 i2cdetect 1
 </pre>
+Now the Ladyada code should work, however change the samples //for my component//:
+* address is 0x3c (not 0x3d)
+* the height is 32 not 64 pixels
+
 
 <h2>Power consideration</h2>
 I'd like to put the raspi zero W in sleep mode when unused to minimize power consumption AND maximize the benefit on start time. There's no real power management on the Raspi HW, so basically you have to cut the power on everything that is unused to save a few watts.<br/>
