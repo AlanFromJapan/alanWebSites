@@ -92,6 +92,12 @@ expand-hosts
 * Change the settings of your other PC or router to use your new DNS server and you're good to go. 
 * Now go to your router and tell it to use your DNS server. Usually it's by editing the list of DNS server (primary & secondary) and/or doing that by domain like with mine where I registered that for whatever "at.home" request, ask my new DNS server. 
 </ul>
+
+<h2>Setup the DNS server on your Linux</h2>
+Linux mint 19.2:
+* in <code>/etc/resolv.conf</code> add at the top <code>nameserver 192.168.0.2</code> (the IP of the new DNS server)
+* refresh <code>sudo service networking restart</code>
+Done.
 <h1>Pictures</h1>
 <img src="/files/20170820_192517.jpg" /><br/>
 //The final result: the Raspi Zero on the left hotglued on a piece of wood for stress release on the wires, the USB Ethernet adapter on the right (the white thingy with a red light glowing inside) and the main router in the back. The Raspi is powered by the router which has a USB port for external HDD which I didnn't use ... 'till now.//
