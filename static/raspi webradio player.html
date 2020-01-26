@@ -11,31 +11,47 @@ Seems you just need to MPD/MPC to play the web streams, a way to output the soun
 <h3>Make sound from a raspi zero without soundcard</h3>
 Explained [[https://www.raspberrypi.org/blog/tinkernut-diy-pi-zero-audio/|here]] and [[https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs|here]], you need to redirect 2 pins on their alternate pin, and make a small low/high pass filter with resistors and caps.
 
-<h2>Source code : with VLC</h2>
-VLS is more power hungry but this Raspi will only play radio so... even if it uses 40% CPU, it won't make a difference.
+<h2>User account "radio" preparation</h2>
+Because you should never run any non-interactive program with sudoer-rights account (root, pi, ...) so make a separate account that has the minimum necessary rights.
 <pre><code class="bash">
-#install VLC and pulseaudio
-sudo apt-get install vlc pulseaudio
-
 #make a user named "radio"
 sudo adduser radio
 #add user to the audio group if you want sound :)
 sudo usermod -a -G audio radio
 #add user to the netdev group if you want to access the internet
 sudo usermod -a -G netdev radio
+#add user to the gpio gorup to acces GPIO for the buttons
+sudo usermod -a -G gpio radio
+#add user to the i2c group to acces I2C bus for the screen
+sudo usermod -a -G i2c radio
+#allow user radio to shutdown the machine
+# 1- sudo visudo
+# 2- add line
+radio ALL=(ALL) NOPASSWD: /sbin/poweroff, /sbin/reboot, /sbin/shutdown
 
 #add to your .bashrc the below 2 lines to start pulseaudio as a user daemon (apparently it shouldn't be a system daemon)
 #START PULSEAUDIO as a per user daemon
 pulseaudio -D
 </code></pre>
 
+<h2>Source code : with VLC</h2>
+VLS is more power hungry but this Raspi will only play radio so... even if it uses 40% CPU, it won't make a difference.
+<pre><code class="bash">
+#install VLC and pulseaudio
+sudo apt-get install vlc pulseaudio
+</code></pre>
+
 Now it should work, so listen to music with:
 * Normal case: <code>vlc //your-URL-here// -I dummy </code>
 * If you need details when things go south : <code>vlc //your-URL-here// -I dummy **--verbose=2**</code>
 
+How to change the volume:
+* SET volume to 85%: <code>amixer -D pulse sset Master 85%</code>
+* INCREASE volume by 7%: <code>amixer -D pulse sset Master 7%+</code>
 
 
 <h2>Source code : with MPC</h2>
+<span style="color:red;">MPC/MPD does work, though I used VLC because it's simpler to configure. However as far as I tested the below setup works, you can take it from there and finish.</span>
 <pre><code class="bash">
 #install MPC/MPD to play the audio streams
 sudo apt-get install mpc mpd
