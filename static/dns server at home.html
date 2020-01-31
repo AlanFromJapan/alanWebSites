@@ -97,7 +97,10 @@ expand-hosts
 Linux mint 19.2:
 * in <code>/etc/resolv.conf</code> add at the top <code>nameserver 192.168.0.2</code> (the IP of the new DNS server)
 * refresh <code>sudo service networking restart</code>
-Done.
+Done. Except that it will be overwritten. So another option is to add it to <code>/etc/network/interfaces</code> and add/complete:
+<pre>
+dns-nameservers 192.168.0.2 8.8.8.8 4.4.4.4
+</pre>
 <h1>Pictures</h1>
 <img src="/files/20170820_192517.jpg" /><br/>
 //The final result: the Raspi Zero on the left hotglued on a piece of wood for stress release on the wires, the USB Ethernet adapter on the right (the white thingy with a red light glowing inside) and the main router in the back. The Raspi is powered by the router which has a USB port for external HDD which I didnn't use ... 'till now.//
