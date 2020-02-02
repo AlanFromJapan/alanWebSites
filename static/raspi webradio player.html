@@ -51,7 +51,7 @@ How to change the volume:
 
 
 <h2>Source code : with MPC</h2>
-<span style="color:red;">MPC/MPD does work, though I used VLC because it's simpler to configure. However as far as I tested the below setup works, you can take it from there and finish.</span>
+<span style="color:red;">MPC/MPD does work, though I used VLC because it's simpler to configure. However as far as I tested the below setup works, you can take it from there and finish. I ended up uninstalling it because mpd was consuming the CPU though I don't use it.</span>
 <pre><code class="bash">
 #install MPC/MPD to play the audio streams
 sudo apt-get install mpc mpd
@@ -91,6 +91,21 @@ I'd like to put the raspi zero W in sleep mode when unused to minimize power con
 Here's a few links I found:
 * Stop HDMI <code>/usr/bin/tvservice -o</code> (-p to re-enable) from [[https://www.jeffgeerling.com/blogs/jeff-geerling/raspberry-pi-zero-conserve-energy|here]]
 
+<h2>Autostart</h2>
+PulseAudio is giving me a hard time: all workds, except that, meaning no sound. Apparently it doesn't like to run as user-mode and it should run as system-wide as it's the exceptionnal case where it make sense ([[https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/SystemWide/|RTFM]]).
+<pre>
+#in rc.local, start as SYSTEM (don't forget to launch on background)
+pulseaudio --system &
+#start the app
+su  radio -c /usr/local/src/git/alanarduinotools/Python/WebRadioPlayer/start.sh &
+
+...
+#users that must access the SYSTEM pulse must be in "pulse-access" group (even root)
+sudo usermod -a -G pulse-access radio
+sudo usermod -a -G pulse-access pi
+sudo usermod -a -G pulse-access root
+</pre>
+It does use more CPU, peaks at 100% at opening of a radio and gets within seconds to its cruising speed ok 30-40% (I talk of the TOTAL CPU consumption of the RPi, all included)
 <h1>Pictures</h1>
 <img src="/files/elec_pictures.jpg" alt="the insides"/><br/>
 <img src="/files/20200129_231408.jpg" alt="The outside, with anonymized helper elf for scale"/>
