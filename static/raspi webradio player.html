@@ -7,6 +7,10 @@ Seems you just need to MPD/MPC to play the web streams, a way to output the soun
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 * Raspberry pi zero W
+* I2C OLED screen
+* Class D 2x15W amp module
+* USB soundcard (the cheapest on ebay)
+* Step-up module
 <h2>Schematics</h2>
 <h3>Make sound from a raspi zero without soundcard</h3>
 Explained [[https://www.raspberrypi.org/blog/tinkernut-diy-pi-zero-audio/|here]] and [[https://learn.adafruit.com/introducing-the-raspberry-pi-zero/audio-outputs|here]], you need to redirect 2 pins on their alternate pin, and make a small low/high pass filter with resistors and caps.
@@ -75,6 +79,7 @@ sudo python -m pip install --upgrade pip setuptools wheel
 
 sudo pip3 install adafruit-circuitpython-ssd1306
 sudo python3 -m pip install pillow
+sudo pip3 install futures
 
 #install necessary packages
 sudo apt-get install python-smbus python3-smbus
