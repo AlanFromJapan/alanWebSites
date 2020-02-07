@@ -2,6 +2,13 @@ My old tiny laptop stated to have a hard time under windows 7, and its small dis
 It's a good distribution, and over the last 20 years Linux made so much progress from those debians or redhats I installed when I was 15 (ah youth). Come to think of it that was also under the suggestion of my Linux senpai "Christophe".<br/>
 Enough rambling, down to business...<br/> 
 
+<h2>Burn the iso on a USB</h2>
+<ol>
+* find the /dev/sdX of your USB key (mount -l)
+* run the magic command : <code>sudo dd bs=20M if=the-linux-iso.iso of=/dev/sdX</code> (no partition number!) (the bs block size parameter can be set to the least common M/s speed both input/output disk support
+* done
+</ol>
+
 <h2>Install</h2>
 Use **synaptic** to do the installs unless otherwise specified:
 <ul>
