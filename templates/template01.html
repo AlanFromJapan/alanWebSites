@@ -92,7 +92,7 @@
 <div style="border: solid 2px blue;text-align:center;color:blue;background:azure;font-weight:bold;"> Production site: [<a href="edit/{{ pagename }}">Edit this page</a>]</div>
 {% endif %}
 
-{% if pagename !=  "home" %}<h1 class="PageTitle">{{ pagename }}</h1>{% endif %}
+{% if pagename !=  "home" %}<h1 class="PageTitle">{{ pagename }}</h1><div align="right" style="font-size:x-small;color:grey;">Last update: {{ lastupdate  }}</div>{% endif %}
 {% autoescape false %}
     {{ pagecontent }}
 {% endautoescape %}

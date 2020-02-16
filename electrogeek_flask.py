@@ -5,8 +5,9 @@ import ConfigParser
 import logging
 from logging.handlers import RotatingFileHandler
 import re
-from werkzeug import secure_filename
+import werkzeug 
 import operator
+import time
 
 #import ledz
 
@@ -212,7 +213,7 @@ def editPage(page):
         #some files to upload
         for f in uploaded_files:
             if f and allowed_file(f.filename):
-                filename = secure_filename(f.filename)
+                filename = werkzeug.utils.secure_filename(f.filename)
                 f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 vRecentlyUploaded = vRecentlyUploaded + '&lt;img src="/files/'+filename+'" /&gt;'
     if vRecentlyUploaded == "":
@@ -262,6 +263,8 @@ def serveTemplate(page):
     #make sure this path is a *safe* path
     vFilePath = os.path.join(ROOTDIR, page.lower() + ".html")
 
+    vLastupdate = time.ctime(os.path.getmtime(vFilePath))
+
     #caching or read from disk
     if Config.getboolean("WebConfig", "CACHING"):
         vBody = getStatic(page.lower(), vFilePath)
@@ -271,7 +274,7 @@ def serveTemplate(page):
             vBody = f.read().decode("utf-8")
 
     #renders
-    return renderPageInternal (pPageName=page, pBody=vBody)
+    return renderPageInternal (pPageName=page, pBody=vBody, lastupdate=str(vLastupdate))
 
 ##########################################################################################
 #Search page
@@ -306,13 +309,13 @@ def searchPage():
 
 
 #THE function that calls the page rendering and returns the result
-def renderPageInternal (pPageName, pBody):
+def renderPageInternal (pPageName, pBody, lastupdate="unknown"):
 
 #    ledz.ledz_blink()
 
     vYear = datetime.now().strftime('%Y')
     #generate the output by injecting static page content and a couple of variables in the template page
-    return render_template(Config.get("Design", "Template"), pagename=pPageName, pagecontent=wikilize(pBody), year=vYear, isprod=ISPROD)
+    return render_template(Config.get("Design", "Template"), pagename=pPageName, pagecontent=wikilize(pBody), year=vYear, isprod=ISPROD, lastupdate=lastupdate)
 
 
 ##########################################################################################
