@@ -1,16 +1,22 @@
-**This is just yet another implementation of that gentleman's work:  [[http://www.raphnet.net/electronique/snes_nes_usb/index_en.php]]**<br/>
+**This is just yet another implementation of that gentleman's work:  [[http://www.raphnet.net/electronique/snes_nes_usb/index_en.php]]. Thank you Raphaël Assénat for sharing!**<br/>
 <br/>
-So basically I'll just reuse his work, not even sure touch the code, but make a PCB for that.
-
-
+So basically I'll just reuse his work, but make a PCB for that. I'll try to do minimum code changes, none if possible.
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
+With V-USB emulate an USB controller from the SNES Joypad. Raphael original work supports many different models of joypads (SNES, NES, ...) but I care only about SNES. I want also if possible to have this board reusable for other small USB projects so if possible it won't be an joypad emulator only. And I want to have a certain freedom to move pins around.
 <h2>Points of interrest</h2>
+* Making the solder pads for a SNES controller plug that you can find on eBay. I bought some years ago just for this. Should be relatively standard to work with any brand.
+* ATmegaxx8 SMD or DIP format
+* Micro or Mini USB or free cable
+* Accessible ID pin for USB OTG
+* Reusable for other projects with a little free soldering zone
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <h2>Schematics</h2>
 <h2>Source code</h2>
+* [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Atmegaxx8/nes_snes_db9_usb|Code]] : the initial commit is the source code as-is from Raphael
+* PCB (TODO!)
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
