@@ -1,3 +1,4 @@
+<img src="/files/snes2usbpic.png" align="right"/>
 <div style="border: 3px dotted red;width:100%; text-align:center;">**This is just yet another implementation of that gentleman's work:  [[http://www.raphnet.net/electronique/snes_nes_usb/index_en.php]]. Thank you Raphaël Assénat for sharing!**</div>
 <br/>
 <br/>
@@ -20,6 +21,13 @@ With V-USB emulate an USB controller from the SNES Joypad. Raphael original work
 * [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/SNES2USB|PCB]] on GitHub.
 PCB versions:
 * v1.0 [Feb2020] that's what happens when you work at 1am: I sent for production without the V-USB logo as usual. Otherwise board "should be" ok.
+<h1>How to use</h1>
+If you want to use the vanilla code, solder close the following SMD solder-jumpers:
+* J_D-D4 (bottom) : if not, you have to wire where the D- goes on the CPU 
+* J_D+D2 (bottom) : if not, you have to wire where the D+ goes on the CPU 
+* JPC (bottom) : if not, wire the SNES connector CLOCK pin yourself
+* JPL (bottom) : if not, wire the SNES connector LATCH pin yourself
+* JPD (bottom) : if not, wire the SNES connector DATA pin yourself
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
