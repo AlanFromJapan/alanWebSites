@@ -1,13 +1,31 @@
-This is a new Template for **eink display**!
+My adventures with eInk displays. Fantastic tools, but with a twist if you let them running too long...<br/>
+I use it with my [[eInk Weather station]].
 
 <h1>Implementation</h1>
 <h2>Setup</h2>
 <pre><code class="bash">
 sudo apt-get install python-pip  python-dev
 sudo apt-get install python-imaging python-pillow
-sudo pip install spidev RPi.GPIO 
+sudo pip install spidev RPi.GPIO numpy
 
+#the libraries from the maker WaveShare
+git clone https://github.com/waveshare/e-Paper
 </code></pre>
+
+
+<h1>Issues with e-paper running too long</h1>
+So I got the problem twice: make your program work with your screen. Mine are 2.13inch screens from WaveShare. And let the puppy run for 1 month continuously with a full update 3 times an hour. and you end up with that↓<br/>
+<img src="/files/20200224_222654.jpg" /><br/>
+Screen number 1: can't completely erase anymore.<br/>
+<img src="/files/20200224_215718.jpg" /><br/>
+Screen number 2: can't completely erase anymore after 1 month running continuously.<br/>
+<br/>
+Facts collection:
+* Both are 2.13 ePaper Hat from WaveShare for Raspberry Pi, v1 it seems
+* Both run on 3.3v
+* Both worked perfectly for weeks (powered 24/7) until losing the capacity to clear in a few days
+* Both were mounted near vertically in the Weather station 
+* Both were "sleeped" after each update to avoid that precise problem. However after checking the source code of the epd2in13.py vs the latest version that the code for calling changed. Before it was only <code>self.send_command(DEEP_SLEEP_MODE)</code> and in the latest it became <code>self.send_command(DEEP_SLEEP_MODE) ; self.send_data(0x01)</code> ... so yeah, could be a problem of using old code?
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 * [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT_(B)]]
