@@ -26,6 +26,8 @@ Facts collection:
 * Both worked perfectly for weeks (powered 24/7) until losing the capacity to clear in a few days
 * Both were mounted near vertically in the Weather station 
 * Both were "sleeped" after each update to avoid that precise problem. However after checking the source code of the epd2in13.py vs the latest version that the code for calling changed. Before it was only <code>self.send_command(DEEP_SLEEP_MODE)</code> and in the latest it became <code>self.send_command(DEEP_SLEEP_MODE) ; self.send_data(0x01)</code> ... so yeah, could be a problem of using old code?
+<h2>Solution</h2>
+Well apparently I'm [[https://github.com/andrei7c4/weatherdisplay|not the only one complaining about the power consumption]] (and time-bomb effect that goes with it I deduce), so solution is like expected to implement in manually. The solution the gentleman propose is a high side (source) PNP, which sounds about right to me too :) 
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 * [[https://www.waveshare.com/wiki/2.13inch_e-Paper_HAT_(B)]]
