@@ -6,7 +6,9 @@ Enough rambling, down to business...<br/>
 <ol>
 * find the /dev/sdX of your USB key (mount -l)
 * run the magic command : <code>sudo dd bs=20M if=the-linux-iso.iso of=/dev/sdX</code> (no partition number!) (the bs block size parameter can be set to the least common M/s speed both input/output disk support
-* done
+* make sure to properly unmount the drive, to avoid missing pending writings
+* Then enable [[https://www.raspberrypi.org/documentation/configuration/wireless/headless.md|SSH and Wifi for headless]]
+* ssh default credentials are pi/raspberry
 </ol>
 
 <h2>Install</h2>
