@@ -19,8 +19,11 @@ With V-USB emulate an USB controller from the SNES Joypad. Raphael original work
 <h2>Source code</h2>
 * [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Atmegaxx8/nes_snes_db9_usb|Code]] : the initial commit is the source code as-is from Raphael
 * [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/SNES2USB|PCB]] on GitHub.
-PCB versions:
-* v1.0 [Feb2020] that's what happens when you work at 1am: I sent for production without the V-USB logo as usual. Otherwise board "should be" ok.
+<h2>PCB versions</h2>
+<H3>v1.0 [Feb2020]</h3> 
+That's what happens when you work at 1am: I sent for production without the V-USB logo as usual. Other problems:
+* The holes for the SNES connector are too small. They are 1mm but the SNES pins are 1.5mm (lessons learned, I'll use my good caliper next time and not the cheap one). Just redrill them with a 1.5mm and solder both sides.
+
 <h1>How to use</h1>
 If you want to use the vanilla code, solder close the following SMD solder-jumpers:
 * J_D-D4 (bottom) : if not, you have to wire where the D- goes on the CPU 
