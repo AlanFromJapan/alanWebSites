@@ -1,5 +1,5 @@
-<img src="/files/snes2usbpic.png" align="right"/>
-<div style="border: 3px dotted red;width:100%; text-align:center;">**This is just yet another implementation of that gentleman's work:  [[http://www.raphnet.net/electronique/snes_nes_usb/index_en.php]]. Thank you Raphaël Assénat for sharing!**</div>
+<img src="/files/sneslogo.png" align="right" width="200"/>
+<div style="border: 3px dotted red;width:100%; text-align:center;">**This is just yet another implementation of that gentleman's work:  [[http://www.raphnet.net/electronique/snes_nes_usb/index_en.php]]. Thank you Mr. Raphaël Assénat for sharing!**</div>
 <br/>
 <br/>
 So basically I'll just reuse his work, but make a PCB for that. I'll try to do minimum code changes, none if possible.
@@ -14,6 +14,7 @@ With V-USB emulate an USB controller from the SNES Joypad. Raphael original work
 * Accessible ID pin for USB OTG
 * Reusable for other projects with a little free soldering zone
 <h1>Implementation</h1>
+<img src="/files/snes2usbpic.png" align="right"/>
 <h2>Bill of materials</h2>
 <h2>Schematics</h2>
 <h2>Source code</h2>
@@ -22,15 +23,27 @@ With V-USB emulate an USB controller from the SNES Joypad. Raphael original work
 <h2>PCB versions</h2>
 <H3>v1.0 [Feb2020]</h3> 
 That's what happens when you work at 1am: I sent for production without the V-USB logo as usual. Other problems:
-* The holes for the SNES connector are too small. They are 1mm but the SNES pins are 1.5mm (lessons learned, I'll use my good caliper next time and not the cheap one). Just redrill them with a 1.5mm and solder both sides.
+* The holes for the SNES connector are too small. They are 1mm but the SNES pins are 1.5mm (lessons learned, I'll use my good caliper next time and not the cheap one). Just redrill them with a **1.5mm** and solder both sides.
 
 <h1>How to use</h1>
+<h2>Hardware</h2>
 If you want to use the vanilla code, solder close the following SMD solder-jumpers:
 * J_D-D4 (bottom) : if not, you have to wire where the D- goes on the CPU 
 * J_D+D2 (bottom) : if not, you have to wire where the D+ goes on the CPU 
 * JPC (bottom) : if not, wire the SNES connector CLOCK pin yourself
 * JPL (bottom) : if not, wire the SNES connector LATCH pin yourself
 * JPD (bottom) : if not, wire the SNES connector DATA pin yourself
+<h2>Fuses</h2>
+Then set the fuses (reminder it's an ATmega328p):
+* High: 0xDB
+* Low: 0xDF
+* Extended: 0xFD
+The command in case <code>avrdude -pm328p -cavrispmkII -u  -Ulfuse:w:0xdf:m -Uhfuse:w:0xdb:m -Uefuse:w:0xfd:m</code>
+<h2>Code</h2>
+<pre>
+# Upload the original code
+avrdude -pm328p -cavrispmkII -Uflash:w:nes_snes_db9_usb-1.9.hex:a -v
+</pre>
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
