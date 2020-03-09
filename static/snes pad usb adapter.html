@@ -6,7 +6,7 @@ So basically I'll just reuse his work, but make a PCB for that. I'll try to do m
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
-With V-USB emulate an USB controller from the SNES Joypad. Raphael original work supports many different models of joypads (SNES, NES, ...) but I care only about SNES. I want also if possible to have this board reusable for other small USB projects so if possible it won't be an joypad emulator only. And I want to have a certain freedom to move pins around.
+With [[https://www.obdev.at/products/vusb/|V-USB]] emulate an USB controller from the SNES Joypad. Raphael's original work supports many different models of joypads (SNES, NES, ...) but I care only about SNES. I want also if possible to have this board reusable for other small USB projects so if possible it won't be an joypad emulator only. And I want to have a certain freedom to move pins around. And a slightly different more recent (= more easily sourceable) mCU.
 <h2>Points of interrest</h2>
 * Making the solder pads for a SNES controller plug that you can find on eBay. I bought some years ago just for this. Should be relatively standard to work with any brand.
 * If possible double trace for SMD or DIP components (ie: ATmegaxx8 SMD or DIP format)
@@ -22,29 +22,49 @@ With V-USB emulate an USB controller from the SNES Joypad. Raphael original work
 * [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/SNES2USB|PCB]] on GitHub.
 <h2>PCB versions</h2>
 <H3>v1.0 [Feb2020]</h3> 
-That's what happens when you work at 1am: I sent for production without the V-USB logo as usual. Other problems:
+* That's what happens when you work at 1am: I sent for production without the V-USB logo as usual. Other problems:
 * The holes for the SNES connector are too small. They are 1mm but the SNES pins are 1.5mm (lessons learned, I'll use my good caliper next time and not the cheap one). Just redrill them with a **1.5mm** and solder both sides.
+* Pinout for the SNES connector is slightly off: still ok but luckily the pins can be tilted a little bit. Maybe if I'd make another batch I'd align them a bit differently.
 
 <h1>How to use</h1>
+<h2>Micro controller</h2>
+**ATmega328p** is WAY overkill: the code is less than 4kB so feel free to replace it with an ATmega88p, it will still be more than enough. But again I choose to modernize the mCU (from Raphael's Atmega8) to source it more easily so do whatever you want. The board has plenty of free space, can be reused for more complex projects (NB: only port C and D are accessible, port B is not for board simplicity)
 <h2>Hardware</h2>
-If you want to use the vanilla code, solder close the following SMD solder-jumpers:
+If you want to use the vanilla code (<code>nes_snes_db9_usb.default.hex</code> file), solder close the following SMD solder-jumpers:
 * J_D-D4 (bottom) : if not, you have to wire where the D- goes on the CPU 
 * J_D+D2 (bottom) : if not, you have to wire where the D+ goes on the CPU 
 * JPC (bottom) : if not, wire the SNES connector CLOCK pin yourself
 * JPL (bottom) : if not, wire the SNES connector LATCH pin yourself
 * JPD (bottom) : if not, wire the SNES connector DATA pin yourself
+Components list (mandatory):
+* 1x ATmega88p, ATmega168p, ATmega328p as DIP or SMD package
+* 2x 68ohm resistors
+* 1x 1.5k resistor
+* 2x 3.6v Zener diodes
+* 1x USB mini or micro socket
+* 1x SNES connector
+* 1x 12MHz crystal
+* 2x 22pF DIP or SMD capacitors
+* 1x power rail capacitor (10uF+) and throw in a small one tool 1uF close to the mCU
+The rest is optional. All the connectors can be soldered directly as wires (the USB, the SNES connector).
 <h2>Fuses</h2>
-Then set the fuses (reminder it's an ATmega328p):
+Then set the fuses (reminder it's an ATmega328p, 12MHz crystal)
 * High: 0xDB
 * Low: 0xDF
 * Extended: 0xFD
 The command in case <code>avrdude -pm328p -cavrispmkII -u  -Ulfuse:w:0xdf:m -Uhfuse:w:0xdb:m -Uefuse:w:0xfd:m</code>
 <h2>Code</h2>
+Unfortunately the original code from Raphael does not work on my board. Something I must have done wrong, though I can't figure what. You can still find it in the originals/ folder of the code Git repo.<br/>
+So based on his code, I removed the things I don't need (Sega, DB9, SNES Mouse,...) and rebuilt it under Eclipse. A few code changes, because different compiler and because code moved from ATmega8a to ATmega328p. Long story short:
+* The original commit in the Git folder is Raphael's
+* After that it's my revamp on his code
+* My binaries (.hex) files are in the SNES2USB.bins/ folder, if you use vanilla settings (close all solder-jumpers) then pick the <code>nes_snes_db9_usb.default.hex</code> file
 <pre>
-# Upload the original code
-avrdude -pm328p -cavrispmkII -Uflash:w:nes_snes_db9_usb-1.9.hex:a -v
+# Upload the code 
+avrdude -pm328p -cavrispmkII -Uflash:w:nes_snes_db9_usb.default.hex:a -v
 </pre>
 <h1>Pictures</h1>
+<img src="/files/20200308_223927.jpg" />
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 * This is just yet another implementation of that gentleman's work:  [[http://www.raphnet.net/electronique/snes_nes_usb/index_en.php]]
