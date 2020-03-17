@@ -1,9 +1,57 @@
-<h1 id="toc0"><a name="GbReaper : a Game boy ROM viewer, sprite and map editor"></a> GbReaper : a Game boy ROM viewer, sprite and map editor </h1>
+<h1 id="toc0"><a name="GbReaper : a Game boy ROM viewer, sprite and map editor"></a> GbReaper : a Game boy ROM viewer, sprite and map editor </h1><img src="/files/gbreaper1.jpg" width="300" align="right"/>
 I'm playing with GB now and though you can use multiple tools to do the job, it's a pain. So I'm making this easier with a all in one tool. All exist as free software, usually with source code but in "old" languages (Delphi 3!) and no more maintained.<br />
 - ROM viewer: replace GB tile viewer<br />
 - Sprite editor: replace GBSP<br />
 - Map editor: replace GBMP<br />
 <h2 id="toc1"><a name="GbReaper : a Game boy ROM viewer, sprite and map editor-Specifications"></a> Specifications </h2>
-<ul><li>See a GB ROM content  ✔</li><li>Extract one sprite to the library  ✔</li><li>Set a palette △</li><li>Reorder library</li><li>Delete sprite from library</li><li>Duplicate sprite from library</li><li>Create new sprite in library  ✔</li><li>Edit sprite: pen, fill, Mirror L/R T/B, negative, rotate palette △</li><li>See a 3x3 map of the sprite  ✔</li><li>See a zoom x1, x2 and x4 of the sprite  ✔</li><li>Save & load to file  ✔</li><li>Export to (plugin) GBDK: nb elements const and each element start index  ✔</li><li>Create new map, delete map, edit map  ✔</li><li>Map editor: use sprite and tool paint/fill  ✔</li><li>Real time update of <em>everything</em> when updating a sprite   ✔</li><li>Import and image and transform to sprites on the fly <span style="color:red;font-weight:bold;">New!</span>  ✔</li></ul><h1 id="toc2"><a name="Code"></a> Code </h1>
-<h2 id="toc3"><a name="Code-Source"></a>Source </h2>
-As usual on Git [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/C_Sharp/GbReaper]]
+✔ = done, otherwise it's a TODO
+<h3>ROM</h3>
+<li>See a GB ROM content  ✔</li>
+  <li>Extract one sprite to the library  ✔</li>
+* Extract 2/4 consecutive sprites (most of them are 4x4 anyway) with Ctrl 
+  <li>Set a palette △ (disabled for now)</li>
+* Page up/down + mouse scroll 
+* Slight vertical misalignement on large ROM to be fixed
+<h3>Library</h3>
+  <li>Reorder library</li>
+  <li>Delete sprite from library</li>
+  <li>Duplicate sprite from library</li>
+* Group some sprites by 4 visually 
+* Categories : background, characters, items, custom, ...
+* Fold categories
+<h3>Sprites</h3>
+  <li>Create new sprite in library  ✔</li>
+<li>See a 3x3 map of the sprite  ✔</li>
+<li>See a zoom x1, x2 and x4 of the sprite  ✔</li>
+<li>Real time update of <em>everything</em> when updating a sprite   ✔</li>
+* Edit sprite: pen ✔
+* Edit sprite: fill, Mirror L/R T/B, negative, rotate, rotate palette 
+* See each one palette
+<h3>In and out</h3>
+<li>Save & load to file  ✔</li>
+<li>Export to C code to be built by [[https://github.com/andreasjhkarlsson/gbdk-n|GBDK-n]] or the old GBDK: nb elements const and each element start index  ✔</li>
+<li>Import and image and transform to sprites on the fly <span style="color:red;font-weight:bold;">New!</span>  ✔</li>
+* Better algorithm than closest neighbor for Tilizator: [[https://www.cyotek.com/blog/dithering-an-image-using-the-floyd-steinberg-algorithm-in-csharp|dither]] 
+* Export also makes a makefile
+* Export can choose which map(s)
+* Export can save space by skipping unused tiles
+<h3>Maps</h3>
+<li>Create new map, delete map, edit map  ✔</li>
+<li>Map editor: use sprite and tool paint/fill  ✔</li>
+* Paint with 4 consecutive sprites (most characters are 2x2) with Ctrl
+* Fill paint with 2 consecutive alternate sprites (for backgrounds)
+* Highlight hover on map  
+* Duplicate map
+<h1 id="toc2"><a name="Code"></a> Code </h1>
+<img src="/files/Pixture-Halloween-ReaperScythe.png" align="left"/><h2 id="toc3"><a name="Code-Source"></a>Source </h2>
+C# on .NET 4.0 and runs on Windows, not on Mono (alas, at least not yet).<br/>
+As usual on Git [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/C_Sharp/GbReaper]]<br/>
+<br/>
+You can compile it with [[https://github.com/andreasjhkarlsson/gbdk-n|GBDK-n]] or the old GBDK.
+<h2>Projects</h2>
+On GitHub, on my [[https://github.com/AlanFromJapan/Gameboy|GameBoy repository]].
+<h1>Pictures</h1>
+<img src="/files/gbreaper1.jpg" /><br/>
+Basic screen, with a ROM loaded and a project with 2 maps loaded.<br/>
+<img src="/files/20200315_225738.jpg" /><br/>
+The same map loaded on a ROM and in a GB v(^_^)v.<br/>
