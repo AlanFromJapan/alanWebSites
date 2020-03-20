@@ -2,7 +2,8 @@
 text-align: center;
 display: block;
 font-weight:bold;">How to use this? <a class="wiki_link" href="USB%20without%20Arduino.html">USB without Arduino</a><br/>
-Alternate version for SNES joypad adapter: [[SNES pad USB adapter]]<img src="/files/zeldalinkicon.png" width="24"/>  
+Alternate version for SNES joypad adapter: [[SNES pad USB adapter]]<img src="/files/zeldalinkicon.png" width="24"/>  <br/>
+Alternate version for ATtiny2313 and better with some fixed [[RapideUSBII]]
 </span><br />
 <h1 id="toc0"><a name="Summary"></a>Summary </h1>
 <img src="/files/Rapideusb_silktoponly2.png" alt="Rapideusb_silktoponly2.png" title="Rapideusb_silktoponly2.png" align="right" />A one afternoon work to make this board. Goal: make the <a class="wiki_link" href="USB%20without%20Arduino.html">V-USB project simple</a> , with a board that already has everything you need. Populate it, burn the program and you're good to go! Works for <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a> DIP or <a class="wiki_link" href="ATmega328.html">ATmega328</a> (all the ATmegaxx8 family in fact) in SMD package.<br />
@@ -31,6 +32,14 @@ On GitHub : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagl
 <h2 id="toc3"><a name="Schematics-Setting the fuses"></a> Setting the fuses </h2>
 <img src="/files/RapideUSB2313fuses.PNG" alt="RapideUSB2313fuses.PNG" title="RapideUSB2313fuses.PNG" /><br />
 <em>Fuses setup for a <a class="wiki_link" href="ATtiny2313.html">ATtiny2313</a></em><br />
+Fuses for ATtiny2313:
+* High: 0xDF
+* Low: 0xCE
+* Extended: 0xFF
+<pre>
+# Set the fuses
+avrdude -pt2313 -cavrispmkII -u  -Ulfuse:w:0xce:m -Uhfuse:w:0xdf:m -Uefuse:w:0xff:m
+</pre>
 <img src="/files/rapideUSBfuseatmega8a.png" /><br/>
 <em>Fuses setup for a [[ATmega8a]]</em><br />
 

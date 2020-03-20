@@ -52,7 +52,10 @@ Then set the fuses (reminder it's an ATmega328p, 12MHz crystal)
 * High: 0xDB
 * Low: 0xDF
 * Extended: 0xFD
-The command in case <code>avrdude -pm328p -cavrispmkII -u  -Ulfuse:w:0xdf:m -Uhfuse:w:0xdb:m -Uefuse:w:0xfd:m</code>
+<pre>
+# Set the fuses
+avrdude -pm328p -cavrispmkII -u  -Ulfuse:w:0xdf:m -Uhfuse:w:0xdb:m -Uefuse:w:0xfd:m
+</pre>
 <h2>Code</h2>
 Unfortunately the original code from Raphael does not work on my board. Something I must have done wrong, though I can't figure what. You can still find it in the originals/ folder of the code Git repo.<br/>
 So based on his code, I removed the things I don't need (Sega, DB9, SNES Mouse,...) and rebuilt it under Eclipse. A few code changes, because different compiler and because code moved from ATmega8a to ATmega328p. Long story short:
