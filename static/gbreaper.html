@@ -3,7 +3,11 @@ I'm playing with GB now and though you can use multiple tools to do the job, it'
 - ROM viewer: replace GB tile viewer<br />
 - Sprite editor: replace GBSP<br />
 - Map editor: replace GBMP<br />
-(2020 March) Now maybe 5 years later I wonder why I started that, other than "because I can" and that damned not-invented-here syndrom. Anyway it's covering enough of what I need, and if by chance it helps someone someday I'll be happy.
+(2020 March) Now maybe 5 years later I wonder why I started that, other than "because I can" and that damned not-invented-here syndrom. Anyway it's covering enough of what I need, and if by chance it helps someone someday I'll be happy.<br/>
+<br/>
+So in case you are not like me and don't want to reinvent the wheel use the old-yet-working:
+* [[http://www.devrs.com/gb/hmgd/gbtd.html|GameBoy Tile Designer]]
+* [[http://www.devrs.com/gb/hmgd/gbmb.html|GameBoy Map Designer]]
 <h2 id="toc1"><a name="GbReaper : a Game boy ROM viewer, sprite and map editor-Specifications"></a> Specifications </h2>
 ✔ = done, otherwise it's a TODO
 <h3>ROM</h3>
@@ -11,7 +15,7 @@ I'm playing with GB now and though you can use multiple tools to do the job, it'
   <li>Extract one sprite to the library  ✔</li>
 * Extract 2/4 consecutive sprites (most of them are 4x4 anyway) with Ctrl 
   <li>Set a palette △ (disabled for now)</li>
-* Page up/down + mouse scroll 
+* Page up/down + mouse scroll △ (Page up/down ok)
 * Slight vertical misalignement on large ROM to be fixed
 <h3>Library</h3>
   <li>Reorder library</li>
@@ -32,6 +36,7 @@ I'm playing with GB now and though you can use multiple tools to do the job, it'
 <li>Save & load to file  ✔</li>
 <li>Export to C code to be built by [[https://github.com/andreasjhkarlsson/gbdk-n|GBDK-n]] or the old GBDK: nb elements const and each element start index  ✔</li>
 <li>Import and image and transform to sprites on the fly <span style="color:red;font-weight:bold;">New!</span>  ✔</li>
+* Import 4 tile at a time with Ctrl ✔
 * Better algorithm than closest neighbor for Tilizator: [[https://www.cyotek.com/blog/dithering-an-image-using-the-floyd-steinberg-algorithm-in-csharp|dither]] 
 * Export also makes a makefile
 * Export can choose which map(s)
@@ -39,7 +44,7 @@ I'm playing with GB now and though you can use multiple tools to do the job, it'
 <h3>Maps</h3>
 <li>Create new map, delete map, edit map  ✔</li>
 <li>Map editor: use sprite and tool paint/fill  ✔</li>
-* Paint with 4 consecutive sprites (most characters are 2x2) with Ctrl
+* Paint with 4 consecutive sprites (most characters are 2x2) with Ctrl ✔
 * Fill paint with 2 consecutive alternate sprites (for backgrounds)
 * Highlight hover on map  
 * Duplicate map
@@ -49,6 +54,14 @@ C# on .NET 4.0 and runs on Windows, not on Mono (alas, at least not yet).<br/>
 As usual on Git [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/C_Sharp/GbReaper]]<br/>
 <br/>
 You can compile it with [[https://github.com/andreasjhkarlsson/gbdk-n|GBDK-n]] or the old GBDK.
+<h2>Compilation</h2>
+Ok so everybody complains about the old GBDK and ...yeah honestly, it's pretty bad. Took me 2 days to end up with bugs on code that I knew was sound (been a coder for 25 years, I know my C). <br/>
+* Solution 1: use [[https://github.com/andreasjhkarlsson/gbdk-n|GBDK-n]], better but my Mint 19 sdcc is 3.5 and sometimes compilation take minutes to complete!
+* Solution 2: use [[https://github.com/andreasjhkarlsson/gbdk-n|GBDK-n]] AND the latest sdcc 4.0. You need to edit the gbdk-n compile script to use the right sdcc, and you get nice compilation under a handful of seconds.
+* Solution 3: go ASM
+In all cases, that code ended working as planned with a recent compiler.
+
+
 <h2>Projects</h2>
 On GitHub, on my [[https://github.com/AlanFromJapan/Gameboy|GameBoy repository]].
 <h1>Pictures</h1>
