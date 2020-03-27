@@ -1,18 +1,46 @@
-<html>
-  <head>
-    <title>kalshagar - Gameboy guts and programming</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
 <span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+
 <h1 id="toc0"><a name="Tools of the trade"></a> Tools of the trade </h1>
 <h2 id="toc1"><a name="Tools of the trade-Software"></a> Software </h2>
-C programming : <strong>GBDK</strong> toolchain to compile GB code [[http://gbdk.sourceforge.net]] <br />
+C programming : <strong>GBDK-n</strong> toolchain to compile GB code [[https://github.com/andreasjhkarlsson/gbdk-n]] (avoid legacy GBDK, it's too bad to do more than a quick PoC)<br />
 ASM programming : <strong>WLA</strong> toolchain is here <a class="wiki_link_ext" href="http://www.villehelin.com/wla.html" rel="nofollow">http://www.villehelin.com/wla.html</a><br />
+
+<h1>Tips and tricks</h1>
+<h2>Tips from me</h2>
+
+<h2>Tips from the net</h2>
+<i>Source: [[https://gbdev.github.io/to_c_or_not_to_c.html#optimizing-for-gbdk]]</i>:
+<span style="display:block; overflow:auto; height:400px;width:1000px;"><br />
+<pre class="text">
+Optimizing For GBDK
+
+    Global variables
+    Use as many global variables as you can; the Game Boy has a lot of RAM compared to other platforms such as the NES, but is slow at using the stack. 
+    Thus, minimizing the number of local variables, especially in heavily-called functions, will reduce the time spent manipulating the stack.
+    Optimized code
+    SDCC doesn't seem to have optimization passes, so you should write code as efficient as possible. There will be a readability tradeoff after some point, 
+    so I recommend you get the comment machine gun out and put some everywhere.
+    Inlining
+    Avoid using functions if you can inline them, which skips passing all arguments to the stack, mostly. Macros will be your friends there.
+    NEVER use recursive functions
+    NEVER use printf
+    printf clobbers a sizeable chunk of VRAM with unnecessary text tiles (unless you absolutely need hebrew in your game, I s'pose?). Instead, you should 
+    sprintf to a buffer in WRAM, then put that on the screen. Bonus: this lets you use a custom font!
+    Geometry funcs
+    Avoid the functions that draw geometry on-screen (lines, rectangles, etc.). The Game Boy isn't designed for this kind of drawing method, and you 
+    will have a hard time mixing this with, say, background art. Plus, the functions are super slow.
+    const (very important!)
+    Declaring something as const severely reduces its size in the ROM, RAM usage, and CPU usage.
+    The technical reason behind that is that non-const values, especially arrays, are loaded to RAM from ROM in an extremely inefficient way. 
+    This takes up a LOT more ROM, and copies the value(s) to RAM when it's unneeded. (And the GB does not have enough RAM for that to be viable.)
+    Don't use MBC1
+    MBC1 is often assumed to be the simplest of all MBCs... but it has a quirk that adds some overhead every time ROM or SRAM bank switches are performed. 
+    MBC3 and MBC5 don't have this quirk, and don't add any complexity. Using MBC1 has no real use. (Let's not talk about MBC2, either.)
+</pre>
+</span>
+
 <h2 id="toc2"><a name="Tools of the trade-Emulator"></a> Emulator </h2>
-<strong>bgb</strong> has my favor now, <strong>no$gba</strong> is an alternative.<br />
+<strong>bgb</strong> has my favor now, <strong>no$gba</strong> is an alternative. Bgb works fine on Linux with wine.<br />
 <h2 id="toc3"><a name="Tools of the trade-Documents"></a>Documents </h2>
 The official gameboy manuel by Nintendo: <A  href="files/gb-programming-manual.pdf.html">gb-programming-manual.pdf</a><br />
 <h2 id="toc4"><a name="Tools of the trade-Tutorials"></a>Tutorials</h2>
@@ -20,6 +48,8 @@ Very good tutorial en francais about how to program a GB software using wla <a c
 Gameboy dev tutorial Youtube playlist: <a class="wiki_link_ext" href="https://www.youtube.com/playlist?list=PLrtz6lrVSWbop11q_VYZHct2DZi2fDxcn" rel="nofollow">https://www.youtube.com/playlist?list=PLrtz6lrVSWbop11q_VYZHct2DZi2fDxcn</a><br />
 Raycasting: <a class="wiki_link_ext" href="http://www.permadi.com/tutorial/raycast/index.html" rel="nofollow">http://www.permadi.com/tutorial/raycast/index.html</a><br />
 <br />
+
+
 <h1 id="toc5"><a name="Links"></a> Links </h1>
 <h2 id="toc6"><a name="Links-General"></a> General </h2>
 <ul><li>THE reference site <a class="wiki_link_ext" href="http://www.devrs.com/gb/" rel="nofollow">http://www.devrs.com/gb/</a></li><li>A reference site <a class="wiki_link_ext" href="http://fms.komkon.org/GameBoy/" rel="nofollow">http://fms.komkon.org/GameBoy/</a></li><li>Tutorial <a class="wiki_link_ext" href="http://www.loirak.com/gameboy/gbatutor.php" rel="nofollow">http://www.loirak.com/gameboy/gbatutor.php</a></li><li><a class="wiki_link_ext" href="http://gbdev.gg8.se/wiki/articles/Main_Page" rel="nofollow">http://gbdev.gg8.se/wiki/articles/Main_Page</a></li><li><a class="wiki_link_ext" href="http://gameboy.mongenel.com/asmschool.html" rel="nofollow">http://gameboy.mongenel.com/asmschool.html</a></li></ul><h2 id="toc7"><a name="Links-Cartridge"></a> Cartridge </h2>
@@ -1721,6 +1751,3 @@ FFFF
  </pre>
 
 </span>
-    </div>
-  </body>
-</html>
