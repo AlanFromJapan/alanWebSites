@@ -1,16 +1,34 @@
 <span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
 
-<span style="display:block;width:100%;height:auto;border:1px solid orange; background-color:yellow;text-align:center;">**This project does not work!** Don't know why, I got the board, assembled, but I have problem programming the flash memory. I didn't had occasion to find where I messed up. It //should// work if you put an already programmed flash, but I couldn't test that. Use at your own risk (of resource waste).</span><br />
+
 
 <h1 id="toc0"><a name="Introduction"></a> Introduction </h1>
 
 This is a Gameboy original cartridge with a flash memory store homebrew games. I have no idea is you can put ROMs of commercial games on and I have no interrest in finding out. This is to be used by your unique creations, well, mine in fact :)<br />
 <br />
 There will be 2 versions of that board, will be created in that order:<br />
-<ul><li><strong>The modest</strong>: just holds the flash and a micrcontroller used to upload the flash without a special programmer (which I don't have anyway)</li><li><strong>The DeLuxe</strong>: this time the mCU will sometime steal the spotlights and answer to the GB instead of the flash. Mainly idea is to use the mCU to read a RTC and return time, that's all: making your <a class="wiki_link" href="Gameboy%20clock.html">Gameboy clock</a>.</li></ul>I need to cut the complexity and I'd like to have something to play with before Chinese new year.<br />
+<ul>
+  <li><strong>The modest</strong> <span style="color:red;">× Failed</span>: just holds the flash and a micrcontroller used to upload the flash without a special programmer (which I don't have anyway)</li>
+* **The revenge**: basically mending my hurt pride with the //modest// version by ripping off someone's design and making it mine.
+  <li><strong>The DeLuxe</strong> : this time the mCU will sometime steal the spotlights and answer to the GB instead of the flash. Mainly idea is to use the mCU to read a RTC and return time, that's all: making your <a class="wiki_link" href="Gameboy%20clock.html">Gameboy clock</a>.</li>
+</ul>
+I need to cut the complexity and I'd like to have something to play with before Chinese new year.<br />
 <br />
+
+
+<h1>Revenge version</h1>
+<h2>Euh ... why?</h2>
+5 years ago (now 2020Q2) I made the modest and it failed. Tried again, still, doesn't want to be programmed. Some bytes I can, some bytes I can't ... Something wrong and I really can't figure what. So I found on the net the below versions that look simple enough that I can "inspire" (read "rip off") and make the same. Will cost me about the same but if it works I'll have 10 cards and not 1. And if it still fails, I'll have learned a few things.<br/>
+* The [[https://shop.insidegadgets.com/product/gameboy-32kb-flash-cart/|regular 32kB card]]
+* The [[https://shop.insidegadgets.com/product/gameboy-32kbx15-flash-cart/|fancy switchable one]]
+
+<h2>Where do we start?</h2>
+Ok it will be a ripoff of the Fancy one, because I still don't own an eeprom programmer, don't want to either. So a Flash memory [[https://www.microchip.com/wwwproducts/en/SST39SF010A|SST39SF010A]] of 1MB and a small Atmel MCU surface mount to program it. Basically same as the modest in the idea, we just change the players.<br/>
+<img src="/files/fancygbcard-insidegdgt-front.png" alt="the victim"/>
+
 <h1 id="toc1"><a name="Modest version"></a> Modest version </h1>
-<img src="files/2015-02-17-23-23-02_deco.jpg" alt="2015-02-17-23-23-02_deco.jpg" title="2015-02-17-23-23-02_deco.jpg" style="width: 300px;" align="right" />No real time answering instead of the flash memory: just program or even skip the mCU entirely and just put the flash.<br />
+<span style="display:block;width:100%;height:auto;border:1px solid orange; background-color:yellow;text-align:center;">**This project does not work!** Don't know why, I got the board, assembled, but I have problem programming the flash memory. I didn't managed to find where I messed up. It //should// work if you put an already programmed flash, but I couldn't test that. Use at your own risk (of resource waste).</span><br />
+<img src="/files/2015-02-17-23-23-02_deco.jpg" alt="2015-02-17-23-23-02_deco.jpg" title="2015-02-17-23-23-02_deco.jpg" style="width: 300px;" align="right" />No real time answering instead of the flash memory: just program or even skip the mCU entirely and just put the flash.<br />
 <br />
 <h2 id="toc2"><a name="Modest version-Parts"></a> Parts </h2>
 <ul><li><a class="wiki_link" href="ATmega64a.html">ATmega64a</a> because I need a small foot print and lots of pins (18 address, 8 data, 4 control...) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-04255/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-04255/</a></li><li>EN29F002T: 2Mbit flash memory, very cheap <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-01459/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-01459/</a></li><li>16MHz crystal, max for this mCU</li><li>A few pullups resistors and caps</li></ul><br />
