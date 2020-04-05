@@ -21,10 +21,11 @@ I need to cut the complexity and I'd like to have something to play with before 
 5 years ago (now 2020Q2) I made the modest and it failed. Tried again, still, doesn't want to be programmed. Some bytes I can, some bytes I can't ... Something wrong and I really can't figure what. So I found on the net the below versions that look simple enough that I can "inspire" (read "rip off") and make the same. Will cost me about the same but if it works I'll have 10 cards and not 1. And if it still fails, I'll have learned a few things.<br/>
 * The [[https://shop.insidegadgets.com/product/gameboy-32kb-flash-cart/|regular 32kB card]]
 * The [[https://shop.insidegadgets.com/product/gameboy-32kbx15-flash-cart/|fancy switchable one]]
+* In fact why reinvent the wheel? [[https://tinkerer.us/projects/homebrew-gameboy-cartridge.html|Look here the 32kB version]]
 
-<h2>Where do we start?</h2>
-Ok it will be a ripoff of the Fancy one, because I still don't own an eeprom programmer, don't want to either. So a Flash memory [[https://www.microchip.com/wwwproducts/en/SST39SF010A|SST39SF010A]] of 1MB and a small Atmel MCU surface mount to program it. Basically same as the modest in the idea, we just change the players.<br/>
-<img src="/files/fancygbcard-insidegdgt-front.png" alt="the victim"/>
+<h2>Slight change of plans</h2>
+So I decided to not reinvent the wheel: indeed I found [[https://tinkerer.us/projects/homebrew-gameboy-cartridge.html|this]] (its 32kB version), which I thought I could use a base until I found I would do no major change... so since I couldn't send to production someone else's job without messing it up, I spend a few hours moving things around, fixing what I thought needed to be fixed, and there, sent to production.<br/>
+Everything is [[https://github.com/AlanFromJapan/Homebrew-Gameboy-Cartridge/tree/32kB-variant|on my fork of his project]], in the "32kB-variant" branch.
 
 <h1 id="toc1"><a name="Modest version"></a> Modest version </h1>
 <span style="display:block;width:100%;height:auto;border:1px solid orange; background-color:yellow;text-align:center;">**This project does not work!** Don't know why, I got the board, assembled, but I have problem programming the flash memory. I didn't managed to find where I messed up. It //should// work if you put an already programmed flash, but I couldn't test that. Use at your own risk (of resource waste).</span><br />
