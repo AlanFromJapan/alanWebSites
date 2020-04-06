@@ -22,6 +22,11 @@
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
 
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-04-05 - A blemish on my pride was cleansed</span><br />
+Years (like 5) ago, I made a [[Gameboy homebrew cartridge]] that would double up as an EEPROM programmer. As a mix microcontroller and EEPROM it was doomed to fail, but I had hope for the EEPROM programming part. It never worked, disregarding how many times I fixed my code, read it, scratched my head, read the docs, read other people stuffs, ... never. So I gave up, and always had that thorn in my side since then (I'm not the kind of give up guy). Recently I resumed working on GB development, and used my EEPROM programmer and noticed that.. it works. The only weird bug is you have to 1) Erase the eeprom first (or program to 0xff - that I have to try) and 2) write an EVEN number of bytes otherwise I suppose the bus is left in a weird state. <br/>
+  Ok sure that doesn't sing very high the quality of my code here I admit, but it did work. Do I added a few things, tested it more thouroughly, then made a Python program to communicate with it and there we are: I can upload and download ROMs on my EEPROM, and it just works.<br/>
+  I will sleep the sleep of the just tonight.
+  
 <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-03-20 - Alternate RGB led USB board</span><br />
 Made another small USB board just received fromn Seeedstudio, the [[RapideUSBII]] that runs an ATtiny2313, has a couple of RGB leds ... worked out of the box, so happy.<br/>
   <img src="/files/20200320_001556.jpg" width="500"/>
