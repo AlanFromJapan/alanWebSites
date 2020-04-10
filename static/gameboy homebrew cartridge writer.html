@@ -1,0 +1,16 @@
+So I made a semi-failed [[Gameboy homebrew cartridge]] (the modest) that doesn't work as a GB cartridge but works fine as an EEPROM writer. But you need a program on your computer to talk to the board, and send/receive data. This present program.
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Just a simple python Serial client that talks at 57.6kbps to the [[Gameboy homebrew cartridge]] microcontroller. Wrote it to work with 32kB ROM only, so if you wnat to make it bigger, edit the code. It can download a 32kB ROM in like 20 sec, but writing is longer at about 5 minutes for 32kB.<br/>
+My suggestion is to write, then download what you wrote and compare to be safe.
+<h2>Points of interrest</h2>
+Not much, a simple serial client. I like the progression indicator with the print("\r") trick and the remaining time calculation. Nothing much otherwise.
+<h1>Implementation</h1>
+<h2>Source code</h2>
+Runs on Python 3, you'll need to <code>pip3 install pyserial</code> for it to work.<br/>
+<br/>
+Script is on my GitHub: [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Python/GBCartridgeClient]]
+<br/>
+
+<img src="/files/20200410_133259.jpg" alt="EEPROM programmer at work"/>

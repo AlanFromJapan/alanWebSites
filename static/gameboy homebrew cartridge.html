@@ -8,9 +8,9 @@ This is a Gameboy original cartridge with a flash memory store homebrew games. I
 <br />
 There will be 2 versions of that board, will be created in that order:<br />
 <ul>
-  <li><strong>The modest</strong> <span style="color:red;">× Failed</span>: just holds the flash and a micrcontroller used to upload the flash without a special programmer (which I don't have anyway)</li>
+  <li><strong>The modest</strong> <span style="color:red;">× Mixed results</span>: just holds the flash and a micrcontroller used to upload the flash without a special programmer (which I don't have anyway)</li>
 * **The revenge**: basically mending my hurt pride with the //modest// version by ripping off someone's design and making it mine.
-  <li><strong>The DeLuxe</strong> : this time the mCU will sometime steal the spotlights and answer to the GB instead of the flash. Mainly idea is to use the mCU to read a RTC and return time, that's all: making your <a class="wiki_link" href="Gameboy%20clock.html">Gameboy clock</a>.</li>
+  <li><strong>The DeLuxe</strong> (future plan): this time the mCU will sometime steal the spotlights and answer to the GB instead of the flash. Mainly idea is to use the mCU to read a RTC and return time, that's all: making your <a class="wiki_link" href="Gameboy%20clock.html">Gameboy clock</a>.</li>
 </ul>
 I need to cut the complexity and I'd like to have something to play with before Chinese new year.<br />
 <br />
@@ -19,6 +19,7 @@ I need to cut the complexity and I'd like to have something to play with before 
 <h1>Revenge version</h1>
 <h2>Euh ... why?</h2>
 5 years ago (now 2020Q2) I made the modest and it failed. Tried again, still, doesn't want to be programmed. Some bytes I can, some bytes I can't ... Something wrong and I really can't figure what. So I found on the net the below versions that look simple enough that I can "inspire" (read "rip off") and make the same. Will cost me about the same but if it works I'll have 10 cards and not 1. And if it still fails, I'll have learned a few things.<br/>
+(**Edit: ** finally I made it work, see below)
 * The [[https://shop.insidegadgets.com/product/gameboy-32kb-flash-cart/|regular 32kB card]]
 * The [[https://shop.insidegadgets.com/product/gameboy-32kbx15-flash-cart/|fancy switchable one]]
 * In fact why reinvent the wheel? [[https://tinkerer.us/projects/homebrew-gameboy-cartridge.html|Look here the 32kB version]]
@@ -27,8 +28,8 @@ I need to cut the complexity and I'd like to have something to play with before 
 So I decided to not reinvent the wheel: indeed I found [[https://tinkerer.us/projects/homebrew-gameboy-cartridge.html|this]] (its 32kB version), which I thought I could use a base until I found I would do no major change... so since I couldn't send to production someone else's job without messing it up, I spend a few hours moving things around, fixing what I thought needed to be fixed, and there, sent to production.<br/>
 Everything is [[https://github.com/AlanFromJapan/Homebrew-Gameboy-Cartridge/tree/32kB-variant|on my fork of his project]], in the "32kB-variant" branch.
 
-<h1 id="toc1"><a name="Modest version"></a> Modest version </h1>
-<span style="display:block;width:100%;height:auto;border:1px solid orange; background-color:yellow;text-align:center;">**This project does not work!** Don't know why, I got the board, assembled, but I have problem programming the flash memory. I didn't managed to find where I messed up. It //should// work if you put an already programmed flash, but I couldn't test that. Use at your own risk (of resource waste).</span><br />
+<h1 id="toc1"><a name="Modest version"></a> Modest version (a PLCC32 EEPROM programmer)</h1>
+<span style="display:block;width:100%;height:auto;border:1px solid orange; background-color:yellow;text-align:center;">This is a half-success/half-failue: it does **not** work as a GB cartridge (it might, but the form factor is failed so can't even plug it), but it **works fine** as an **PLCC32 EEPROM programmer**! Use [[gameboy homebrew cartridge writer|this program]] to drive it from your PC read/write EEPROMs.</span><br />
 <img src="/files/2015-02-17-23-23-02_deco.jpg" alt="2015-02-17-23-23-02_deco.jpg" title="2015-02-17-23-23-02_deco.jpg" style="width: 300px;" align="right" />No real time answering instead of the flash memory: just program or even skip the mCU entirely and just put the flash.<br />
 <br />
 <h2 id="toc2"><a name="Modest version-Parts"></a> Parts </h2>
@@ -37,8 +38,10 @@ Everything is [[https://github.com/AlanFromJapan/Homebrew-Gameboy-Cartridge/tree
 See on [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/GameboyCartridgeKS|my Github]].<br />
 <br />
 <strong>README:</strong><br />
-<ul><li>Gameboy game port expects a 2-2.1mm thick board so<ul><li>do that PCB 2mm thick, or</li><li>do it 0.6mm and you stick it in a existing cartridge or</li><li>(my current option) you make board 1mm thick, cut out the connector part of a spare board and glue/doubleface tape them: your connector part will be 2mm which should make your GB happy</li></ul></li><li>Card was mostly autorouted with very thin signals 0.1524 wires. It works but signals are easily damaged by a hot iron or a careless tinkerer. Be careful.</li><li>Autorouted 'cause I'm lazy, but result is ok (at least it works)</li><li>I should stop trying putting a gnd mask everywhere, it's a risk with such thin wires</li><li>Stop using too small font: all the 0.6 font were just not printed, resulting in a blank pcb</li><li>Next time don't put wires below the insertion pads, friction will kill them (one day)</li><li>Next time have an option to just solder the flash, not use the socket: it's too thick and don't fit in a GB</li></ul><br />
-<h2 id="toc4"><a name="Modest version-Code"></a> Code </h2>
+<ul><li>Gameboy game port expects a 2-2.1mm thick board so<ul><li>do that PCB 2mm thick, or</li><li>do it 0.6mm and you stick it in a existing cartridge or</li><li>(my current option) you make board 1mm thick, cut out the connector part of a spare board and glue/doubleface tape them: your connector part will be 2mm which should make your GB happy</li></ul></li><li>Card was mostly autorouted with very thin signals 0.1524 wires. It works but signals are easily damaged by a hot iron or a careless tinkerer. Be careful.</li><li>Autorouted 'cause I'm lazy, but result is ok (at least it works)</li><li>I should stop trying putting a gnd mask everywhere, it's a risk with such thin wires</li><li>Stop using too small font: all the 0.6 font were just not printed, resulting in a blank pcb</li><li>Next time don't put wires below the insertion pads, friction will kill them (one day)</li><li>Next time have an option to just solder the flash, not use the socket: it's too thick and don't fit in a GB</li>
+* Could have done that with a smaller 88a for instance, with a SIPO to address the need of pins (cheaper, easier to source, and less waste of power)
+</ul><br />
+<h2 id="toc4"><a name="Modest version-Code"></a> Code </h2><img src="/files/20200410_133259.jpg" alt="EEPROM programmer at work" align="right" width="300"/>
 On [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/AtmegaxxA/GbCartridgeKSController|my GitHub]].<br />
 <br />
 <h2 id="toc5"><a name="Modest version-Fuses"></a> Fuses </h2>
@@ -47,6 +50,8 @@ You must <strong>unset JTAGEN</strong> (or pins PF4-PF8 won't be generic I/O) an
 <br />
 Here's what you should set: <br />
 <ul><li>Extended: 0xFF</li><li>High: 0xD9</li><li>Low: 0xEE</li></ul><br />
+
+
 <h1 id="toc6"><a name="Documentation"></a> Documentation </h1>
 <ul>
 * Just buy it: a long list of available cartridge [[https://gr33nonline.wordpress.com/2019/03/21/gameboy-flashers/]]
