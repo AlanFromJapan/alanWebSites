@@ -62,6 +62,9 @@ alias als='ls -alF'
 alias killoldssh='pkill -o -u $USER sshd'
 alias cd..='cd ..'
 alias temp='cat /sys/class/thermal/thermal_zone0/temp'
-
-export PS1="\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;9m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;10m\]\W\[$(tput sgr0)\]\[\033[38;5;15m\]\\$ \[$(tput sgr0)\]"
 </pre>
+
+<h1>Re-Rebooted April 2020</h1>
+Ok forget everything above, install [[https://www.armbian.com/orange-pi-2/|Armbian]], ubuntu or debian flavor, connect via screen/keyboard or via Serial (3.3v at 115200bps). Login "root" password "1234".<br/>
+* No wifi out of the box but plug a cheapo Wifi dongle and it just works
+* [[https://docs.armbian.com/User-Guide_Getting-Started/|Getting started]] - Connect to wifi: nmtui-connect //your-wifi//
