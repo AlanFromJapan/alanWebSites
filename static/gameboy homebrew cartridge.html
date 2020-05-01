@@ -8,25 +8,65 @@ This is a Gameboy original cartridge with a flash memory store homebrew games. I
 <br />
 There will be 2 versions of that board, will be created in that order:<br />
 <ul>
-  <li><strong>The modest</strong> <span style="color:red;">× Mixed results</span>: just holds the flash and a micrcontroller used to upload the flash without a special programmer (which I don't have anyway)</li>
-* **The revenge**: basically mending my hurt pride with the //modest// version by ripping off someone's design and making it mine.
+  <li><strong>The modest</strong> <span style="color:red;">× Mixed results</span>: just holds the flash and a microcontroller used to upload the flash without a special programmer (which I don't have anyway)</li>
+* **The revenge** <span style="color:green;">working (with a few airwire)</span>: just took what I found on the net and mess-up a few things 
+* **The victory** (future plan): basically mending my hurt pride with the //modest// version by ripping off someone's design and making it mine.
   <li><strong>The DeLuxe</strong> (future plan): this time the mCU will sometime steal the spotlights and answer to the GB instead of the flash. Mainly idea is to use the mCU to read a RTC and return time, that's all: making your <a class="wiki_link" href="Gameboy%20clock.html">Gameboy clock</a>.</li>
 </ul>
 I need to cut the complexity and I'd like to have something to play with before Chinese new year.<br />
 <br />
 
 
-<h1>Revenge version</h1>
-<h2>Euh ... why?</h2>
-5 years ago (now 2020Q2) I made the modest and it failed. Tried again, still, doesn't want to be programmed. Some bytes I can, some bytes I can't ... Something wrong and I really can't figure what. So I found on the net the below versions that look simple enough that I can "inspire" (read "rip off") and make the same. Will cost me about the same but if it works I'll have 10 cards and not 1. And if it still fails, I'll have learned a few things.<br/>
-(**Edit: ** finally I made it work, see below)
-* The [[https://shop.insidegadgets.com/product/gameboy-32kb-flash-cart/|regular 32kB card]]
-* The [[https://shop.insidegadgets.com/product/gameboy-32kbx15-flash-cart/|fancy switchable one]]
-* In fact why reinvent the wheel? [[https://tinkerer.us/projects/homebrew-gameboy-cartridge.html|Look here the 32kB version]]
+<h1>Revenge version - April 2020</h1>
+<span style="display:block;width:100%;height:auto;border:1px solid forest; background-color:lightgreen;text-align:center;">It **works**, with a few airwires or solder-blobs, as a 32kB cartridge. This is based on [[https://github.com/AlanFromJapan/Homebrew-Gameboy-Cartridge/tree/32kB-variant|that gentleman work]], credits go to him (though I think he might have some of the same issues).</span><br />
 
-<h2>Slight change of plans</h2>
+<h2>Euh ... why?</h2>
+5 years ago (now 2020Q2) I made the modest and it failed. Tried again, and it DOES work (see below for details). However you can't read a game with it in a GameBoy. So I found on the net the below versions that look simple enough that I can "inspire" (read "rip off") and make the same. Will cost me about the same but if it works I'll have 10 cards and not 1. And if it still fails, I'll have learned a few things.<br/>
+<br/>
 So I decided to not reinvent the wheel: indeed I found [[https://tinkerer.us/projects/homebrew-gameboy-cartridge.html|this]] (its 32kB version), which I thought I could use a base until I found I would do no major change... so since I couldn't send to production someone else's job without messing it up, I spend a few hours moving things around, fixing what I thought needed to be fixed, and there, sent to production.<br/>
 Everything is [[https://github.com/AlanFromJapan/Homebrew-Gameboy-Cartridge/tree/32kB-variant|on my fork of his project]], in the "32kB-variant" branch.
+
+<h2>Verdict?</h2>
+<table>
+  <tr>
+    <td>
+It **works v(^_^)v** but there's a few issues: 
+* If you put a DMG chip it might not work, or at least make sure to not close the /RESET solder jumper (didn't try much, not needed)
+      <br/>
+      <br/>
+From that point I consider you just use the EEPROM in PLCC32 format:
+* Leave the "/RESET" jumper open: if you close it grounds it, and a chip permanently in Reset mode is useless ...
+* Instead, join PLCC pin 1 = /RESET (top-middle) to pin32 = VCC (on its right) via solder blob or air wire
+* Do the same to pin 31 = /WE to pin 32 = VCC, to avoid leaving it floating as a hygiene measure
+* Close the A17, A16, A14 solder jumper (Connect them to the board connector)
+* A15 and /CE are connected, I don't know why, didn't thought much of it initially. Make your life easier. Leave A15 jumper open. Then for /CE: on the underside (why in the f*cking hell I put this jumper on the back?) CUT the small jumper wire and solder the jump middle to the other side (GND)
+<br/>
+That's a bit ugly but it works now. Enjoy!      
+    </td>
+    <td><img src="/files/alan_board_explained_1.0.png" width="400"/></td>
+  </tr>
+</table>
+<h3>Improvements</h3>
+* DON'T put solder pad on the back
+* Trash that DMG1 chip footprint, it should be a vanila 32kB cartridge that's all
+* DON'T have that A15 to ground: should be to the A15 connector pad
+* Wire /RESET and /WE to VCC
+* Wire /CE to GND
+* Add a silk for the jumpers
+* Add some more test pads for at least VCC, GND and the command signals (NOT address nor data)
+* Add a mark that the board should be **1.2mm thick** (not the usual 1.6mm)
+* Add an alternate 1206 solder pad footprint for the decoupling cap
+* Make sure the Gameboy logo is on the board
+<br/>
+
+<h1>Victory version - planning only</h1>
+<h2>Euh ... why? Seriously.</h2>
+Because the **Revenge** above is "ok" but I made a few mistakes I'd like to fix, to make a """prefect""" cartridge (for me). Things I'd like to copy:
+* The [[https://shop.insidegadgets.com/product/gameboy-32kb-flash-cart/|regular 32kB card]]
+* The [[https://shop.insidegadgets.com/product/gameboy-32kbx15-flash-cart/|fancy switchable one]]
+
+<br/>
+<br/>
 
 <h1 id="toc1"><a name="Modest version"></a> Modest version (a PLCC32 EEPROM programmer)</h1>
 <span style="display:block;width:100%;height:auto;border:1px solid orange; background-color:yellow;text-align:center;">This is a half-success/half-failure: it does **not** work as a GB cartridge (it might, but the form factor is failed so can't even plug it), but it **does work fine** as an **PLCC32 EEPROM programmer**! Use [[gameboy homebrew cartridge writer|this program]] to drive it from your PC read/write EEPROMs.</span><br />
