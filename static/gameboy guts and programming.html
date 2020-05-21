@@ -9,6 +9,15 @@ ASM programming : <strong>WLA</strong> toolchain is here <a class="wiki_link_ext
 <h2>Tips from me</h2>
 If you code in C (meaning you're not making a serious big long game, more like fiddling) then GBDK-n and a recent (4.0+) version of SDCC does the trick. Here's how I modified the GBDK-n-compile.sh: forced the SDCC to be used (Mint 19 is 3.5 by default)  but keep the GBDK-n include path. You can get compilation within seconds and the result is functional without any weird bugs that you normally get with the old GBDK (at least none so far).
 <pre>/usr/local/apps/sdcc-4.0.0/bin/sdcc -mgbz80 --no-std-crt0 -I "$GBDK_DIR/include" -I "$GBDK_DIR/include/asm" -c "$@"</pre>
+
+
+<h2>Gameboy COLOR programming</h2>
+A few tricks to make a GB **Color** game:
+* On the final call to //makebin// which converts the .ihx file to a .gb(c) file, you need to add the **-yc** parameter. It switchs a bit on address 0143 of the ROM to tell the gameboy that this present ROM is for GB Color. (see PAN docs below)
+* You now need to worry of palettes with the set_sprite_prop() func to set its palette
+* You have more memory zone to play with and you can change the CPU speed (x2) if needed
+
+
 <h2>Tips from the net</h2>
 <i>Source: [[https://gbdev.github.io/to_c_or_not_to_c.html#optimizing-for-gbdk]]</i>:
 <span style="display:block; overflow:auto; height:400px;width:1000px;"><br />
@@ -40,6 +49,7 @@ Optimizing For GBDK
 </pre>
 </span>
 
+<h1>Tools of the trade</h1>
 <h2 id="toc2"><a name="Tools of the trade-Emulator"></a> Emulator </h2>
 <strong>bgb</strong> has my favor now, <strong>no$gba</strong> is an alternative. Bgb works fine on Linux with wine.<br />
 <h2 id="toc3"><a name="Tools of the trade-Documents"></a>Documents </h2>
