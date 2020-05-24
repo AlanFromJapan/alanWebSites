@@ -6,15 +6,98 @@
 
 This is a Gameboy original cartridge with a flash memory store homebrew games. I have no idea is you can put ROMs of commercial games on and I have no interrest in finding out. This is to be used by your unique creations, well, mine in fact :)<br />
 <br />
-There will be 2 versions of that board, will be created in that order:<br />
+There will be multiple versions of that board, will be created in that order:<br />
 <ul>
   <li><strong>The modest</strong> <span style="color:red;">× Mixed results</span>: just holds the flash and a microcontroller used to upload the flash without a special programmer (which I don't have anyway)</li>
 * **The revenge** <span style="color:green;">working (with a few airwire)</span>: just took what I found on the net and mess-up a few things 
-* **The victory** (future plan): basically mending my hurt pride with the //modest// version by ripping off someone's design and making it mine.
+* **The victory** <span style="color:green;">working on GBC but not DMG/Pocket</span>: basically mending my hurt pride.
   <li><strong>The DeLuxe</strong> (future plan): this time the mCU will sometime steal the spotlights and answer to the GB instead of the flash. Mainly idea is to use the mCU to read a RTC and return time, that's all: making your <a class="wiki_link" href="Gameboy%20clock.html">Gameboy clock</a>.</li>
 </ul>
-I need to cut the complexity and I'd like to have something to play with before Chinese new year.<br />
 <br />
+
+<hr style="width:50%"><br/>
+
+<h1>Victory version - May 2020</h1>
+<h2>Euh ... why? Seriously.</h2>
+Because the **Revenge** below is "ok" (well, it can be made to work) but I made a few mistakes I'd like to fix, to make a """prefect""" cartridge (for me). 
+<br/>
+<img src="/files/20200517_231808.jpg" /><br/>
+* Worked out of the box (May 2020) ... on GB Color only, but not on GB DMG or Pocket. On the 2 later it is recognized (proper Nintendo logo) but after the screen blanks.
+* The code is [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/GameboyCartridgeKS|here on GitHub]] (pick the "victory" one)
+<br/>
+How it's wired (cartridge -> EEPROM):
+<table cellspacing="0" border="0">
+	<colgroup span="2" width="85"></colgroup>
+	<colgroup width="592"></colgroup>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left" bgcolor="#FFF200"><b>Cartridge</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" bgcolor="#FFF200"><b>EEPROM</b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" bgcolor="#FFF200"><b>Comment</b></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">A0-A14</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">A0-A14</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">A15</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">GND</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">EEPROM is tied to GND, but can be connected to cartridge via solderbridge</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left"><br></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">A16-A17</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">Both tied to GND</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">D0-D7</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">D0-D7</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">Clock</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">unused</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">/WR</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">VCC</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">EEPROM is tied to VCC, but can be connected to cartridge via solderbridge</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">/RD</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">/OE</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">/CS</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">GND</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">EEPROM is tied to GND (always enabled)</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">Reset</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">GND</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">EEPROM is tied to VCC, but can be connected to cartridge via solderbridge</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">Audio in</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">Ignored (no 47kOhm resistor but can be airwired)</td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">VCC</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">VCC</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">GND</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">GND</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left"><br></td>
+	</tr>
+</table>
+<br/>
+<br/>
+<hr style="width:50%"><br/>
 
 
 <h1>Revenge version - April 2020</h1>
@@ -61,17 +144,8 @@ That's a bit ugly but it works now. Enjoy!
 * Add an alternate 1206 solder pad footprint for the decoupling cap
 * Make sure the Gameboy logo is on the board
 <br/>
+<hr style="width:50%"><br/>
 
-<h1>Victory version - planning only</h1>
-<h2>Euh ... why? Seriously.</h2>
-Because the **Revenge** above is "ok" but I made a few mistakes I'd like to fix, to make a """prefect""" cartridge (for me). Things I'd like to copy:
-* The [[https://shop.insidegadgets.com/product/gameboy-32kb-flash-cart/|regular 32kB card]]
-* The [[https://shop.insidegadgets.com/product/gameboy-32kbx15-flash-cart/|fancy switchable one]]
-<img src="/files/20200517_231808.jpg" /><br/>
-* Worked out of the box (May 2020)
-* The code is [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/GameboyCartridgeKS|here on GitHub]]
-<br/>
-<br/>
 
 <h1 id="toc1"><a name="Modest version"></a> Modest version (a PLCC32 EEPROM programmer)</h1>
 <span style="display:block;width:100%;height:auto;border:1px solid orange; background-color:yellow;text-align:center;">This is a half-success/half-failure: it does **not** work as a GB cartridge (it might, but the form factor is failed so can't even plug it), but it **does work fine** as an **PLCC32 EEPROM programmer**! Use [[gameboy homebrew cartridge writer|this program]] to drive it from your PC read/write EEPROMs.</span><br />
@@ -95,6 +169,7 @@ You must <strong>unset JTAGEN</strong> (or pins PF4-PF8 won't be generic I/O) an
 <br />
 Here's what you should set: <br />
 <ul><li>Extended: 0xFF</li><li>High: 0xD9</li><li>Low: 0xEE</li></ul><br />
+<hr style="width:50%"><br/>
 
 
 <h1 id="toc6"><a name="Documentation"></a> Documentation </h1>
@@ -104,6 +179,10 @@ Here's what you should set: <br />
 * [[https://dhole.github.io/post/gameboy_cartridge_emu_1/]]
 * [[https://reinerziegler.de.mirrors.gg8.se/readplus.htm]]
 <li>Very good tutorial <em>en francais</em> about how to program a GB software using wla <a class="wiki_link_ext" href="http://furrtek.free.fr/?a=gbasm" rel="nofollow">http://furrtek.free.fr/?a=gbasm</a><ul><li>The toolchain is here <a class="wiki_link_ext" href="http://www.villehelin.com/wla.html" rel="nofollow">http://www.villehelin.com/wla.html</a></li></ul></li><li>Another option is using GBDK <a class="wiki_link_ext" href="http://sourceforge.net/projects/gbdk/" rel="nofollow">http://sourceforge.net/projects/gbdk/</a></li><li>The emulators are bgb or no$gba ("no cash gba")</li><li>Make my own cartridge<ul><li><a class="wiki_link_ext" href="http://tinkeringetc.blogspot.jp/p/homebrew-gameboy-cartridge.html" rel="nofollow">http://tinkeringetc.blogspot.jp/p/homebrew-gameboy-cartridge.html</a></li><li><strong>PINOUT EXPLAINED ⇒ <a class="wiki_link_ext" href="http://marc.rawer.de/Gameboy/docu_3.htm" rel="nofollow">http://marc.rawer.de/Gameboy/docu_3.htm</a></strong></li><li>And the eagle <a class="wiki_link_ext" href="https://github.com/dwaq/Homebrew-Gameboy-Cartridge" rel="nofollow">https://github.com/dwaq/Homebrew-Gameboy-Cartridge</a></li></ul></li><li>Use this ROM ? 2MBits x2 for 250 jpy <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-01459/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-01459/</a><ul><li>And one gentleman who used it <a class="wiki_link_ext" href="https://github.com/kshoji/FlashWriter/blob/master/Arduino/FlashROMWriter.ino" rel="nofollow">https://github.com/kshoji/FlashWriter/blob/master/Arduino/FlashROMWriter.ino</a></li></ul></li></ul><br />
+Things I'd like to copy:
+* The [[https://shop.insidegadgets.com/product/gameboy-32kb-flash-cart/|regular 32kB card]]
+* The [[https://shop.insidegadgets.com/product/gameboy-32kbx15-flash-cart/|fancy switchable one]]
+
 Oh another promising tutorial <a class="wiki_link_ext" href="http://gameboy.mongenel.com/asmschool.html" rel="nofollow">http://gameboy.mongenel.com/asmschool.html</a><br />
 Good tutorial on the card making and z80 <a class="wiki_link_ext" href="http://www.digital-circuitry.com/8-bit_Memory_Mapping.htm" rel="nofollow">http://www.digital-circuitry.com/8-bit_Memory_Mapping.htm</a><br />
 <br />
