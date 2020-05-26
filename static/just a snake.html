@@ -18,3 +18,81 @@ Well ... it's mine :) Borrowed the tiles from Zelda or FF Mystic quest.
 <h1>Links</h1>
 <h2>Inspiration</h2>
 * My old Nokia (ah... youth)
+
+
+
+                        <button id="emulation-start-en" class="btn-big"><i class="fa fa-gamepad fa-lg"></i> Play Online (English)</button>
+
+        <div id="emulation" style="display: none;">
+            <canvas width="320" height="288" id="canvas-emu"></canvas>
+            <p>
+                <strong>D-PAD: </strong> Arrow keys<br />
+                <strong>A:</strong> G —
+                <strong>B:</strong> B<br />
+                <strong>START:</strong> H —
+                <strong>SELECT:</strong> N
+            </p>
+            <p>
+                <button id="emulation-close">Close</button>
+            </p>
+            <script src="/gb/gameboy.min.js"></script>
+            <script>
+                window.addEventListener("load", function() {
+                    var ROM_EN = "/gb/justasnake.gb";
+
+                    var eCanvas = document.getElementById("canvas-emu");
+                    var eOverlay = document.getElementById("overlay");
+                    var eEmulation = document.getElementById("emulation");
+                    var eEmulationClose = document.getElementById("emulation-close");
+                    var eEmulationStartEn = document.getElementById("emulation-start-en");
+
+                    var gameboy;
+                    var romReader;
+
+                    function emulationInit() {
+                        GameboyJS.Screen.colors = [
+                            [0xE0, 0xF8, 0xD0],
+                            [0x88, 0xC0, 0x70],
+                            [0x34, 0x68, 0x56],
+                            [0x08, 0x18, 0x20],
+                        ];
+
+                        romReader = new GameboyJS.RomAjaxReader();
+                        gameboy = new GameboyJS.Gameboy(eCanvas, {
+                            romReaders: [ romReader ],
+                            zoom: 2,
+                        });
+                    }
+
+                    function emulationOpen(rom_url) {
+                        if (!gameboy) {
+                            emulationInit();
+                        }
+                        eOverlay.style.display = "block";
+                        eEmulation.style.display = "block";
+                        romReader.loadFromUrl(rom_url);
+                        document.addEventListener("keydown", _preventDefault);
+                        document.addEventListener("keyup", _preventDefault);
+                    }
+
+                    function emulationClose() {
+                        eOverlay.style.display = "none";
+                        eEmulation.style.display = "none";
+                        document.removeEventListener("keydown", _preventDefault);
+                        document.removeEventListener("keyup", _preventDefault);
+                        gameboy.pause();
+                    }
+
+                    function _preventDefault(event) {
+                        event.preventDefault();
+                    }
+
+                    eEmulationStartEn.onclick = emulationOpen.bind(null, ROM_EN);
+                    eEmulationClose.onclick = emulationClose;
+                    eOverlay.onclick = emulationClose;
+                });
+
+            </script>
+        </div>
+
+        <div id="overlay" style="display: none;"></div>
