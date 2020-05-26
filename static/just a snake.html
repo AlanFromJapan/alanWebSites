@@ -1,5 +1,5 @@
 <span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="/files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
-
+<img src="/files/justasnake-composition-20200504.png" align="right" width="300"/>
 
 A gameboy game I wrote to practice in April-May 2020, in C with GNDK-n and SDCC 5. 32kB all in all (in real about 50% of that only).
 
@@ -7,24 +7,12 @@ A gameboy game I wrote to practice in April-May 2020, in C with GNDK-n and SDCC 
 <h2>Principle</h2>
 Just yet another snake clone.
 <h2>Points of interrest</h2>
-Well ... it's mine :) Borrowed the tiles from Zelda or FF Mystic quest.
-<h1>Implementation</h1>
-<h2>Gameboy ROM</h2>
-[[https://github.com/AlanFromJapan/Gameboy/blob/master/Games/JustASnake/justasnake.gb|Latest build]] is stored on Github, the build date is automatically included in the credits screen.
-<h2>Source code</h2>
-[[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/JustASnake|On Github]]
-<h1>Pictures</h1>
-<img src="/files/justasnake-composition-20200504.png" />
-<h1>Links</h1>
-<h2>Inspiration</h2>
-* My old Nokia (ah... youth)
+Well ... it's mine :) Borrowed the tiles from Zelda or FF Mystic quest. No sprites for the game, just background tiles :P
+<h2>Play it</h2>
+                        <button id="emulation-start-en" class="btn-big"><i class="fa fa-gamepad fa-lg"></i> Play Online - start emulator!</button> ([[https://github.com/nakardo/node-gameboy|Powered by node-gameboy]]!)
 
-
-
-                        <button id="emulation-start-en" class="btn-big"><i class="fa fa-gamepad fa-lg"></i> Play Online (English)</button>
-
-        <div id="emulation" style="display: none;">
-            <canvas width="320" height="288" id="canvas-emu"></canvas>
+        <div id="emulation">
+            <canvas width="320" height="288" id="canvas-emu" style="background:lightgrey;"></canvas>
             <p>
                 <strong>D-PAD: </strong> Arrow keys<br />
                 <strong>A:</strong> G —
@@ -32,18 +20,13 @@ Well ... it's mine :) Borrowed the tiles from Zelda or FF Mystic quest.
                 <strong>START:</strong> H —
                 <strong>SELECT:</strong> N
             </p>
-            <p>
-                <button id="emulation-close">Close</button>
-            </p>
             <script src="/gb/gameboy.min.js"></script>
             <script>
                 window.addEventListener("load", function() {
                     var ROM_EN = "/gb/justasnake.gb";
 
                     var eCanvas = document.getElementById("canvas-emu");
-                    var eOverlay = document.getElementById("overlay");
                     var eEmulation = document.getElementById("emulation");
-                    var eEmulationClose = document.getElementById("emulation-close");
                     var eEmulationStartEn = document.getElementById("emulation-start-en");
 
                     var gameboy;
@@ -68,7 +51,6 @@ Well ... it's mine :) Borrowed the tiles from Zelda or FF Mystic quest.
                         if (!gameboy) {
                             emulationInit();
                         }
-                        eOverlay.style.display = "block";
                         eEmulation.style.display = "block";
                         romReader.loadFromUrl(rom_url);
                         document.addEventListener("keydown", _preventDefault);
@@ -76,7 +58,6 @@ Well ... it's mine :) Borrowed the tiles from Zelda or FF Mystic quest.
                     }
 
                     function emulationClose() {
-                        eOverlay.style.display = "none";
                         eEmulation.style.display = "none";
                         document.removeEventListener("keydown", _preventDefault);
                         document.removeEventListener("keyup", _preventDefault);
@@ -88,11 +69,22 @@ Well ... it's mine :) Borrowed the tiles from Zelda or FF Mystic quest.
                     }
 
                     eEmulationStartEn.onclick = emulationOpen.bind(null, ROM_EN);
-                    eEmulationClose.onclick = emulationClose;
-                    eOverlay.onclick = emulationClose;
                 });
 
             </script>
         </div>
 
-        <div id="overlay" style="display: none;"></div>
+<h1>Implementation</h1>
+<h2>Gameboy ROM</h2>
+[[https://github.com/AlanFromJapan/Gameboy/blob/master/Games/JustASnake/justasnake.gb|Latest build]] is stored on Github, the build date is automatically included in the credits screen.
+<h2>Source code</h2>
+[[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/JustASnake|On Github]]
+<h1>Pictures</h1>
+<img src="/files/justasnake-composition-20200504.png" />
+<h1>Links</h1>
+<h2>Inspiration</h2>
+* My old Nokia (ah... youth)
+
+
+
+
