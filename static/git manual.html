@@ -1,0 +1,70 @@
+More than a manual, a small list of reminders for me. If you find it useful, good for you.
+
+<h1>HOWTOs</h1>
+<h2>Migrate a folder with its history to another repository</h2>
+I had to do that because I put everything (C#, python, microcontroller, eagle,...) files in one repository which obviously became too big and kind a messy. So I decided to move out some chuncks of it outside to a dedicated smaller repo (ie: eagle files in May2020). This is how I did it.<br/>
+<br/>
+**Foreword**: I based this on [[https://medium.com/@ayushya/move-directory-from-one-repository-to-another-preserving-git-history-d210fa049d4b|that tutorial]] that I followed but it wasn't clear enough to me so let me re-explain it my way, but credits go to the author of the original one.<br/>
+<br/>
+<h3>Theory</h3>
+Basically you add to the //target-repo// a reference to the //source-repo//, merge the histories, remove the reference to the //source-repo// and done. But there's a few steps to that.<br/>
+You need to remove everything you don't want from //source-repo// before copying to //target-repo//. Obvious, because otherwise the whole hisotry of everything would be duplicated, a waste of space and not your goal (you want 1 folder to move).<br/>
+
+<pre>
+#Say you want to move folder source-repo/FOLDER_TO_KEEP to target-repo/FOLDER_TO_KEEP with its whole history and content.
+
+#create a dummy work folder
+mkdir temp-repo
+cd temp-repo
+
+#checkout source-repo there
+git clone [source-repo-url]
+
+#remove immediately the link to the origin to avoid messing up the original one
+cd source-repo
+git remote rm origin
+
+#there, now even if you mess-up your changes won't be pushed to github
+
+#now a command you don't often type: it will delete everything in your repo EXCEPT the FOLDER_TO_KEEP
+# and !!surprise!!, it will move the content of FOLDER_TO_KEEP to the root of the repo
+git filter-branch --subdirectory-filter [FOLDER_TO_KEEP] -- --all
+
+#pruning & cleaning violently
+git reset --hard
+git gc --aggressive 
+git prune
+git clean -fd
+
+#now your repo is clean as a whistle of any record of information except the FOLDER_TO_KEEP part BUT now the files are at the root of the repo
+
+[OPTIONAL]
+
+#maybe you want the files in a subfolder of your repo, not at the root? so let's do it
+mkdir NEW_FOLDER
+mv -R * NEW_FOLDER/
+
+#make sure everything is committed
+git add -A .
+git commit
+
+[/OPTIONAL]
+
+#now go to your target-repo
+cd ../target-repo
+
+#plug a reference to your modified copy of the source-repo. Not the real source-repo, the one you just cleaned up in temp-repo/ folder
+#"dummy-name" is just to give a label to the reference. anything is fine, you'll delete it in 2 minutes. I will go with "dummy-name"
+git remote add dummy-name [path-to-temp-repo-folder]
+
+#now the magical mariage of the 2 repos history
+git pull dummy-name master --allow-unrelated-histories
+
+#remove that dummy reference
+git remote rm dummy-name
+
+#and now the local target-repo has gained all the files and history of source-repo concerning FOLDER_TO_KEEP, time to push to github
+git push 
+
+#go grab your preferred drink, you earned it
+</pre>

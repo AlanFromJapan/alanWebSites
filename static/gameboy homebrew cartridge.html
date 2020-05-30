@@ -31,6 +31,8 @@ Because the **Revenge** below is "ok" (well, it can be made to work) but I made 
 <!--img src="/files/20200517_231808.jpg" /--><img src="/files/20200524_234903.jpg" /><br/>
 * Worked out of the box (May 2020) ... on GB Color only, **but not on GB DMG or Pocket**. On the 2 later it is recognized (proper Nintendo logo) but after the screen blanks.
 → **Solution** (thanks to the guys of [[https://gbdev.gg8.se/forums/viewtopic.php?id=618|gbdev forum]] is that A15 of the cartridge must be connected to EEPROM's /CE (on this version /CE is grounded). On my version it's the only control pin I left without a 2 way solder switch, so you have to cut a trace and airwire the EEPROM pin to the A15 pad.
+<br/>
+<br/>
 * The code is [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/GameboyCartridgeKS|here on GitHub]] (pick the "victory" one)
 <br/>
 How it's wired (cartridge -> EEPROM):
