@@ -1,0 +1,11 @@
+<img src="/files/xgecuprog.JPG" align="right" width="400"/>Bought me a nice programmer TL866II on eBay, and thtat was 50 USD well invested. It flashes the EEPROM in a snap of fingers, and works fine on Linux... though there's a thing to remember.
+
+<h1>Get it to work on Linux (Mint 19.x)</h1>
+(basically a copy of [[https://spun.io/2018/07/04/using-the-xgecu-tl866ii-plus-under-linux-with-wine/|this article]], kudos to the writer).
+* Install Wine
+* Install the udev rules with the appropriate vendor/device id, put your user in plugdev group
+* Install the [[http://forums.xgecu.com/viewthread.php?tid=20&page=1&extra=#pid23|Xgecu binary app]] on Wine 
+* Download [[https://github.com/radiomanV/TL866]] : you don't need the firmware, but the Wine driver
+* You don't need to build it, the .dll file you need is built already
+* Copy the //setupapi.dll// from the above git and put the file in the same folder as the Xgecu main .exe
+* Done! Enjoy!
