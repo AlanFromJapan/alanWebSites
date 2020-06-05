@@ -1,7 +1,7 @@
 <h1 id="toc0"><a name="ATtiny 2313"></a> ATtiny 2313 </h1>
 <h2 id="toc1"><a name="ATtiny 2313-Memo fact sheet"></a> Memo fact sheet </h2>
 <ul><li><strong>Code</strong> : 2048 Bytes / <strong>EEPROM</strong> : 128 Bytes / <strong>RAM</strong> : 128 Bytes</li><li>It has <strong>no</strong> Analog to Digital Converter, but the AIN1/AIN0 pair is an analog comparator</li><li>Homepage <a class="wiki_link_ext" href="http://www.atmel.com/dyn/Products/Product_card.asp?part_id=3229" rel="nofollow">http://www.atmel.com/dyn/Products/Product_card.asp?part_id=3229</a></li></ul><h2 id="toc2"><a name="ATtiny 2313-Projects using Attiny2313"></a> Projects using Attiny2313</h2>
-<a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a>, <a class="wiki_link" href="Home%20Presence%20Detector.html">Home Presence Detector</a>, <a class="wiki_link" href="Guitar%20Rod%20of%20Command.html">Guitar Rod of Command</a>, ...<br />
+[[RapideUSBII| RapideUSB II]], <a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a>, <a class="wiki_link" href="Home%20Presence%20Detector.html">Home Presence Detector</a>, <a class="wiki_link" href="Guitar%20Rod%20of%20Command.html">Guitar Rod of Command</a>, ...<br />
 <h2 id="toc3"><a name="ATtiny 2313-Pin Layout"></a> Pin Layout </h2>
 <img src="files/pinout2313.png" alt="pinout2313.png" title="pinout2313.png" align="right" /><br />
 
@@ -34,7 +34,7 @@ Pololu, half the price of the official ATmel tool (1995 JPY at Switch-science.co
 Things to know:<br />
 <ul><li>Doc <a class="wiki_link_ext" href="http://www.pololu.com/catalog/product/1300" rel="nofollow">http://www.pololu.com/catalog/product/1300</a></li><li>You must have XP SP3. Installing it was not an quick task (it's veeeeeeery long) but worked fine in the end. Didn't worked with SP2, works very fine with SP3, I tried.</li><li>You must use a single digit COM port (force it in case). Note that I didn't had problem but just followed the documentation.</li><li>Tou must provide the micro chip with a good 5V if you don't want to brick it. A triple AA cells pack is NOT sufficient, just use your PC USB solid 5V.</li><li>Use communication speed of 200 KHz (default setting) that's waaaaay sufficient to upload the maximum 2048 bytes of your program in the blink of an eye (or so).</li><li>Tips for uploading code from Sparkfun tutorials <a class="wiki_link_ext" href="http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=142" rel="nofollow">http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=142</a></li></ul><br />
 <h2 id="toc7"><a name="ATtiny 2313-Things to know when programming your ATtiny 2313"></a> Things to know when programming your ATtiny 2313 </h2>
-<ul><li>If you don't use a crystal (often the case with this small chip), you use the internal 8 MHz %20/- 10% oscillator which is the factory settings, and it's cool. But by default it use factor 8 speed divider and runs at 1MHz which is not cool. So just tell the chip to be a good boy and not downscale.</li></ul>
+<ul><li>If you don't use a crystal (often the case with this small chip), you use the internal 8 MHz +/- 10% oscillator which is the factory settings, and it's cool. But by default it use factor 8 speed divider and runs at 1MHz which is not cool. So just tell the chip to be a good boy and not downscale.</li></ul>
 <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
