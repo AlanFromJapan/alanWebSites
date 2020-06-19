@@ -1,0 +1,83 @@
+This is a new Template for **another raspi webradio player**!
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+<h2>Points of interrest</h2>
+<h1>Implementation</h1>
+<h2>Installation</h2>
+<pre>
+#Start with a fresh Raspberry pi OS
+
+sudo apt update
+sudo apt upgrade
+
+#get the screen to work
+sudo apt install git emacs-nox libxi6
+git clone https://github.com/waveshare/LCD-show.git
+cd LCD-show/
+./LCD35-show
+
+reboot
+#test the screen
+cat /dev/urandom >/dev/fb0
+
+#get pygame
+sudo apt install python3-pip 
+sudo pip3 install pygame
+
+#get SDL library 1.2 (https://www.impulseadventure.com/elec/rpi-install-sdl.html)
+sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev
+
+</pre>
+<h2>Testing</h2>
+Run that file AS SUDOER:
+<pre>
+import pygame
+import sys
+import time
+import os
+
+
+drivers = ['directfb', 'fbcon', 'svgalib']
+
+found = False
+for driver in drivers:
+    if not os.getenv('SDL_VIDEODRIVER'):
+        os.putenv('SDL_VIDEODRIVER', driver)
+    try:
+        pygame.display.init()
+    except pygame.error:
+        print ('Driver: {0} failed.'.format(driver))
+        continue
+    found = True
+    break
+
+if not found:
+   raise Exception('No suitable video driver found!')
+
+
+pygame.init()
+
+size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
+black = 0, 0, 0
+
+screen = pygame.display.set_mode(size)
+
+
+screen.fill(black)
+pygame.display.flip()
+
+time.sleep(5)
+</pre>
+
+
+<h2>Bill of materials</h2>
+<h2>Schematics</h2>
+<h2>Source code</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+* Tutorial  [[https://learn.adafruit.com/pi-video-output-using-pygame/getting-started]]
+* [[https://unix.stackexchange.com/questions/58961/how-do-i-let-an-sdl-app-not-running-as-root-use-the-console|run without root]]
+* [[http://www.karoltomala.com/blog/?p=679|use the directFB]]
+<h2>Inspiration</h2>
