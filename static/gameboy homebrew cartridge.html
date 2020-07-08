@@ -16,10 +16,13 @@ There will be multiple versions of that board, will be created in that order:<br
 <br />
 
 <hr style="width:50%"><br/>
-<h1>Ultima version - project</h1>
+<h1>Ultima version - June 2020</h1>
 <h2>Euh ... why? Seriously. You are fixating.</h2>
 Yeah well, I want to make one board that works fine. And a gentleman on gbdev forums suggested that I add a switch to hold multiple game at once, and I find the idea splendid! So let's do it: take the Victory, fix the bug and add that switch!<br/>
-
+<br/>
+Fast forward a few weeks: and this works just fine! You can solder close the bridges to just use it as a 32kB ROM OR use the switchs (3 bits) to access one of the 8 programmed 32kB ROMs. To do the latest, concatenate the 32kB ROMs in one file and burnt it on the EEPROM.<br/>
+→ The code is [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyCartridgeKS|here on GitHub]] (pick the "ULTIMA" one)<br/>
+<img src="/files/gbcart-ultima.jpg" />
 <br />
 
 <hr style="width:50%"><br/>
@@ -33,7 +36,7 @@ Because the **Revenge** below is "ok" (well, it can be made to work) but I made 
 → **Solution** (thanks to the guys of [[https://gbdev.gg8.se/forums/viewtopic.php?id=618|gbdev forum]] is that A15 of the cartridge must be connected to EEPROM's /CE (on this version /CE is grounded). On my version it's the only control pin I left without a 2 way solder switch, so you have to cut a trace and airwire the EEPROM pin to the A15 pad.
 <br/>
 <br/>
-* The code is [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/GameboyCartridgeKS|here on GitHub]] (pick the "victory" one)
+* The code is [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyCartridgeKS|here on GitHub]] (pick the "victory" one)
 <br/>
 How it's wired (cartridge -> EEPROM):
 <table cellspacing="0" border="0">
@@ -164,7 +167,7 @@ That's a bit ugly but it works now. Enjoy!
 <h2 id="toc2"><a name="Modest version-Parts"></a> Parts </h2>
 <ul><li><a class="wiki_link" href="ATmega64a.html">ATmega64a</a> because I need a small foot print and lots of pins (18 address, 8 data, 4 control...) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-04255/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-04255/</a></li><li>EN29F002T: 2Mbit flash memory, very cheap <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-01459/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-01459/</a></li><li>16MHz crystal, max for this mCU</li><li>A few pullups resistors and caps</li></ul><br />
 <h2 id="toc3"><a name="Modest version-Schematics"></a> Schematics </h2>
-See on [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/eagle/GameboyCartridgeKS|my Github]].<br />
+See on [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyCartridgeKS|my Github]].<br />
 <br />
 <strong>README:</strong><br />
 <ul><li>Gameboy game port expects a 2-2.1mm thick board so<ul><li>do that PCB 2mm thick, or</li><li>do it 0.6mm and you stick it in a existing cartridge or</li><li>(my current option) you make board 1mm thick, cut out the connector part of a spare board and glue/doubleface tape them: your connector part will be 2mm which should make your GB happy</li></ul></li><li>Card was mostly autorouted with very thin signals 0.1524 wires. It works but signals are easily damaged by a hot iron or a careless tinkerer. Be careful.</li><li>Autorouted 'cause I'm lazy, but result is ok (at least it works)</li><li>I should stop trying putting a gnd mask everywhere, it's a risk with such thin wires</li><li>Stop using too small font: all the 0.6 font were just not printed, resulting in a blank pcb</li><li>Next time don't put wires below the insertion pads, friction will kill them (one day)</li><li>Next time have an option to just solder the flash, not use the socket: it's too thick and don't fit in a GB</li>
