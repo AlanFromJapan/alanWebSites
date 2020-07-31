@@ -1,0 +1,32 @@
+This is not a micro step by step build, it's more a memento for me on how I did it, in case I have to redo it one day. And if you find it of any help, I'm happy for you!
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Got an old PC so I decided to stick it under the TV to play retro old games with my kids.
+<h1>Implementation</h1>
+* Grab an old PC, put a Linux. My choice was a Lubuntu 20.4 for speed and lightness.
+* sudo apt install retroarch
+* sudo apt install libretro-* //whichever you need as emulator//
+* sudo apt-get install libsdl2-dev libboost-system-dev libboost-filesystem-dev libboost-date-time-dev libboost-locale-dev libfreeimage-dev libfreetype6-dev libeigen3-dev libcurl4-openssl-dev libasound2-dev libgl1-mesa-dev build-essential cmake fonts-droid git
+* git clone https://github.com/Aloshi/EmulationStation
+* cmake .
+* make
+Edit the ~/.emulationstation/es_systems.cfg:
+* change the command to reflect the emulators you use/need
+* edit path to the roms
+* edit roms extension
+* change the retroach run command:
+--fullscreen<br/>
+--libretro=/usr/lib/x86_64-linux-gnu/libretro/xxxxxemulatornamexxxx_libretro.so<br/>
+Edit the ~/.config/retroarch/retroarch.cfg or run //retroarch// to edit settings:
+* Settings > Input > Input Hotkey Binds > 
+* ... Enable hotkey to define the hotkey
+* ... Load state to define the OTHER key you have to press at the same time as the hotkey
+Allow the current user to shudown WITHOUT password:
+* sudo visudo
+* //user_name// ALL=(ALL) NOPASSWD: /sbin/poweroff, /sbin/reboot, /sbin/shutdown
+<h2>Bill of materials</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
