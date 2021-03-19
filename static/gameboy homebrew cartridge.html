@@ -9,8 +9,10 @@ This is a Gameboy original cartridge with a flash memory store homebrew games. I
 There will be multiple versions of that board, will be created in that order:<br />
 <ul>
   <li><strong>The modest</strong> <span style="color:red;">× Mixed results</span>: just holds the flash and a microcontroller used to upload the flash without a special programmer (which I don't have anyway)</li>
-* **The revenge** <span style="color:green;">working (with a few airwire)</span>: just took what I found on the net and mess-up a few things 
-* **The victory** <span style="color:green;">working on GBC but not DMG/Pocket</span>: basically mending my hurt pride.
+* **The revenge** <span style="color:orange;">working (with a few airwire)</span>: just took what I found on the net and mess-up a few things 
+* **The victory** <span style="color:orange;">working on GBC but not DMG/Pocket</span>: basically mending my hurt pride.
+* **The ULTIMA** <span style="color:green;">working on GBC and DMG/Pocket + multi-ROM</span>: THE ONE TO RULE THEM ALL.
+  
   <li><strong>The DeLuxe</strong> (future plan): this time the mCU will sometime steal the spotlights and answer to the GB instead of the flash. Mainly idea is to use the mCU to read a RTC and return time, that's all: making your <a class="wiki_link" href="Gameboy%20clock.html">Gameboy clock</a>.</li>
 </ul>
 <br />
@@ -20,10 +22,21 @@ There will be multiple versions of that board, will be created in that order:<br
 <h2>Euh ... why? Seriously. You are fixating.</h2>
 Yeah well, I want to make one board that works fine. And a gentleman on gbdev forums suggested that I add a switch to hold multiple game at once, and I find the idea splendid! So let's do it: take the Victory, fix the bug and add that switch!<br/>
 <br/>
-Fast forward a few weeks: and this works just fine! You can solder close the bridges to just use it as a 32kB ROM OR use the switchs (3 bits) to access one of the 8 programmed 32kB ROMs. To do the latest, concatenate the 32kB ROMs in one file and burnt it on the EEPROM.<br/>
+Fast forward a few weeks: and this works just fine! <br/>
 → The code is [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyCartridgeKS|here on GitHub]] (pick the "ULTIMA" one)<br/>
-<img src="/files/gbcart-ultima.jpg" />
+<img src="/files/gbcart-ultima.jpg" /><img src="/files/20210319_103228.jpg" />
 <br />
+<h3>Use as a simple 32kB ROM cartridge</h3>
+* MUST: solder close the bridges on the top-left corner (where the DIP swich should go) 
+* OPTION: add a small capacitor 1-10uF SMD 1206 or 0805 for power stabilization in C1 or C2
+* The ROM, directly soldered or using a SMD socket
+<h3>Use as a MULTIPLE (x8) 32kB ROM cartridge</h3>
+* MUST: solder a small DIP switch in the top left corner: I found only 4 switch models so it's a 4 switch footprint BUT anyway only the outside-most 3 only are useable. Use a standard SMD 4 DIP switch with 0.1" pitch (found in the //Sparkfun Switches, Buttons, Encoders// library)
+* MUST: solder 3 pull-up resistors SMD 1206 (10-20k or more) R1-2-3
+* OPTION: add a small capacitor 1-10uF SMD 1206 or 0805 for power stabilization in C1 or C2
+* The ROM, directly soldered or using a SMD socket
+
+The ROM must then be burnt with a concatenated version of the game ROMS. In short, concat the n (where n<= 8) ROM (where each ROM size <= 32 kB) in one file and burn that file. The switch will allow you to choose which ROM to use before turning on your GB.
 
 <hr style="width:50%"><br/>
 <h1>Victory version - May 2020</h1>
