@@ -1,0 +1,21 @@
+A lightweight web app in python meant to run on a raspi to show the feed from an IP Camera while forbidding the IP Camera itself to access/be accessed by internet.
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+I have an IP Camera at home, but I don't trust the software on it: easily hackable (purposedly or not), malware on it, etc. Don't want to take risks, plus I'm always in for a little chance to code something. So instead of having an untrusted piece of hardware connected to the net, it will have access to intranet ONLY and a Raspi-ran app will do the bridge and present the camera live feed (as stills not video). 
+<h2>Points of interrest</h2>
+* Python and Flask because it's a great combo for a small website
+* OpenCV to access the IP Camera via RTSP protocol
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* An IP Camera (Amz is your friend) that supports RTSP
+* Raspi
+<h2>Schematics</h2>
+<img src="/files/ipcampy_diags.png" />
+<h2>Source code</h2>
+On GitHub [[https://github.com/AlanFromJapan/ipcampy]]
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
+* Nearly all the meat is here [[https://stackoverflow.com/questions/49978705/access-ip-camera-in-python-opencv#49979186]]
