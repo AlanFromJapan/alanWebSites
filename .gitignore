@@ -4,4 +4,6 @@ electrogeek.ini
 *.out
 doBackup.sh
 desktop.ini
-				
+config.py
+__pycache__/
+*.log
