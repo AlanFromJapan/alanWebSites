@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from flask import Flask, render_template, redirect, url_for, request, make_response
 import os
-import ConfigParser
+import config
 import logging
 from logging.handlers import RotatingFileHandler
 import re
@@ -13,7 +13,6 @@ import time
 
 #http://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
 app = Flask(__name__, static_url_path='')
-Config = ConfigParser.ConfigParser()
 
 ROOTDIR = None 
 LOGFILE = None
@@ -99,12 +98,12 @@ def wikilize(html):
 ##########################################################################################
 #store static pages (.html) in memory for faster response
 def getStatic(page, vFilePath):
-    if not StaticPagesCache.has_key(page):
+    if not page in StaticPagesCache:
         #not in cache? then add it
         t = None
         #read content of the static file
-        with open(vFilePath, mode="r") as f:
-            t = f.read().decode("utf-8")
+        with open(vFilePath, mode="r", encoding="utf-8") as f:
+            t = f.read()
         #and store
         StaticPagesCache[page] = t
 
@@ -130,7 +129,7 @@ def doLogin():
         vLogin = request.form["login"]
         vPwd = request.form["pwd"]
         
-        if vLogin == Config.get("AdminAccount", "Login") and vPwd == Config.get("AdminAccount", "Password"):
+        if vLogin == config.myconfig["Login"] and vPwd == config.myconfig["Password"]:
             #Login is correct
             resp = make_response( redirect("home.html") )
             
@@ -161,11 +160,11 @@ def newPage(page):
     vFilePath =  \
         os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates') \
         + "/" \
-        + Config.get("Design", "NewTemplate")
+        + config.myconfig["NewTemplate"]
 
     #get the new page template content
-    with open(vFilePath, mode="r") as f:
-        vBody = f.read().decode("utf-8")
+    with open(vFilePath, mode="r", encoding="utf-8") as f:
+        vBody = f.read()
 
     #write the new page with the content and do some pattern replace 
     with open(targetFilePath, 'a') as fout:
@@ -199,12 +198,12 @@ def editPage(page):
             vBody = vFormContent
     else:
         #caching or read from disk
-        if Config.getboolean("WebConfig", "CACHING"):
+        if "true" == config.myconfig["CACHING"].lower():
             vBody = getStatic(page.lower(), vFilePath)
         else:
             #read content of the static file
-            with open(vFilePath, mode="r") as f:
-                vBody = f.read().decode("utf-8")
+            with open(vFilePath, mode="r", encoding="utf-8") as f:
+                vBody = f.read()
         vFormContent = vBody
 
     #file upload
@@ -225,8 +224,8 @@ def editPage(page):
             #do save
             if None != request.cookies.get('username') and "" != vFormContent.strip():
                 #save IF content is not empty and you are logged in
-                with open(vFilePath, mode="w") as f:   
-                    f.write(vFormContent.strip().encode("utf-8"))
+                with open(vFilePath, mode="w", encoding="utf-8") as f:   
+                    f.write(vFormContent.strip())
                 #and redirect
                 return redirect("/" + page.lower() + ".html")
         else:
@@ -241,7 +240,7 @@ def editPage(page):
     #    vFormContent = ",".join(request.form.keys()) + vFormContent    
 
     #generate the output by injecting static page content and a couple of variables in the template page
-    resp = make_response( render_template(Config.get("Design", "EditTemplate"), pagename=page, pagecontent=vBody, year=vYear, isprod=ISPROD, testout=wikilize(vFormContent), recentupload=vRecentlyUploaded))
+    resp = make_response( render_template(config.myconfig["EditTemplate"], pagename=page, pagecontent=vBody, year=vYear, isprod=ISPROD, testout=wikilize(vFormContent), recentupload=vRecentlyUploaded))
     
     #Debug
     #if "SaveOrPreview" in request.form and request.form["SaveOrPreview"] == "Preview":
@@ -266,12 +265,12 @@ def serveTemplate(page):
     vLastupdate = time.ctime(os.path.getmtime(vFilePath))
 
     #caching or read from disk
-    if Config.getboolean("WebConfig", "CACHING"):
+    if "true" == config.myconfig["CACHING"].lower():
         vBody = getStatic(page.lower(), vFilePath)
     else:
     #read content of the static file
-        with open(vFilePath, mode="r") as f:
-            vBody = f.read().decode("utf-8")
+        with open(vFilePath, mode="r", encoding="utf-8") as f:
+            vBody = f.read()
 
     #renders
     return renderPageInternal (pPageName=page, pBody=vBody, lastupdate=str(vLastupdate))
@@ -285,9 +284,9 @@ def searchPage():
     resultDict = dict()
 
     for filename in os.listdir(ROOTDIR):
-	if os.path.isfile(os.path.join(ROOTDIR, filename)) and filename.lower().endswith(".html"):
-            with open(os.path.join(ROOTDIR, filename), mode="r") as f:
-                t = f.read().decode("utf-8")
+        if os.path.isfile(os.path.join(ROOTDIR, filename)) and filename.lower().endswith(".html"):
+            with open(os.path.join(ROOTDIR, filename), mode="r", encoding="utf-8") as f:
+                t = f.read()
                 #count in the file and the filename
                 vCount = t.lower().count(searchstring) + filename.lower().count(searchstring)
                 #if searchstring in t:
@@ -315,7 +314,7 @@ def renderPageInternal (pPageName, pBody, lastupdate="unknown"):
 
     vYear = datetime.now().strftime('%Y')
     #generate the output by injecting static page content and a couple of variables in the template page
-    return render_template(Config.get("Design", "Template"), pagename=pPageName, pagecontent=wikilize(pBody), year=vYear, isprod=ISPROD, lastupdate=lastupdate)
+    return render_template(config.myconfig["Template"], pagename=pPageName, pagecontent=wikilize(pBody), year=vYear, isprod=ISPROD, lastupdate=lastupdate)
 
 
 ##########################################################################################
@@ -329,19 +328,15 @@ def getFavicon():
 ## Main entry point
 #
 if __name__ == '__main__':
-    try:
-        #load config file
-        Config.read("electrogeek.ini")
-        
+    try:        
         #loading once and for all the config values
-        ROOTDIR  = Config.get("WebConfig", "ROOTDIR")
-        LOGFILE  = Config.get("WebConfig", "LOGFILE")
-        HTTPPORT = int(Config.get("WebConfig", "HTTPPORT"))
-        ISPROD = Config.getboolean("WebConfig", "ISPROD")
+        ROOTDIR  = config.myconfig["ROOTDIR"]
+        LOGFILE  = config.myconfig["LOGFILE"]
+        HTTPPORT = int(config.myconfig["HTTPPORT"])
+        ISPROD = "true" == config.myconfig["ISPROD"].lower()
         UPLOAD_FOLDER = os.path.join(ROOTDIR, 'files')
 
         #start the logfile
-        #logging.basicConfig(filename="/tmp/flasklogging.log",level=logging.DEBUG)
         handler = RotatingFileHandler(LOGFILE, maxBytes=10000, backupCount=1)
         handler.setLevel(logging.INFO)
         app.logger.addHandler(handler)
