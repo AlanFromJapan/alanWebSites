@@ -6,6 +6,24 @@ I have an IP Camera at home, but I don't trust the software on it: easily hackab
 <h2>Points of interrest</h2>
 * Python and Flask because it's a great combo for a small website
 * OpenCV to access the IP Camera via RTSP protocol
+<h2>Points of pain: building OpenCV on a Raspberry Pi</h2>
+Install on a PC with Ubuntu 20.4 is a breeze and quite fast (with a good CPU):
+<pre>
+#get python an pip
+sudo apt-get install python3-setuptools python3-pip --yes
+
+#get flask
+sudo python3 -m pip install Flask
+
+#opencv for python
+pip install opencv-python 
+</pre>
+... but, installing on a Raspi (and I'm masochist to I mean a Rpi Zero W) that is more complicated and VERY LONG. Like the final pip install triggers a build and it takes 2-3h to complete. And cherry on the sh*t cake is that opencv-python doesn't build (as of the moment I write these), you get an error "read cmake output" after HOURS.<br/>
+Here are some manuals I found for memory:
+* [[https://learn.circuit.rocks/introduction-to-opencv-using-the-raspberry-pi]]
+* [[https://pimylifeup.com/raspberry-pi-opencv/]]
+* [[https://tutorials-raspberrypi.com/installing-opencv-on-the-raspberry-pi/]] (doesn't work build fails)
+* [[https://medium.com/codemonday/opencv4-python3-raspberry-pi-installation-guide-9182ed893ae6]]
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 * An IP Camera (Amz is your friend) that supports RTSP
