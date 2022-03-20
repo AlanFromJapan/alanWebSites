@@ -14,11 +14,23 @@ My "guide" [[Gameboy guts and programming]] but in a nutshell:
 * Code in C if you're ok with a small, casual game and ready to have average performance
 <br/>
 I code in C so my TL;DR is:
-* Install the latest [[http://sdcc.sourceforge.net/|sdcc]]
+* Install the latest [[http://sdcc.sourceforge.net/|sdcc]] (readme below)
 * Install [[https://github.com/andreasjhkarlsson/gbdk-n|GBDK-n]]
-* Edit the GBDK-n scripts to use latest sdcc
+* Edit the GBDK-n's bin/ scripts by changing the path to sdcc to latest sdcc 
 * VS code or Eclipse work to code in C
 * You're good to go, start coding!
+<h3>Installing latest SDCC</h3>
+Well, last time I did a few years ago it was easy as far as I remember: download latest version, unbzip and done. I rna into a problem though: the prebuilt latest 4.2 was built with more recent libc version than my ubuntu 20.4. <br/>
+EASY FIX: pick version 4.0 or 4.1 (4.1 worked out of the box).<br/>
+HARDER FIX: just build SDCC from the source on my PC.
+* Get the source from [[http://sdcc.sourceforge.net/|sdcc]] (in the sdcc/ folder)
+* tar jxf thesource.tar.bz2
+* [[http://sdcc.sourceforge.net/doc/sdccman.pdf|RTFM]]
+* ./configure
+* A few packages I was missing : sudo apt install bison flex libboost-graph-dev texinfo
+* ./configure (this time should work)
+* make (go grab a coffee)
+* sudo make install
 <h2>Testing the game</h2>
 * The best is [[http://bgb.bircd.org/|BGB]] and runs on windows or Linux under wine
 * visualboyadvance runs also on Linux but has a worse reputation than bgb so keep it as a second option in case
