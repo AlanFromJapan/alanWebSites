@@ -18,8 +18,9 @@ sudo python3 -m pip install Flask
 #opencv for python
 pip install opencv-python 
 </pre>
-... but, installing on a Raspi (and I'm masochist to I mean a Rpi Zero W) that is more complicated and VERY LONG. Like the final pip install triggers a build and it takes 2-3h to complete. And cherry on the sh*t cake is that opencv-python doesn't build (as of the moment I write these), you get an error "read cmake output" after HOURS.<br/>
+... but, installing on a Raspi (and I'm masochist to I mean a Rpi Zero W) that is more complicated and VERY LONG. Like the final pip install triggers a build and it takes 2-3h to complete. And cherry on the sh*t cake is that opencv-python doesn't build (as of the moment I write these), you get an error "read cmake output" after HOURS. Reading further apparently it's a problem of memory so you need to allocate a lot more swap memory to the OS, otherwise it will just fail miserably.<br/>
 Here are some manuals I found for memory:
+* [[https://towardsdatascience.com/installing-opencv-in-pizero-w-8e46bd42a3d3]]
 * [[https://learn.circuit.rocks/introduction-to-opencv-using-the-raspberry-pi]]
 * [[https://pimylifeup.com/raspberry-pi-opencv/]]
 * [[https://tutorials-raspberrypi.com/installing-opencv-on-the-raspberry-pi/]] (doesn't work build fails)
