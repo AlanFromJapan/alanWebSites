@@ -1,0 +1,15 @@
+This is the fork of the [[ipCamPy]] project (that works by itself) BUT does not uses OpenCV that gave me nightmare to (fail to) install on a Raspberry Pi Zero.
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+See [[ipCamPy]] project, but basically present a RTSP (IP Camera) stream flow as stills on a website. Therefore I won't have to give internet access to that suspicious webcam I bought on Amz.
+<h2>Points of interrest</h2>
+Drops the need of OpenCV (a pain to build on small Raspi Zero), and use regular [[https://pypi.org/project/Pillow/|Pillow]] (for image processing/saving) and [[https://pypi.org/project/av/|av]] FFmpeg binding lib to be able to read that stream H264 from the camera via RTSP protocol. Both are standards and the underlying libraries are just an "apt install" away and do not require building for 14h on the row... 
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+<h2>Schematics</h2>
+<h2>Source code</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
