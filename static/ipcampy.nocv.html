@@ -1,15 +1,28 @@
-This is the fork of the [[ipCamPy]] project (that works by itself) BUT does not uses OpenCV that gave me nightmare to (fail to) install on a Raspberry Pi Zero.
+<span style="display:block;width:100%;height:auto;background:lightyellow;border:solid 1px goldenrod;text-align:center;">This version works and is simpler to setup/develop than original one that was using OpenCV.<br/>
+  It's [[Ipcampy]] if you want.</span><br />
+
+This is the fork of the [[ipCamPy]] project (that works by itself) BUT does **not** uses OpenCV that gave me nightmare to (fail to) install on a Raspberry Pi Zero.
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
 See [[ipCamPy]] project, but basically present a RTSP (IP Camera) stream flow as stills on a website. Therefore I won't have to give internet access to that suspicious webcam I bought on Amz.
 <h2>Points of interrest</h2>
-Drops the need of OpenCV (a pain to build on small Raspi Zero), and use regular [[https://pypi.org/project/Pillow/|Pillow]] (for image processing/saving) and [[https://pypi.org/project/av/|av]] FFmpeg binding lib to be able to read that stream H264 from the camera via RTSP protocol. Both are standards and the underlying libraries are just an "apt install" away and do not require building for 14h on the row... 
+Drops the need of OpenCV (a pain to build on small Raspi Zero), and use regular [[https://pypi.org/project/Pillow/|Pillow]] (for image processing/saving) and [[https://pypi.org/project/av/|av]] FFmpeg binding lib to be able to read that stream H.264 from the camera via RTSP protocol. Both are standards and the underlying libraries are just an "apt install" away and do not require building for 14h on the row... <br/>
+Acquisition of an image will depend on the server running the app, but on my test we're talking about ~3 sec : connect to the camera, get the stream, take a still, save in memory as JPEG. Therefore I set the minimum the page allows as refresh rate to 6 sec. Should you need less, just at init connect to the stream and take a shot on request but I'm not sure how well the camera will handle having a perpetual client, or the raspi. This current method is slower and less efficient but more robust I think.<br/> 
+<br/>
+Fun thing, in fact it works better than the  OpenCV that was crashing or not updating once every few minutes. This one runs without issue in my (short) tests so far.
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
+* An IP Camera (Amz is your friend) that supports RTSP
+* Raspi
+* A dynamic DNS ([[http://www.duckdns.org/]] is your friend 💛)
 <h2>Schematics</h2>
+<img src="/files/ipcampy_diags.png" />
 <h2>Source code</h2>
+On GitHub [[https://github.com/AlanFromJapan/ipcampy.nocv]] **Use the MASTER branch** not main.
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 <h2>Inspiration</h2>
+* Some guy doing brute force with av (FFMPEG) and not OpenCV [[https://gitlab.com/woolf/RTSPbrute/-/blob/master/rtspbrute/modules/attack.py]] Thanks for sharing!
+* The av lib [[https://pypi.org/project/av/]]
