@@ -20,9 +20,21 @@ Fun thing, in fact it works better than the  OpenCV that was crashing or not upd
 <img src="/files/ipcampy_diags.png" />
 <h2>Source code</h2>
 On GitHub [[https://github.com/AlanFromJapan/ipcampy.nocv]] **Use the MASTER branch** not main.
+<h2>Installation</h2>
+* Go somewhere on your server and <code>git clone -b master https://github.com/AlanFromJapan/ipcampy.nocv.git</code>
+* Run the //install-dependencies.sh//
+* Run the //setup.sh//
+* Copy the //config.sample.py// to //config.py// and edit(!)
+* Git it a try: run.sh and if all fine try with HTTPS run_ssl.sh
+* Once working ok, schedule to start when machine boots: add the below to /etc/rc.local (on a raspi)
+<pre>
+su webuser -c /path/to/run_ssl.sh >> /tmp/ipcampy.log 2>&1 &
+</pre>
+Using /tmp means you'll lose the log file between reboots, something you maybe don't want to maybe, so pick somewhere else (/var/logs/ is usually the consecrated place)
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
+* Interesting article to be scared about cheap IP cameras: [[https://research.nccgroup.com/2020/07/31/lights-camera-hacked-an-insight-into-the-world-of-popular-ip-cameras/|fear!]]
 <h2>Inspiration</h2>
 * Some guy doing brute force with av (FFMPEG) and not OpenCV [[https://gitlab.com/woolf/RTSPbrute/-/blob/master/rtspbrute/modules/attack.py]] Thanks for sharing!
 * The av lib [[https://pypi.org/project/av/]]
