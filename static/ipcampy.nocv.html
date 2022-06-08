@@ -28,9 +28,10 @@ On GitHub [[https://github.com/AlanFromJapan/ipcampy.nocv]] **Use the MASTER bra
 * Git it a try: run.sh and if all fine try with HTTPS run_ssl.sh
 * Once working ok, schedule to start when machine boots: add the below to /etc/rc.local (on a raspi)
 <pre>
-su webuser -c /path/to/run_ssl.sh >> /tmp/ipcampy.log 2>&1 &
+#Start the ipcampy web service as "webuser" (NOT ROOT!)
+/usr/local/websites/ipcampy.nocv/start-service.sh &
 </pre>
-Using /tmp means you'll lose the log file between reboots, something you maybe don't want to maybe, so pick somewhere else (/var/logs/ is usually the consecrated place)
+Using /tmp to store the logs means you'll lose the log file between reboots, something you maybe don't want to maybe, so pick somewhere else (/var/logs/ is usually the consecrated place). Or go to the bitter end and make /tmp in memory with tmpfs.
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
