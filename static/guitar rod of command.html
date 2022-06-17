@@ -1,18 +1,10 @@
-<html>
-  <head>
-    <title>kalshagar - Guitar Rod of Command</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
 <h1 id="toc0"><a name="Summary"></a> Summary </h1>
-<img src="files/rodofcommand1bottomup.jpg" alt="rodofcommand1bottomup.jpg" title="rodofcommand1bottomup.jpg" align="right" />Recycle the head of a Wii Guitar Hero guitar (went unused long ago) and recycle it as a multi-purpose living room remote. Why ? Because I have now 2 remotes (TV %20 VCR) %20 the small PC under the TV and that makes too much remotes. <br />
+<img src="/files/rodofcommand1bottomup.jpg" alt="rodofcommand1bottomup.jpg" title="rodofcommand1bottomup.jpg" align="right" />Recycle the head of a Wii Guitar Hero guitar (went unused long ago) and recycle it as a multi-purpose living room remote. Why ? Because I have now 2 remotes (TV + VCR) + the small PC under the TV and that makes too much remotes. <br />
 As per the PC, I can already drive it with the <a class="wiki_link" href="ardPlayer%20tokens.html">ardPlayer tokens</a> (an arduino connected to the PC with a RFID token reader). I will reuse that, extend the software and use some <span style="text-decoration: line-through;"><a class="wiki_link_ext" href="http://www.seeedstudio.com/depot/433mhz-rf-link-kit-p-127.html?cPath=139" rel="nofollow" target="_blank">433MHz radio wave modules bought at Seeedstudio</a>  years ago and never used</span> IR receptor since the rest of the code is already that (and 'cause the RF module doesn't work). And for the TV and VCR of course the <a class="wiki_link" href="Arduino%20and%20IR%20%28infrared%29.html">Infrared</a>.<br />
 <br />
 <h2 id="toc1"><a name="Summary-Functions"></a> Functions </h2>
 <h3 id="toc2"><a name="Summary-Functions-In the final product"></a> In the final product </h3>
-<ul><li>(Send IR) Command via IR the (1) TV and (2) VCR <span style="color: #008511;font-weight:bold;">Done!</span></li><li>(Send radio command) Using radio waves command the PC linked to the TV (and talk with an Arduino powered <a class="wiki_link" href="ardPlayer%20tokens.html">ardPlayer tokens</a>) <span style="color: #b73d00;font-weight:bold;">Dropped -&gt; use IR</span></li><li>(Show current mode) There is 5 buttons on the guitar, must show which is current mode (color led) <span style="color: #008511;font-weight:bold;">Done!</span></li><li>Auto-power off <span style="color: #b73d00;font-weight:bold;">Dropped</span></li><li>Powered via a scavenged USB battery <span style="color: #008511;font-weight:bold;">Done!</span></li><li>Wake on press button <span style="color: #b73d00;font-weight:bold;">Dropped -&gt; regular on/off switch</span></li><li>Vibrates on mode change or if wants confirmation (&quot;must click twice&quot;) <span style="color: #b73d00;font-weight:bold;">Dropped -&gt; Speaks instead</span></li><li>Speach powered ? The color status will not be very helpful because too hard to remember what does what... <span style="color: #008511;font-weight:bold;">Done!</span><ul><li>If so : %20amp %20speaker, if possible and amp with on/off pin or driven by transistor <span style="color: #008511;font-weight:bold;">Done!</span></li></ul></li></ul><br />
+<ul><li>(Send IR) Command via IR the (1) TV and (2) VCR <span style="color: #008511;font-weight:bold;">Done!</span></li><li>(Send radio command) Using radio waves command the PC linked to the TV (and talk with an Arduino powered <a class="wiki_link" href="ardPlayer%20tokens.html">ardPlayer tokens</a>) <span style="color: #b73d00;font-weight:bold;">Dropped -> use IR</span></li><li>(Show current mode) There is 5 buttons on the guitar, must show which is current mode (color led) <span style="color: #008511;font-weight:bold;">Done!</span></li><li>Auto-power off <span style="color: #b73d00;font-weight:bold;">Dropped</span></li><li>Powered via a scavenged USB battery <span style="color: #008511;font-weight:bold;">Done!</span></li><li>Wake on press button <span style="color: #b73d00;font-weight:bold;">Dropped -> regular on/off switch</span></li><li>Vibrates on mode change or if wants confirmation ("must click twice") <span style="color: #b73d00;font-weight:bold;">Dropped -> Speaks instead</span></li><li>Speach powered ? The color status will not be very helpful because too hard to remember what does what... <span style="color: #008511;font-weight:bold;">Done!</span><ul><li>If so : +amp +speaker, if possible and amp with on/off pin or driven by transistor <span style="color: #008511;font-weight:bold;">Done!</span></li></ul></li></ul><br />
 <h3 id="toc3"><a name="Summary-Functions-During development"></a> During development </h3>
 <ul><li>Learn IR code ? Or make a circuit on the side and upload codes in EEPROM</li></ul><br />
 <h3 id="toc4"><a name="Summary-Functions-Modes and buttons"></a> Modes and buttons </h3>
@@ -37,7 +29,7 @@ As per the PC, I can already drive it with the <a class="wiki_link" href="ardPla
     <tr>
         <td><strong>TV</strong><br />
 </td>
-        <td>VOL%20<br />
+        <td>VOL+<br />
 </td>
         <td>VOL-<br />
 </td>
@@ -51,7 +43,7 @@ As per the PC, I can already drive it with the <a class="wiki_link" href="ardPla
     <tr>
         <td><strong>PC</strong><br />
 </td>
-        <td>VOL%20<br />
+        <td>VOL+<br />
 </td>
         <td>VOL-<br />
 </td>
@@ -94,14 +86,16 @@ As per the PC, I can already drive it with the <a class="wiki_link" href="ardPla
 
 <br />
 <h1 id="toc5"><a name="Schema"></a> Schema </h1>
- <img src="files/GROC_Schema.png" alt="GROC_Schema.png" title="GROC_Schema.png" /><br />
+ <img src="/files/GROC_Schema.png" alt="GROC_Schema.png" title="GROC_Schema.png" /><br />
 <h2 id="toc6"><a name="Schema-Parts"></a> Parts </h2>
 <ul><li>A Nintendo Wii Guitar Hero guitar's head</li><li>ATTiny2313 at heart</li><li>AquesTalk LSI (a ATmega 328 with a custom firmware)</li><li>HT82V739 opamp</li><li>IR led for communication, RGB led for the mood and mode</li><li>Small speaker</li><li>Board : <a class="wiki_link" href="Rapide2313.html">Rapide2313</a> (eat your own cuisine)</li><li>Li-ion battery found in the garbage (a portable USB cellphone charger)</li><li>Usual parts ...</li></ul><h2 id="toc7"><a name="Schema-Points of interest of the schema"></a> Points of interest of the schema </h2>
- <ul><li>Using a great speech IC (at least for Japanese) AquesTalk LSI<ul><li>See and hear <a class="wiki_link_ext" href="http://www.a-quest.com/products/aquestalkpicolsi.html" rel="nofollow">http://www.a-quest.com/products/aquestalkpicolsi.html</a></li><li>Buy (850 JPY = 8 USD) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-06225/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-06225/</a></li><li>Drive it with TWI : set SMOD1 = HIGH (already pulledup) and SMOD0 = LOW</li><li>Super easy and great results!</li></ul></li><li><a class="wiki_link" href="Signal%20amplification%20%28OpAmp%29.html">OpAmp HT82V739</a>  has a on/off pin and few surrounding components to work. Still my favorite. Us the on/off pin to mute the speaker and avoid buzz when speaker is not used.</li><li>RGB led with nice mixing color trick : calculate and respect the Voltage forward of each color !<ul><li>Explained here <a class="wiki_link_ext" href="http://electronics.stackexchange.com/questions/48522/what-resistor-to-use-with-this-rgb-led" rel="nofollow">http://electronics.stackexchange.com/questions/48522/what-resistor-to-use-with-this-rgb-led</a></li><li>In short : put a resistor 1k%20 and a led and feed it 5v. Measure the voltage drop at the pins of the led : that's VF for that color. Decide how many amps you want to feed the led and call it I. Your resistor value is in ohm = (VCC - VF) / I</li></ul></li></ul><br />
-<img src="files/2013-01-15-23-18-01_deco2.jpg" alt="2013-01-15-23-18-01_deco2.jpg" title="2013-01-15-23-18-01_deco2.jpg" align="right" /><br />
+ <ul><li>Using a great speech IC (at least for Japanese) AquesTalk LSI<ul><li>See and hear <a class="wiki_link_ext" href="http://www.a-quest.com/products/aquestalkpicolsi.html" rel="nofollow">http://www.a-quest.com/products/aquestalkpicolsi.html</a></li><li>Buy (850 JPY = 8 USD) <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-06225/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-06225/</a></li><li>Drive it with TWI : set SMOD1 = HIGH (already pulledup) and SMOD0 = LOW</li><li>Super easy and great results!</li></ul></li><li><a class="wiki_link" href="Signal%20amplification%20%28OpAmp%29.html">OpAmp HT82V739</a>  has a on/off pin and few surrounding components to work. Still my favorite. Us the on/off pin to mute the speaker and avoid buzz when speaker is not used.</li><li>RGB led with nice mixing color trick : calculate and respect the Voltage forward of each color !<ul><li>Explained here <a class="wiki_link_ext" href="http://electronics.stackexchange.com/questions/48522/what-resistor-to-use-with-this-rgb-led" rel="nofollow">http://electronics.stackexchange.com/questions/48522/what-resistor-to-use-with-this-rgb-led</a></li><li>In short : put a resistor 1k+ and a led and feed it 5v. Measure the voltage drop at the pins of the led : that's VF for that color. Decide how many amps you want to feed the led and call it I. Your resistor value is in ohm = (VCC - VF) / I</li></ul></li></ul><br />
+<img src="/files/2013-01-15-23-18-01_deco2.jpg" alt="2013-01-15-23-18-01_deco2.jpg" title="2013-01-15-23-18-01_deco2.jpg" align="right" /><br />
+
 <h1 id="toc8"><a name="Code"></a> Code </h1>
-Google code SVN (Atmel Studio 6.0) : <a class="wiki_link_ext" href="http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAttiny2313%2FGuitarRodOfCommand" rel="nofollow">http://code.google.com/p/alanarduinotools/source/browse/trunk/#trunk%2FAttiny2313%2FGuitarRodOfCommand</a><br />
-<br />
+Github : [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny2313/GuitarRodOfCommand]]
+<br/>
+<br/>
 <h2 id="toc9"><a name="Code-Points of interest of the code"></a> Points of interest of the code </h2>
 <ul><li>Implementation of I2C TWI on ATtiny2313 (found here <a class="wiki_link_ext" href="http://www.instructables.com/id/I2C_Bus_for_ATtiny_and_ATmega/" rel="nofollow">http://www.instructables.com/id/I2C_Bus_for_ATtiny_and_ATmega/</a> Thanks for sharing)<ul><li>Used to drive the Speech generator AquesTalk LSI 3011 from the ATtiny2313</li><li>Works just fine, timed for a 1MHz speed</li></ul></li><li>IR implementation of the Sharp protocol<ul><li>Based on the IRremote lib for Arduino and the great work done on : <a class="wiki_link_ext" href="http://www.sbprojects.com/knowledge/ir/sharp.php" rel="nofollow">http://www.sbprojects.com/knowledge/ir/sharp.php</a></li><li>Codes for Sharp TV : <a class="wiki_link_ext" href="http://lirc.sourceforge.net/remotes/sharp/GA538WJSA" rel="nofollow">http://lirc.sourceforge.net/remotes/sharp/GA538WJSA</a></li></ul></li><li>IR implementation for NEC<ul><li>Based on <a class="wiki_link_ext" href="http://openlgtv.org.ru/wiki/index.php/Using_a_generic_microcontroller_board_as_an_LG_service_remote" rel="nofollow">http://openlgtv.org.ru/wiki/index.php/Using_a_generic_microcontroller_board_as_an_LG_service_remote</a></li><li>Rewrote everything but logic is very close</li></ul></li></ul><br />
 <h1 id="toc10"><a name="Pictures"></a> Pictures </h1>
@@ -110,6 +104,3 @@ See the picture gallery here : <a class="wiki_link" href="Guitar%20Rod%20Of%20Co
 <h1 id="toc11"><a name="Doc"></a> Doc </h1>
 <h2 id="toc12"><a name="Doc-About the RF module"></a> About the RF module </h2>
 <ul><li>A very good tutorial <a class="wiki_link_ext" href="http://winavr.scienceprog.com/example-avr-projects/running-tx433-and-rx433-rf-modules-with-avr-microcontrollers.html" rel="nofollow">http://winavr.scienceprog.com/example-avr-projects/running-tx433-and-rx433-rf-modules-with-avr-microcontrollers.html</a></li><li>Wiki of the product itself (I obviously have an older version, less component on my version)  <a class="wiki_link_ext" href="http://www.seeedstudio.com/wiki/index.php?title=433Mhz_RF_link_kit" rel="nofollow">http://www.seeedstudio.com/wiki/index.php?title=433Mhz_RF_link_kit</a></li><li>The same (kind of) product at $parkfun <a class="wiki_link_ext" href="https://www.sparkfun.com/products/10533" rel="nofollow">https://www.sparkfun.com/products/10533</a></li></ul>
-    </div>
-  </body>
-</html>
