@@ -6,6 +6,14 @@ C programming : <strong>GBDK-n</strong> toolchain to compile GB code [[https://g
 ASM programming : <strong>WLA</strong> toolchain is here <a class="wiki_link_ext" href="http://www.villehelin.com/wla.html" rel="nofollow">http://www.villehelin.com/wla.html</a><br />
 
 <h1>Tips and tricks</h1>
+<h2>About Sprites</h2>
+<h3>Alignment</h3>
+It might be obvious for some, it might be a limitation of GBDK-n but in my experience your 8x16 (therefore most likely your 16x16) sprites have to be aligned on an **EVEN** index of the tiles bank. Meaning your sprites are usually ordered like [top left; bottom left; top right; bottom right] must be starting on an EVEN position, otherwise the sprite appears messed-up (top is at bottome and up side is neraby sprites). 
+<h3>Smart arrangement</h3>
+On top of having your slides aligned properly, you can make your code smaller and faster with these tricks:
+* Put all your "don't walk" tiles (walls, trees, lava, ...) at the very begining or at the very end of the tile bank. Therefore your collision checks become "if (tile_id < 24) //handle collision"
+* If your sprites have alternating styles (like step left/step right) put them one after the other, so the code is just based on the first tile ID and add +4)
+* Leverage the h-mirror / v-mirror capabilities wherever you can to save some space. Usually left/right oriented are just a mirror of each other.
 <h2>Tips from me</h2>
 If you code in C (meaning you're not making a serious big long game, more like fiddling) then GBDK-n and a recent (4.0+) version of SDCC does the trick. Here's how I modified the GBDK-n-compile.sh: forced the SDCC to be used (Mint 19 is 3.5 by default)  but keep the GBDK-n include path. You can get compilation within seconds and the result is functional without any weird bugs that you normally get with the old GBDK (at least none so far).
 <pre>/usr/local/apps/sdcc-4.0.0/bin/sdcc -mgbz80 --no-std-crt0 -I "$GBDK_DIR/include" -I "$GBDK_DIR/include/asm" -c "$@"</pre>
