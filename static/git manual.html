@@ -1,5 +1,17 @@
 More than a manual, a small list of reminders for me. If you find it useful, good for you.
 
+<h1>One liners & frequent commands</h1>
+<h2>Cancel your git add</h2>
+Don't delete anything, just "un-add" everything.
+<pre>
+git reset
+</pre>
+<h2>Rollback all your local changes and go back to latest commit</h2>
+You messed up, nothing works... happens. My reason #1 to use a VCS, so you can mess up thing and always go back to latest known status in one command. This WILL delete files created afterward also.
+<pre>
+git reset --hard
+git clean -f -d
+</pre>
 <h1>HOWTOs</h1>
 <h2>Migrate a folder with its history to another repository</h2>
 I had to do that because I put everything (C#, python, microcontroller, eagle,...) files in one repository which obviously became too big and kind a messy. So I decided to move out some chuncks of it outside to a dedicated smaller repo (ie: eagle files in May2020). This is how I did it.<br/>
