@@ -1,0 +1,53 @@
+Bought myself a [[https://www.htpow.net/atomstack-p7-m30-laser-engraver| HTPow P7 M30]] laser burner and I'm doing the setup on **Ubuntu 22.04** so let me share my experience here, in case it helps you.
+
+<h1>Setup</h1>
+<h2>Bill of materials</h2>
+* My laser burner [[https://www.htpow.net/atomstack-p7-m30-laser-engraver]]
+* A laptop on Ubuntu 22.04
+<h2>Detailed</h2>
+First use a recent Linux, I tried on an old Mint19 (which was OLD in 2023) which owed me a few hours spend on upgrading and setting up my laptop to a Ubuntu 22.04 (the LTS of the time - March 2023). Reason is that recommended beginner (=me) software has a dependency on a quite recent glibc, not matched in old Mint 19 and installing mutiple glibc is heavily non-recommended on the net.<br/>
+Then install [[https://lightburnsoftware.com/|LightBurn]] which works on Linux as a 30 days demo. Hopefully enough for me to level up and move to some free software like [[https://www.linuxcnc.org/|LinuxCNC]] but let's not skip steps.<br/>
+Then you plug the USB, launch LightBurn aaaaaaaand ... it doesn't work. It doesn't find you LaserBurner. Yes it's normal, for some time the USB setup on Ubuntu and its consorts need a few steps. I had the [[linux mint|issue on Mint with my ATmel AVRISP mkII programmer]]. So let's make it work.
+
+<h3>Get the USB to work</h3>
+See the **EXCELLENT tutorial** of that gentleman : [[https://diode-laser-wiki.com/documentation/setting-up-the-software/#USB_Driver]], basically I'm just doing a slight variant. Credits go to him! <br/>
+<br/>
+Reason is that it emulates a serial port on USB to communicate GBRL commands, a CH340 as per lsusb. And now if you want to use it WITHOUT being root, you need to add a few steps to make it a "familly and kids approved" device. But there's even a catch ... see below.<br/>
+First add your user to the //dialout// group :
+<pre>
+sudo adduser **my-user** dialout
+</pre>
+Now logout and login again to make it effective.<br/>
+<br/>
+Then //lsusb// and find the vendor ID and product ID of your device.
+<pre>
+> lsusb
+...
+Bus 001 Device 008: ID **1a86:7523** QinHeng Electronics CH340 serial converter
+...
+</pre>
+<br/>
+**EXTRA FUN:** the vendor:product ID pair is in fact maybe ALREADY registered in your system as a Braille reader! You need to un-register it first!<br/>
+Check //if you have the britty file//: edit the **/etc/udev/rules.d/85-britty.rules** file, find the line with your vendor ID (1A86), find your product (7523) and hashtag that line or remove it.<br/>
+Now in my case it's not here, but I still can find it registered in the 70-snap.snapd.rules. I'll leave it here and just override it.<br/>
+<br/>
+Now let's give access to non-root users: edit an existing file or create a separate file in **/etc/udev/rules.d/**, I like to make a separate file like **10-local.rules** and add the below text:
+<pre>
+SUBSYSTEM!="usb", ACTION!="add", GOTO="localrules_end"
+
+#QinHeng Electronics CH340 serial converter for HTPOW P7 M30 Laser burner (Serial over USB for GRBL)
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", GROUP="dialout", MODE="0666"
+
+LABEL="localrules_end"
+</pre>
+Now restart the udev service (or to be extra safe if it doesn't work, Windows style reboot):
+<pre>
+sudo service udev restart
+</pre>
+It should work now...
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
+* [[https://www.youtube.com/watch?v=PZrsAmvMtwA]] How to setup youtube video
+* [[https://diode-laser-wiki.com/]] The website of the gentleman who prepared the video
