@@ -1,0 +1,16 @@
+How to update your [[http://www.duckdns.org/]] Dynamic DNS.
+
+<h1>Presentation</h1>
+Very simple on Linux:
+* crontab -e
+* Add the below to update every other hour
+<pre>
+# m h  dom mon dow   command
+
+#update bi-hourly the DNS (use the FULL path to executables, and leave "ip=" empty so it's auto detected)
+18 */2 * * * /usr/bin/curl "https://www.duckdns.org/update?domains=**YOURDOMAIN**&token=**064not40-my4c-real-8to5-2ken452b0c1**&ip=" > /tmp/latest_IP_update_result.log 2>&1
+</pre>
+* Finished! 
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+* RTFM [[http://www.duckdns.org/faqs.jsp]]
