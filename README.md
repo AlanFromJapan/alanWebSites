@@ -1,6 +1,6 @@
 # alanWebSites
 Source of my websites, for now electrogeek.cc. It's a port from an existing site, so I needed an engine that could server static pages while allowing me to do some dynamic things also.
-And since Python2 is my tool of choice these days at work, my choice was made to use Flask.
+And since Python3 is my tool of choice these days at work, my choice was made to use Flask.
 
 You will find here the engine written to run on Flask (but should be easily adepted to other WSGI tool.
 Features:
@@ -17,6 +17,10 @@ Won't be supported ('cause I don't care):
 * Collaborative system with multiple users
 * Extensive fancy new stuff
 
+## Version
+
+March 2023: move to python3. Pretty sure I did that all years ago an never released, apparently I messed up somewhere. So redid it, or did what was missing, anyway runs on Python3.
+
 ## Install
 
 ### Prepare
@@ -24,8 +28,8 @@ Won't be supported ('cause I don't care):
 * sudo apt-get install emacs-nox git python-setuptools
 * sudo easy_install pip
 * sudo pip install Flask
-* sudo pip install futures
-* sudo pip install RPi.GPIO
+* sudo pip install futures (NOT needed anymore)
+* sudo pip install RPi.GPIO (NOT needed anymore)
 
 ### Install
 
