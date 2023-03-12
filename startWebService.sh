@@ -9,7 +9,7 @@ sudo chown -R webuser $ROOTFOLDER/static/*
 #sudo chmod g+rw /dev/gpiomem
 
 #start
-sudo -u webuser -s nohup /usr/bin/python3 $ROOTFOLDER/electrogeek_flask.py > /tmp/electrogeek_PROD.log 2>&1 &
+sudo -u webuser -s nohup python3 $ROOTFOLDER/electrogeek_flask.py > /tmp/electrogeek_PROD.log 2>&1 &
 
 #give 2 secs for service to start
 sleep 2

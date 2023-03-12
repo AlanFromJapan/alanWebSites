@@ -25,11 +25,12 @@ March 2023: move to python3. Pretty sure I did that all years ago an never relea
 
 ### Prepare
 
-* sudo apt-get install emacs-nox git python-setuptools
-* sudo easy_install pip
-* sudo pip install Flask
-* sudo pip install futures (NOT needed anymore)
-* sudo pip install RPi.GPIO (NOT needed anymore)
+Mandatory
+* sudo apt-get install git python3 python3-pip
+* sudo pip3 install Flask
+Optional if you use the RPI and Led
+* sudo pip3 install futures
+* sudo pip3 install RPi.GPIO
 
 ### Install
 

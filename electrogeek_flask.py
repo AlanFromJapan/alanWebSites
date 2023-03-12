@@ -93,7 +93,7 @@ def wikilize(html):
 ##########################################################################################
 #store static pages (.html) in memory for faster response
 def getStatic(page, vFilePath):
-    if not StaticPagesCache.has_key(page):
+    if not page in StaticPagesCache:
         #not in cache? then add it
         t = None
         #read content of the static file
