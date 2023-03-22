@@ -9,12 +9,12 @@ sudo chown -R webuser $ROOTFOLDER/static/*
 #sudo chmod g+rw /dev/gpiomem
 
 #start
-sudo -u webuser -s nohup python3 $ROOTFOLDER/electrogeek_flask.py > /tmp/electrogeek_PROD.log 2>&1 &
+sudo -u webuser -s nohup python3 $ROOTFOLDER/electrogeek_flask.py > /tmp/electrogeek_PROD.3.log 2>&1 &
 
 #give 2 secs for service to start
 sleep 2
 #check that the startup went nicely
-PID=`ps -fe | grep 'electrogeek_flask.py' | grep webuser | grep -v root | awk '{print $2}' `
+PID=`ps -fe | grep 'electrogeek_flask.py' | grep webuser | grep python3 | grep -v root | awk '{print $2}' `
 if [ -z "$PID" ]; then
     echo "ERROR! FLASK webserver not started."
 else
