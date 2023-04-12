@@ -1,0 +1,48 @@
+<img src="/files/th-2313084822.jpg" align="right" width="200"/>**Goal**: have a linux working on a USB key, that you can work with and WRITE and even update when plugged on PC. Your PC only provides the muscle (screen, inputs, CPU, memory) the brains are on the stick. It will be SLOW to create and use (like way slower than a linux on your SSD) but usable. See the [[https://www.kali.org/|Kali linux]] and all, they work pretty well.
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Pretty simple in fact, install Linux on the USB key, make it bootable, add a Windows partition maybe for swapping data easily?
+<h2>Points of interrest</h2>
+* Challenge with the ECF partition: PC can have only one, but your USB key will have one, so if you update the linux running on the USB it will overwrite your LOCAL PC ECF partition making it incapable to boot :( solution is below 👇
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* USB key 16GB+
+* A PC so you can prepare the said USB key
+<h2>What you get</h2>
+* Bootable Linux on USB key
+* USB key has a Windows partition for file sharing
+* Linux OS kernel version is frozen to avoid ECF partition problem (See links below). You can update software, not kernel.
+<h1>How to create the Linux on a USB stick</h1>
+<h2>Step by step</h2>
+<h3>Part 1: install usable Linux on a stick</h3>
+This is based on below "Helpful sources" and customized with some other things:
+* Get ANOTHER USB key, call it INSTALLER and make it a Linux installer USB (get the img, sudo dd if of ...)
+* Now if you can, unplug all the HDD of your PC and then boot on that INSTALLER USB. If you can then skip next step, otherwise just do it.
+* gparted > remove the ECF flag of the EFI partition of your PC (screenshot the flags so you can put things back "as it was" after)
+* Plug the TARGET USB stick, and launch Linux install : trash all the existing data/partitions
+* On TARGET, create a 500MB **EFI System Partition**
+* On TARGET, create a root (/) partition EXT4
+* (optional) On TARGET, create a Windows NTFS partition to exchange data with Windows PCs easily later
+* Install and go take a coffee, a walk, a batch, another coffee, and then it should be done
+* If you changed your LOCAL PC partition settings, gparted > revert the changes
+* Done
+
+<h3>Part 2: freeze Kernel upgrades</h3>
+As explained in sources below, the linux runing on the stick will not know which EFI partition update when the kernel is updated, so it will update the one on your PC making it unbootable without the USB stick plugged in... yeah, no.<br/>
+Internet in its wisdom recommends to block the kernel updates:
+* **Pros**: no problem of "soft locking" your home PC mistakenly, simple to implement
+* **Cons**: you'll be stuck with an always-getting-older version of Linux, missing some important functional or security upgrades. Meaning you'll need to redo that same install procedure once in a while.
+<br/>
+**Conclusion**: let's go with locking the kernel. If you use it long, you'll want to move to Install linux on your PC. If you don't use often or give up, you can accept the risk & demerit most likely. So make sure the user of the system understand that it's a temporary solution only.<br/>
+<br/>
+<pre>
+sudo apt-mark hold linux-image-generic linux-headers-generic
+</pre>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+* [[https://linuxconfig.org/how-to-install-ubuntu-on-usb-stick]]
+* [[https://askubuntu.com/questions/938494/how-to-i-prevent-ubuntu-from-kernel-version-upgrade-and-notification]]
+* [[https://askubuntu.com/questions/678630/how-can-i-avoid-kernel-updates/678633#678633]]
+<h2>Inspiration</h2>

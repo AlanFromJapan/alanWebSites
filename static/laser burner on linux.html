@@ -1,9 +1,10 @@
-Bought myself a [[https://www.htpow.net/atomstack-p7-m30-laser-engraver| HTPow P7 M30]] laser burner and I'm doing the setup on **Ubuntu 22.04** so let me share my experience here, in case it helps you.
+<img src="/files/grblws-diag.jpg" align="right" width="300"/>Bought myself a [[https://www.htpow.net/atomstack-p7-m30-laser-engraver| HTPow P7 M30]] laser burner and I'm doing the setup on **Ubuntu 22.04** so let me share my experience here, in case it helps you.
 
 <h1>Setup</h1>
 <h2>Bill of materials</h2>
 * My laser burner [[https://www.htpow.net/atomstack-p7-m30-laser-engraver]]
 * A laptop on Ubuntu 22.04
+* **And to go further my** [[https://github.com/AlanFromJapan/GrblWebStreamer|GRBL WebStreamer application]] !
 
 <h2>Assembly</h2>
 My manual was in Japanese but clear enough so just [[https://www.htpow.net/index.php?route=download/download/download&download_id=20|RTFM]].<br/>
@@ -57,10 +58,16 @@ Run LightBurn, it won't find your burner anyway so make a generic GRBL, and when
 Now Device menu and import the settings from the machine, it will help correct whater you misinput at the GRBL device creation. 
 <h1>Softwares</h1>
 <h2>LightBurn (non-free)</h2>
-Seems the best for beginners, 30 days trial, but after that 8000kJPY/year ...
+Seems the best for beginners, 30 days trial, but after that 8,000JPY/year (~= 60USD/y) ... I ended up paying because it's the best of the market.
 * Official site [[https://lightburnsoftware.com/]]
 * Check [[https://www.youtube.com/watch?v=v3RDzOrlCTM|this official video]] for startup, in 10 minutes you get the laser burning something. Then check other videos for details.
 * Excellent first project video for a [[https://www.youtube.com/watch?v=ZPyIuLlcuIE|WiFi QR code]] 👉 Make a QR code with text <code>WIFI:S:<SSID>;T:<WPA|WEP|>;P:<password>;;</code> as [[https://qifi.org/|QiFi.org]] says.
+  <h2>GRBL WebStreamer</h2>
+Once you designed you have to execute and with a lightweight 5W laser that can take A LONG TIME. Like 1h or more if complex cuts of thick materials. You don't want your laptop stuck there, risking low battery or buffer underrun. So use a streamer that takes care of that.<br/>
+A Raspi Zero W connected via USB presents a web interface, so you can upload your job, frame it (see where it will be burnt), simulate or run it. Ans once done, sends you an alert. In the meanwhile, go so something else!<br/>
+ <img src="/files/grblws-diag.jpg" width="400"/><img src="/files/grblws-screenshot1.jpg" width="400"/>
+* All made in Python and Flask
+* Code: 👉　[[https://github.com/AlanFromJapan/GrblWebStreamer]] 👈
 <h2>LaserWeb4</h2>
 [[https://github.com/LaserWeb/LaserWeb4/wiki/1.3-Installation-on-Linux-(x86-only)]]
 <h2>kkengraver</h2>

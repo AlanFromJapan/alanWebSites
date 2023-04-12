@@ -1,25 +1,26 @@
-<span style="display:block;width:100%;height:auto;background:lightyellow;border:solid 1px goldenrod;text-align:center;">This version works and is simpler to setup/develop than original one that was using OpenCV.<br/>
+<span style="display:block;width:100%;height:auto;background:lightyellow;border:solid 1px goldenrod;text-align:center;">This version **works** and is simpler to setup/develop than original one that was using OpenCV. Check it [[https://github.com/AlanFromJapan/ipcampy.nocv|on GitHub]] (MASTER branch, not main)! <br/>
   It's [[Ipcampy]] if you want.</span><br />
 
-This is the fork of the [[ipCamPy]] project (that works by itself) BUT does **not** uses OpenCV that gave me nightmare to (fail to) install on a Raspberry Pi Zero.
+<a href="/files/ipcampy-screenshot1.jpg" target="_blank"><img src="/files/ipcampy-screenshot1.jpg" align="right" width="300"/></a>This is the fork of the [[ipCamPy]] project (that works by itself) BUT does **not** uses OpenCV that gave me nightmare to (fail to) install on a Raspberry Pi Zero. This is the main version I'm working on for now.
 
 <h1>Presentation</h1>
 <h2>Principle</h2>
 See [[ipCamPy]] project, but basically present a RTSP (IP Camera) stream flow as stills on a website. Therefore I won't have to give internet access to that suspicious webcam I bought on Amz.
 <h2>Points of interrest</h2>
 Drops the need of OpenCV (a pain to build on small Raspi Zero), and use regular [[https://pypi.org/project/Pillow/|Pillow]] (for image processing/saving) and [[https://pypi.org/project/av/|av]] FFmpeg binding lib to be able to read that stream H.264 from the camera via RTSP protocol. Both are standards and the underlying libraries are just an "apt install" away and do not require building for 14h on the row... <br/>
-Acquisition of an image will depend on the server running the app, but on my test we're talking about ~3 sec : connect to the camera, get the stream, take a still, save in memory as JPEG. Therefore I set the minimum the page allows as refresh rate to 6 sec. Should you need less, just at init connect to the stream and take a shot on request but I'm not sure how well the camera will handle having a perpetual client, or the raspi. This current method is slower and less efficient but more robust I think.<br/> 
+Acquisition of an image will depend on the server running the app, but on my test we're talking about ~3 sec on a [[raspi]] Zero or 1.7s on a [[Orange Pi]] 2: connect to the camera, get the stream, take a still, save in memory as JPEG and return to the client. Therefore I set the minimum the page allows as refresh rate to 5 sec. Should you need less, just at init connect to the stream and take a shot on request but I'm not sure how well the camera will handle having a perpetual client, or the raspi. This current method is slower and less efficient but more robust I think.<br/> 
 <br/>
 Fun thing, in fact it works better than the  OpenCV that was crashing or not updating once every few minutes. This one runs without issue in my (short) tests so far.
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
-* An IP Camera (Amz is your friend) that supports RTSP
-* Raspi
+* An number of IP Camera (Amz is your friend) that supports RTSP protocol which is most of the cheap ones
+* [[raspi|Raspberry Pi]] of any flavor, the Zero W does the work though you might want more muscle if you have more than one camera. I'm having it run on an [[Orange Pi]] 2 that was taking dust on my shelf.
 * A dynamic DNS ([[http://www.duckdns.org/]] is your friend 💛)
+* A SSL certificate ([[https://letsencrypt.org/]] is your friend 💛)
 <h2>Schematics</h2>
 <img src="/files/ipcampy_diags.png" />
 <h2>Source code</h2>
-On GitHub [[https://github.com/AlanFromJapan/ipcampy.nocv]] **Use the MASTER branch** not main.
+On GitHub [[https://github.com/AlanFromJapan/ipcampy.nocv]] **Use the <u>MASTER</u> branch** not main.
 <h2>Installation</h2>
 * Go somewhere on your server and <code>git clone -b master https://github.com/AlanFromJapan/ipcampy.nocv.git</code>
 * Run the //install-dependencies.sh//
