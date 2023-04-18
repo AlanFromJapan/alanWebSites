@@ -5,7 +5,7 @@ Enough rambling, down to business...<br/>
 <h2>Burn the iso on a USB</h2>
 <ol>
 * find the /dev/sdX of your USB key (mount -l)
-* run the magic command : <code>sudo dd bs=20M if=the-linux-iso.iso of=/dev/sdX</code> (no partition number!) (the bs block size parameter can be set to the least common M/s speed both input/output disk support
+* run the magic command : <code style="background-color:gold;">sudo dd bs=4M if=the-linux-iso.iso of=/dev/sdX conv=fsync status=progress</code> (no partition number!) (the bs block size parameter can be set to the least common M/s speed both input/output disk support
 * make sure to properly unmount the drive, to avoid missing pending writings
 * Then enable [[https://www.raspberrypi.org/documentation/configuration/wireless/headless.md|SSH and Wifi for headless]]
 * ssh default credentials are pi/raspberry

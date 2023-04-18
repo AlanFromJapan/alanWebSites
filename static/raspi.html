@@ -22,7 +22,7 @@ Official documentation : <a class="wiki_link_ext" href="http://elinux.org/R-Pi_H
 <h2>Install the OS image on SD card from Linux</h2>
 Get it at [[https://www.raspberrypi.org/downloads/raspbian/]] and then:
 <pre><code class="bash">
-sudo dd bs=20M if=retropie-xxxxxxxxxxx.img of=/dev/sde conv=fsync
+sudo dd bs=4M if=retropie-xxxxxxxxxxx.img of=/dev/sde conv=fsync status=progress
 </code></pre>
 To **enable the SSH from first boot** (meaning working directly headless), do that:
 * After copying, got to the /boot partition
