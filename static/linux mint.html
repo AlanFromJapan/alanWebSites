@@ -32,6 +32,10 @@ sudo apt-get install emacs-nox htop git
 </pre>
 
 <h2>Additional setup</h2>
+<h3>Cool bash prompt</h3>
+<code>export PS1="╔\[\033[38;5;6m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;202m\]\h\[$(tput sgr0)\]-\[$(tput sgr0)\]\[\033[38;5;3m\][\[$(tput sgr0)\]\[\033[38;5;6m\]\w\[$(tput sgr0)\]\[\033[38;5;3m\]]\[$(tput sgr0)\]\n╚═>\[$(tput sgr0)\]\[\033[38;5;14m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"</code><br/>
+<img src="/files/Screenshot_from_2023-04-26_08-09-43.png" /><br/>
+
 <h3>Using USB ports</h3>
 You need to be sudoer to use the usb ports :( Found the explanation [[http://stackoverflow.com/questions/5412727/avrisp-mkii-doesnt-work-with-avrdude-on-linux|here]]. Problem is **udev** that is acting a bit.
 * You need your user to be in the group //dialout//
