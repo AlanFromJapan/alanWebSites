@@ -27,23 +27,23 @@ March 2023: move to python3. Pretty sure I did that all years ago an never relea
 
 Mandatory
 * sudo apt-get install git python3 python3-pip
-* sudo pip3 install Flask
+* sudo python3 -m pip install flask
+
 Optional if you use the RPI and Led
 * sudo pip3 install futures
 * sudo pip3 install RPi.GPIO
 
 ### Install
 
-Make a user to run _webuser_ the website only, no login possible (_passwd -l webuser_), minimum rights.  
-Make a folder /use/local/website/electrogeek.PROD/  
-Make the owner of the folder _webuser_, he should be the only one with write access.  
-In that folder, as user _webuser_, do _git clone https://github.com/AlanFromJapan/alanWebSites.git ._  
-Rename and edit the _electrogeek.sample.ini_ as _electrogeek.ini_  
-If you don't run on a RPI, comment out all the RPI GPIO reference in the ledz.py  
-Edit the start/stop scripts to reflect the DEV or PROD you run.  
-Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : `iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  `
-
-NB: that rule won't be saved by default, unless you install some extra package on debian (`iptables-persistent`)
+1. Make a user to run _webuser_ the website only, no login possible (`passwd -l webuser`), minimum rights.  
+1. Make a folder `mkdir -p /use/local/website/electrogeek.PROD.3/`
+1. Make the owner of the folder _webuser_, he should be the only one with write access.  
+1. In that folder, as user _webuser_, do `git clone https://github.com/AlanFromJapan/alanWebSites.git .`
+1. **SWITCH TO THE "Python3" branch**: `git checkout python3`
+1. Rename and edit the _config.sample.py_ as _config.py_  
+1. Edit the start/stop scripts to reflect the DEV or PROD you run.  
+1. Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : `iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  `
+1. NB: that rule won't be saved by default, unless you install some extra package on debian (`apt install iptables-persistent`)
 
 ### Troubleshooting
 
