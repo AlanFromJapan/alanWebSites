@@ -12,6 +12,12 @@ You messed up, nothing works... happens. My reason #1 to use a VCS, so you can m
 git reset --hard
 git clean -f -d
 </pre>
+<h2>Have git remember your credentials</h2>
+Ok there are better and safer ways, just let me be.
+<pre>
+#store my credentials in a clear text file (hum hum) in my home folder/.git-credentials
+git config --global credential.helper store
+</pre>
 <h1>HOWTOs</h1>
 <h2>Migrate a folder with its history to another repository</h2>
 I had to do that because I put everything (C#, python, microcontroller, eagle,...) files in one repository which obviously became too big and kind a messy. So I decided to move out some chuncks of it outside to a dedicated smaller repo (ie: eagle files in May2020). This is how I did it.<br/>

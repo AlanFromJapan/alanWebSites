@@ -1,0 +1,85 @@
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="/files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+**RPGDice** a small Gameboy "game" to roll RPG dices. In case you don't have 8 sided dices BUT you have a gameboy and this game... 
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Pick a dice and roll it!
+<h2>Points of interrest</h2>
+Not much, it was a long time I coded stuff, this was the occasion.
+<h1>Implementation</h1>
+<h2>Source code</h2>
+[[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/RPGDice|On GitHub.]]
+<h1>Pictures</h1>
+<img src="https://github.com/AlanFromJapan/Gameboy/blob/master/Games/RPGDice/resources/rpgdices_splash.png?raw=True" alt="splash screen"/>
+<img src="https://github.com/AlanFromJapan/Gameboy/blob/master/Games/RPGDice/resources/screenshot-ingame.png?raw=True" />
+
+<h2>Play it</h2>
+                        <button id="emulation-start-en" class="btn-big"><i class="fa fa-gamepad fa-lg"></i> Play Online - start emulator!</button> ([[https://github.com/nakardo/node-gameboy|Powered by node-gameboy]]!)
+
+        <div id="emulation">
+            <canvas width="320" height="288" id="canvas-emu" style="background:lightgrey;"></canvas>
+            <p>
+                <strong>D-PAD: </strong> Arrow keys<br />
+                <strong>A:</strong> G —
+                <strong>B:</strong> B<br />
+                <strong>START:</strong> H —
+                <strong>SELECT:</strong> N
+            </p>
+            <script src="/gb/gameboy.min.js"></script>
+            <script>
+                window.addEventListener("load", function() {
+                    var ROM_EN = "gb/rpgdice.gb";
+
+                    var eCanvas = document.getElementById("canvas-emu");
+                    var eEmulation = document.getElementById("emulation");
+                    var eEmulationStartEn = document.getElementById("emulation-start-en");
+
+                    var gameboy;
+                    var romReader;
+
+                    function emulationInit() {
+                        GameboyJS.Screen.colors = [
+                            [0xE0, 0xF8, 0xD0],
+                            [0x88, 0xC0, 0x70],
+                            [0x34, 0x68, 0x56],
+                            [0x08, 0x18, 0x20],
+                        ];
+
+                        romReader = new GameboyJS.RomAjaxReader();
+                        gameboy = new GameboyJS.Gameboy(eCanvas, {
+                            romReaders: [ romReader ],
+                            zoom: 2,
+                        });
+                    }
+
+                    function emulationOpen(rom_url) {
+                        if (!gameboy) {
+                            emulationInit();
+                        }
+                        eEmulation.style.display = "block";
+                        romReader.loadFromUrl(rom_url);
+                        document.addEventListener("keydown", _preventDefault);
+                        document.addEventListener("keyup", _preventDefault);
+                    }
+
+                    function emulationClose() {
+                        eEmulation.style.display = "none";
+                        document.removeEventListener("keydown", _preventDefault);
+                        document.removeEventListener("keyup", _preventDefault);
+                        gameboy.pause();
+                    }
+
+                    function _preventDefault(event) {
+                        event.preventDefault();
+                    }
+
+                    eEmulationStartEn.onclick = emulationOpen.bind(null, ROM_EN);
+                });
+
+            </script>
+        </div>
+
+
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>

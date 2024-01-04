@@ -15,7 +15,7 @@ Among the multiple options that exist I see two, and I will most likely try them
 <h3 id="toc2"><a name="Summary-How to-(1) Hacking the screen signal"></a> (1) Hacking the screen signal </h3>
 That might sound a bit convoluted but even without a cartridge the gameboy shows the black boc and the does the da-ling sound. Means cpu runs, does a bit of ROM magic and what we want: it displays stuff on the screen. Means it draws the screen at 60Hz! There are a few signals involved, but basically:<br />
 <ul><li>Data0 and Data1: because each pixel is a 4 color pixel</li><li>Clock: for the pace</li><li>Horizsyn: when you change line</li><li>Vertsyn: when you change page</li></ul>Talking about the protocole there is one link that talks about it <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2009/11/23/how-to-patch-your-dmg-to-use-a-biverted-palette/" rel="nofollow">here</a>. I will just hijack the data lines and inject my video signal.<br />
-<h3 id="toc3"><a name="Summary-How to-(2) Making my own &quot;game&quot;"></a> (2) Making my own &quot;game&quot; </h3>
+<h3 id="toc3"><a name="Summary-How to-(2) Making my own "game""></a> (2) Making my own "game" </h3>
 Hardware is doable, I saw some samples. You need a pcb with the correct padding (can be found on internet or made with eagle), put an eeprom on it (like <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2014/05/14/furrteks-airaki-quick-game-review-and-rom-dump-download/#more-451" rel="nofollow">here</a>), setup a tool chain and uploader and write a small program. That looks doable, but requires much more preparation than the bitbanging approach of injecting signal.<br />
 <h1 id="toc4"><a name="x[Option 1] Hacking the screen signal"></a> [Option 1] Hacking the screen signal </h1>
 <h2 id="toc5"><a name="x[Option 1] Hacking the screen signal-Theory"></a> Theory </h2>
@@ -99,20 +99,46 @@ One image in 4 levels of gray is  5,760 bytes.<br />
 Maybe this RAM chip: 300 JPY for 5 of them holding 256kb <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-01461/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-01461/</a><br />
 <br />
 <h2 id="toc11"><a name="x[Option 1] Hacking the screen signal-Software"></a> Software </h2>
-Let's work with interrupts: clock, hsync, vsync. What crystal speed required? We saw earlier it needs 1.5 Mhz min, so let's go with 16Mhz and we'll check how to optimize later. Main point here is to go with interrupts so that the program can do other stuffs while it still paints the screen in the background. We could wire the buttons, the sound and even make games (everybody catches the irony of such a convoluted solution just to avoid writing a Gameboy game?)... so we'll go with a simple &quot;read the RTC&quot; as a start. We'll need also to generate the image in memory and store it there.<br />
+Let's work with interrupts: clock, hsync, vsync. What crystal speed required? We saw earlier it needs 1.5 Mhz min, so let's go with 16Mhz and we'll check how to optimize later. Main point here is to go with interrupts so that the program can do other stuffs while it still paints the screen in the background. We could wire the buttons, the sound and even make games (everybody catches the irony of such a convoluted solution just to avoid writing a Gameboy game?)... so we'll go with a simple "read the RTC" as a start. We'll need also to generate the image in memory and store it there.<br />
 <br />
 [After theory now experimentation]<br />
 ... and that's where things go south. You saw it coming? Not me, though I should have had since I had the same problem with my <a class="wiki_link" href="Around%20a%20SNES.html">SNES cabinet</a> when I emulated the controllers: I don't have enough cycles! <br />
-We need to spit pixels at 1.5 MHz, let's say 2 for the calculation. CPU runs at 16 MHz so means I have a luxurious 8 cycle per pixel... FYI just going IN and OUT of an interrupt if 4 cycles, leaving 4 cycles per pixel... that's very short. I tried a hybrid version that is an interrupt for the line start and after is just timed as fast as possible, I get an image but &quot;stretched&quot; horizontally. Of course, I can't keep up so the screen reads many time the same data on the D0/D1 lines.<br />
+We need to spit pixels at 1.5 MHz, let's say 2 for the calculation. CPU runs at 16 MHz so means I have a luxurious 8 cycle per pixel... FYI just going IN and OUT of an interrupt if 4 cycles, leaving 4 cycles per pixel... that's very short. I tried a hybrid version that is an interrupt for the line start and after is just timed as fast as possible, I get an image but "stretched" horizontally. Of course, I can't keep up so the screen reads many time the same data on the D0/D1 lines.<br />
 Not 100% dead end, but a big bump though. <br />
 <br />
 <br />
 TODO code on google code<br />
 <br />
-<h1 id="toc12"><a name="x[Option 2] Making my own game"></a> [Option 2] Making my own game </h1>
+<h1 id="toc12"><a name="x[Option 2] Making my own game"></a> [Option 2] Making custom cartridge with RTC </h1>
 <em>See dedicated project : <a class="wiki_link" href="Gameboy%20homebrew%20cartridge.html">Gameboy homebrew cartridge</a>.</em><br />
+      But I'll keep some memo here. So here's the idea:
+* Sticking with 32k vanilla program (no fiddling with MBC chips)
+* Keep the program in the low 16k of the ROM
+* Capture a call to ANY high address > 16k and reply the current time. No logic, any address > 16k reply the time. Ergo the uC must keep the latest time on one of its 8bit port.
+To do that the idea is this:
+* Data bus is connected to a multiplexer non-inverter (two 4bits [[https://www.ti.com/product/CD74HC257|74HC257]]) that can show the ROM data bus or the uC "time" bus
+* The multiplexer switches depending on the address (like A15=H or a simple AND combo)
+* The uC checks the RTC every sec, get latest time, shows it on its 8bit "time" data port (QUESTION: HH:MM on 8bit num?)
+* According below chronograph there's 3 cycles for data read once bus is set (250ns*3) and 74HC257 has a setup time (input pins to output) of ~30ns at 25C/5V so no worries there.
+<img src="/files/gb-cart-read-timechart.png" alt="https://github.com/Gekkio/gb-ctr" /><br/>
+Taken from [[https://github.com/Gekkio/gb-ctr|Game Boy: Complete Technical Reference]] (Annex C)<br/>
+      <h2>BOM</h2>
+* 32k ROM     
+* 74HC257 (SOIC) x2
+* RTC chip (SMT) [TBD]
+* Microcontroller ATmel SMT [TBD]
+* Battery
+* AND circuit or transistor if simple logic for multiplexer switching logic (optional)
+ 
 <br />
-<h1 id="toc13"><a name="Links"></a> Links </h1>
+<h2 id="toc13"><a name="Links"></a> Links </h2>
+* [[https://www.insidegadgets.com/2018/04/18/building-a-2mb-mbc5-gameboy-cart-part-1-cpld-as-the-mbc-and-adding-flash-as-our-rom/|Different timing, address logic]]
+* [[https://gbdev.gg8.se/forums/viewtopic.php?pid=3625#p3625|read this, ignore old me posts below]]
+      
+
+<h1>[Option 3] Making game only and using Serial communication </h1>
+Just got the idea now, December 2023, would you believe it? I could just make a serial device that would emulate a GB and return the time anytime asked. Nothing to change on the GB hardware or cartridge, or maybe solder a couple wires if I don't find GB serial connectors to sacrifice.
+     
 <h2 id="toc14"><a name="Links-Internal"></a> Internal </h2>
 <ul><li><a class="wiki_link" href="Gameboy%20screen.html">Gameboy screen</a> has details about the technicalities around the gameboy screen (hardware wise)</li><li><a class="wiki_link" href="Gameboy%20guts%20and%20programming.html">Gameboy guts and programming</a> in case I change my mind and just make a custom cartridge.</li></ul><h2 id="toc15"><a name="Links-External"></a> External </h2>
 <ul><li><strong>Gameboy Pandocs <a class="wiki_link_ext" href="http://problemkaputt.de/pandocs.htm" rel="nofollow">http://problemkaputt.de/pandocs.htm</a></strong></li></ul>Hackaday :<br />
