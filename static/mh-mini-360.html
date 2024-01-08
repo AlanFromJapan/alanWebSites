@@ -1,0 +1,25 @@
+<img src="/files/Screenshot_from_2024-01-08_00-30-54.png" align="right"/>Memo about the cheapo buck converter **MH-MINI-360**.
+
+<h1>Presentation</h1>
+<h2>In a nutshell</h2>
+<h3>Pros 😆</h3>
+* It's cheap.
+<h3>Cons　😢</h3> 
+* It has a quiescent consumption of up to 60mA (for doing nothing) which is BAD. So no portable / battery powered project with this.
+* The adjustable resistor is VERY sensitive (it's 220k and has a swing of half a turn), and will drift
+<h2>Output formula</h2>
+In case you want to replace the adjustable resistor with a fixed one, here is the formula:<br/>
+<strong>👉 Vout = 0.925*(R1 + R2)/R2</strong><br/>
+If you fix R1 as 8.2k (the resistor is a teeny tiny puppy labelled "822"), then formula becomes: <strong>R1 = (8865* Vout - 8200)</strong><br/>
+<br/>
+See the truth table in yellow with fixed R2:<br/>
+<img src="/files/Screenshot_from_2024-01-08_00-20-17.png" /><br/>
+It's so much nicer if R2 would have been 10k...<br/>
+<br/>
+[[https://www.omnicalculator.com/physics/parallel-resistor|OmniCalculator]] tells me that with a 33k and 100k resistor (that are in my resistor box) in parallel, I get 25k resistor equivalent, meaning 3.75 V on paper. Close enough.
+
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+* The chip's [[https://cdn-shop.adafruit.com/datasheets/MP2307_r1.9.pdf|datasheet]]
+* The module [[https://www.matts-electronics.com/wp-content/uploads/2018/06/MINI-360.pdf|datasheet]]
+* VERY extensive review at [[https://goughlui.com/2018/07/04/tested-mini-360-mp2307-based-3a-buck-converter-module/|Dr Gough's]]
