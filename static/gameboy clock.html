@@ -138,7 +138,12 @@ Taken from [[https://github.com/Gekkio/gb-ctr|Game Boy: Complete Technical Refer
 
 <h1>[Option 3] Making game only and using Serial communication </h1>
 Just got the idea now, December 2023, would you believe it? I could just make a serial device that would emulate a GB and return the time anytime asked. Nothing to change on the GB hardware or cartridge, or maybe solder a couple wires if I don't find GB serial connectors to sacrifice.
-     
+      <h2>Code</h2>
+      For the GB side: see [[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/GameBoyClock|on Github]]
+* **GameBoyClock-emu**: small program that can send/receive on serial. Will be useful in the debug/development phase.
+* **GameBoyClock**: the program that will read serial and show time
+      
+      <H1>Misc pointers</H1>
 <h2 id="toc14"><a name="Links-Internal"></a> Internal </h2>
 <ul><li><a class="wiki_link" href="Gameboy%20screen.html">Gameboy screen</a> has details about the technicalities around the gameboy screen (hardware wise)</li><li><a class="wiki_link" href="Gameboy%20guts%20and%20programming.html">Gameboy guts and programming</a> in case I change my mind and just make a custom cartridge.</li></ul><h2 id="toc15"><a name="Links-External"></a> External </h2>
 <ul><li><strong>Gameboy Pandocs <a class="wiki_link_ext" href="http://problemkaputt.de/pandocs.htm" rel="nofollow">http://problemkaputt.de/pandocs.htm</a></strong></li></ul>Hackaday :<br />
