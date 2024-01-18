@@ -1,0 +1,36 @@
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="/files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+
+<img src="/files/20240118_220624.jpg" align="right" width="200"/>Bought a bunch of GameBoy/NDS last year 2023, and started fixing a few for the practice and for the fun. One must have been stored in the dirt or something approaching, how full of dirt (no better word) there was even inside.<br/>
+I managed to make it partially work again, here's what I did (Jan2024).
+
+<h1>Presentation</h1>
+<h2>Initial status</h2>
+* VERY dirty, like old sawdust inside and dirty as hell outside
+* Battery dead (measures 0 volt)
+* GBA port dead (partially covered in that beautiful blue copper oxide)
+* NDS port ok!
+* Screen has some dead LIGHT rows (a few on each screen) but image pixels are ok, so usable. Touch is ok.
+* Power port oxydized
+<h2>Action plan</h2>
+Battery is dead, not planning to spend on a new one. But problem is that NDS will NOT boot on wallwart power if it doesn't detect a battery (and a healthy one please, less than 3.6v undercharge protection will kick in). Considering the power port was goneski, and that seeing its overall shape it will be "for practice" only, I decided to make it a wallwart only model by simulating a battery (5v to 3.7v buck).<br/>
+<br/>
+<ol>
+* Bye battery
+* Desoldered the old dead power connector, and then 2 ferrites (wasted space)
+* Desoldered the battery connector
+* Stuck a DC-DC buck converter (a cheapo [[MH-MINI-360]]) with tape
+* Stuck a USB-C female connector module where the power was with LOTS of (way too much) epoxy
+* Dremeled a hole where the battery was in the back cover to allow for the buck converter and cables
+* Dremeled out all the excess epoxy and USB-C module board so I could put back the back cover.
+</ol>
+<h1>Pictures</h1>
+<img src="/files/20240105_230122.jpg" alt="Before butchering it" /><br/>
+Power connector, ferrites x2, battery connector: bye bye.<br/>
+<img src="/files/20240117_224345.jpg" /><br/>
+With the buck converter.<br/>
+<img src="/files/20240118_135456.jpg" /><br/>
+Had to dremel the sh*t of the USB-C board to let the lid close, but in the end it did.<br/>
+<img src="/files/20240118_212929.jpg" /><br/>
+WIth the back cover installed (the battery covers all that)<br/>
+<img src="/files/20240118_220624.jpg" /><br/>
+It works!
