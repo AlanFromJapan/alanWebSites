@@ -138,6 +138,23 @@ Taken from [[https://github.com/Gekkio/gb-ctr|Game Boy: Complete Technical Refer
 
 <h1 id="SerialMode">[Option 3] Making game only and using Serial communication </h1>
 Just got the idea now, December 2023, would you believe it? I could just make a serial device that would emulate a GB and return the time anytime asked. Nothing to change on the GB hardware or cartridge, or maybe solder a couple wires if I don't find GB serial connectors to sacrifice.
+      <h2>Hardware</h2>
+      GB Color/DMG Link port pinout ([[https://westm.co.uk/arduino-game-boy-printer-emulator/|source]]):
+      <pre>
+Gameboy Original/Color Link Cable Pinout
+ __________
+|  6  4  2 |
+ \_5__3__1_/ (looking at the cable)
+ 
+Arduino Pin      Gameboy Link Pin
+unused           Pin 1 : 5.0V
+D4               Pin 2 : Serial OUTPUT
+D3               Pin 3 : Serial INPUT
+unused           Pin 4 : Serial Data
+D2               Pin 5 : Serial Clock (Interrupt)
+GND              Pin 6 : GND (Attach to GND Pin)
+</pre>      
+      
       <h2>Code</h2>
       For the GB side: see [[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/GameBoyClock|on Github]]
 * **GameBoyClock-emu**: small program that can send/receive on serial. Will be useful in the debug/development phase.
