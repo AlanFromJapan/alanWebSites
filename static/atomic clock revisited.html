@@ -1,0 +1,26 @@
+Trying again to make an [[Atomic Clock]] but with a [[https://www.microsemi.com/product-directory/embedded-clocks-frequency-references/3961-sa-22c|Microsemi SA 22c]].
+
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+<h2>Build log and challenges</h2>
+<h3>Connector</h3>
+Ok let's start with problems from inception: the connector. The kind vendor sent me a used one (looking good) but it's a rare piece, a **SAMTEC TMMH-109-01-G-DV-ES-A 2 X 9 shrouded header**. And with a 2mm pitch, just to make things funnier.<br/>
+I ended up making a custom board for it that will transform that precious SMD connector in a regular 2.54 pitch connector.<br/>
+<br/>
+Board design (Eagle & Gerber) on [[https://github.com/AlanFromJapan/pcb-design/tree/master/SA22C-connector|GitHub]].<br/>
+<img src="/files/microsemi-sa22c-board.png" width="400" />
+<h3>Power</h3>
+That thing will need to be fed, a 15v and a 5v, at 18.5w max. So bought a nice 15V 3Amp power pack that will be largely sufficient. Now need to make a nice 5v out of it.<br/>
+I will try to use the 2 steps technique to get a nice/ripple free 5v: use a high frequency switching mini board to get 15V to say 7-8V and then a LM7805 to reduce to 5v. The 2 steps will limit the amount of energy wasted as heat by the LM7805.
+<h3>Heat</h3>
+The thing is going to get hot to control the working temp of its scientific package. So I need to stick a fat aluminium radiator on it, but luckily aliexpress is here♡.<br/>
+<h2>Points of interrest</h2>
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+<h2>Schematics</h2>
+<h2>Source code</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>

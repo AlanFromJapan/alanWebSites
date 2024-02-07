@@ -22,6 +22,16 @@
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
 
+  
+    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-02-07 - Power source</span><br />  
+  To avoid pluging my bench power supply (loud) I made a small power board: a Li-Ion battery from an old laptop, charger/protection module, step up module. Works fine but holly molly the output is noisy, like 1.6v noise P2P! Luckily a little 0.1uF cap that was lying on the desk made it more reasonable (~= 600mV P2P). Remember to use caps to filter high frequency noise!<br/>
+  <img src="/files/20240207_211946.jpg" /><br/>
+  <img src="/files/power_ripple_20240207_211921.jpg" /><br/>
+
+    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-02-06 - Atomic Clock restarted</span><br />  
+  So yes I have a problem with clocks. Whatever. Years ago I tried to make an [[Atomic clock]] with a Rubidium Standard but I couldn't get it to work.<br/>
+  Now trying again with another Rubidium Standard that seems simpler -Microsemi SA 22c- and that I'm sure works (the auction vendor showed pictures): so let's try again [[Atomic Clock Revisited]].
+  
     <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-01-29 - Gameboy Clock restarted</span><br />  
   I restarted on that project that originally drove me to GB dev like ... 10 years ago? I side track a lot, I know. So after meeting [[https://mdagois.gumroad.com/|Maximilien Dagois]] who works the other side of the street and have common friends with me (check his cool book on GB dev!!), I got the idea to not use a custom cartridge (that will be for next decade) but use a Serial connection or "Game Link" cable. Which allows to read/write data a bit at a time in a serial fashion.<br/>
   So I pulled a donnor half dead gameboy and an old board with a RTC and an Atmega ([[WordClock]] FTW) and ... it didn't work. I spent the week (meaning 4 hours spread over a week) to understand that the DS3231 had a failed soldered pad, fixed it with flux, heat and love, and it's back to life! Now on to the second part: connecting it to the GB serial port. Hardwired for now, I'll snip snip a donnor cable later. <br/>
