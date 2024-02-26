@@ -1,0 +1,43 @@
+<img src="/files/20240226_000639.jpg" align="right" width="300"/>Making PCB at home is not that hard, and there's many ways to. Here's my experiments and results
+
+<h1>Laser engrave masking technique</h1>
+<h2>Principle</h2>
+Apply a mask to your blank PCB (paint) and remove the part to etch-out with [[laser burner on linux|your low-power laser]].
+<h2>Bill of materials</h2>
+* Blank PCB
+* Can of black paint (mate if possible)
+* IPA
+* triple-zero iron wool
+* Ferric Chloride
+* gloves, goggles, etc
+<h2>Procedure</h2>
+<h3>PART 1 : PREPARATION</h3>
+Take your PCB, rub them thoroughly with iron wool until they shine. Then give them a nice rub-rub with IPA to remove dust and grime. Then don't touch them anymore with your greasy fingers.<br/>
+Then give them a good layer of canned black paint (the mater the better). And then let it dry, the drier the better so wait a couple days to be on the safest side...
+<h3>PART 2 : PCB design</h3>
+Do your design normally, but follow the below rules (using Eagle):
+* Limit yourself to **single side**. The less vias you have the less you'll have to wire on the back.
+* Vias: default are small, make them bigger (1.5)
+* DRC Rules - Clearance: set to **25mil** for all the **Different signals (all the wire only)**
+* DRC Rules - Sizes: set minimum width at 0.5mm. It's fat but that is a minimum to ensure the wire is still here post etching.
+<h3>PART 3 : PCB design transfer</h3>
+Using Eagle and Lightburn:
+* From Eagle export top layer + holes to image in monochrome (500DPI min)
+* Import the image to Lightburn and adjust the size
+* Burn settings: 15mm/s at 95%
+<h3>PART 4 : Cleanup</h3>
+* With **hot** water + **soap** (important) remove the remaining the burnt paint
+* Wash GENTLY to not remove the rest of the paint mask
+* Dry, then clean with some IPA and tissue. Important to ensure a good etching later!
+<h3>PART 5 : Etching</h3>
+Be safe, goggles, gloves, aeration (or do it outside) etc... Ferric Chloride is no joke. <br/>
+Do not touch the board masking paint: it's not gone but minutes in acid made it easy to rub with your fingers: just touch the sides with non-metallic tools (lesson learnt the hard way).
+* Use 100% Ferric Chloride (undiluted)
+* Warm your solution to 40degrees (bain marie in closed container)
+* Drop the board inside and with plastic/wood agitators, raise/lower the board to force some fresh solution. Ferric Chloride is quite siruppy and your contribution is needed.
+* Depending on size and freshness of your solution, it might take 10 good minutes or more
+* When all the copper is gone (check by transparency) then rinse the board thoroughly with water
+<h3>PART 6: Final Cleanup </h3>
+* Clean with water thoroughly
+* Remove the remaining mask paint with steel wool and elbow grease (go easy and don't ruin what you etched)
+* Finish cleanup with IPA and clean tissue
