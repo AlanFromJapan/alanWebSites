@@ -12,11 +12,124 @@
 <br />
 <h2 id="toc1"><a name="Summary-How to"></a> How to </h2>
 Among the multiple options that exist I see two, and I will most likely try them in the following order:<br />
-<h3 id="toc2"><a name="Summary-How to-(1) Hacking the screen signal"></a> (1) Hacking the screen signal </h3>
+      
+<h3 id="toc2"><a name="Summary-How to-(1) Hacking the screen signal"></a> (1) Hacking the screen signal <img src="/files/jaugercancel.gif" alt="jaugercancel.gif" title="jaugercancel.gif" /></h3>
 That might sound a bit convoluted but even without a cartridge the gameboy shows the black boc and the does the da-ling sound. Means cpu runs, does a bit of ROM magic and what we want: it displays stuff on the screen. Means it draws the screen at 60Hz! There are a few signals involved, but basically:<br />
 <ul><li>Data0 and Data1: because each pixel is a 4 color pixel</li><li>Clock: for the pace</li><li>Horizsyn: when you change line</li><li>Vertsyn: when you change page</li></ul>Talking about the protocole there is one link that talks about it <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2009/11/23/how-to-patch-your-dmg-to-use-a-biverted-palette/" rel="nofollow">here</a>. I will just hijack the data lines and inject my video signal.<br />
-<h3 id="toc3"><a name="Summary-How to-(2) Making my own "game""></a> (2) Making my own "game" </h3>
+* **👉 Spoiler verdict:** lots of soldering, not even a GB, need high clock speed... not what I want.<br/>
+      <br/>
+      
+<h3 id="toc3"><a name="Summary-How to-(2) Making my own "game""></a> (2) Making my own "game cartridge" <img src="/files/jaugercancel.gif" alt="jaugercancel.gif" title="jaugercancel.gif" /></h3>
 Hardware is doable, I saw some samples. You need a pcb with the correct padding (can be found on internet or made with eagle), put an eeprom on it (like <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2014/05/14/furrteks-airaki-quick-game-review-and-rom-dump-download/#more-451" rel="nofollow">here</a>), setup a tool chain and uploader and write a small program. That looks doable, but requires much more preparation than the bitbanging approach of injecting signal.<br />
+* **👉 Spoiler verdict:** doable but would need a bit more of prototyping... not saying no, but later maybe?<br/>
+      <br/>
+
+            
+<h3 id="toc3"><a name="Summary-How to-(3) Use the Link Serial port"></a> (3) Use the link serial port [[50%]]</h3>
+      Got the idea after reading the book of <a href="https://mdagois.gumroad.com/">Maximilien Dagois</a> late 2023 to "simply" use the Link port, which is a Serial port (SPI). 
+* **👉 Spoiler verdict:** that is the one that worked! See below...<br/>
+      <br/>
+      <br />
+
+<!-- ================================================================================================= -->      
+<!-- ===                                  OPTION 3 - Link cable                                    === -->      
+<!-- ================================================================================================= -->      
+      
+<h1 id="SerialMode">[Option 3] Making game only and using Serial communication </h1>
+Just got the idea now, December 2023, would you believe it? I could just make a serial device that would emulate a GB and return the time anytime asked. Nothing to change on the GB hardware or cartridge, or maybe solder a couple wires if I don't find GB serial connectors to sacrifice.
+      <h2>Hardware</h2>
+      GB Color/DMG Link port pinout ([[https://westm.co.uk/arduino-game-boy-printer-emulator/|source]]):
+<table>
+  <tr>
+    <td>
+      <pre>
+Gameboy Original/Color Link Cable Pinout
+ __________
+|  6  4  2 |
+ \_5__3__1_/ (looking at the cable)
+ 
+Arduino Pin      Gameboy Link Pin
+unused           Pin 1 : 5.0V
+D4               Pin 2 : Serial OUTPUT
+D3               Pin 3 : Serial INPUT
+unused           Pin 4 : Serial Data
+D2               Pin 5 : Serial Clock (Interrupt)
+GND              Pin 6 : GND (Attach to GND Pin)
+</pre>      
+    </td>
+    <td>
+      <img src="/files/GB-DMG-Serial-PCB.jpg" width="400" /><br/>
+      //Pinout of the connector on a DMG PCB//
+    </td>
+  </tr>
+</table>
+<br/>
+      <img src="/files/GBclock-dev-setup-20240207.jpg" /><br/>
+      //My development setup//<br/>
+      <h2>Design</h2>
+      <img src="/files/GBClock_schema_ideas.jpg" />
+      <h2>Code</h2>
+      All is split in 3 different repos: the GB "game" code, the PCB of the link port device, and the microcontroller code for that board.
+<table style="border: solid 1px gray;">
+  <tr>
+    <td>
+      **Gameboy code** 👉 see [[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/GameBoyClock|on Github (GB code)]]
+* //GameBoyClock-emu//: small program that can send/receive on serial. Will be useful in the debug/development phase.
+* //GameBoyClock//: the program that will read serial and show time
+    </td>
+    <td style="background:whitesmoke;">
+	**Microcontroller code** is in another dedicated repo [[https://github.com/AlanFromJapan/GameboyClock|on GitHub (MCU code)]].<br/>
+    </td>
+    <td  style="background:gray;">
+      **PCB board** is with the other PCB designs also [[https://github.com/AlanFromJapan/pcb-design.git|on GitHub (PCB)]]
+    </td>
+  </tr>
+      </table>
+      <h2>Helpful links</h2>
+* [[https://github.com/mofosyne/arduino-gameboy-printer-emulator]]
+* [[https://blog.gbplay.io/2021/05/29/Connecting-to-a-Game-Boy-Link-Cable-From-a-PC.html]]
+* [[https://blog.gbplay.io/2021/05/10/An-8-Bit-Idea_The-Internet-of-Game-Boys.html]]    
+* [[https://github.com/Raphael-Boichot/PC-to-Game-Boy-Printer-interface]]
+
+      <hr/>
+      <hr/>
+<!-- ================================================================================================= -->      
+<!-- ===                                  OPTION 2 - Cartridge                                     === -->      
+<!-- ================================================================================================= -->      
+      
+      <h1 id="toc12"><a name="x[Option 2] Making my own cartridge"></a> [Option 2] Making custom cartridge with RTC </h1>
+<em>See dedicated project : <a class="wiki_link" href="Gameboy%20homebrew%20cartridge.html">Gameboy homebrew cartridge</a>.</em><br />
+      But I'll keep some memo here. So here's the idea:
+* Sticking with 32k vanilla program (no fiddling with MBC chips)
+* Keep the program in the low 16k of the ROM
+* Capture a call to ANY high address > 16k and reply the current time. No logic, any address > 16k reply the time. Ergo the uC must keep the latest time on one of its 8bit port.
+To do that the idea is this:
+* Data bus is connected to a multiplexer non-inverter (two 4bits [[https://www.ti.com/product/CD74HC257|74HC257]]) that can show the ROM data bus or the uC "time" bus
+* The multiplexer switches depending on the address (like A15=H or a simple AND combo)
+* The uC checks the RTC every sec, get latest time, shows it on its 8bit "time" data port (QUESTION: HH:MM on 8bit num?)
+* According below chronograph there's 3 cycles for data read once bus is set (250ns*3) and 74HC257 has a setup time (input pins to output) of ~30ns at 25C/5V so no worries there.
+<img src="/files/gb-cart-read-timechart.png" alt="https://github.com/Gekkio/gb-ctr" /><br/>
+Taken from [[https://github.com/Gekkio/gb-ctr|Game Boy: Complete Technical Reference]] (Annex C)<br/>
+      <h2>BOM</h2>
+* 32k ROM     
+* 74HC257 (SOIC) x2
+* RTC chip (SMT) [TBD]
+* Microcontroller ATmel SMT [TBD]
+* Battery
+* AND circuit or transistor if simple logic for multiplexer switching logic (optional)
+ 
+<br />
+<h2 id="toc13"><a name="Links"></a> Links </h2>
+* [[https://www.insidegadgets.com/2018/04/18/building-a-2mb-mbc5-gameboy-cart-part-1-cpld-as-the-mbc-and-adding-flash-as-our-rom/|Different timing, address logic]]
+* [[https://gbdev.gg8.se/forums/viewtopic.php?pid=3625#p3625|read this, ignore old me posts below]]
+      
+      <hr/>
+      <hr/>
+<!-- ================================================================================================= -->      
+<!-- ===                                  OPTION 1 - LCD                                           === -->      
+<!-- ================================================================================================= -->      
+
+      
 <h1 id="toc4"><a name="x[Option 1] Hacking the screen signal"></a> [Option 1] Hacking the screen signal </h1>
 <h2 id="toc5"><a name="x[Option 1] Hacking the screen signal-Theory"></a> Theory </h2>
 Invaluable resource : <a class="wiki_link_ext" href="https://flashingleds.wordpress.com/2010/10/26/intercepting-the-gameboy-lcd/" rel="nofollow">https://flashingleds.wordpress.com/2010/10/26/intercepting-the-gameboy-lcd/</a><br />
@@ -85,11 +198,12 @@ Some other guys who did again (so much for my hoped originality):<br />
 (The connector for the screen ribbon is <a class="wiki_link_ext" href="http://jp.rs-online.com/web/p/products/6883246/" rel="nofollow" target="_blank">this one</a>)<br />
 <ul><li>Cut <strong>carefully</strong> the data0 and data1 lines (add image here), and get 4 wires : 2 original ins from the CPU, 2 outs to the screen</li><li>Solder wires to get the clock, vsync an hsync signals (should be all for now)</li><li>Redirect all the signal outside the GB for the time being and avoid stress on the connectors. I will be easier to connect to the development display module.</li></ul><img src="files/gameboy_pins_timing1.PNG" alt="gameboy_pins_timing1.PNG" title="gameboy_pins_timing1.PNG" /><br />
 <em>Sample of <span style="color: #ff0000;">Data1</span>, <span style="color: #ff8c00;">Data0</span>, <span style="color: #ffd600;">Clock </span>and <span style="color: #008000;">hSync</span></em><br />
-<img src="files/gbscreen_vsync.PNG" alt="gbscreen_vsync.PNG" title="gbscreen_vsync.PNG" /><br />
+<img src="/files/gbscreen_vsync.PNG" alt="gbscreen_vsync.PNG" title="gbscreen_vsync.PNG" width="1024" /><br />
 <em>Sample of one VSync: vsync is up for a looooong time (the whole first line) and you can detect as when the Clock ↓ AND HSync up AND VSync up</em><br />
-<img src="files/gbscreen_scanoneline.PNG" alt="gbscreen_scanoneline.PNG" title="gbscreen_scanoneline.PNG" /><br />
+<img src="/files/gbscreen_scanoneline.PNG" alt="gbscreen_scanoneline.PNG" title="gbscreen_scanoneline.PNG" width="1024" /><br />
 <em>Top-bottom: hsync, data0, data1, clock. That's one line of the black box displayed when Gameboy is on with no cartridge. Look at data lines: a little white, all black, and 2 black pixels (part of the ® symbol). </em><br />
 <br />
+      
 <h3 id="toc10"><a name="x[Option 1] Hacking the screen signal-Hardware-Display control module"></a> Display control module </h3>
 <span style="font-weight:bold; color:grey;font-style:italic;">Speed</span><br />
 We need a bare minimum of give or take1.5 Mhz (60 Hz x 160 lines x 144 px/lines = 1,382,400 instructions). But each instructions will require preparation, just to get the pixel color out of memory if we put a static image, some control logic and yes, read the time from the RTC. Let's say that we sacrifice the last image per second to read the RTC and do some magic preparation, it gives us 16 ms of time to do background tasks. At 4Mhz that's more than 66k%20 instructions, that's more than enough. So we can start with an internal oscillators RC of 8MHz.<br />
@@ -109,75 +223,10 @@ Not 100% dead end, but a big bump though. <br />
 <br />
 TODO code on google code<br />
 <br />
-<h1 id="toc12"><a name="x[Option 2] Making my own game"></a> [Option 2] Making custom cartridge with RTC </h1>
-<em>See dedicated project : <a class="wiki_link" href="Gameboy%20homebrew%20cartridge.html">Gameboy homebrew cartridge</a>.</em><br />
-      But I'll keep some memo here. So here's the idea:
-* Sticking with 32k vanilla program (no fiddling with MBC chips)
-* Keep the program in the low 16k of the ROM
-* Capture a call to ANY high address > 16k and reply the current time. No logic, any address > 16k reply the time. Ergo the uC must keep the latest time on one of its 8bit port.
-To do that the idea is this:
-* Data bus is connected to a multiplexer non-inverter (two 4bits [[https://www.ti.com/product/CD74HC257|74HC257]]) that can show the ROM data bus or the uC "time" bus
-* The multiplexer switches depending on the address (like A15=H or a simple AND combo)
-* The uC checks the RTC every sec, get latest time, shows it on its 8bit "time" data port (QUESTION: HH:MM on 8bit num?)
-* According below chronograph there's 3 cycles for data read once bus is set (250ns*3) and 74HC257 has a setup time (input pins to output) of ~30ns at 25C/5V so no worries there.
-<img src="/files/gb-cart-read-timechart.png" alt="https://github.com/Gekkio/gb-ctr" /><br/>
-Taken from [[https://github.com/Gekkio/gb-ctr|Game Boy: Complete Technical Reference]] (Annex C)<br/>
-      <h2>BOM</h2>
-* 32k ROM     
-* 74HC257 (SOIC) x2
-* RTC chip (SMT) [TBD]
-* Microcontroller ATmel SMT [TBD]
-* Battery
-* AND circuit or transistor if simple logic for multiplexer switching logic (optional)
- 
-<br />
-<h2 id="toc13"><a name="Links"></a> Links </h2>
-* [[https://www.insidegadgets.com/2018/04/18/building-a-2mb-mbc5-gameboy-cart-part-1-cpld-as-the-mbc-and-adding-flash-as-our-rom/|Different timing, address logic]]
-* [[https://gbdev.gg8.se/forums/viewtopic.php?pid=3625#p3625|read this, ignore old me posts below]]
-      
 
-<h1 id="SerialMode">[Option 3] Making game only and using Serial communication </h1>
-Just got the idea now, December 2023, would you believe it? I could just make a serial device that would emulate a GB and return the time anytime asked. Nothing to change on the GB hardware or cartridge, or maybe solder a couple wires if I don't find GB serial connectors to sacrifice.
-      <h2>Hardware</h2>
-      GB Color/DMG Link port pinout ([[https://westm.co.uk/arduino-game-boy-printer-emulator/|source]]):
-<table>
-  <tr>
-    <td>
-      <pre>
-Gameboy Original/Color Link Cable Pinout
- __________
-|  6  4  2 |
- \_5__3__1_/ (looking at the cable)
- 
-Arduino Pin      Gameboy Link Pin
-unused           Pin 1 : 5.0V
-D4               Pin 2 : Serial OUTPUT
-D3               Pin 3 : Serial INPUT
-unused           Pin 4 : Serial Data
-D2               Pin 5 : Serial Clock (Interrupt)
-GND              Pin 6 : GND (Attach to GND Pin)
-</pre>      
-    </td>
-    <td>
-      <img src="/files/GB-DMG-Serial-PCB.jpg" width="400" /><br/>
-      //Pinout of the connector on a DMG PCB//
-    </td>
-  </tr>
-</table>
-<br/>
-      <img src="/files/GBclock-dev-setup-20240207.jpg" /><br/>
-      //My development setup//<br/>
-      
-      <h2>Code</h2>
-      For the GB side: see [[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/GameBoyClock|on Github]]
-* **GameBoyClock-emu**: small program that can send/receive on serial. Will be useful in the debug/development phase.
-* **GameBoyClock**: the program that will read serial and show time
 
-      <h2>Helpful links</h2>
-* [[https://github.com/mofosyne/arduino-gameboy-printer-emulator]]
-* [[https://blog.gbplay.io/2021/05/29/Connecting-to-a-Game-Boy-Link-Cable-From-a-PC.html]]
-* [[https://blog.gbplay.io/2021/05/10/An-8-Bit-Idea_The-Internet-of-Game-Boys.html]]    
-* [[https://github.com/Raphael-Boichot/PC-to-Game-Boy-Printer-interface]]
+      
+      
       
       <H1>Misc pointers</H1>
 <h2 id="toc14"><a name="Links-Internal"></a> Internal </h2>
