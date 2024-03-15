@@ -2,9 +2,15 @@
 
 <h1>How-to</h1>
 <h2>Eagle/Kicad</h2>
-In Eagle, CAM job and export the **(t|b)Cream** layer and the **Board shape** auto-layer.<br/>
-Then export to **SVG**.
+
+1) In **Eagle**, use CAM job and export the **(t|b)Cream** layer and the **Board shape** auto-layer. You get a .GRB file (Paste_Top.GRB if you choose the right Function but name is irrelevant).<br/>
+<br/>
+2)Then in **Gerbv** load that .GRB file only and choose File > Export > SVG ...<br/>
+<br/>
 <h2>Laser cut</h2>
+<h3>Stencil edit</h3>
+You can edit the stencil by first "ungroupping" it, and then it's just a bunch of shapes you can edit/remove.
+<h3>Laser Settings</h3>
 I use my small laser cutter (5W laser). Just import the SVG file and use these settings:
 * 20mm/s
 * 95% power
