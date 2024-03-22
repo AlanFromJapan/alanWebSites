@@ -1,13 +1,11 @@
-This is a new Template for **attiny85**!
+<h1>ATtiny 85</h1>
+<h2>Memo fact sheet</h2>
+    **Code** : 8192 Bytes / **EEPROM** : 512 Bytes / **RAM** : 512 Bytes<br/>
+    **Homepage** [[https://www.microchip.com/en-us/product/ATtiny85]]<br/>
+<br/>
+All in all it's beefier than an [[ATtiny2313]] but only in an 8 pins package (THT/SMD).
 
-<h1>Presentation</h1>
-<h2>Principle</h2>
-<h2>Points of interrest</h2>
-<h1>Implementation</h1>
-<h2>Bill of materials</h2>
-<h2>Schematics</h2>
-<h2>Source code</h2>
-<h1>Pictures</h1>
-<h1>Links</h1>
-<h2>Helpful sources</h2>
-<h2>Inspiration</h2>
+<h2>Fuses</h2>
+Low/High/Ext (hex):
+* Default should be: 62/DF/FF
+* With an external crystal: FE/DF/FF (//avrdude -pt85 -cavrispmkII  -v -U lfuse:w:0xfe:m -U hfuse:w:0xdf:m//)
