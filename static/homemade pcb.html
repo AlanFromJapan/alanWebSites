@@ -1,4 +1,6 @@
-<img src="/files/20240226_000639.jpg" align="right" width="300"/>Making PCB at home is not that hard, and there's many ways to. Here's my experiments and results
+<img src="/files/20240226_000639.jpg" align="right" width="300"/>Making PCB at home is not that hard, and there's many ways to. Here are my experiments with a Laser and results.<br/>
+
+👉 Hey! You can also do nice [[Homemade Solder Stencils]] to go with it! <br/>
 
 <h1>Laser engrave masking technique</h1>
 <h2>Principle</h2>
@@ -16,12 +18,22 @@ Take your PCB, rub them thoroughly with iron wool until they shine. Then give th
 Then give them a good layer of canned black paint (the mater the better). And then let it dry, the drier the better so wait a couple days to be on the safest side...<br/>
 <br/>
 <h3>PART 2 : PCB design</h3>
-Do your design normally, but follow the below rules (using Eagle):
+Do your design normally, but follow the below rules.
+<h4 style="background-color:linen;">With Cadsoft/Autodesk Eagle 🦅</h4>
 * Limit yourself to **single side**. The less vias you have the less you'll have to wire on the back.
 * **Vias**: default are small, make them bigger (**2mm**)
 * **Signal**: make them fat at **0.6mm** minimum
 * DRC Rules - Clearance: set to **25mil** for all the **Different signals (all the wire only)**
 * DRC Rules - Sizes: set minimum width at **0.6mm**. It's fat but that is a minimum to ensure the wire is still here post etching.
+
+
+<h4 style="background-color:aliceblue;">With KiCad 🚀</h4>
+* Limit yourself to **single side**. The less vias you have the less you'll have to wire on the back.
+* **Vias**: default are small, make them bigger (**2mm**)
+* **Signal**: make them fat at **0.6mm** minimum
+* DRC Rules - Clearance: set to **25mil** for all the **Different signals (all the wire only)**
+* DRC Rules - Sizes: set minimum width at **0.6mm**. It's fat but that is a minimum to ensure the wire is still here post etching.
+
 <br/>
 <h3>PART 3 : PCB design transfer</h3>
 Using Eagle and Lightburn:
