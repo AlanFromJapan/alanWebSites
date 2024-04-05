@@ -27,6 +27,7 @@ Do your design normally, but follow the below rules.
 * DRC Rules - Sizes: set minimum width at **0.6mm**. It's fat but that is a minimum to ensure the wire is still here post etching.
 
 
+<br/>
 <h4 style="background-color:aliceblue;">With KiCad 🚀</h4>
 * Limit yourself to **single side**. The less vias you have the less you'll have to wire on the back.
 * **Vias**: default are small, make them bigger (**2mm**)
@@ -36,10 +37,24 @@ Do your design normally, but follow the below rules.
 
 <br/>
 <h3>PART 3 : PCB design transfer</h3>
-Using Eagle and Lightburn:
+<h4 style="background-color:linen;">With Cadsoft/Autodesk Eagle 🦅</h4>
 * From Eagle export top layer + holes to image in monochrome (600DPI min)
+In Lightburn:
 * Import the image to Lightburn and adjust the size
 * Burn settings: 15mm/s at 95% (one pass enough)
+<br/>
+<h4 style="background-color:aliceblue;">With KiCad 🚀</h4>
+* File > Fabrication Outputs > Gerbers (*.gbr) ...
+* Select the F.Cu or B.Cu (IF YOU PICK BACKGROUND REMEMBER TO **FLIP L/R** it before transfer) with "Plot on all layers" the Edge.Cuts layer
+* Generate also the Drills with the bottom button "Generate Drill Files..."
+* Open the layers in Gerbv, put the copper layer in black, the drills in white, and export to PNG (600 DPI) AND to SVG
+In Lightburn:
+* Import both PNG and SVG: use the SVG (right size) to adjust the size of the PNG, then delete the SVG from the project
+* Swap left/right, invert colors if needed: the BLACK is wher you will REMOVE == the COPPER is WHITE
+* Burn settings: 15mm/s at 95% (one pass enough)
+
+
+
 <br/>
 <h3>PART 4 : Cleanup</h3>
 * With **hot** water + **soap** (important) remove the remaining the burnt paint
