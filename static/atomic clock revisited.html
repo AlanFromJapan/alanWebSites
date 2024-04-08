@@ -14,14 +14,20 @@ Board design (Eagle & Gerber) on [[https://github.com/AlanFromJapan/pcb-design/t
 That thing will need to be fed, a 15v and a 5v, at 18.5w max. So bought a nice 15V 3Amp power pack that will be largely sufficient. Now need to make a nice 5v out of it.<br/>
 I will try to use the 2 steps technique to get a nice/ripple free 5v: use a high frequency switching mini board to get 15V to say 7-8V and then a LM7805 to reduce to 5v. The 2 steps will limit the amount of energy wasted as heat by the LM7805 but yet give the proverbial clean ripple free 5v. Of course efficiency wise it won't be great since we lose power in 2 stages, hopefully not more than with LM7805 only. Which I doubt since in tests I do run it without the switching board (feeding 15v to the LM7805) and it gets HOT, like you don't leave your fingers on ~= 60-70C with a little heatsink (not on the picture).<br/>
 Board KiCad's on [[https://github.com/AlanFromJapan/pcb-design/tree/master/SA22C-powerboard|GitHub]].<br/>
-<img src="/files/20240405_225918.jpg" alt="top"/><img src="/files/20240405_225925.jpg" alt="bottom" />
+<img src="/files/20240405_225918.jpg" alt="top"/><img src="/files/20240405_225925.jpg" alt="bottom" /><br/>
+So now the 2 steps power conversion: 15V to 7V via a LM2596 board, and 7v to 5V via the LM7805. More complex (unnecessarily?) circuit BUT I get a perfect clean 5V (thanks to the LM7805), with no heat wasted (it stays cool).<br/>
+
+  <img src="/files/20240408_215154.jpg" alt="2 stages buck"/>
 <h3>Heat</h3>
 The thing is going to get hot to control the working temp of its scientific package. So I need to stick a fat aluminium radiator on it, but luckily aliexpress is here♡.<br/>
 And without the heater indeed it gets pretty hot: you can still leave your fingers there though unpleasant so I'd say just below 60C after 10 mins. But vendor says heatsink so heatsink it will have.
 <h3>Signal</h3>
-The vendor said it was spitting 600Hz, couldn't go higher. Got to see in details.<br/>
+The vendor said it was spitting 600Hz, couldn't go higher. Got to see in details. [After checking] yup, settings locked, that's 600Hz we get and that's it.<br/>
 The PPS_OUT (1Hz) is 400ns as announced:<br/>
 <img src="/files/20240406_221406.jpg" />
+<h3>Showing PPS_OUT</h3>
+That is the default 1Hz signal from the SA22C. Perfect but less cool than the 600Hz signal passing through decades counter, isn't it? Anyway showing it is good I think so I will but since it's 400ns pulse the led doesn't have time to blink (RTFM Alan...). So let's extend the pulse with a 555!<br/>
+[[https://www.eevblog.com/forum/beginners/pulse-extender-circuit/msg1089773/?PHPSESSID=83drur5rekado2kf15munncel9#msg1089773]]
 <h2>Points of interrest</h2>
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
