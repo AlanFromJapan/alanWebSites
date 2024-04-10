@@ -22,8 +22,8 @@ There will be multiple versions of that board, will be created in that order:<br
 <h2>Euh ... why? Seriously. You are fixating.</h2>
 Yeah well, I want to make one board that works fine. And a gentleman on gbdev forums suggested that I add a switch to hold multiple game at once, and I find the idea splendid! So let's do it: take the Victory, fix the bug and add that switch!<br/>
 <br/>
-Fast forward a few weeks: and this works just fine! <br/>
-→ The code is [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyCartridgeKS|here on GitHub]] (pick the "ULTIMA" one)<br/>
+Fast forward a few weeks: and this **works just fine** ! 😄😄😄<br/>
+→ The Eagle code is [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyCartridgeKS|here on GitHub]] (pick the "ULTIMA" one)<br/>
 <img src="/files/gbcart-ultima.jpg" /><img src="/files/20210319_103228.jpg" />
 <br />
 <h3>Use as a simple 32kB ROM cartridge</h3>
@@ -42,11 +42,11 @@ The ROM must then be burnt with a concatenated version of the game ROMS. In shor
 <h1>Victory version - May 2020</h1>
 <span style="display:block;width:100%;height:auto;border:1px solid forest; background-color:lightgreen;text-align:center;">It **works**, with 1 airwire as a 32kB cartridge. I redid everything from scratch on this one and did hand routing (a great activity I recommend for passing time, it's like Tetris), but still have 1 issue I didn't forecast.</span><br />
 <h2>Euh ... why? Seriously.</h2>
-Because the **Revenge** below is "ok" (well, it can be made to work) but I made a few mistakes I'd like to fix, to make a """prefect""" cartridge (for me). 
+Because the **Revenge** below is "ok" (well, it can be made to work) but I made a few mistakes I'd like to fix, to make a """prefect""" cartridge (for me). Ironically this version is **not** perfect yet but getting closer.
 <br/>
 <!--img src="/files/20200517_231808.jpg" /--><img src="/files/20200524_234903.jpg" /><br/>
 * Worked out of the box (May 2020) ... on GB Color only, **but not on GB DMG or Pocket**. On the 2 later it is recognized (proper Nintendo logo) but after the screen blanks.
-→ **Solution** (thanks to the guys of [[https://gbdev.gg8.se/forums/viewtopic.php?id=618|gbdev forum]] is that A15 of the cartridge must be connected to EEPROM's /CE (on this version /CE is grounded). On my version it's the only control pin I left without a 2 way solder switch, so you have to cut a trace and airwire the EEPROM pin to the A15 pad.
+→ **Solution** (thanks to the guys of [[https://gbdev.gg8.se/forums/viewtopic.php?id=618|gbdev forum]] is that A15 of the cartridge must be connected to EEPROM's /CE (on this version /CE of EEPROM is grounded). On my version it's the only control pin I left without a 2 way solder switch, so you have to cut a trace and airwire the EEPROM pin to the A15 pad.
 <br/>
 <br/>
 * The code is [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyCartridgeKS|here on GitHub]] (pick the "victory" one)
@@ -98,7 +98,7 @@ How it's wired (cartridge -> EEPROM):
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">/CS</td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">GND</td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">EEPROM is tied to GND (always enabled)<span style="color:red;">WRONG! Cartridge /CS can be left unconnected but A15 must be connected to /CE (pin 22) of the EEPROM </span></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left">EEPROM is tied to GND (always enabled)</td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="17" align="left">Reset</td>
