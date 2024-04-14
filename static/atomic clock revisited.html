@@ -35,7 +35,15 @@ And the signal is nicely here. It says 595Hz but it's the oscilloscope that appr
 
 <h3>Showing PPS_OUT</h3>
 That is the default 1Hz signal from the SA22C. Perfect but less cool than the 600Hz signal passing through decades counter, isn't it? Anyway showing it is good I think so I will but since it's 400ns pulse the led doesn't have time to blink (RTFM Alan...). So let's extend the pulse with a 555!<br/>
-[[https://www.eevblog.com/forum/beginners/pulse-extender-circuit/msg1089773/?PHPSESSID=83drur5rekado2kf15munncel9#msg1089773]]
+The logic is this:
+* 1) Invert the signal (so make a **NOT gate** with a transistor)
+* 2) Feed that to a **555 in monostable** configuration to extend the blip length (has to be a "going down" pulse)
+Inspirations:[[https://www.eevblog.com/forum/beginners/pulse-extender-circuit/msg1089773/?PHPSESSID=83drur5rekado2kf15munncel9#msg1089773|here]], and [[https://ohmslawcalculator.com/555-monostable-calculator|a nice calculator]] for the 555 R & C.<br/>
+<br/>
+Guess what: I made a board for that! It's [[https://github.com/AlanFromJapan/pcb-design/tree/master/SA22C-PulseExtender|here]]. When I produced it at home I forgot to mirror it but lucky me, only the 555 had to be mounted "mirrored" on the other side of the board to work. <br/>
+Result:<br/>
+<img src="/files/20240414_173848.jpg" alt="Nice 200ms signal" /><div><img src="/files/20240414_223011.jpg" alt="The board, that I forgot to flip hence the 555 alone on the back" /> //The board, that I forgot to flip hence the 555 alone on the back// </div>
+<br/>
 <h3>Dividing the output signal to get 1Hz</h3>
 Yes, PPS_OUT is already 1Hz and is exactly what I want, but why skip having a set of nice bar graphs that divide the signal? Plus I already made the board for that, years ago : the [[Decade Counter Viewer]]. <br/>
 Absolutely useless but the looks makes it a must have. 3 steps to go from 600Hz to 1Hz to feed to the RTC.
