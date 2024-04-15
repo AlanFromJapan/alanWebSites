@@ -1,0 +1,14 @@
+<img src="/files/AtomicClockWip-20240415.gif" align="right"/>Some quick commands to remember about **ffmpeg**. It's a fantastic tool, and this is just a memo for me about some commands.
+
+<h1>Sample commands</h1>
+<h2>Convert a video to a small gif</h2>
+<code>
+ffmpeg -y  -i my-input-video.mp4  -filter_complex "fps=10,scale=300:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=32[p];[s1][p]paletteuse=dither=bayer"   output.gif
+</code>
+
+<h1>Memo</h1>
+<h2>Remember me</h2>
+* Parameters order matter, so ffmpeg knows how you want to process things in which order, if applies to input stream or output stream
+<h2>RTFM</h2>
+* [[https://ffmpeg.org/ffmpeg.html]]
+* [[https://ayosec.github.io/ffmpeg-filters-docs/4.4.4/Filters/Video/]]
