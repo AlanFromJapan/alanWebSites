@@ -6,7 +6,7 @@ So let's make my own 😁!
 * Make it usable (something I //will// use in the future)
 * Keep it simple (minimum power MCU, minimum viable functionnalities, etc.)
 * Make the PCB at home
-* Reuse parts I have at home (a very nice old school 4 digits 16segments)
+* Reuse parts I have at home (a very nice old school 4 digits 16segments) a very rare and expensive [[http://www.hparchive.com/PARTS/HP-Displays-HDSP-650x.pdf|HDSP-6504]]
 * Scavended Li-ion battery 
 <h2>Thought process</h2>
 <h3>MCU</h3>
@@ -18,6 +18,9 @@ Computation power required is minimal (no external crystal, internal oscillator 
 ∑ = 17 pins needed. Add 2 for power, 1 for /Reset ... looking minimum at a **20 pins package**.
 <h3>Keys matrix</h3>
 Sample from [[https://www.pcbheaven.com/wikipages/How_Key_Matrices_Works/|pcbheaven]], scanning lines and rows.
+<h3>Display</h3>
+Got lucky many years ago with a 福袋 at Akiba and got one [[http://www.hparchive.com/PARTS/HP-Displays-HDSP-650x.pdf|HDSP-6504]], veeeeeeeeeeery vintage (it's older than me, the datasheet is of 1977). I was saving it, but at some point you have to use your potions.<br/>
+...and after some research it's a fail: this puppy needs 22 pins to drive it! Solution is use a [[https://akizukidenshi.com/catalog/g/g115330/|HT16K33]] but that is a fine pitched SMD bot my homemade boards ... not sure it would work.
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 As much as possible done with parts laying around, so I won't be hitting the peak matching need/capabilities:
