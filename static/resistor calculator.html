@@ -13,7 +13,10 @@ So let's make my own 😁!
 Got lucky many years ago with a 福袋 at Akiba and got one [[http://www.hparchive.com/PARTS/HP-Displays-HDSP-650x.pdf|HDSP-6504]], veeeeeeeeeeery vintage (it's older than me, the datasheet is of 1977). I was saving it, but at some point you have to use your potions.<br/>
 ...but after some research it's a fail for this project: this puppy needs **22 pins to drive it**! Solution is use a [[https://akizukidenshi.com/catalog/g/g115330/|HT16K33]] but that is a fine pitched SMD bot my homemade boards ... not sure it would work. So next time I'm not planning the board homemade.<br/>
 <br/>
-**Plan B**: cheap Alix/bay 0.91 inch OLED that cost 2USD. It's in the parts box, alone, just asking for it. And I used one for my [[Raspi Webradio Player]] which still works and left me a good impression. And it uses 4 pins and is 5v tolerant so all good.
+**Plan B**: cheap Alix/bay 0.91 inch OLED that cost 2USD. It's in the parts box, alone, just asking for it. And I used one for my [[Raspi Webradio Player]] which still works and left me a good impression. And it uses 4 pins and is 5v tolerant so all good.<br/>
+... but after some research, I'd have to include ADA fruits libs, generate some nice text and graphics (now that I can I'd have to) etc. which is too much work compared to what I want to put in this precise project.<br/>
+<br/>
+**Plan C**: reuse an old [[Rapide7seg]] I made decade ago (2012!) and barely ever used. Means the CPU will have to be an ATmega88 (the smallest DIP28 of the family I have), a waste of power but I need that many pins.
 
 <h3>MCU</h3>
 Computation power required is minimal (no external crystal, internal oscillator fine), Electric power too, no need for special interface (I2C, TWI, ...). The differenciating factor will be ... the **number of pins**.
@@ -30,9 +33,11 @@ Sample from [[https://www.pcbheaven.com/wikipages/How_Key_Matrices_Works/|pcbhea
 As much as possible done with parts laying around, so I won't be hitting the peak matching need/capabilities:
 * Buttons with clear cap (had to buy those on Aliexpress)
 * PCB made at home
-* MCU : ATmel Tiny ???????
-* Display [[http://www.nomad.ee/micros/dl2416/|DL2416 vintage]] I got in a lucky bag at Akiba many years ago
+* MCU : ATmel88 since it's the smallest I can fit in the [[Rapide7seg]] board
+* Display : the [[Rapide7seg]] and a few commone anode 7segments
 <h2>Schematics</h2>
+Reusing the [[Rapide7seg]] as much as possible, will just add a keyboard button matrix below.<br/>
+<img src="/files/resistor-calculator-rapide7seg.png" />
 <h2>Source code</h2>
 <h1>Pictures</h1>
 <h1>Links</h1>
