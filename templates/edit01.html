@@ -27,7 +27,7 @@
       border: solid 1px black;
 
     }
-  </style>
+    </style>
 
   </head>
 <body class="wiki">
@@ -97,12 +97,7 @@ Logged in
   <!-- /Image upload div -->
 </form>
 
-    <script>
-  function copyToClipboard(text) {
-    text = text.replace('&lt;', '<').replace('&gt;', '>');
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-  }
-    </script>
+
 
 
 <hr/>
@@ -144,5 +139,13 @@ All content on this site is shared under the <span style="font-weight:bold;">MIT
     
     </script>
 
+    <!-- For the copy to clipboard -->
+    <script type="text/javascript">
+      function copyToClipboard(text) {
+        text = text.replace('&lt;', '<').replace('&gt;', '>');
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(text);
+      }
+    </script>
 </body>
 </html>
