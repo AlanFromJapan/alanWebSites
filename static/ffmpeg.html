@@ -7,6 +7,8 @@ ffmpeg -y  -i my-input-video.mp4  -filter_complex "fps=10,scale=300:-1:flags=lan
 </code>
 
 <h1>Memo</h1>
+<h2>Start time</h2>
+Use the //-ss 00:00:03// parameter to start at 3 sec (put just after the input name).
 <h2>Remember me</h2>
 * Parameters order matter, so ffmpeg knows how you want to process things in which order, if applies to input stream or output stream
 <h2>RTFM</h2>

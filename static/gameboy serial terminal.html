@@ -1,0 +1,16 @@
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="/files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+
+Hey, early 2024 I (finally!) managed to transform a GameBoy into something useless : a [[GameBoy Clock]]! Couldn't I turn the same hardware in another useless project: a serial terminal? A /dev/ttyxxxx that would show stuffs? Useless, yes. Intellectually stimulating, oh yes!
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Using [[https://www.obdev.at/products/vusb/index.html|V-USB]], enumerate on the PC as a serial port /dev/ttyxxx so you can connect to it like any serial device and send text. The MCU on [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyLink|the board]] would bufferize and communicate with the GB via Link port (serial also) to show the text...
+<h2>Points of interrest</h2>
+* Enumerating as a Serial port, doesn't seem that common. Found one project though, so let's try [[http://www.recursion.jp/prose/avrcdc/download.html]]
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+<h2>Schematics</h2>
+<h2>Source code</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>

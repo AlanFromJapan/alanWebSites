@@ -1,11 +1,4 @@
-<html>
-  <head>
-    <title>kalshagar - Gameboy clock</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
+<div class="wiki" id="content_view" style="display: block;">
 <span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="/files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
 <h1 id="toc0"><a name="Summary"></a> Summary </h1>
 <img src="/files/gameboy_256.png" alt="gameboy_256.png" title="gameboy_256.png" align="right" />Idea is to use a gameboy to display time. If possible, even allow the gameboy to still play games (would be great). Why? Well... because it's nice, vintage, unique. And if you're fed up with my nth project with clock (I won't blame you) as long as we control the screen you can connect to internet and read the news, tweets, or show the weather info  (though looking by the window works too). That's most likely how it would end up anyway. But you can't deny the definite geekiness and uniqueness (at last a good argument) of the result.<br />
@@ -35,7 +28,7 @@ Hardware is doable, I saw some samples. You need a pcb with the correct padding 
 <!-- ===                                  OPTION 3 - Link cable                                    === -->      
 <!-- ================================================================================================= -->      
       
-<h1 id="SerialMode" style="background-color:lightgreen;">[Option 3] Making game only and using Serial communication 👍😎</h1>  <img src="/files/20240402_214334.jpg" align="right" width="350" />
+<h1 id="SerialMode" style="background-color:lightgreen;">[Option 3] Making game only and using Serial communication 👍😎</h1>  <img src="/files/gbclock-anim.gif" align="right"  />
 Just got the idea now, December 2023, would you believe it? I could just make a serial device that would emulate a GB and return the time anytime asked. Nothing to change on the GB hardware or cartridge, or maybe solder a couple wires if I don't find GB serial connectors to sacrifice.<br/>
       <img src="/files/gblinkclock-overall.jpg" />
       <h2>Hardware</h2>
@@ -74,7 +67,8 @@ GND              Pin 6 : GND (Attach to GND Pin)
       //Block components ideation//<br/>
       <img src="/files/20240325_231706.jpg" /><img src="/files/20240325_231524.jpg" /><br/>
       //The board in action yet not fully populated (nice purple finish of JLCPCB)//<br/>
-
+<img src="/files/20240402_214334.jpg" /><br/>
+      //Ain't she a beauty?//<br/>
       <h2>Schematics</h2>
       See the PDF here with the Eagle sources: [[https://github.com/AlanFromJapan/pcb-design/blob/master/GameboyLink/Gameboy-Link-Clock.pdf|on GitHub]]
 
@@ -269,5 +263,3 @@ TODO code on google code<br />
 <ul><li><strong>Gameboy Pandocs <a class="wiki_link_ext" href="http://problemkaputt.de/pandocs.htm" rel="nofollow">http://problemkaputt.de/pandocs.htm</a></strong></li></ul>Hackaday :<br />
 <ul><li><a class="wiki_link_ext" href="http://dhole.github.io/post/gameboy_cartridge_emu_1/" rel="nofollow">http://dhole.github.io/post/gameboy_cartridge_emu_1/</a></li><li>Hackaday category <a class="wiki_link_ext" href="http://hackaday.com/category/nintendo-gameboy-hacks" rel="nofollow">http://hackaday.com/category/nintendo-gameboy-hacks</a></li><li><a class="wiki_link_ext" href="https://www.insidegadgets.com/2011/04/23/emulating-the-nintendo-logo-on-the-gameboy/" rel="nofollow">https://www.insidegadgets.com/2011/04/23/emulating-the-nintendo-logo-on-the-gameboy/</a></li></ul>
     </div>
-  </body>
-</html>
