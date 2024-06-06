@@ -22,6 +22,18 @@
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
 
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-06-06 - Atomic Clock display</span><br />  
+  I worked on a wallnut board to hold the components, now I need to "show" the time. I wanted to use Tiny Numitron tubes, but they are scarce, and it would have taken me some time to build another one from zero, when a friend of mine who leaves Japan proposed to give me back one clock I made for him a decade (!!) ago. Normally I don't take back presents but since it had become a paperweight for him and I needed it, I decided to accept and recycle her.<br/>
+  A little tinkering and with the MultiClockManager code it ended working after a couple evenings (that was a LONG time I didn't touch these).<br/>
+   <img src="/files/20240606_222125.jpg"/><br/>
+  So where are we now?<br/>
+  🔲 How to have the RTC work with the incoming pulses? I will cut/lose power, I need to keep the time "as close as possible"... The drift of a DS3234 is already small at about +/- 1 min per year worst case.<br/>
+  🔲 Add also a BCD time display? Useless because of the Numitron but so nicely geeky😻<br/>
+  🔲 Cleanup the power lines, maybe the 7805 can power all in the end?<br/>
+  ✅ Scientific package up and running<br/>
+  ✅ PPS signal visible<br/>
+  ✅ 600MHz signal divided by decade counters (visual effect only)<br/>
+  
   
   <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-05-20 - GameBoy Link micro</span><br />  
   So I made that [[Gameboy Clock]] using the Link port, it's nice but I have to use a cable. I finally found an expensive way to do without: use GBA male connectors from the GBA Wireless module. Just desolder it. With that, I'mm make a minimal version of the board that just has USB connection to make it a [[GameBoy Serial Terminal]].<br/>
