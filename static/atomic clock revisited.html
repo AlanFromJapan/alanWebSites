@@ -46,10 +46,18 @@ Result:<br/>
 <br/>
 <h3>Dividing the output signal to get 1Hz</h3>
 Yes, PPS_OUT is already 1Hz and is exactly what I want, but why skip having a set of nice bar graphs that divide the signal? Plus I already made the board for that, years ago : the [[Decade Counter Viewer]]. <br/>
-Absolutely useless but the looks makes it a must have. 3 steps to go from 600Hz to 1Hz to feed to the RTC.
+Absolutely useless but the looks makes it a must have. 3 steps to go from 600Hz to 1Hz, just for the show.
 
 <h3>RTC Real time Clock</h3>
-todo
+<img src="/files/20240609_211249.jpg" /><br/>
+The board I'll reuse (made more than 10 years ago in 2014) is set with a [[arduino and a real time clock (rtc)|DS3234]]. Which causes me headaches since it's already so precise (+/- 1 min per year) that the Rubidium standard is adding little value... even worse, I might end up increasing the error at each startup?<br/>
+<br/>
+Startup logic is:
+* Read time from RTC
+* From that point, each pulse adds one second: micro controller will handle the time in memory
+* Every 24h store: read RTC, overwrite the time in RTC, save.
+If I'm careful saving exactly 24h (based on the pulse count) then I will maintain the original RTC difference (drift) from real time as per the startup.<br/>
+<img src="/files/Atomic_Clock_Revisited_Drift.png" />
 <h3>Time display</h3>
 todo
 <h2>Points of interrest</h2>

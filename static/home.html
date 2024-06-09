@@ -22,8 +22,13 @@
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
 
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-06-09 - Atomic Clock keeping time</span><br />  
+  Trying to figure out how to use the pulse from the Rubidium Standard in my [[Atomic Clock Revisited]]. Assuming pulse is regular and as close as can be of "real" time (assume pulse is 1Hz makes it 1 pulse = 1 second).<br/>
+  I know when I get the pulse, I can even know what time it was when I get the 1st pulse on wake-up but ... what was the time? How much delta do I have between the real time and the time the uC considers? How can I not make it worse while still saving time once in a while (by updating the RTC). Here's an attempt.<br/>
+  <img src="/files/Atomic_Clock_Revisited_Drift.png" />
+  
       <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-06-06 - Atomic Clock display</span><br />  
-  I worked on a wallnut board to hold the components, now I need to "show" the time. I wanted to use Tiny Numitron tubes, but they are scarce, and it would have taken me some time to build another one from zero, when a friend of mine who leaves Japan proposed to give me back one clock I made for him a decade (!!) ago. Normally I don't take back presents but since it had become a paperweight for him and I needed it, I decided to accept and recycle her.<br/>
+  [[Atomic Clock Revisited]]: I worked on a wallnut board to hold the components, now I need to "show" the time. I wanted to use Tiny Numitron tubes, but they are scarce, and it would have taken me some time to build another one from zero, when a friend of mine who leaves Japan proposed to give me back one clock I made for him a decade (!!) ago. Normally I don't take back presents but since it had become a paperweight for him and I needed it, I decided to accept and recycle her.<br/>
   A little tinkering and with the MultiClockManager code it ended working after a couple evenings (that was a LONG time I didn't touch these).<br/>
    <img src="/files/20240606_222125.jpg"/><br/>
   So where are we now?<br/>
