@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from flask import Flask, render_template, redirect, url_for, request, make_response
+from flask import Flask, render_template, redirect, request, make_response
 import os
 import logging
 from logging.handlers import RotatingFileHandler
@@ -8,6 +8,7 @@ import werkzeug
 import operator
 import time
 from config import conf
+import sys
 
 #import ledz
 
@@ -340,8 +341,15 @@ if __name__ == '__main__':
         #init the leds
 #        ledz.ledz_init(Config)
     
-        #start serving pages
-        app.run(host='0.0.0.0', port=conf["HTTPPORT"], threaded=True)
+        #run as HTTPS?
+        if len(sys.argv) == 3:
+            #go HTTPS
+            print("INFO: start as HTTPSSSSSSSSSSS")
+            app.run(host='0.0.0.0', port=int(conf["HTTPPORT"]), threaded=True, ssl_context=(sys.argv[1], sys.argv[2]))
+        else:
+            #not secured HTTP
+            print("INFO: start as HTTP unsecured")
+            app.run(host='0.0.0.0', port=int(conf["HTTPPORT"]), threaded=True)        
     finally:
         #cleanup
 #        ledz.ledz_finalize()
