@@ -41,16 +41,28 @@ Optional if you use the RPI and Led
 1. In that folder, as user _webuser_, do `git clone https://github.com/AlanFromJapan/alanWebSites.git .`
 1. **SWITCH TO THE "Python3" branch**: `git checkout python3`
 1. Rename and edit the _config.sample.py_ as _config.py_  
-1. Edit the start/stop scripts to reflect the DEV or PROD you run.  
-1. Insert as root prerouting rule to redirect port 80 to port 8080 (because you're not root, can't open port less than 1024) : `iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080  `
+1. Get a HTTPS certificate with letsencrypt with `certbot certonly --standalone -v` and make sure _webuser_ has access to the files
+1. Edit the start scripts to reflect the DEV or PROD you run: change the path of log file and the path to the KEY and CERT for HTTPS
+1. Insert as root prerouting rule to redirect port 443 to port 8080 (because you're not root, can't open port less than 1024) : `iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080`
 1. NB: that rule won't be saved by default, unless you install some extra package on debian (`apt install iptables-persistent`)
+1. Setup an autorenew of the letsencrypt certificate with cron 
 
-### Troubleshooting
+## Troubleshooting
 
-#### Everything looks running but I get a connection error when I access the site
+### Everything looks running but I get a connection error when I access the site
 Most likely the port redirection rule is gone, give it a try again : you need to reinput it at each reboot unless made persistent.
 
-### Finish  
-Remove write access to electrogeek.ini to all, and change owner to root (but leave read all), so even if server is compromised you cant change settings to show other places.  
+### Port routing issues
+
+You can list the rules by:
+
+`iptables -t nat -L`
+
+You can't *disable* rules with iptables, so you have to delete the rule and re-add it (notice the `-D` to delete):
+
+`iptables -t nat -D PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080`
+
+## Finish  
+Remove write access to config,py to all, and change owner to root (but leave read all), so even if server is compromised you cant change settings to show other places.  
 
 

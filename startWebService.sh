@@ -8,8 +8,11 @@ sudo chown -R webuser $ROOTFOLDER/static/*
 #sudo chown root.gpio /dev/gpiomem 
 #sudo chmod g+rw /dev/gpiomem
 
+CERT=/path/to/cert.pem
+KEY=/path/to/privkey.pem
+
 #start
-sudo -u webuser -s nohup python3 $ROOTFOLDER/electrogeek_flask.py > /tmp/electrogeek_PROD.3.log 2>&1 &
+sudo -u webuser -s nohup python3 $ROOTFOLDER/electrogeek_flask.py $CERT $KEY > /tmp/electrogeek_PROD.3.log 2>&1 &
 
 #give 2 secs for service to start
 sleep 2
