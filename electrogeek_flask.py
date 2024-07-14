@@ -342,10 +342,10 @@ if __name__ == '__main__':
 #        ledz.ledz_init(Config)
     
         #run as HTTPS?
-        if len(sys.argv) == 3:
+        if conf.get("HTTPS", False):
             #go HTTPS
             print("INFO: start as HTTPSSSSSSSSSSS")
-            app.run(host='0.0.0.0', port=int(conf["HTTPPORT"]), threaded=True, ssl_context=(sys.argv[1], sys.argv[2]))
+            app.run(host='0.0.0.0', port=int(conf["HTTPPORT"]), threaded=True, ssl_context=(conf["SSL_CERT"], conf["SSL_KEY"]))
         else:
             #not secured HTTP
             print("INFO: start as HTTP unsecured")

@@ -11,5 +11,9 @@ conf = {
     "NewTemplate" : "new01.html",
 
     "Login" : "test",
-    "Password" : "test"
+    "Password" : "test",
+
+    "HTTPS": True,
+    "SSL_CERT": "/path/to/cert.pem",
+    "SSL_KEY": "/path/to/key.pem"
 }
