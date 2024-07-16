@@ -116,6 +116,16 @@ def homepage():
 
 
 ##########################################################################################
+#default robots.txt
+@app.route('/robots.txt')
+def robots():
+    contents = """User-agent: *
+Allow: /
+"""
+    return contents
+
+
+##########################################################################################
 #Login page
 @app.route('/login', methods=['POST', 'GET'])
 def doLogin():
