@@ -44,8 +44,10 @@ Optional if you use the RPI and Led
 1. Get a HTTPS certificate with letsencrypt with `certbot certonly --standalone -v` and make sure _webuser_ has access to the files
 1. Edit the start scripts to reflect the DEV or PROD you run: change the path of log file and the path to the KEY and CERT for HTTPS
 1. Insert as root prerouting rule to redirect port 443 to port 8080 (because you're not root, can't open port less than 1024) : `iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080`
-1. NB: that rule won't be saved by default, unless you install some extra package on debian (`apt install iptables-persistent`)
-1. Setup an autorenew of the letsencrypt certificate with cron 
+    - NB: that rule won't be saved by default, unless you install some extra package on debian (`apt install iptables-persistent`)
+    - Save the rule by `sudo iptables-save > /etc/iptables/rules.v4`
+1. Make the site start automatically by adding a *root's* **crontab** entry : `@reboot /path/to/startWebService.sh` 
+1. Setup an autorenew of the letsencrypt certificate with *root's* crontab: `11 4 13 */2 * certbot renew`
 
 ## Troubleshooting
 
