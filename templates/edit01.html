@@ -90,7 +90,7 @@ Logged in
       <tr>
 	<td style="width:100px;display:table-cell; vertical-align:middle; text-align:center;"><img src="/files/photouploadlogo.png" height="80" /></td>
 	<td>Choose files to upload: <input type="file" name="imgup" multiple="" /><button type="submit" name="Upload" value="Upload">Upload</button><br/>
-	  Recently uploaded files: <span id="recentupload" style="font-family:'Courier New', Courier, monospace;">{% autoescape false %}{{ recentupload }}{% endautoescape %}</span><button type='button'  id="btnCopy" onclick="copyToClipboard(document.getElementById('recentupload').innerHTML)">Copy</button></td>
+	  Recently uploaded files: <span id="recentupload" style="font-family:'Courier New', Courier, monospace;">{% autoescape false %}{{ recentupload }}{% endautoescape %}</span><button type='button'  id="btnCopy" onclick="copyToClipboard(document.getElementById('recentupload').innerText)">Copy</button></td>
       </tr>
     </table>
   </div>
