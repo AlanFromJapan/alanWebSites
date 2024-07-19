@@ -25,11 +25,11 @@ March 2023: move to python3. Pretty sure I did that all years ago an never relea
 
 ### Prepare
 
-Mandatory
+Mandatory:
 * sudo apt-get install git python3 python3-pip
 * sudo python3 -m pip install flask
 
-Optional if you use the RPI and Led
+Optional if you use the RPI and Led:
 * sudo pip3 install futures
 * sudo pip3 install RPi.GPIO
 
@@ -47,7 +47,16 @@ Optional if you use the RPI and Led
     - NB: that rule won't be saved by default, unless you install some extra package on debian (`apt install iptables-persistent`)
     - Save the rule by `sudo iptables-save > /etc/iptables/rules.v4`
 1. Make the site start automatically by adding a *root's* **crontab** entry : `@reboot /path/to/startWebService.sh` 
-1. Setup an autorenew of the letsencrypt certificate with *root's* crontab: `11 4 13 */2 * certbot renew`
+
+### Post-Installation
+
+1. Setup an autorenew every other month of the _letsencrypt_ certificate with *root's* crontab: `11 4 13 */2 * certbot renew`
+1. You can add another flask server that will listen to port 80 and redirect incoming request to port 443. It's here https://github.com/AlanFromJapan/MinimalHttpsRedirect
+    - YES YOU SHOULD USE NGINX or APACHE as a proper WSGI. Yes. Do it.
+    - If you go with my dirty solution the install is similar to what described above, you'll figure it out.
+1. Sometimes flask has a tendency when running without WSGI and with HTTPS to stop answering randomly. Some dirty tricks (the right answer is USE NGINX or another WSGI in front I read on the net):
+    - Restart the service daily at night 
+    - Cron a curl request to flask every 10 mins. For a reason I can't fathom, it solves the problem...  ¯\\_ (ツ)_/¯
 
 ## Troubleshooting
 
