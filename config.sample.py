@@ -1,7 +1,10 @@
+from flask.logging import logging
+
 conf = {
     #up to the "static" folder (included!)
     "ROOTDIR" : "/path/to/folder/static",
     "LOGFILE" : "/tmp/electrogeek.DEV.log",
+    "LOGLEVEL": logging.WARN,
     "HTTPPORT" : 1234,
     "CACHING" : False,
     "ISPROD" : False,
