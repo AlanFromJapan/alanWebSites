@@ -18,10 +18,13 @@ EXCEPT that it's maybe better to :
 * <u>Check</u> it would work <code>sudo nginx -t</code>
 * Enable with a manly <code>sudo service nginx restart</code>
 <h2>Step 2 : Flask</h2>
-So though it works without telling Flask that it's behind a proxy, the makers of Flask say to do it so RTFM 2 : [[https://flask.palletsprojects.com/en/2.2.x/deploying/proxy_fix/]]<br/>
+So though it works without telling Flask that it's behind a proxy, the makers of Flask say to do it so RTFM 2 : [[https://flask.palletsprojects.com/en/2.3.x/deploying/proxy_fix/]]<br/>
 <br/>
 ADDITIONALLY :
 * your intra-site URL must all be **RELATIVES** meaning in your site navigate like <code><A href="thatOtherPage">link</A></code> WITHOUT a leading / on the target URL or you'll end up at the root of your <i>http://my-super-site.dot.com/</i> and not in the /aa "folder" (the proxy redirection to your site)
+<br/>
+<br/>
+One other option is to use flask URL processor to edit he URL dynamically : [[https://flask.palletsprojects.com/en/2.3.x/patterns/urlprocessors/|link]].
 <h2>Step 3 : block direct access to apps</h2>
 Most likely you will not want to have your app accessible on http://my-super-site.dot.com:12345, so you need to block access from outside but not from the proxy.<br/>
 WORK IN PROGRESS!<br/>
