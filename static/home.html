@@ -23,6 +23,14 @@
 <!-- ===================================================================== -->
 
   
+          <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-08-21 - Japan summer is too hot</span><br />  
+	Wow Japan summer is hot, and I didn't do much electronics. I mainly dabbed in Python and website devs, and learned a bit of Docker for my [[https://github.com/AlanFromJapan/poke-trainer|Poke-Trainer]] app.<br/>
+  <br/>
+  My old house came with [[https://www2.panasonic.biz/jp/ai/products/search/detail?c=search&item_no=FY-6V-W&item_cd=FY-6V-W&bh_cd=5&b_cd=501|strange fans attached to the wall]] to address the rampant Japan humidity and meant to be permanent low power air circulators ... but none of them worked from the day we moved in. Granted they are old enough to vote but one can hope, no? Anyway couple weeks ago I removed one from the wall, cleaned the dead [[https://en.wikipedia.org/wiki/Huntsman_spider|Huntsman spiders]] and the wasp nest I found inside, but still it didn't work. <br/>
+  Tried all I could and thought it was the AC motor that was dead (spinning well manually but the axis is a rust-covered lollipop). So I went medieval on it, and verdict: the AC engine is fine! What broke? The board that controls the High-Low speed (via a couple of high power resistor) has a touch switch to auto stop the motor if the lid of the thing gets closed. Well that b*stard of switch just died. Took me a while to notice since it depends on the position but definitely having stayed in the same position for 5 years before we moved-in induced metal fatigue and the inside connector doesn't close anymore. So I bought a replacement fan, and will try to fix the other one which has most likely the same problem with a bit of TLC or tape... At least now I know what is the problem.<br/>
+  
+  <img src="https://www2.panasonic.biz/jp/sumai/dgazou/bicon/P_FY-6V-W.jpg" alt="The new air circulator, but old one was just the same"/>
+  
         <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-07-22 - Went secured : moved to HTTPS ... most of the time!</span><br />  
   Since the site runs on HTTPS it has a strange error and stops answering after some time. I solved it on other Flask sites running HTTPS with ... expeditive palliative measures. Ok, I just set it to restart every night and solved 95% of the problem. But now this site too being having the same symptom tells me I have to fix it, and [[setup flask behind nginx proxy|have it run behind a real WSGI and Nginx as a reverse proxy]]. I'll be doing that soon.<br/>
   <br/>
