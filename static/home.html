@@ -22,6 +22,15 @@
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
 
+            <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-08-25 - Networking</span><br />  
+  Like many geeks I have many servers, physical or virtual, running in different places of the world. I recently started doing [[https://linuxize.com/post/how-to-setup-ssh-tunneling/|SSH Tunnelled HTTP local port forwarding]], so I can access locally from a resource on the network of the SSH server (using it as a proxy). Useful because my tiny SSH server is a gateway to the internal NW that under no normal circumstance should have "unchecked" access to the outside world. <br/>
+  That allows me to manage my wifi router remotely. Not that it's useful in any measure, but it pleases me that I can.<br/>
+<pre>
+ssh -l [REMOTE ID] -i ~/.ssh/id_rsa -p 22 -L 8888:192.168.2.1:80  [REMOTE SERVER IP]
+</pre>
+* Connects you with the [REMOTE ID] login and the id_rsa key (or remove that if you use a password) to server [REMOTE SERVER IP] on port 22
+* Plugs your local port 8888 to the 192.168.2.1:80 via the remote server as a proxy
+Now open http://127.0.0.1:8888 and play with your remote network router. 
   
           <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-08-21 - Japan summer is too hot</span><br />  
 	Wow Japan summer is hot, and I didn't do much electronics. I mainly dabbed in Python and website devs, and learned a bit of Docker for my [[https://github.com/AlanFromJapan/poke-trainer|Poke-Trainer]] app.<br/>
