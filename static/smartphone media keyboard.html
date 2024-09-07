@@ -19,14 +19,35 @@ A small USB **Consumer device** (not a keyboard!) you'd plug on your cellphone a
 #define NEXT            0x??
 </code></pre>
 <h2>Going USB-C</h2>
+Smartphones generations passed since I had this idea and left it on the shelf. Now the standard for smartphones is USB-C, and there is little resources on how to do your own USB-C OTG cable. Managed to find this one, after buying some on the Alibay space, that I couldn't make work.<br/>
+My goal is to have a board directly plugged in the phone, no cable (USB-C OTG cables are easy to find). I want a small board I can just plug in the phone and get my 2-3 buttons keyboard.
 <table>
   <tr>
     <td>
+      👇This WORKS　😍👇<br/>
+      You want an OTG cable that **sinks current** (the smartphone will provide power to my mini keyboard).<br/>
+      Found in [[https://www.ti.com/lit/wp/slly017/slly017.pdf|this link]] and [[https://somanytech.com/usb-c-otg-wiring-diagram-detail-internal-connections/|this one]], and [[https://electronics.stackexchange.com/questions/446528/why-would-a-usb-c-adapter-have-a-pull-up-resistor|that one]].
+    </td>
+    <td>
+To make a USB-C OTG male cable, from a male USB-C connector:
+* USB-C Male connector **A1** ⇨ **GND** (alternate pins are B1, A12, B12)
+* USB-C Male connector **A4** ⇨ <span style="color:red; font-weight:bold;">VCC</span> (alternate pins are B4, A9, B9)
+* USB-C Male connector **A5** ⇨ <span style="background-color:gold;">pull-down</span> to **GND**(A1) via a 5.1k ohm (+/- 20%)
+* USB-C Male connector **A6** ⇨ **D+**
+* USB-C Male connector **A7** ⇨ **D-**
+    </td>
+  </tr>
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+  
+  <tr>
+    <td>
+      👇This DOESN'T WORK ❌🙅👇<br/> 
       <img src="/files/usb-c-otg-diy.png" />
     </td>
     <td>
-Smartphones generations passed since I had this idea and left it on the shelf. Now the standard for smartphones is USB-C, and there is little resources on how to do your own USB-C OTG cable. Managed to find this one, after buying some on the Alibay space, that I couldn't make work.<br/>
-My goal is to have a board directly plugged in the phone, no cable (USB-C OTG cables are easy to find). I want a small board I can just plug in the phone and get my 2-3 buttons keyboard.
+      As an OTG cable to sink current this doesn't work, with a 56k ohm pull-**up** you end with an USB cable that will **source** current to your smartphone. At least that is what it means from the USB-C definition, and that is NOT what I plan to do now. It however explains why the cable I bought on Aliexpress didn't work (in my use case).<br/>
+      You //could// change my design the receive power from an external outlet and then pass that power to the smartphone with that sourcing cable to charge it, but this is not the present design. Do the changes if you like.<br/>
     </td>
   </tr>
 </table>
