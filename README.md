@@ -21,9 +21,20 @@ Won't be supported ('cause I don't care):
 
 March 2023: move to python3. Pretty sure I did that all years ago an never released, apparently I messed up somewhere. So redid it, or did what was missing, anyway runs on Python3.
 
-## Install
+# Install as Docker container
 
-### Prepare
+## Prepare
+1. Get the code and pages `git clone https://github.com/AlanFromJapan/alanWebSites.git .`
+1. `cp config.sample.py config.py` and edit to your needs
+    - BEWARE: change  **ROOTDIR** to `/app/static`
+1. Build `docker build -t electrogeek .`
+1. Setup your Nginx to deliver port 1234 (or whichever you decided to share)
+1. Run `docker run -p 1234:1234 -d --restart unless-stopped --name electrogeek-container electrogeek`
+
+
+# Install on a Vm
+
+## Prepare
 
 Mandatory:
 * sudo apt-get install git python3 python3-pip
@@ -33,7 +44,7 @@ Optional if you use the RPI and Led:
 * sudo pip3 install futures
 * sudo pip3 install RPi.GPIO
 
-### Install
+## Install
 
 1. Make a user to run _webuser_ the website only, no login possible (`passwd -l webuser`), minimum rights.  
 1. Make a folder `mkdir -p /use/local/website/electrogeek.PROD.3/`
@@ -48,7 +59,7 @@ Optional if you use the RPI and Led:
     - Save the rule by `sudo iptables-save > /etc/iptables/rules.v4`
 1. Make the site start automatically by adding a *root's* **crontab** entry : `@reboot /path/to/startWebService.sh` 
 
-### Post-Installation
+## Post-Installation
 
 1. Setup an autorenew every other month of the _letsencrypt_ certificate with *root's* crontab: `11 4 13 */2 * certbot renew`
 1. You can add another flask server that will listen to port 80 and redirect incoming request to port 443. It's here https://github.com/AlanFromJapan/MinimalHttpsRedirect
@@ -58,12 +69,12 @@ Optional if you use the RPI and Led:
     - Restart the service daily at night 
     - Cron a curl request to flask every 10 mins. For a reason I can't fathom, it solves the problem...  ¯\\_ (ツ)_/¯
 
-## Troubleshooting
+# Troubleshooting
 
-### Everything looks running but I get a connection error when I access the site
+## Everything looks running but I get a connection error when I access the site
 Most likely the port redirection rule is gone, give it a try again : you need to reinput it at each reboot unless made persistent.
 
-### Port routing issues
+## Port routing issues
 
 You can list the rules by:
 
@@ -73,7 +84,7 @@ You can't *disable* rules with iptables, so you have to delete the rule and re-a
 
 `iptables -t nat -D PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8080`
 
-## Finish  
+# Finish  
 Remove write access to config,py to all, and change owner to root (but leave read all), so even if server is compromised you cant change settings to show other places.  
 
 
