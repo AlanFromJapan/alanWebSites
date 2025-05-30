@@ -29,7 +29,7 @@ March 2023: move to python3. Pretty sure I did that all years ago an never relea
     - BEWARE: change  **ROOTDIR** to `/app/static`
 1. Build `docker build -t electrogeek .`
 1. Setup your Nginx to deliver port 1234 (or whichever you decided to share)
-1. Run `docker run -p 1234:1234 -v /server/path/to/config.py:/app/config.py -d --restart unless-stopped --name electrogeek-container electrogeek`
+1. Run `docker run -p 1234:1234 -v /server/path/to/config.py:/app/config.py -d --restart unless-stopped --name electrogeek-container electrogeek > /tmp/electrogeek.log 2>&1`
 
 
 # Install on a Vm
