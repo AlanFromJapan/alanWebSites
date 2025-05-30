@@ -20,14 +20,16 @@ USER webuser
 #Clone the repository
 RUN git clone https://github.com/AlanFromJapan/alanWebSites.git /app
 
+#Branch is called master, comes from a time the young people didn't know about main (or cared how it's called)
 #git change the branch
-RUN git checkout python3
+RUN git checkout master
 #git pull the latest changes
-RUN git pull origin python3
+RUN git pull origin master
 
 #copy the UPDATED config file
 COPY config.py /app/config.py
 
+#install the requirements
 RUN pip install -r requirements.txt
 
 #inform of the port to be exposed
