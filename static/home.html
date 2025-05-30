@@ -21,6 +21,238 @@
 <!-- ===================================================================== -->
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
+
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-12-22 - Tektronix 212</span><br />  
+  After a small break of electronics full of other things, I went to some second hand shop in central Japan and found an old [[Tektronix 212]] "doesn't turn on when powered". Bought it on whim, can it be more than a nice looking <i>objet</it> ?
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-09-24 - Ridiculous II</span><br />  
+  Continuing in my "do what I say not what I do" about staying focused, I wrote another app over the weekend:
+* [[https://github.com/AlanFromJapan/dictee-tor|Dictee-Tor]]: a web app to allow kids to do dictation by themselves without parents reading them words. It grew on a feature request from my boy, and continuity of the other [[https://github.com/AlanFromJapan/seyes-wordlist|Seyes Wordlist]] project. Put the words in a DB, reusing the [[https://voicerss.org/|Voice RSS text-to-speech API]] (thanks to them for the free tier), little logic and voila.
+Available as an app standalone or Docker image (built it yourself for now).<br/>
+  <img src="https://github.com/AlanFromJapan/dictee-tor/raw/main/images/result.png?raw=true" alt="screenshot" /><br/>
+  
+  
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-09-05 - Ridiculous</span><br />  
+  I just talked about staying focused earlier this week. I'm not. I must be bored at work because 2 evenings I made 2 nice and functional projects!
+* [[https://github.com/AlanFromJapan/seyes-wordlist|Seyes Wordlist]] that generates a Seyes type paper with a wordlist you pass to it, because my kid is learning to write.
+* [[https://github.com/AlanFromJapan/MorningMetroMonitor|MorningMetroMonitor]] because it took me 3 hours (!) to drop them to school last Thursday, this thing parses Yahoo Japan Transit page, get my usual path and every morning pings me on Naver Line to tell me if it looks like the trains run smoothly or not. At least I'll know and save some time.
+  
+  Both projects worked fine from the beginning which is scarry (too good to be true!). Anyway time for bed, after 2 evenings of well done geeking.<br/>
+  <img src="/files/sample2_small.png" /><br/>
+  <br/>
+              <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-09-03 - Try to stay focused, damm*t</span><br />  
+  <img src="/files/newidea.png" /><br/>
+  That picture, is the story of my interior self creative life. I have new ideas so often, most often worthless, but it's an itch I have to scratch. <br/>
+  Latest in date, this morning I became permanent resident of Japan (yay me!) and I need to renew it in 7 years precisely or univers will collapse. I need to remind myself of this. How? Will I still use Google calendar at that time? Is there no way to set memos for a far future?<br/>
+Why not make it myself?!
+* Use Line chat bot
+* NLP commands like "remember event 'renew my visa' in 6.5 years" or "...at 2031/01/01"
+* Chat bot in python Flask (what else?) in a container (newest learnt tech) and a a small DB
+* Send reminder via mail, Line, etc.
+* Companion web app, also Flaskontainer'd
+I might do it. Or not. We'll see :D
+  
+  
+            <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-09-02 - Bananas</span><br />  
+  In the big family of [[Raspi]] clones, I have an [[Orange Pi]] 2 and last year I acquired some small Raspi ZeroW clones, [[Banana Pi|Banana Pi M2 Zero]]. And of course things didn't go as planned once I needed them so let's share my experience here.
+  
+            <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-08-25 - Networking</span><br />  
+  Like many geeks I have many servers, physical or virtual, running in different places of the world. I recently started doing [[https://linuxize.com/post/how-to-setup-ssh-tunneling/|SSH Tunnelled HTTP local port forwarding]], so I can access locally from a resource on the network of the SSH server (using it as a proxy). Useful because my tiny SSH server is a gateway to the internal NW that under no normal circumstance should have "unchecked" access to the outside world. <br/>
+  That allows me to manage my wifi router remotely. Not that it's useful in any measure, but it pleases me that I can.<br/>
+<pre>
+ssh -l [REMOTE ID] -i ~/.ssh/id_rsa -p 22 -L 8888:192.168.2.1:80  [REMOTE SERVER IP]
+</pre>
+* Connects you with the [REMOTE ID] login and the id_rsa key (or remove that if you use a password) to server [REMOTE SERVER IP] on port 22
+* Plugs your local port 8888 to the 192.168.2.1:80 via the remote server as a proxy
+Now open http://127.0.0.1:8888 and play with your remote network router. 
+  
+          <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-08-21 - Japan summer is too hot</span><br />  
+	Wow Japan summer is hot, and I didn't do much electronics. I mainly dabbed in Python and website devs, and learned a bit of Docker for my [[https://github.com/AlanFromJapan/poke-trainer|Poke-Trainer]] app.<br/>
+  <br/>
+  My old house came with [[https://www2.panasonic.biz/jp/ai/products/search/detail?c=search&item_no=FY-6V-W&item_cd=FY-6V-W&bh_cd=5&b_cd=501|strange fans attached to the wall]] to address the rampant Japan humidity and meant to be permanent low power air circulators ... but none of them worked from the day we moved in. Granted they are old enough to vote but one can hope, no? Anyway couple weeks ago I removed one from the wall, cleaned the dead [[https://en.wikipedia.org/wiki/Huntsman_spider|Huntsman spiders]] and the wasp nest I found inside, but still it didn't work. <br/>
+  Tried all I could and thought it was the AC motor that was dead (spinning well manually but the axis is a rust-covered lollipop). So I went medieval on it, and verdict: the AC engine is fine! What broke? The board that controls the High-Low speed (via a couple of high power resistor) has a touch switch to auto stop the motor if the lid of the thing gets closed. Well that b*stard of switch just died. Took me a while to notice since it depends on the position but definitely having stayed in the same position for 5 years before we moved-in induced metal fatigue and the inside connector doesn't close anymore. So I bought a replacement fan, and will try to fix the other one which has most likely the same problem with a bit of TLC or tape... At least now I know what is the problem.<br/>
+  
+  <img src="https://www2.panasonic.biz/jp/sumai/dgazou/bicon/P_FY-6V-W.jpg" alt="The new air circulator, but old one was just the same"/>
+  
+        <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-07-22 - Went secured : moved to HTTPS ... most of the time!</span><br />  
+  Since the site runs on HTTPS it has a strange error and stops answering after some time. I solved it on other Flask sites running HTTPS with ... expeditive palliative measures. Ok, I just set it to restart every night and solved 95% of the problem. But now this site too being having the same symptom tells me I have to fix it, and [[setup flask behind nginx proxy|have it run behind a real WSGI and Nginx as a reverse proxy]]. I'll be doing that soon.<br/>
+  <br/>
+  Oh and I got my nice GameBoy Clock mini boards. Stole the connector from old "wireless connectors" for GBA. Just have to file a bit the connector to fit a GB Color, and Bob's your uncle as they say down under. Ain't she cute?<br/>
+  <img src="/files/gbmini-20240722_205739.jpg" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-07-14 - Went secured : moved to HTTPS!</span><br />  
+  We went SECURED! Now the site runs on HTTPS! Took me a few hours, which would have been shorter if I wasn't watching Monk (an excellent drama, I recommend) at the same time. Need to add a way to redirect port 80 to 443, will make a small app for that.
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-06-27 - Geiger counter improvement </span><br />  
+  Years ago, I bought on ebay a Geiger counter kit, which was fun to build and works (as far as I can say). Apparently except the bip bip you can use the CPM (Counts Per Minute) to get some sense of the dangerosity. Not needed but why not?<br/>
+  Also made a sample MiniPOC board for Gameboy Link that has no RTC but emulates it. You can plug it directly in the GBA/GBC without cable and no need for extra power!<br/>
+   <img src="/files/20240627_230743.jpg" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-06-09 - Atomic Clock keeping time</span><br />  
+  Trying to figure out how to use the pulse from the Rubidium Standard in my [[Atomic Clock Revisited]]. Assuming pulse is regular and as close as can be of "real" time (assume pulse is 1Hz makes it 1 pulse = 1 second).<br/>
+  I know when I get the pulse, I can even know what time it was when I get the 1st pulse on wake-up but ... what was the time? How much delta do I have between the real time and the time the uC considers? How can I not make it worse while still saving time once in a while (by updating the RTC). Here's an attempt.<br/>
+  <img src="/files/Atomic_Clock_Revisited_Drift.png" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-06-06 - Atomic Clock display</span><br />  
+  [[Atomic Clock Revisited]]: I worked on a wallnut board to hold the components, now I need to "show" the time. I wanted to use Tiny Numitron tubes, but they are scarce, and it would have taken me some time to build another one from zero, when a friend of mine who leaves Japan proposed to give me back one clock I made for him a decade (!!) ago. Normally I don't take back presents but since it had become a paperweight for him and I needed it, I decided to accept and recycle her.<br/>
+  A little tinkering and with the MultiClockManager code it ended working after a couple evenings (that was a LONG time I didn't touch these).<br/>
+   <img src="/files/20240606_222125.jpg"/><br/>
+  So where are we now?<br/>
+  🔲 How to have the RTC work with the incoming pulses? I will cut/lose power, I need to keep the time "as close as possible"... The drift of a DS3234 is already small at about +/- 1 min per year worst case.<br/>
+  🔲 Add also a BCD time display? Useless because of the Numitron but so nicely geeky😻<br/>
+  🔲 Cleanup the power lines, maybe the 7805 can power all in the end?<br/>
+  ✅ Scientific package up and running<br/>
+  ✅ PPS signal visible<br/>
+  ✅ 600MHz signal divided by decade counters (visual effect only)<br/>
+  
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-05-20 - GameBoy Link micro</span><br />  
+  So I made that [[Gameboy Clock]] using the Link port, it's nice but I have to use a cable. I finally found an expensive way to do without: use GBA male connectors from the GBA Wireless module. Just desolder it. With that, I'mm make a minimal version of the board that just has USB connection to make it a [[GameBoy Serial Terminal]].<br/>
+  
+  <img src="/files/gblink-micro-connector-pinout.jpg" />
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-05-15 - Yet another idea</span><br />  
+  Hey I could turn a GB in a useless [[Gameboy Clock|clock]], couldn't it also be a [[GameBoy Serial Terminal]] for my Linux? Need to try!<br/>
+  <br/>
+  Also made an ugly animated gif👇<br/>
+  <img src="/files/gbclock-anim.gif" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-05-07 - Golden Week 2024 update</span><br />  
+Did a few stuff during the GW:
+* [[https://github.com/AlanFromJapan/GrblWebStreamer|GrblWebStreamer]]: added the job duration calculation, work area, and display it in the app as well as zoom on the work-area.
+* [[Resistor Calculator]]: I did this during the "golden week", and had some headaches with the float on AVR 8bit, but in the end if works just fine.<br/>
+<img src="/files/ressitor-calculator-finished.jpg" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-04-17 - Side projects</span><br />  
+  The [[Atomic Clock Revisited]] is continuing slowly, and in the meanwhile I did a few things on the side, for a change.
+* [[Resistor Calculator]] a simple calculator where you key in the color bands and get the resistor value
+* [[https://github.com/AlanFromJapan/GrblWebStreamer|GrblWebStreamer]] updated to be even more practical and [[https://pypi.org/project/grbl2image/|grbl2image]] Pypi module to convert Gcode to an image got bugfix and improvements (greyscale images support)
+* [[https://github.com/AlanFromJapan/zeromq-simplestorage|ZMQ simple storage]] is a minimalist solution to push/pop files from a queue in your home NW based on ZeroMQ and with a PyQt5 GUI.
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-04-15 - Atomic Clock pulsing on gif</span><br />  
+  Just a small anim to show how it works so far on my bench:<br/>
+  <img src="/files/AtomicClockWip-20240415.gif" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-04-14 - Atomic Clock pulsing</span><br />  
+Working mainly on my [[Atomic Clock Revisited]]: progress continue. I have now the PPS_OUT the 1Hz pulse showed, via a simple NOT gate and a 555 monostable. Yeah, the pulse is 400ns so too fast for human eyes or to give a chance to the LED to blink. And I made a board for that too! Details on the [[Atomic Clock Revisited|project main page]].<br/>
+  <img src="/files/20240406_221406.jpg" alt="400ns pulse"/> ⇨ <img src="/files/20240414_173848.jpg" alt="Nice 200ms signal" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-04-08 - Atomic Clock getting to know each other</span><br />  
+  Hmmm so on the plus side all works fine: power, the Rubidium standard, the 2 boards I made, the output signals ... On the minus side, I get a 595Hz not a religiously perfect 600Hz. I know the unit needs service but maybe there's a way to address that with the tuning settings? Because 5Hz per sec it's 0.83% error meaning 717 seconds of error per day ! Absolutely unusable as a clock. Even the dollar shop kids watch is way more precise...<br/>
+  Ok then maybe I can say that the clock spits 595Hz and use that value to cadence the sub-systems?<br/>
+  <img src="/files/20240408_144159.jpg" alt="595Hz ain't 600Hz" /><br/>
+  ... and after a little more tinkering, no worries: it's spitting properly 600Hz, it was a precision error from the oscilloscope. If you increase the time resolution you get ~600Hz.<br/>
+  So I went further and did my 2 step power conversion: the 15v is decreased to 7v via a LM2596 board (no heat, little loss, some noise) and then to 5v by the LM7805 (little heat, little loss, close to no noise). This is a big improvement on the loss by heat for now the 7805 is cool even after minutes of usage compared to the barely touchable when he was burning away the 10v he had to drop from 15 to 5. With this I get a bit convoluted and inefficient(?) circuit but I get low heat and clean 5v which were my priorities.<br/>
+  <img src="/files/20240408_215154.jpg" alt="2 stages buck"/>
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-04-06 - Atomic Clock powered up</span><br />  
+Rubidium Standard  -Microsemi SA 22c- powered up after I made 2 boards : one for the connector and one for the power. That works and pulses nicely!<br/>
+  See [[Atomic Clock Revisited]].<br/>
+<img src="/files/20240406_221406.jpg" />
+  
+        <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-04-02 - Gameboy Clock (Serial) : it's done</span><br />  
+  I checked my memo on this present blog, and that's **10 years ago** I had the idea of a <a href="/gameboy clock.html#SerialMode">Gameboy Clock</a> and started working on it. It took me through SOOOOOOO many detours, learning, discouragement, revenge, ... and now it works. Strangely I feel nearly sad, though of course proud. Not sure this will have any further use than being shown to geek friends who visit home, but hell, that was quite a journey. Not sure to who I should say this but from my heart I want to say "thanks for the challenge, I deeply enjoyed it". On to new adventures?<br/>
+  <img src="/files/20240402_214334.jpg" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-03-28 - Gameboy Clock (Serial) : tying it all together</span><br />  
+  All the pieces work separately (so far!), now tying in stuffs nicely together. I'm on the GB side now, and once I have a visually appealing clock program, then I can go back to the PCB and implement the RTC reading. Did that already, should be a breeze but who knows. In the meanwhile, a couple hours of tile design and coding gave me that. Still need a bit more but moving fast (kudos to Copilot who's a valuable partner most of the time).<br/>
+  <img src="/files/Screenshot_from_2024-03-28_22-33-12.png" />
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-03-26 - ATmega328pB!</span><br />
+Never really cared for the sub-types of MCU and the letters, since it's usually just power ratings. But nooooooooo 328P<u>B</u> is a different beast, with special ID, not just a drop-in replacement. Fortunately it kinda behaves nicely if you're lucky (I was!) but it comes with a lot more of capabilities! Additional SPI, TWI, etc... [[https://ww1.microchip.com/downloads/en/AppNotes/Atmel-42559-Differences-between-ATmega328P-and-ATmega328PB_ApplicationNote_AT15007.pdf|See the details here]].<br/>
+  <img src="/files/pinout-diff-atmega328-vs-328PB.jpg" width="800"/><br/>
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-03-25 - PCB board for Gameboy Clock arrived</span><br />  
+  Isn't she a beauty? And (so far as per my tests) everything works flawlessly... hoping I'm not jinxing myself! As a dummy clock it works, so next is switching to the Gameboy for the "game", then will be back to the board to add a REAL RTC (DS1307 on this one), and then maybe USB etc. See all details here: <a href="/gameboy clock.html#SerialMode">Gameboy Clock (Serial)</a>.<br/>
+  <img src="/files/20240325_231524.jpg" /><br/>
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-03-21 - New design tool, new micro-controller</span><br />  
+	None of them are new per se, but they are for me. I decided to follow most of the amateur PCB designers and move away from Eagle (with a tear in my eye) because of the support stop in a few years and moved to **Kicad** v8. Easier than I thought and powerful! Just scratched the surface but happy I took the challenge even if it made making a simple board a lot longer. I will make a small USB gadget to emulate a mouse (and stop my PC to sleep), and to do that I ended up duplicating the [[https://github.com/sparkfun/AVR_Stick|Sparkfun AVR Stick]]. Just an [[Attiny85]] board, here I made my [[RapideUSB Mini]].
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-03-14 - PCB solder stencil at home</span><br />  
+  Just got the idea to save a few bucks when ordering PCB to make (simple) stencils at home. Afterall I know how to [[Homemade PCB|make my own PCB]]. So here's my receipe on how to make your own [[Homemade Solder Stencils]].<br/>
+  <img src="/files/20240314_213857.jpg" /><br/>
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-03-09 - GameBoy Clock communications ready!</span><br />  
+Well took me time to get back to it seriously, and the upgraded oscilloscope wasn't enough (it would have been retrospectively!) so I had to run my signal analyzer on a Win7 VM but it worked! A small sign inversion fixed, now can send and read to the GB at leisure. Now the ground work is done: need to enter the <a href="/gameboy clock.html#SerialMode">coding of the real thing</a>!<br/>
+  <br/>
+  Oh and while at it, I made a small [[Homemade PCB]] debugger board to help, which helped me improve my technique. Worked like a charm.<br/>
+<img src="/files/20240306_231720.jpg" />
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-03-03 - Stickers</span><br />  
+  I discovered (!) that you can make stickers for your GB cartridge! I had to make a couple, and with my limited artistic skills they do the job! Special sticker paper for laser printer, worked like a charm. Made a template in Inkscape for future reuse. <br/>
+  <img src="/files/gbo_cartridge_sticker.jpg" /><br/>
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-02-25 - Homemade PCb with laser engraver</span><br />  
+  I used my transition day at home and the jetlag to good use to test for the first time [[Homemade PCB]]s! Promising results for a first time, I got what I did right and what I did wrong, that can be a solution for SIMPLE boards.<br/>
+  <img src="/files/20240226_000639.jpg"/><br/>
+  
+      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-02-15 - GameBoy Clock nearly there</span><br />  
+I'm really close to have the RTC to GB communication right. It works now, but I have a synchronization issue so it doesn't work all the time. Pretty close though. Unfortunately this will all have to wait until March for I'll be away on biz trip and then vacation away from my workbench. Hoping to not lose the momentum !<br/>
+  <img src="/files/20240215_212530.jpg" alt="HELLO WOR" />
+  
+    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-02-07 - Power source</span><br />  
+  To avoid pluging my bench power supply (loud) I made a small power board: a Li-Ion battery from an old laptop, charger/protection module, step up module. Works fine but holly molly the output is noisy, like 1.6v noise P2P! Luckily a little 0.1uF cap that was lying on the desk made it more reasonable (~= 600mV P2P). Remember to use caps to filter high frequency noise!<br/>
+  <img src="/files/20240207_211946.jpg" /><br/>
+  <img src="/files/power_ripple_20240207_211921.jpg" /><br/>
+
+    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-02-06 - Atomic Clock restarted</span><br />  
+  So yes I have a problem with clocks. Whatever. Years ago I tried to make an [[Atomic clock]] with a Rubidium Standard but I couldn't get it to work.<br/>
+  Now trying again with another Rubidium Standard that seems simpler -Microsemi SA 22c- and that I'm sure works (the auction vendor showed pictures): so let's try again [[Atomic Clock Revisited]].
+  
+    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-01-29 - Gameboy Clock restarted</span><br />  
+  I restarted on that project that originally drove me to GB dev like ... 10 years ago? I side track a lot, I know. So after meeting [[https://mdagois.gumroad.com/|Maximilien Dagois]] who works the other side of the street and have common friends with me (check his cool book on GB dev!!), I got the idea to not use a custom cartridge (that will be for next decade) but use a Serial connection or "Game Link" cable. Which allows to read/write data a bit at a time in a serial fashion.<br/>
+  So I pulled a donnor half dead gameboy and an old board with a RTC and an Atmega ([[WordClock]] FTW) and ... it didn't work. I spent the week (meaning 4 hours spread over a week) to understand that the DS3231 had a failed soldered pad, fixed it with flux, heat and love, and it's back to life! Now on to the second part: connecting it to the GB serial port. Hardwired for now, I'll snip snip a donnor cable later. <br/>
+  Long story short: progress people!!<br/>
+  <a href="/gameboy clock.html#SerialMode">Gameboy Clock (Serial)</a>
+  <br/>
+  
+  
+    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-01-19 - Really had to clean my workbench</span><br />  
+  Too long I didn't do it, and found a bunch of old Li-ion batteries from wide range of provenance. Some of dead are absolutely dead, like fire-hazard level. Here's a pic for you. Look at that crack on that non-genuine replacement battery for PSP or how cushionny this other battery became...<br/>
+  PS: you know the joke about the guy who cleans his desk and find a perfectly working NDS battery the day after he finished a project about an NDS that had no battery?<br/>
+  <img src="/files/20240119_204729.jpg" /><br/>
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-01-18 - NDS saved from landfill (sort of)</span><br />  
+Bought a bunch of GB (NDS, color, pocket) last year or the year before, never got to fix them till now. Got one which battery was dead, and since the screen had small light issues plus the fact it is a original NDS (who wants them?) then I just had fun repairing it on the cheap and made it a USB-C wired one with a buck converter to emulate the battery. It works!<br/>
+  [[Repair - Nintendo DS battery-less]]<br/>
+  <img src="/files/20240118_220624.jpg" width="300"/><br/>
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2024-01-08 - Cheap Buck converter</span><br />  
+  I'm fixing some GameBoys, a first generation Nintendo DS to be precise and I'm looking at replacing the defunct battery with step-down (buck) converter. Yes the console would need to be plugged to work, but it doesn't boot without a battery and it's just for a test. I'm playing with a cheap module the [[MH-MINI-360]].
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2023-12-03 - RPGDice</span><br />  
+  Winter pushed me back to my old hobbies (and I'm finally getting over me Baldurs Gate 3 addiction) so I'm productive again. Made a small //for the fun// GameBoy game: [[RPGDice]]. Just rolls 8, 12, 20 faces dices for RPG. Nothing fancy, just a quicky project for the fun. Also changed servers so my good ol' faithful with its 1,008 uptime dates saw its days over.<br/>
+  <img src="https://github.com/AlanFromJapan/Gameboy/blob/master/Games/RPGDice/resources/screenshot-ingame.png?raw=True" /><br/>
+
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2023-05-10 - Flask and NginX</span><br />  
+  Making many apps is fun, but hosting them is a necessity and for the low volume of visite, one shared server will be more than enough. BUT many sites don't like to do that unless they are behind a proxy so let's do that and [[Setup Flask behind NginX proxy]].
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2023-05-03 - grbl2image PyPi</span><br />  
+For my [[https://github.com/AlanFromJapan/GrblWebStreamer|GrblWebStreamer]] (the stuff to pilot lasers from a Raspi) I wanted a module to "show" the GRBL content as an image. Though you find many systems doing that on the net, nowhere I could find a way to do that in Python, so I wrote it. It was simpler than expected but now it's done and shared with everyone (opensource etc) so go check [[https://pypi.org/project/grbl2image/|grbl2image on PyPi]]!<br/>
+<img src="https://github.com/AlanFromJapan/grbl2image/raw/main/grbl2image.png?raw=true" width="400" /><br/>
+          
+          
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2023-04-26 - Prompt</span><br />  
+  I love the Kali style bash prompt on 2 lines, so I made something similar.<br/>
+<code>export PS1="╔\[\033[38;5;6m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;202m\]\h\[$(tput sgr0)\]-\[$(tput sgr0)\]\[\033[38;5;3m\][\[$(tput sgr0)\]\[\033[38;5;6m\]\w\[$(tput sgr0)\]\[\033[38;5;3m\]]\[$(tput sgr0)\]\n╚═>\[$(tput sgr0)\]\[\033[38;5;14m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"</code><br/>
+<img src="/files/Screenshot_from_2023-04-26_08-09-43.png" /><br/>
+  
+   <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2023-04-12 - Laser Burner continued 2 and creative spring</span><br />   
+  So I've been hit again by a creativity surge, and work on (too) many stuffs:
+* [[https://github.com/AlanFromJapan/GrblWebStreamer|GrblWebStreamer]] is working fine! Plug it, open your browser, upload the GRBL code and let it do the job while you do something else! Tested on jobs longer than an hour and worked all fine ☺️ Since yesterday I'm even making it message me on Line when job is completed (to be packaged properly)
+* [[Laser burner on Linux]] is working fine, has its own enclosure and fans, just need to make some pictures.
+* [[ipCamPy.nocv]] has progressed, you can see multiple cameras and zoom now. Next will be recording stills for a replay or timelapse, maybe add some movement detection/human/wild life identification? Not my forte that last area but gotta start somewhere.
+* At work I'm working on making [[Linux on a stick]] for curious beginners, so I keep details here
+  <img src="/files/ipcampy-screenshot1.jpg" width="400"/>
+  <br/>
+  
+  
+  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2023-03-29 - Laser Burner continued</span><br />  
+  Now the laser works fine, enclosed and gives satisfaction. Ok 5W laser ain't much when we talk about cutting so patience and careful trial/error is needed but it is doable. Thing is it means having my laptop stuck to the machine for maybe an hour a time, and the fumes are nocives. Like acrylic: you know it's not good to cut it and smell it.<br/>
+  So I'm making a small headless webservice that runs on a [[Raspi]] (Zero W most likely) and you upload your code there, run some quick tests via the web interface, click "Burn" and runaway while magic happens. Spend a few evenings on that last week, it does the job so far (of course security, edge cases are "for later"). Give it a look at [[https://github.com/AlanFromJapan/GrblWebStreamer|GrblWebStreamer]].<br/>
+  <img src="/files/grblws-screenshot1.jpg" width="400"/>
+  
    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2023-03-02 - DNS update</span><br />
 Laser Burner setup in progress, now it moves ... one axis only, the other one is stuck ... will get to that. Anyway for memory, this is [[How to update your DuckDNS dynamic DNS]]. I think I did that 10 times, never wrote it, always rediscover it, so future me: this is for you. 
  
@@ -31,193 +263,6 @@ Still kids, still busy work and still no life, so barely no posts in a year. Any
   Long story short, the setup on Linux and beginings aren't easy so I'll share it here for memory: [[Laser burner on Linux]].<br/> 
   
 
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2022-08-29 - Lego Mario</span><br />
-Kids received a [[Lego Mario]] from a way too generous friend, and since they don't play much with it (can you believe that) I thought maybe I can reuse it? Let's see...<br/>  
-  <img src="/files/mariolego.png" width="200"  /><br/>
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2022-08-25 - Back to electrogeek.cc!</span><br />
-Ha! I got my domain back! I was victim of my lazyness and of "Domain Drop Catching" last year and me electrogeek.cc domain was stolen and made available to purchase for 200 USD (normally it's ~5USD/year). So I didn't pay (eat dirt you subhuman) and moved to electrogeek.tokyo. <br/>
-  Today in meeting I was bored and checked and discovered: the domain was free again! I took it and reserved it for the foreseable future. I set it as an alias so now we can reach here from BOTH URLs! v(^_^)v<br/>
-  <br/>
-  Otherwise I continued resuming my Gameboy projects, now have migrated [[GbReaper]] to its own repo in Github and really improved it (stability and useability mainly). Also worked a bunch on [[MysticSnake]] and now we have AI, hit points, and loooooots of bugfixes. Seriously it's getting close to be useable. I now start to think of what kind of story I want to tell and to design levels (after all these efforts for creating the map randomizer...).
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2022-08-02 - Gameboy</span><br />
-Vacation at in-laws and I found a little motivation to resume GB coding of my "RPG engine" (what a pompous name). Now we have random room generation, moving on maps, collision detection, basic basic AI, ...making baby steps a couple of late night hours of coding at a time.<br/>
-  The only BIG problem is the tile/map designer that I wrote years ago in C# is BAD but working fine enough to use but runs only on windows (normally I'm on linux now) and doesn't play well with wine. I'd need to port it to something more "recent" but my C# days are far away, and spending countless hours of the little time I steal on my sleeping time to just redo something that works is depressing me. And recoding all in python looks fun but again: months of late evening work to just get something that works the same?      
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2022-06-03 - ipcampy a small website to see IP Camera (III)</span><br />
-Oooook so OpenCV install drove me nuts so I gave up the original [[ipCamPy]] (which works, no problem but uses OpenCV) and forked the dev to [[ipCamPy.nocv]] which is the same goal but using other libs simpler to install on a lightweight Raspi ZeroW.
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2022-04-26 - ipcampy a small website to see IP Camera (II)</span><br />
-  So the [[ipCamPy]] app works, for all it takes it was finished in one evening of coding, but installing on a RaspiZeroW is a nightmare. You need OpenCV on the Raspi zero and to install it you have to build it, and that takes hours... tens of hours. And fails, unless you follow a properly defined incantation (different version exist) and setup etc. 
-  Well patience ain't my strong suit, so I will get back to that one day. 
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2022-01-24 - ipcampy a small website to see IP Camera</span><br />
-Bought an IP Camera for the house but to be honest I'm too cautious to let it access(ible) the internet: between the hacks and limited trust I have in cheapo closed-code firmware, it's a risk I don't want to take. There it is connected to the home network but not the internet.<br/>
-  Then came the idea: can I make a small web app that would run on a faithful raspi <3 that I could harden against any attack yet let me see the camera feed? <br/>
-  There was born [[ipcampy]].<br/>
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2021-10-08 - V-Amp power (continued)</span><br />
-  Now that little me #2 goes into a workable sleep pattern, I get a little free time to reconnect with my old hobbies, electronics being one. So I bought this transformer on Yahoo Auctions Japan for 10 USD, 1978 glorious Japan engineering in all its beauty! Will it work? Will I fry my amp? Will I kill my oscilloscope? Will I set fire to something? Stay tuned ! :D<br/>
-  <img src="/files/i-img640x480-16317563106wpzyw409528.jpg" align="center" /><br/>
-  
-    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2021-03-18 - V-Amp power</span><br />
-  I'm bad at guitar but good enough so that you would recognize a few songs I play. Bought second-hand Behringer V-Amp 2 and later a V-Amp 3, but I have only one power supply. Follow my investigations on that power supply [[Behringer V-Amp|here]].<br/>
-  <img src="/files/vamp2.jpg" align="center"/><br/>
-  
-    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2021-03-08 - No update for long and domain change</span><br />
-  Hi all, long time no update: new job, second kid, other hobbies, etc. ... and when I went back I noticed my domain has been "stolen". With quotes, because it was not litterally stolen but victim of my laziness (didn't check that mailbox where the DNS company told me it was about to expire) and of a "petit trou du cul" (in French) who use the occasion to do some "Domain Drop Catching" and register it just after my grace period. So long story short, I don't want to pay 200 USD to get that domain name back because I think what was done was a di*k-move, we are now on "[[http://electrogeek.tokyo|Electrogeek.TOKYO]]".
-  
-    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-07-30 - Another emulation station</span><br />
-  Old laptop, how to make your own emulation paradise? [[Emulation machine from scratch|My version of the build here]].
-  
-      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-06-18 - Another radio</span><br />
-Just making another webradio, with spare parts: an old Raspberry Pi 1, a slow as hell screen, USB storage etc... //bref//, [[Another Raspi Webradio player]].
-  
-    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-06-01 - About TL866II</span><br />
-Just bought me a [[TL866II]] to program some old cheap OTP, and ended up for programming any EEPROM so good it is! I wrote here a few memo of the steps to get it work on Linux.<br/>
-  <img src="/files/xgecuprog.JPG" />
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-05-29 - Get git</span><br />
-A small [[Git manual]] for me, to remember those tricky commands you just do once in a while.
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-05-26 - GB Cartridge again again (no luck)</span><br />
-  ... and no, still doesn't work. It works on GBColor, but not on GB DMG or Pocket, because I miswired the EEPROM /CE pin... Big big big thanks to people on the [[https://gbdev.gg8.se/forums/viewtopic.php?id=618|Gbdev forum]]. So yes, I'll have to make another version:/<br/>
-  Buuuuuuuut good news is that I can play my GB games in the browser, go and see the [[Just a Snake]].<br/>
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-05-18 - GB Cartridge again again</span><br />
-  Ok this time it worked out of the box, no acrobatic wiring, just works, done by hand from the basic layout, feels great. [[gameboy homebrew cartridge|Details here]].<br/>
-  <img src="/files/20200517_231808.jpg" /><br/>
-  
-      <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-05-04 - GB game (III)</span><br />
-My [[Just A Snake]] is sufficiently debugged to be in its v1.0. Will burn it on a ROM and store it somewhere. Now continuing on practicing, I'll do a small side scroller, another clone, this time of a flapping thing between vertical pipes ... see what I mean? It will be [[FlappyFlap]], yet another clone of a famous game, and a good occasion to practice (still in C).
-  
-    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-05-04 - GB game (II)</span><br />
-ok so I decided to level up by making a smaller project: a snake-like. [[Just a snake]], is the name. Gameboy game. 17 levels so far, playable though there's still a few bugs. Young-me would be so proud of now-me...<br/>
-  <img src="/files/justasnake-composition-20200504.png" /><br/>
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-04-12 - GB game (I)</span><br />
-Still working on the engine of the game, now this one can make 32x32 tiles random dungeon map. Still crude, but there's potential.<br/>
-  <img src="/files/gbrandommap1.png" />
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-04-09 - GB shortcut</span><br />
-I added what I hope is a shortcut to make Gameboy apps or games: a [[Gameboy development guide]]. Just a summary that points to what you need. Oh and I work on a game, well, the engine now. The concept is vague, but it's for my son, so I want it special. Well a game made by your dad for your is special already I think :)<br/>
-  <img src="/files/20200410_133259.jpg" alt="EEPROM programmer at work"/>
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-04-05 - A blemish on my pride was cleansed</span><br />
-Years (like 5) ago, I made a [[Gameboy homebrew cartridge]] that would double up as an EEPROM programmer. As a mix microcontroller and EEPROM it was doomed to fail, but I had hope for the EEPROM programming part. It never worked, disregarding how many times I fixed my code, read it, scratched my head, read the docs, read other people stuffs, ... never. So I gave up, and always had that thorn in my side since then (I'm not the kind of give up guy). Recently I resumed working on GB development, and used my EEPROM programmer and noticed that.. it works. The only weird bug is you have to 1) Erase the eeprom first (or program to 0xff - that I have to try) and 2) write an EVEN number of bytes otherwise I suppose the bus is left in a weird state. <br/>
-  Ok sure that doesn't sing very high the quality of my code here I admit, but it did work. Do I added a few things, tested it more thouroughly, then made a Python program to communicate with it and there we are: I can upload and download ROMs on my EEPROM, and it just works.<br/>
-  I will sleep the sleep of the just tonight.
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-03-20 - Alternate RGB led USB board</span><br />
-Made another small USB board just received fromn Seeedstudio, the [[RapideUSBII]] that runs an ATtiny2313, has a couple of RGB leds ... worked out of the box, so happy.<br/>
-  <img src="/files/20200320_001556.jpg" width="500"/>
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-03-16 - In Gameboy we trust</span><br />
-Ok I resumed working on an old project: make my own Cartridge and game for Gameboy. The cartridge was a bit of a fail so far, so I put it on the side (like 5 years ago!) and so the game too. Now I just bought a cartridge where I can upload a ROM so I resumed the development. And as a good developper, I made a tool to make development : the [[GbReaper]]. Allows you to see a ROM, extract sprites, use the sprites to make "maps", and export it into a format that GBDK can compile. Then you have your background and sprites, you just have to start coding! Heavily WIP, but who knows where it could lead? At least it will allow me to cross out a "TODO" / childhood dream from the bucket list, and it's worth its weight in gold.<br/>
-  <img src="/files/20200315_225738.jpg" /><br/>
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-03-12 - Fixed power button on a Gameboy color</span><br />
-20 minutes, kapton, 2 wires... [[Fixing a gameboy|just switch pins 3 and C]]. <br/> 
-<img src="/files/20200312_221459.jpg" />
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-03-08 - SNES to USB joypad (closed)</span><br />
- Ok done, some very minor issues only with [[SNES pad USB adapter|the board]], now I can play on my [[Retropie console]] with my original SNES pads v(^_^)v <br/>
-  <img src="/files/20200308_223927.jpg" />
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-02-21 - SNES to USB joypad (ctd)</span><br />
-[[SNES pad USB adapter|SNES-to-USB adapter]] PCB sent for production. I forgot how pleasant it was to make PCB, I think I will make a couple more and send together for prod. At 5USD the board, the 15USD sending fees would hurt less if I can group. <br/>
-  <img src="/files/snes2usbpic.png" />
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-02-17 - SNES to USB joypad</span><br />
-Nothing new here: already done by others and legacy technology, but hey, it's my life and my site. Plus recently my son is a big Super NES player and those eBay 1 USD USB SNES lookalike joypad aren't par with the real thing. I have a few of them home, so let's make the [[SNES pad USB adapter|SNES-to-USB adapter]] for my Retropie console. 
-  
-    <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-02-03 - Google Vision API</span><br />
-  Just playing with [[Google Vision API]], that's all.
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-31 - Air cleaner</span><br />
-  I'm lucky to have a room for my electronic hobby, but the air doens't move much and after long soldering session it stinks and hurts your lungs (maybe psychosomatic). So maybe making a small air cleaner, with a fan and a HEPA filter? Too expensive to buy but make, maybe ... 
-  
-  <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-30  - Raspi radio, listening to the waves</span><br />
-That was fast, my [[Raspi WebRadio player]] is working just fine now! Ok a bit of tuning to do (power management mostly), but it's here. The hardware part is done, so is the speaker case itself. Works fine, though lots of white noise... meh, will be enough for a workshop AND it makes it sound like a real old time radio!! (in woodworking these happy incidents are called "rustic charm" :)<br/>
-<img src="/files/20200129_231408.jpg" alt="The outside, with anonymized helper elf for scale" width="400px"/>
-  
-   <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-23 - Got myself an oscilloscope</span><br />
-A long time dream came true: this year in my fukubukuro at [[http://akizukidenshi.com/|Akizukidenshi 秋月電子]] there was an oscilloscope probe. It was the message I was waiting for, I need to upgrade from that cheap (yet pratical) DSO probe (one of the first versions). So I got myself a small factor one for less than 30 USD: a [[DL1540|Yokogawa DL1540]] functional! Made in 1992, it's closing on its thirties, with a vintage orange on black CRT screen. 150 MHz 4 channels, though channel 1 is dead. Leaves 3, and I have 2 probles (yeah I bought another one) only so no problem. Surprisingly the battery is dead so I'll change that and put a few pictures one of these days.<br/>
-<img src="/files/20200119_123357.jpg" />
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-18 - And the sun shined AGAIN!</span><br />
-Guess what, after finally replacing the eInk that died on my [[eInk Weather station]], 1 week later the weather provider changed the API and removed the per hour forecast permission from the free plan! After Yahoo!, now it's WeatherBit who's playing tricks on me. So I spent a few hours cleaning up the code (shame on me it was and still is ugly) and re-implementing the weather source API from [[https://openweathermap.org|OpenWeatherMap]]! Big thanks to them. <br/>
-Format was somehow similar so 3h of work while watching youtube were enough (a best practice to guarantee quality code and high efficiency).
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-12  - Charging DS Lite ghetto style</span><br />
-Found an old DS Lite in the closet for my son to play with but of course the battery was empty, and impossible to find the charger or an USB adapter. But I remembered an old technique, and after checking continuity with the battery pins, I just stucked 2 wires in the plug and fed it with the USB 5v. Not a long term solution but it does the job for tonight.<br/>
-  Oh and I resumed (years after!) working on my [[Arduino Programmer]], basically just an [[https://www.arduino.cc/en/Tutorial/ArduinoISP|ArduinoISP]].<br/>
-<img src="/files/20200112_233957.jpg" width="600"/>
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-11  - Troll</span><br />
-Just found this quote [[https://www.jeffgeerling.com/blogs/jeff-geerling/raspberry-pi-zero-conserve-energy|on the net]], I liked it so let me share with you:<br/>
-// "Give a man a fish and he'll be fed for a day. Teach a man to fish and he'll promptly forget that he once didn't know and proceed to call anyone who asks a n00b and flame them on the boards for being stupid." //
-  
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-04  - Raspi radio</span><br />
-Ok new idea: make a [[Raspi WebRadio player]]. Using a raspberry pi zero W as a webradio player! Let's do it!  
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2020-01-03  - Foot switch</span><br />
-For my drillpress, I wanted a footswitch to keep my hands on the workpiece. So I bought a cheap footswitch and based on the [[Clapclap 1386]] board I made a smart foot switch : long press to start, short press to stop. The details are in the [[Clapclap 1386]] page.
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-12-16  - Mini Media USB keyboard</span><br />
-Changed my keyboard and made a new [[USB volume control]] with 3 keys mute/vol+/vol-, on Linux and [[setup avr on linux|Eclipse]], works just fine. Happy of the result, a nice small project to return to electronics.
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-11-26 - PT2399 (II)</span><br />
-[[https://www.instructables.com/id/Echo-Reverb-Box/|Yet another guy uses the PT2399 chip as an effector]], this time he just reuses a small eBay module and tweaks it a bit but still, nice to read. Bought one of the modules of course (^_^)  
-  
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-11-24 - Retropie console</span><br />
-Nothing unique or original here, I just make my own take on the Retropie game console emulator (born in the 80's, have 2 year old boy at home, what other excuse I need? :) If you're curious, [[Retropie console|there it is]]. 
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-11-12 - Android things</span><br />
-A friend of mine working for the "Big G." kindly gave ma a second hand **Android Things - Pico Pro maker kit**, so cool! So since I'll enjoy a few hollidays in the coming months between jobs, let's [[Android Things|play with Android]]!
-  
-  
- <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-06-06 - getting hot</span><br />
-My air conditionned is second hand like the house, and the remote bid us farewell. Luckily I have another Mitsubishi aircon for the which the remote works, but now I can use one out of 2 (I could turn both on but navigating between rooms with the remote is not fun). So should I buy again a remote (which failed first time because my aircon is an antique) or [[https://hackaday.io/project/165553-remoteduino|make one]]? I'd say the tipping point is 10USD: if a new working remote costs me less than that, I'll buy it. Let's see.
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-06-04 - And the sun shined</span><br />
-At last, my [[eInk Weather station]] is completed and seating in the entrance. I should make a cache to hide the screen ugly connector and PCB as per my wife suggestion: that will come later.<br/>
-<img src="/files/19-05-31-08-05-30-553_photo.jpg" width="500"/>
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-04-11 - PT2399</span><br />
-Wow found someone who makes something new with the PT2399 (not like me) and share her schematics [[https://www.electrosmash.com/time-manipulator|here]]
-  
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-03-04 - LittlevGL GUI</span><br />
-Found a nice user interface library for micro controllers (in C): [[https://littlevgl.com/|LittlevGL]]. Looks very nice, now works with micropython, will try to give it a try one of these days, maybe for my [[Bedside mood companion]] (if one day I really start working on it :)
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-02-20 - Color highlight!</span><br />
-You don't care but I do, so now my edition mode has HTML syntax highlighting after all these years. Took me 2h thanks to the great [[https://codemirror.net/|CodeMirror]] library. Big big big thanks to them, it's easy to use, works from the start, lots of themes, and free: I love it.
-  
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-02-13 - And the weather cleared</span><br />
-One week later, the damage is fixed and my [[eInk Weather station]] is back, kindly supported by the excellent [[https://www.weatherbit.io/|WeatherBit.io]] site.
-
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-02-06 - Et merde...</span><br />
-My [[eInk Weather station]] was fine, I finally resume on it and BAM ! Yahoo! decommissioned the API used by the Python lib... Now got to rewrite the app to use another provider, maybe openweathermap.org. et merde.
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">On Jan. 3, 2019, YQL service at <a href="https://t.co/g4W9RhdMLk">https://t.co/g4W9RhdMLk</a> will be retired. YQL based services that use <a href="https://t.co/g4W9RhdMLk">https://t.co/g4W9RhdMLk</a>, including users of <a href="https://t.co/5IkUaEykdl">https://t.co/5IkUaEykdl</a>, will no longer operate. Yahoo Weather API users see the tweet below for info about continuing your service.</p>— Y! Developer Network (@ydn) <a href="https://twitter.com/ydn/status/1079785891558653952?ref_src=twsrc%5Etfw">December 31, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-01-31 - Smartphone, Linux and USB</span><br />
-Had a few ideas recently now that my [[setup AVR on Linux]] is working: a [[Smartphone Media Keyboard]] that would allow me to press Next/Pause while I listen to music at my desk and not unlock screen, while charging the phone. And while I'm at it, a small [[USB Smart Switch]] that could connect/disconnect the data easily when I work on a USB gadget.
-<br/>
-
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-01-22 - Google scripts</span><br />
-Found [[https://hackaday.com/2019/01/17/hack-your-gmail-a-quick-start-for-google-app-scripting/|this article on Hackaday]] about **google scripts** ... looks interresting, especially to do some advanced cleanup in mail gmail mailbox!<br/>
-
-<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2019-01-10 - Happy new 2019</span><br />
-Hi all and happy new year! In fact winter break was dedicated to setup a [[Line chatbot]] and it worked just fine (^_^)v Need now to find a real usage for it ...<br/>
-I found this nice firmware for [[SonOFF]] devices, and sicne I'm equipped at home, it might make sense to try it... [[https://github.com/arendst/Sonoff-Tasmota]]
-<br/>
 
 <br />
 <br />
@@ -231,6 +276,6 @@ I found this nice firmware for [[SonOFF]] devices, and sicne I'm equipped at hom
   <!------------------------------------------------------------------------------------------------------------------------------>
 </span><br />
 <br />
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><g:plusone annotation="inline"></g:plusone><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fkalshagar.wikispaces.com&send=false&layout=standard&width=450&show_faces=true&action=like&colorscheme=light&font&height=80&appId=232309096800103" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+
     </div>
 <div class="corner-ribbon top-right sticky blue">All projects <a href="Complete%20project%20list.html" style="color:gold;">here!</a></div>

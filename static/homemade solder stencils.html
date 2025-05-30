@@ -1,0 +1,22 @@
+<img src="/files/20240314_213857.jpg" align="right" />That will be easy : how to make your own **PCB Solder Stencils** at home for small boards.
+
+<h1>How-to</h1>
+<h2>Eagle/Kicad</h2>
+
+1) In **Eagle**, use CAM job and export the **(t|b)Cream** layer and the **Board shape** auto-layer. You get a .GRB file (Paste_Top.GRB if you choose the right Function but name is irrelevant).<br/>
+<br/>
+2)Then in **Gerbv** load that .GRB file only and choose File > Export > **SVG** ...<br/>
+<br/>
+<h2>Laser cut</h2>
+<h3>Stencil edit</h3>
+You can edit the stencil by first "ungroupping" it, and then it's just a bunch of shapes you can edit/remove.
+<h3>Laser Settings</h3>
+I use my small laser cutter (5W laser). Just import the SVG file and use these settings:
+* 20mm/s
+* 95% power
+* Constant intensity
+* 3 passes
+
+So why these settings and 3 passes instead of 1 slower? Because these settings give super clean cut with no burn mark at all. 1 pass is not enough to cut, 2 might be enough, 3 is. And at this speed, small board with 1-2 SMD MCU or other chip should take about 1min or less so ... who cares.<br/>
+<h2>The stencil</h2>
+That's the interesting part: MtG Magic the Gathering cards! Bought 15 kg(!) of them for a song a couple years ago. Finally found a use for these tens of copies of extra common cards. And result is perfect for one offs. I imagine you can reuse the stencil a couple of times, but considering the time and cost, it doesn't bug me to make one each time I would do a batch.

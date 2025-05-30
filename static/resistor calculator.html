@@ -1,0 +1,46 @@
+<img src="/files/ressitor-calculator-finished.jpg" align="right" width="250"/>You can find on Aliexpress these "Resistor calculators" or "mini calculators" for less than 1,000 JPY or less than 500 JPY even, but using it and not making it, where's the fun in that? And the MCU they use aren't the flavor I'm used to so tinkering would take exponential time because the learning curve and yet another rabbit hole...<br/>
+So let's make my own 😁!
+<h1>Presentation</h1>
+<h2>Principle</h2>
+* Make it usable (something I //will// use in the future)
+* Keep it simple (minimum power MCU, minimum viable functionnalities, etc.)
+* Make the PCB at home
+* Reuse parts I have at home for the display
+* Scavended Li-ion battery 
+<h2>Thought process</h2>
+<h3>Display</h3>
+Got lucky many years ago with a 福袋 at Akiba and got one [[http://www.hparchive.com/PARTS/HP-Displays-HDSP-650x.pdf|HDSP-6504]], veeeeeeeeeeery vintage (it's older than me, the datasheet is of 1977). I was saving it, but at some point you have to use your potions.<br/>
+...but after some research it's a fail for this project: this puppy needs **22 pins to drive it**! Solution is use a [[https://akizukidenshi.com/catalog/g/g115330/|HT16K33]] but that is a fine pitched SMD bot my homemade boards ... not sure it would work. So next time I'm not planning the board homemade.<br/>
+<br/>
+**Plan B**: cheap Alix/bay 0.91 inch OLED that cost 2USD. It's in the parts box, alone, just asking for it. And I used one for my [[Raspi Webradio Player]] which still works and left me a good impression. And it uses 4 pins and is 5v tolerant so all good.<br/>
+... but after some research, I'd have to include ADA fruits libs, generate some nice text and graphics (now that I can I'd have to) etc. which is too much work compared to what I want to put in this precise project.<br/>
+<br/>
+**Plan C**: reuse an old [[Rapide7seg]] I made decade ago (2012!) and barely ever used. Means the CPU will have to be an ATmega88 (the smallest DIP28 of the family I have), a waste of power but I need that many pins.
+
+<h3>MCU</h3>
+Computation power required is minimal (no external crystal, internal oscillator fine), Electric power too, no need for special interface (I2C, TWI, ...). The differenciating factor will be ... the **number of pins**.
+* 10 digits + a reset button? = 11 buttons => 3x4 buttons matrix => 7 pins for the keyboard
+* ISP for programming => 0 hopefully? (reuse the buttons matrix ones)
+* LCD is 4 digits and 16 segments so "123k" or "456M" is possible but still needs 10 pins (7 data + 2 address + 1 control) it seems => 10 pins for the screen
+<br/>
+∑ = 17 pins needed. Add 2 for power, 1 for /Reset ... looking minimum at a **20 pins package**.
+<h3>Keys matrix</h3>
+Sample from [[https://www.pcbheaven.com/wikipages/How_Key_Matrices_Works/|pcbheaven]], scanning lines and rows.
+
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+As much as possible done with parts laying around, so I won't be hitting the peak matching need/capabilities:
+* Buttons with clear cap (had to buy those on Aliexpress)
+* PCB made at home
+* MCU : ATmel88 since it's the smallest I can fit in the [[Rapide7seg]] board
+* Display : the [[Rapide7seg]] and a few commone anode 7segments
+<h2>Schematics</h2>
+Reusing the [[Rapide7seg]] as much as possible, will just add a keyboard button matrix below.<br/>
+<img src="/files/resistor-calculator-rapide7seg.png" />
+<h2>Source code</h2>
+<h1>Pictures</h1>
+
+<img src="/files/ressitor-calculator-finished.jpg" />
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>

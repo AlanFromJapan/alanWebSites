@@ -1,7 +1,14 @@
 electrogeek.ini
 *~
+*.log
 *.pyc
 *.out
 doBackup.sh
 desktop.ini
+config.py
+*.tbz
+*.tgz
+
 				
+__pycache__/
+*.log

@@ -5,7 +5,7 @@ Enough rambling, down to business...<br/>
 <h2>Burn the iso on a USB</h2>
 <ol>
 * find the /dev/sdX of your USB key (mount -l)
-* run the magic command : <code>sudo dd bs=20M if=the-linux-iso.iso of=/dev/sdX</code> (no partition number!) (the bs block size parameter can be set to the least common M/s speed both input/output disk support
+* run the magic command : <code style="background-color:gold;">sudo dd bs=4M if=the-linux-iso.iso of=/dev/sdX conv=fsync status=progress</code> (no partition number!) (the bs block size parameter can be set to the least common M/s speed both input/output disk support
 * make sure to properly unmount the drive, to avoid missing pending writings
 * Then enable [[https://www.raspberrypi.org/documentation/configuration/wireless/headless.md|SSH and Wifi for headless]]
 * ssh default credentials are pi/raspberry
@@ -32,6 +32,10 @@ sudo apt-get install emacs-nox htop git
 </pre>
 
 <h2>Additional setup</h2>
+<h3>Cool bash prompt</h3>
+<code>export PS1="╔\[\033[38;5;6m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;202m\]\h\[$(tput sgr0)\]-\[$(tput sgr0)\]\[\033[38;5;3m\][\[$(tput sgr0)\]\[\033[38;5;6m\]\w\[$(tput sgr0)\]\[\033[38;5;3m\]]\[$(tput sgr0)\]\n╚═>\[$(tput sgr0)\]\[\033[38;5;14m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"</code><br/>
+<img src="/files/Screenshot_from_2023-04-26_08-09-43.png" /><br/>
+
 <h3>Using USB ports</h3>
 You need to be sudoer to use the usb ports :( Found the explanation [[http://stackoverflow.com/questions/5412727/avrisp-mkii-doesnt-work-with-avrdude-on-linux|here]]. Problem is **udev** that is acting a bit.
 * You need your user to be in the group //dialout//

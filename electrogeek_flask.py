@@ -1,24 +1,16 @@
 from datetime import datetime, timedelta
-from flask import Flask, render_template, redirect, url_for, request, make_response
+from flask import Flask, render_template, redirect, request, make_response
 import os
-import ConfigParser
-import logging
-from logging.handlers import RotatingFileHandler
 import re
 import werkzeug 
 import operator
 import time
+from config import conf
 
-#import ledz
+import logginglogic
 
 #http://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
 app = Flask(__name__, static_url_path='')
-Config = ConfigParser.ConfigParser()
-
-ROOTDIR = None 
-LOGFILE = None
-HTTPPORT = None
-ISPROD = False
 
 #static pages cache (to avoid reading from disk each time)
 StaticPagesCache = dict()
@@ -99,12 +91,12 @@ def wikilize(html):
 ##########################################################################################
 #store static pages (.html) in memory for faster response
 def getStatic(page, vFilePath):
-    if not StaticPagesCache.has_key(page):
+    if page not in StaticPagesCache:
         #not in cache? then add it
         t = None
         #read content of the static file
-        with open(vFilePath, mode="r") as f:
-            t = f.read().decode("utf-8")
+        with open(vFilePath, mode="r", encoding="utf-8") as f:
+            t = f.read()
         #and store
         StaticPagesCache[page] = t
 
@@ -116,8 +108,18 @@ def getStatic(page, vFilePath):
 @app.route('/')
 @app.route('/index.html')
 def homepage():
-    #app.logger.warning('A warning occurred (%d apples)', 42)
+    app.logger.info("Redirecting to home.html")
     return redirect('/home.html')
+
+
+##########################################################################################
+#default robots.txt
+@app.route('/robots.txt')
+def robots():
+    contents = """User-agent: *
+Allow: /
+"""
+    return contents
 
 
 ##########################################################################################
@@ -125,12 +127,12 @@ def homepage():
 @app.route('/login', methods=['POST', 'GET'])
 def doLogin():
     if request.method == "GET":
-        return render_template("login01.html", pagename="login", isprod=ISPROD, message="")
+        return render_template("login01.html", pagename="login", isprod=conf["ISPROD"], message="")
     else:
         vLogin = request.form["login"]
         vPwd = request.form["pwd"]
         
-        if vLogin == Config.get("AdminAccount", "Login") and vPwd == Config.get("AdminAccount", "Password"):
+        if vLogin == conf["Login"] and vPwd == conf["Password"]:
             #Login is correct
             resp = make_response( redirect("home.html") )
             
@@ -139,7 +141,7 @@ def doLogin():
             return resp
         else:
             #incorrect login
-            return render_template("login01.html", pagename="login", isprod=ISPROD, message="Login incorrect")
+            return render_template("login01.html", pagename="login", isprod=conf["ISPROD"], message="Login incorrect")
 
 
 
@@ -151,7 +153,7 @@ def newPage(page):
     if None == request.cookies.get('username'):
         return redirect("/home.html")
 
-    targetFilePath = os.path.join(ROOTDIR, page.lower() + ".html")
+    targetFilePath = os.path.join(conf["ROOTDIR"], page.lower() + ".html")
     #if page already exists just go there
     if os.path.isfile(targetFilePath):
         return redirect("/"+ page.lower() +".html")
@@ -161,11 +163,11 @@ def newPage(page):
     vFilePath =  \
         os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates') \
         + "/" \
-        + Config.get("Design", "NewTemplate")
+        + conf["NewTemplate"]
 
     #get the new page template content
-    with open(vFilePath, mode="r") as f:
-        vBody = f.read().decode("utf-8")
+    with open(vFilePath, mode="r", encoding="utf-8") as f:
+        vBody = f.read()
 
     #write the new page with the content and do some pattern replace 
     with open(targetFilePath, 'a') as fout:
@@ -189,7 +191,7 @@ def editPage(page):
     vFormContent = ""
     vYear = datetime.now().strftime('%Y')
     #make sure this path is a *safe* path
-    vFilePath = os.path.join(ROOTDIR, page.lower() + ".html")
+    vFilePath = os.path.join(conf["ROOTDIR"], page.lower() + ".html")
     vRecentlyUploaded = ""
 
     
@@ -199,12 +201,12 @@ def editPage(page):
             vBody = vFormContent
     else:
         #caching or read from disk
-        if Config.getboolean("WebConfig", "CACHING"):
+        if bool(conf["CACHING"]):
             vBody = getStatic(page.lower(), vFilePath)
         else:
             #read content of the static file
-            with open(vFilePath, mode="r") as f:
-                vBody = f.read().decode("utf-8")
+            with open(vFilePath, mode="r", encoding="utf-8") as f:
+                vBody = f.read()
         vFormContent = vBody
 
     #file upload
@@ -225,8 +227,8 @@ def editPage(page):
             #do save
             if None != request.cookies.get('username') and "" != vFormContent.strip():
                 #save IF content is not empty and you are logged in
-                with open(vFilePath, mode="w") as f:   
-                    f.write(vFormContent.strip().encode("utf-8"))
+                with open(vFilePath, mode="w", encoding="utf-8") as f:   
+                    f.write(vFormContent.strip())
                 #and redirect
                 return redirect("/" + page.lower() + ".html")
         else:
@@ -236,17 +238,9 @@ def editPage(page):
         #else:
             #do nothing :P
 
-    #Debug
-    #if request.method == "POST":
-    #    vFormContent = ",".join(request.form.keys()) + vFormContent    
-
     #generate the output by injecting static page content and a couple of variables in the template page
-    resp = make_response( render_template(Config.get("Design", "EditTemplate"), pagename=page, pagecontent=vBody, year=vYear, isprod=ISPROD, testout=wikilize(vFormContent), recentupload=vRecentlyUploaded))
+    resp = make_response( render_template(conf["EditTemplate"], pagename=page, pagecontent=vBody, year=vYear, isprod=conf["ISPROD"], testout=wikilize(vFormContent), recentupload=vRecentlyUploaded))
     
-    #Debug
-    #if "SaveOrPreview" in request.form and request.form["SaveOrPreview"] == "Preview":
-    #    resp.set_cookie ('username', 'xyz')
-
     #Google Chrome version 57 of April 2017 is smarter than everyone and block my code. Let's tell him to stop giving me ERR_BLOCKED_BY_XSS_AUDITOR
     resp.headers['X-XSS-Protection'] = '0'
         
@@ -258,64 +252,75 @@ def editPage(page):
 @app.route('/<page>.html')
 @app.route('/<page>')
 def serveTemplate(page):
-    vBody = None
+    try:
+        vBody = None
 
-    #make sure this path is a *safe* path
-    vFilePath = os.path.join(ROOTDIR, page.lower() + ".html")
+        #make sure this path is a *safe* path
+        vFilePath = os.path.join(conf["ROOTDIR"], page.lower() + ".html")
 
-    vLastupdate = time.ctime(os.path.getmtime(vFilePath))
+        vLastupdate = time.ctime(os.path.getmtime(vFilePath))
 
-    #caching or read from disk
-    if Config.getboolean("WebConfig", "CACHING"):
-        vBody = getStatic(page.lower(), vFilePath)
-    else:
-    #read content of the static file
-        with open(vFilePath, mode="r") as f:
-            vBody = f.read().decode("utf-8")
+        #caching or read from disk
+        if bool(conf["CACHING"]):
+            vBody = getStatic(page.lower(), vFilePath)
+        else:
+        #read content of the static file
+            with open(vFilePath, mode="r", encoding="utf-8") as f:
+                vBody = f.read()
 
-    #renders
-    return renderPageInternal (pPageName=page, pBody=vBody, lastupdate=str(vLastupdate))
+        #renders
+        return renderPageInternal (pPageName=page, pBody=vBody, lastupdate=str(vLastupdate))
+    except FileNotFoundError as efnf:
+        app.logger.error(f"in serveTemplate() File not found: '{page}' - {efnf}")
+        return renderPageInternal (pPageName="Page not found", pBody="The page '%s' does not exist. <br/><a href='/'>Back to home page</a>" % (page), lastupdate="unknown")
+    except Exception as ex:
+        app.logger.error(f"Unplanned exception in serveTemplate(): '{page}' - {efnf}")
+        return renderPageInternal (pPageName="Error", pBody="An error occurred. <br/><a href='/'>Back to home page</a>", lastupdate="unknown")
+
 
 ##########################################################################################
 #Search page
 @app.route('/search.aspx')
 def searchPage():
-    searchstring = request.args.get('txbSearch').lower()
-    vBody = "<h1>All pages containing text '%s':</h1>" % (searchstring)
-    resultDict = dict()
+    searchstring="***"
+    try:
+        searchstring = request.args.get('txbSearch').lower()
+        vBody = "<h1>All pages containing text '%s':</h1>" % (searchstring)
+        resultDict = dict()
 
-    for filename in os.listdir(ROOTDIR):
-	if os.path.isfile(os.path.join(ROOTDIR, filename)) and filename.lower().endswith(".html"):
-            with open(os.path.join(ROOTDIR, filename), mode="r") as f:
-                t = f.read().decode("utf-8")
-                #count in the file and the filename
-                vCount = t.lower().count(searchstring) + filename.lower().count(searchstring)
-                #if searchstring in t:
-                if vCount > 0:
-                    resultDict[filename[:-5]] = vCount
+        for filename in os.listdir(conf["ROOTDIR"]):
+            if os.path.isfile(os.path.join(conf["ROOTDIR"], filename)) and filename.lower().endswith(".html"):
+                with open(os.path.join(conf["ROOTDIR"], filename), mode="r", encoding="utf-8") as f:
+                    t = f.read()
+                    #count in the file and the filename
+                    vCount = t.lower().count(searchstring) + filename.lower().count(searchstring)
+                    #if searchstring in t:
+                    if vCount > 0:
+                        resultDict[filename[:-5]] = vCount
 
-    vBody = vBody + "<br/>"
+        vBody = vBody + "<br/>"
 
-    sorted_x = sorted(resultDict.items(), key=operator.itemgetter(1))
-    vResults = ""
-    for t in sorted_x:
-        vResults = '&#x2771; <a href="%s">%s</a> <span style="font-size:x-small;">(%d)</span><br/>' % (t[0]+".html",t[0], t[1]) + vResults
-    
-    vBody = vBody + vResults
+        sorted_x = sorted(resultDict.items(), key=operator.itemgetter(1))
+        vResults = ""
+        for t in sorted_x:
+            vResults = '&#x2771; <a href="%s">%s</a> <span style="font-size:x-small;">(%d)</span><br/>' % (t[0]+".html",t[0], t[1]) + vResults
+        
+        vBody = vBody + vResults
 
-    #renders
-    return renderPageInternal (pPageName="Search results", pBody=vBody)
+        #renders
+        return renderPageInternal (pPageName="Search results", pBody=vBody)
+    except Exception as ex:
+        app.logger.error(f"Unplanned exception in searchPage('{searchstring}') - {ex}")
+        return renderPageInternal (pPageName="Error", pBody="An error occurred. <br/><a href='/'>Back to home page</a>", lastupdate="unknown")
 
 
 
 #THE function that calls the page rendering and returns the result
 def renderPageInternal (pPageName, pBody, lastupdate="unknown"):
 
-#    ledz.ledz_blink()
-
     vYear = datetime.now().strftime('%Y')
     #generate the output by injecting static page content and a couple of variables in the template page
-    return render_template(Config.get("Design", "Template"), pagename=pPageName, pagecontent=wikilize(pBody), year=vYear, isprod=ISPROD, lastupdate=lastupdate)
+    return render_template(conf["Template"], pagename=pPageName, pagecontent=wikilize(pBody), year=vYear, isprod=conf["ISPROD"], lastupdate=lastupdate)
 
 
 ##########################################################################################
@@ -330,34 +335,25 @@ def getFavicon():
 #
 if __name__ == '__main__':
     try:
-        #load config file
-        Config.read("electrogeek.ini")
-        
-        #loading once and for all the config values
-        ROOTDIR  = Config.get("WebConfig", "ROOTDIR")
-        LOGFILE  = Config.get("WebConfig", "LOGFILE")
-        HTTPPORT = int(Config.get("WebConfig", "HTTPPORT"))
-        ISPROD = Config.getboolean("WebConfig", "ISPROD")
-        UPLOAD_FOLDER = os.path.join(ROOTDIR, 'files')
 
         #start the logfile
-        #logging.basicConfig(filename="/tmp/flasklogging.log",level=logging.DEBUG)
-        handler = RotatingFileHandler(LOGFILE, maxBytes=10000, backupCount=1)
-        handler.setLevel(logging.INFO)
-        app.logger.addHandler(handler)
+        logginglogic.setFormatter(app)
 
-        if not ISPROD:
+        if not conf["ISPROD"]:
             app.debug = True
 
         #set the upload folder
-        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-        #init the leds
-#        ledz.ledz_init(Config)
-    
-        #start serving pages
-        app.run(host='0.0.0.0', port=HTTPPORT, threaded=True)
+        app.config['UPLOAD_FOLDER'] = os.path.join(conf["ROOTDIR"], 'files')
+   
+        #run as HTTPS?
+        if conf.get("HTTPS", False):
+            #go HTTPS
+            print("INFO: start as HTTPSSSSSSSSSSS")
+            app.run(host='0.0.0.0', port=int(conf["HTTPPORT"]), threaded=True, ssl_context=(conf["SSL_CERT"], conf["SSL_KEY"]))
+        else:
+            #not secured HTTP
+            print("INFO: start as HTTP unsecured")
+            app.run(host='0.0.0.0', port=int(conf["HTTPPORT"]), threaded=True)        
     finally:
         #cleanup
-#        ledz.ledz_finalize()
         pass

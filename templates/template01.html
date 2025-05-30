@@ -23,18 +23,18 @@
 </td>
   </tr>
   <tr>
-    <td  style="width:150px;vertical-align:top;padding: 10px;">
+    <td  class="leftMenu">
 <!-- Left menu -->
 <form action="search.aspx"><input type="text" name="txbSearch"  placeholder="Search..." /></form>
-<img src="files/navigationGo.png" alt="navigationGo.png" title="navigationGo.png" /><span style="font-weight:bold;">Quick Navigation</span><br/>
-<a href="Complete project list.html"><img src="files/allprojects32.png" alt="allprojects32.png" title="allprojects32.png" /></a><a class="wiki_link" href="Complete project list.html">All projects</a> <br />
-<a href="Hardware.html"><img src="files/hardware32.png" alt="hardware32.png" title="hardware32.png" /></a><a class="wiki_link" href="Hardware.html">Hardware</a><br />
-<a href="Links.html"><img src="files/links32.png" alt="links32.png" title="links32.png" /></a><a class="wiki_link" href="Links.html">Links</a><br />
+<img src="/files/navigationGo.png" alt="navigationGo.png" title="navigationGo.png" /><span style="font-weight:bold;">Quick Navigation</span><br/>
+<a href="Complete project list.html"><img src="/files/allprojects32.png" alt="allprojects32.png" title="allprojects32.png" /></a><a class="wiki_link" href="Complete project list.html">All projects</a> <br />
+<a href="Hardware.html"><img src="/files/hardware32.png" alt="hardware32.png" title="hardware32.png" /></a><a class="wiki_link" href="Hardware.html">Hardware</a><br />
+<a href="Links.html"><img src="/files/links32.png" alt="links32.png" title="links32.png" /></a><a class="wiki_link" href="Links.html">Links</a><br />
 
-<hr align="align" width="33%" />
+<hr  width="33%" />
 
 
-<img src="files/favoriteStar32.png" alt="favoriteStar32.png" title="favoriteStar32.png" /><span style="font-weight:bold;">Top projects</span><br/>
+<img src="/files/favoriteStar32.png" alt="favoriteStar32.png" title="favoriteStar32.png" /><span style="font-weight:bold;">Top projects</span><br/>
 <a class="wiki_link wiki_link_top" href="Alan numitron clock.html">Alan numitron clock</a><br />
 <a class="wiki_link wiki_link_top" href="Clapclap 2313.html">Clapclap 2313</a>/<a class="wiki_link wiki_link_top" href="Clapclap 1386.html">1386</a><br />
 <a class="wiki_link wiki_link_top" href="SNES Pi webserver.html">SNES Pi Webserver</a><br />
@@ -49,22 +49,22 @@
 <a class="wiki_link wiki_link_top" href="Home Presence Detector.html">Home Presence Detector</a><br />
 
 
-<hr align="align" width="33%" />
+<hr  width="33%" />
 
-<img src="files/github32.png" alt="github32.png"  /><span style="font-weight:bold;">GitHub</span><br/>
+<img src="/files/github32.png" alt="github32.png"  /><span style="font-weight:bold;">GitHub</span><br/>
 <a class="wiki_link wiki_link_top" href="https://github.com/AlanFromJapan/">AlanFromJapan</a>
 <br />
 
 
-<hr align="align" width="33%" />
+<hr  width="33%" />
 
-<img src="files/navigationMail.png" alt="navigationMail.png" title="navigationMail.png" /><span style="font-weight:bold;">Contact me</span><br/>
-<img src="files/Avatar2.PNG"  /><br />
-<img src="files/alanfjmail.png" alt="alanfjmail.png" title="alanfjmail.png" /><br />
-<img src="files/3flags.png" alt="3flags.png" title="3flags.png" /><a class="wiki_link" href="WhoAmI.html">Who's Alan?</a><br />
+<img src="/files/navigationMail.png" alt="navigationMail.png" title="navigationMail.png" /><span style="font-weight:bold;">Contact me</span><br/>
+<img src="/files/Avatar2.PNG"  /><br />
+<img src="/files/alanfjmail.png" alt="alanfjmail.png" title="alanfjmail.png" /><br />
+<img src="/files/3flags.png" alt="3flags.png" title="3flags.png" /><a class="wiki_link" href="WhoAmI.html">Who's Alan?</a><br />
 <br />
 
-<hr align="align" width="33%" />
+<hr width="33%" />
 
 
 <span style="font-size: 120%;"><a class="wiki_link_ext" href="http://akizukidenshi.com" rel="nofollow" target="_blank">Akizukidenshi</a> </span><br />
@@ -87,7 +87,7 @@
 <span style="font-size: 80%;"><a class="wiki_link_ext" href="https://www.carnetdumaker.net/" rel="nofollow" target="_blank">Carnet du maker (fr)</a></span><br />
 <br />
 <!-- /Left menu --></td>
-    <td style="background-color:white;width:100%;padding: 10px;vertical-align: top;">
+    <td class="mainContent">
 <!-- Content -->
 {% if not isprod %}
 <div style="border: solid 2px red;text-align:center;color:red;background:#FFA0A0;font-weight:bold;"> Non production site - this is the test site !　{% if request.cookies.get('username') != None %} [<a href="edit/{{ pagename }}">Edit this page</a>]{% endif %}</div>
@@ -110,19 +110,6 @@ All content on this site is shared under the <span style="font-weight:bold;">MIT
   </tr>
 </table>
 
-<!-- Google analytics, prod only-->
-{% if isprod %}
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-67278227-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-{% endif %}
 
 </body>
 </html>

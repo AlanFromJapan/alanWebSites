@@ -136,6 +136,26 @@ background-image:url('/files/tablebg03.png'); background-repeat: repeat-x;
 /****************************************** Left hand size navigation bar styles **************************************************************/
 .wiki .navigationHeader { font-weight:bold; font-size: 120%; border-bottom:solid 1px black;display:block; width:100%; }
 
+.leftMenu {
+  width:150px;
+  vertical-align:top;
+  padding: 10px;
+  /* display: none;  */
+}
+
+@media (max-device-width: 412px) {
+  .leftMenu {
+    display: none !important; 
+  }
+}
+
+.mainContent {
+  background-color:white;
+  width:100%;
+  padding: 10px;
+  vertical-align: top;
+
+}
 /****************************************** "See also" boxes **************************************************************/
 .wiki span.seeAlsoClocks {
 background-color: #6b939f;

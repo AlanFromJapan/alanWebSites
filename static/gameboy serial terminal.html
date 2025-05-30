@@ -1,0 +1,28 @@
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="/files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+
+Hey, early 2024 I (finally!) managed to transform a GameBoy into something useless : a [[GameBoy Clock]]! Couldn't I turn the same hardware in another useless project: a serial terminal? A /dev/ttyxxxx that would show stuffs? Useless, yes. Intellectually stimulating, oh yes!
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Using [[https://www.obdev.at/products/vusb/index.html|V-USB]], enumerate on the PC as a serial port /dev/ttyxxx so you can connect to it like any serial device and send text. The MCU on [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyLink|the board]] would bufferize and communicate with the GB via Link port (serial also) to show the text...
+<h2>Points of interrest</h2>
+* Enumerating as a Serial port, doesn't seem that common. Found one project though, so let's try [[http://www.recursion.jp/prose/avrcdc/download.html]]
+* Small foot print (as much as reasonable)
+* Made to reuse the GBA connector from a GBA Wireless adapter
+* Smallest MCU possible: thinking [[atTiny85]]
+<h1>Implementation</h1>
+<h2>MCU, pins and interrupts</h2>
+I want a small board so a small MCU (~= low pin counts): need 2 for USB, 2 for the GB interface (CLK + S_DATA_OUT), maybe a "Reset" button. Total 5 pins. I can fit that in a [[AtTiny85]] which has plenty of Flash/RAM to accomodate V-USB (need 2k+ Flash and 128B RAM).<br/>
+But it means I have to sacrifice the 2 clock pins and calibrate the internal oscillator. Luckily there is a [[https://github.com/sparkfun/AVR_Stick/tree/V_1.2/Firmware/AVR-Stick_v12|sample by Adafruit]] (thanks!). So pins will be tight but sufficient<br/>
+<br/>
+Now the question: can the interrupt for the USB play nice with the interrupt from the GB? Answer is without even trying: "most likely no". I thought of a few options like not using interrupt for the GB communication and let be interrupted by the GB, using another MCU that would share data via a shared flash, ... But //there's really no problem in fact//: the GB just need to receive data, not to send anything to the board. And the GB can be driven by an external clock that can be as fast/slow as needed and does not even need to be regular. Just put the right data on S_DATA_OUT on the right clock edge and you're in! <br/>
+So no interrupt for sending to GB: infinite loop that pulls whatever is in the memory buffer to the GB, while the USB as interrupt stores the incoming characters.
+<h2>Bill of materials</h2>
+<h2>Schematics</h2>
+  <img src="/files/gblink-micro-connector-pinout.jpg" /><br/>
+//Pinout of the male connector of a GBA-GBCColor//
+
+<h2>Source code</h2>
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>

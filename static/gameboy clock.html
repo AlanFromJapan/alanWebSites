@@ -1,26 +1,168 @@
-<html>
-  <head>
-    <title>kalshagar - Gameboy clock</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
-<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
+<div class="wiki" id="content_view" style="display: block;">
+<span style="display:block;width:100%;height:auto;" class="seeAlsoGB"><img src="/files/nintendo-game-boy-icon.png" alt="nintendo-game-boy-icon.png" title="nintendo-game-boy-icon.png" />See my other <a class="wiki_link" href="Game%20boy%20projects.html">Gameboy related pages</a></span><br />
 <h1 id="toc0"><a name="Summary"></a> Summary </h1>
-<img src="files/gameboy_256.png" alt="gameboy_256.png" title="gameboy_256.png" align="right" />Idea is to use a gameboy to display time. If possible, even allow the gameboy to still play games (would be great). Why? Well... because it's nice, vintage, unique. And if you're fed up with my nth project with clock (I won't blame you) as long as we control the screen you can connect to internet and read the news, tweets, or show the weather info  (though looking by the window works too). That's most likely how it would end up anyway. But you can't deny the definite geekiness and uniqueness (at last a good argument) of the result.<br />
+<img src="/files/gameboy_256.png" alt="gameboy_256.png" title="gameboy_256.png" align="right" />Idea is to use a gameboy to display time. If possible, even allow the gameboy to still play games (would be great). Why? Well... because it's nice, vintage, unique. And if you're fed up with my nth project with clock (I won't blame you) as long as we control the screen you can connect to internet and read the news, tweets, or show the weather info  (though looking by the window works too). That's most likely how it would end up anyway. But you can't deny the definite geekiness and uniqueness (at last a good argument) of the result.<br />
 <br />
 <h2 id="toc1"><a name="Summary-How to"></a> How to </h2>
 Among the multiple options that exist I see two, and I will most likely try them in the following order:<br />
-<h3 id="toc2"><a name="Summary-How to-(1) Hacking the screen signal"></a> (1) Hacking the screen signal </h3>
+      
+<h3 id="toc2"><a name="Summary-How to-(1) Hacking the screen signal"></a> (1) Hacking the screen signal <img src="/files/jaugercancel.gif" alt="jaugercancel.gif" title="jaugercancel.gif" /></h3>
 That might sound a bit convoluted but even without a cartridge the gameboy shows the black boc and the does the da-ling sound. Means cpu runs, does a bit of ROM magic and what we want: it displays stuff on the screen. Means it draws the screen at 60Hz! There are a few signals involved, but basically:<br />
 <ul><li>Data0 and Data1: because each pixel is a 4 color pixel</li><li>Clock: for the pace</li><li>Horizsyn: when you change line</li><li>Vertsyn: when you change page</li></ul>Talking about the protocole there is one link that talks about it <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2009/11/23/how-to-patch-your-dmg-to-use-a-biverted-palette/" rel="nofollow">here</a>. I will just hijack the data lines and inject my video signal.<br />
-<h3 id="toc3"><a name="Summary-How to-(2) Making my own &quot;game&quot;"></a> (2) Making my own &quot;game&quot; </h3>
+* **👉 Spoiler verdict:** lots of soldering, not even a GB, need high clock speed... not what I want.<br/>
+      <br/>
+      
+<h3 id="toc3"><a name="Summary-How to-(2) Making my own "game""></a> (2) Making my own "game cartridge" <img src="/files/jaugercancel.gif" alt="jaugercancel.gif" title="jaugercancel.gif" /></h3>
 Hardware is doable, I saw some samples. You need a pcb with the correct padding (can be found on internet or made with eagle), put an eeprom on it (like <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/2014/05/14/furrteks-airaki-quick-game-review-and-rom-dump-download/#more-451" rel="nofollow">here</a>), setup a tool chain and uploader and write a small program. That looks doable, but requires much more preparation than the bitbanging approach of injecting signal.<br />
-<h1 id="toc4"><a name="x[Option 1] Hacking the screen signal"></a> [Option 1] Hacking the screen signal </h1>
+* **👉 Spoiler verdict:** doable but would need a bit more of prototyping... not saying no, but later maybe?<br/>
+      <br/>
+
+            
+<h3 id="toc3"><a name="Summary-How to-(3) Use the Link Serial port"></a> (3) Use the link serial port [[100%]] (it works ! 🥳🥳🥳)</h3>
+      Got the idea after reading the book of <a href="https://mdagois.gumroad.com/">Maximilien Dagois</a> late 2023 to "simply" use the Link port, which is a Serial port (SPI). 
+* **👉 Spoiler verdict:** that is the one that worked! <a href="#SerialMode">See below...</a><br/>
+      <br/>
+      <br />
+
+<!-- ================================================================================================= -->      
+<!-- ===                                  OPTION 3 - Link cable                                    === -->      
+<!-- ================================================================================================= -->      
+      
+<h1 id="SerialMode" style="background-color:lightgreen;">[Option 3] Making game only and using Serial communication 👍😎</h1>  <img src="/files/gbclock-anim.gif" align="right"  />
+Just got the idea now, December 2023, would you believe it? I could just make a serial device that would emulate a GB and return the time anytime asked. Nothing to change on the GB hardware or cartridge, or maybe solder a couple wires if I don't find GB serial connectors to sacrifice.<br/>
+      <img src="/files/gblinkclock-overall.jpg" />
+      <h2>Hardware</h2>
+      GB Color/DMG Link port pinout ([[https://westm.co.uk/arduino-game-boy-printer-emulator/|source]]):
+<table>
+  <tr>
+    <td>
+      <pre>
+Gameboy Original/Color Link Cable Pinout
+ __________
+|  6  4  2 |
+ \_5__3__1_/ (looking at the cable)
+ 
+Arduino Pin      Gameboy Link Pin
+unused           Pin 1 : 5.0V
+D4               Pin 2 : Serial OUTPUT
+D3               Pin 3 : Serial INPUT
+unused           Pin 4 : Serial Data
+D2               Pin 5 : Serial Clock (Interrupt)
+GND              Pin 6 : GND (Attach to GND Pin)
+</pre>      
+    </td>
+    <td>
+      <img src="/files/GB-DMG-Serial-PCB.jpg" width="400" /><br/>
+      //Pinout of the connector on a DMG PCB//
+    </td>
+  </tr>
+</table>
+<br/>
+      <img src="/files/GBclock-dev-setup-20240207.jpg" /><br/>
+      //My development setup (her name is Frankenboy)//<br/>
+      
+<h2>Design</h2>
+      I want the board to handle of course GBO/GBA/GBC Link cable communication and have an RTC. But while we're at it, what about we go one step further and add funny stuffs for the future such as ADC input, UART (serial) output, and USB connection? Then we can make our GB a serial display, a multimeter, a side screen ... whatever your imagination can come up with!<br/> 
+      <img src="/files/GBClock_schema_ideas.jpg" /><br/>
+      //Block components ideation//<br/>
+      <img src="/files/20240325_231706.jpg" /><img src="/files/20240325_231524.jpg" /><br/>
+      //The board in action yet not fully populated (nice purple finish of JLCPCB)//<br/>
+<img src="/files/20240402_214334.jpg" /><br/>
+      //Ain't she a beauty?//<br/>
+      <h2>Schematics</h2>
+      See the PDF here with the Eagle sources: [[https://github.com/AlanFromJapan/pcb-design/blob/master/GameboyLink/Gameboy-Link-Clock.pdf|on GitHub]]
+
+<h2>Functions / BOM</h2>
+     What made it to the board from the early design? 
+* MCU: will use a TQFP32 package so all the ATmegaxx8 will work (ATmega8, 168, 328, 328PB,...). I used a 328PB for my first test board.
+* RTC: 2 packages a DS1307 with crystal and DS3231 wide foot print, both are TWI so pick your favorite one. I used a 1307 for my first test board.
+* GBO & GBA/GBC connector on the board, plus a 6pins ISP like if needed.
+* USB: Micro and Mini, Power AND DATA is you setup V-USB (would even work as OTG slave), but no USB-C because I couldnt find a reliable cheap source and didn't want to waste ages. That would be of course done if one day I do a v2.
+* UART out
+* External input: 2x ADC and 3x general
+* LED: 2 SMD on board shared with the general input pins
+* Power: 3 pin jumper selector to power from USB/direct power or GameBoy if your cable routes the VCC pin (not the case with mine but maybe you're lucky)
+* Battery: 2 footprints for the connectors, both for CR2032 
+<h2>Code</h2>
+      All is split in 3 different repos: the GB "game" code, the PCB of the link port device, and the microcontroller code for that board.
+<table style="border: solid 1px gray; height: 200px;">
+  <tr style="text-align:center;">
+    <td style="background:whitesmoke;"> **<span style="color:darkmagenta;">Gameboy</span> code**</td>
+    <td style="background:lightgray;">**<span style="color:dodgerblue;">Microcontroller</span> code**</td>
+    <td style="background:gray;">**<span style="color:orange;">PCB</span> board**</td>
+  </tr>
+  <tr>
+    <td>
+      👉 see [[https://github.com/AlanFromJapan/Gameboy/tree/master/Games/GameBoyClock|on Github (GB code)]]
+* //GameBoyClock-emu//: small program that can send/receive on serial. <br/>
+      Will be useful in the debug/development phase.
+* //GameBoyClock//: the program that will read serial and show time
+    </td>
+    <td style="background:whitesmoke;">
+	 MCU code (on the PCB) is in another dedicated repo [[https://github.com/AlanFromJapan/GameboyClock|on GitHub (MCU code)]].<br/>
+    </td>
+    <td  style="background:lightgray;">
+      Board is with the other PCB designs also [[https://github.com/AlanFromJapan/pcb-design/tree/master/GameboyLink|on GitHub (PCB)]]
+    </td>
+  </tr>
+      </table>
+      
+      <h2>Improvements</h2>
+* PCB: make the both Link cable connector a whee bit larger, maybe 0.5mm (length is fine). There's just a little too much play to sooth my OCD. Need to pull the good caliper.
+* PCB: make a smaller version, with scavenged male connector (not available on the market alas)
+* PCB: solve why the VCC from the GB is not routed to the board, if it's the cable or not.
+* PCB: more blingbling?
+* ALL: support higher clock rates (make it generated by the PCB)
+      
+      <h2>Helpful links</h2>
+* [[https://github.com/mofosyne/arduino-gameboy-printer-emulator]]
+* [[https://blog.gbplay.io/2021/05/29/Connecting-to-a-Game-Boy-Link-Cable-From-a-PC.html]]
+* [[https://blog.gbplay.io/2021/05/10/An-8-Bit-Idea_The-Internet-of-Game-Boys.html]]    
+* [[https://github.com/Raphael-Boichot/PC-to-Game-Boy-Printer-interface]]
+
+      <hr/>
+      <hr/>
+<!-- ================================================================================================= -->      
+<!-- ===                                  OPTION 2 - Cartridge                                     === -->      
+<!-- ================================================================================================= -->      
+      
+      <h1 id="toc12" style="background-color:gainsboro;"><a name="x[Option 2] Making my own cartridge"></a> [Option 2] Making custom cartridge with RTC ⛔</h1>
+<em>See dedicated project : <a class="wiki_link" href="Gameboy%20homebrew%20cartridge.html">Gameboy homebrew cartridge</a>.</em><br />
+      But I'll keep some memo here. So here's the idea:
+* Sticking with 32k vanilla program (no fiddling with MBC chips)
+* Keep the program in the low 16k of the ROM
+* Capture a call to ANY high address > 16k and reply the current time. No logic, any address > 16k reply the time. Ergo the uC must keep the latest time on one of its 8bit port.
+To do that the idea is this:
+* Data bus is connected to a multiplexer non-inverter (two 4bits [[https://www.ti.com/product/CD74HC257|74HC257]]) that can show the ROM data bus or the uC "time" bus
+* The multiplexer switches depending on the address (like A15=H or a simple AND combo)
+* The uC checks the RTC every sec, get latest time, shows it on its 8bit "time" data port (QUESTION: HH:MM on 8bit num?)
+* According below chronograph there's 3 cycles for data read once bus is set (250ns*3) and 74HC257 has a setup time (input pins to output) of ~30ns at 25C/5V so no worries there.
+<img src="/files/gb-cart-read-timechart.png" alt="https://github.com/Gekkio/gb-ctr" /><br/>
+Taken from [[https://github.com/Gekkio/gb-ctr|Game Boy: Complete Technical Reference]] (Annex C)<br/>
+      <h2>BOM</h2>
+* 32k ROM     
+* 74HC257 (SOIC) x2
+* RTC chip (SMT) [TBD]
+* Microcontroller ATmel SMT [TBD]
+* Battery
+* AND circuit or transistor if simple logic for multiplexer switching logic (optional)
+ 
+<br />
+<h2 id="toc13"><a name="Links"></a> Links </h2>
+* [[https://www.insidegadgets.com/2018/04/18/building-a-2mb-mbc5-gameboy-cart-part-1-cpld-as-the-mbc-and-adding-flash-as-our-rom/|Different timing, address logic]]
+* [[https://gbdev.gg8.se/forums/viewtopic.php?pid=3625#p3625|read this, ignore old me posts below]]
+      
+      <hr/>
+      <hr/>
+<!-- ================================================================================================= -->      
+<!-- ===                                  OPTION 1 - LCD                                           === -->      
+<!-- ================================================================================================= -->      
+
+      
+<h1 id="toc4" style="background-color:gainsboro;"><a name="x[Option 1] Hacking the screen signal"></a> [Option 1] Hacking the screen signal ⛔</h1>
 <h2 id="toc5"><a name="x[Option 1] Hacking the screen signal-Theory"></a> Theory </h2>
 Invaluable resource : <a class="wiki_link_ext" href="https://flashingleds.wordpress.com/2010/10/26/intercepting-the-gameboy-lcd/" rel="nofollow">https://flashingleds.wordpress.com/2010/10/26/intercepting-the-gameboy-lcd/</a><br />
-<img src="files/gameboyconnector_pinout.png" alt="gameboyconnector_pinout.png" title="gameboyconnector_pinout.png" /><br />
+<img src="/files/gameboyconnector_pinout.png" alt="gameboyconnector_pinout.png" title="gameboyconnector_pinout.png" /><br />
 Another one <a class="wiki_link_ext" href="http://www.bradsprojects.com/gameboy-to-vga-converter-in-progress/" rel="nofollow">http://www.bradsprojects.com/gameboy-to-vga-converter-in-progress/</a><br />
 And special thanks to this gentleman who inversed his gameboy display and kindly shared his technique <a class="wiki_link_ext" href="http://blog.gg8.se/wordpress/category/mods/" rel="nofollow">http://blog.gg8.se/wordpress/category/mods/</a><br />
 Some other guys who did again (so much for my hoped originality):<br />
@@ -83,13 +225,14 @@ Some other guys who did again (so much for my hoped originality):<br />
 <h2 id="toc8"><a name="x[Option 1] Hacking the screen signal-Hardware"></a> Hardware </h2>
 <h3 id="toc9"><a name="x[Option 1] Hacking the screen signal-Hardware-Gameboy side"></a> Gameboy side </h3>
 (The connector for the screen ribbon is <a class="wiki_link_ext" href="http://jp.rs-online.com/web/p/products/6883246/" rel="nofollow" target="_blank">this one</a>)<br />
-<ul><li>Cut <strong>carefully</strong> the data0 and data1 lines (add image here), and get 4 wires : 2 original ins from the CPU, 2 outs to the screen</li><li>Solder wires to get the clock, vsync an hsync signals (should be all for now)</li><li>Redirect all the signal outside the GB for the time being and avoid stress on the connectors. I will be easier to connect to the development display module.</li></ul><img src="files/gameboy_pins_timing1.PNG" alt="gameboy_pins_timing1.PNG" title="gameboy_pins_timing1.PNG" /><br />
+<ul><li>Cut <strong>carefully</strong> the data0 and data1 lines (add image here), and get 4 wires : 2 original ins from the CPU, 2 outs to the screen</li><li>Solder wires to get the clock, vsync an hsync signals (should be all for now)</li><li>Redirect all the signal outside the GB for the time being and avoid stress on the connectors. I will be easier to connect to the development display module.</li></ul><img src="/files/gameboy_pins_timing1.PNG" alt="gameboy_pins_timing1.PNG" title="gameboy_pins_timing1.PNG" /><br />
 <em>Sample of <span style="color: #ff0000;">Data1</span>, <span style="color: #ff8c00;">Data0</span>, <span style="color: #ffd600;">Clock </span>and <span style="color: #008000;">hSync</span></em><br />
-<img src="files/gbscreen_vsync.PNG" alt="gbscreen_vsync.PNG" title="gbscreen_vsync.PNG" /><br />
+<img src="/files/gbscreen_vsync.PNG" alt="gbscreen_vsync.PNG" title="gbscreen_vsync.PNG" width="1024" /><br />
 <em>Sample of one VSync: vsync is up for a looooong time (the whole first line) and you can detect as when the Clock ↓ AND HSync up AND VSync up</em><br />
-<img src="files/gbscreen_scanoneline.PNG" alt="gbscreen_scanoneline.PNG" title="gbscreen_scanoneline.PNG" /><br />
+<img src="/files/gbscreen_scanoneline.PNG" alt="gbscreen_scanoneline.PNG" title="gbscreen_scanoneline.PNG" width="1024" /><br />
 <em>Top-bottom: hsync, data0, data1, clock. That's one line of the black box displayed when Gameboy is on with no cartridge. Look at data lines: a little white, all black, and 2 black pixels (part of the ® symbol). </em><br />
 <br />
+      
 <h3 id="toc10"><a name="x[Option 1] Hacking the screen signal-Hardware-Display control module"></a> Display control module </h3>
 <span style="font-weight:bold; color:grey;font-style:italic;">Speed</span><br />
 We need a bare minimum of give or take1.5 Mhz (60 Hz x 160 lines x 144 px/lines = 1,382,400 instructions). But each instructions will require preparation, just to get the pixel color out of memory if we put a static image, some control logic and yes, read the time from the RTC. Let's say that we sacrifice the last image per second to read the RTC and do some magic preparation, it gives us 16 ms of time to do background tasks. At 4Mhz that's more than 66k%20 instructions, that's more than enough. So we can start with an internal oscillators RC of 8MHz.<br />
@@ -99,24 +242,24 @@ One image in 4 levels of gray is  5,760 bytes.<br />
 Maybe this RAM chip: 300 JPY for 5 of them holding 256kb <a class="wiki_link_ext" href="http://akizukidenshi.com/catalog/g/gI-01461/" rel="nofollow">http://akizukidenshi.com/catalog/g/gI-01461/</a><br />
 <br />
 <h2 id="toc11"><a name="x[Option 1] Hacking the screen signal-Software"></a> Software </h2>
-Let's work with interrupts: clock, hsync, vsync. What crystal speed required? We saw earlier it needs 1.5 Mhz min, so let's go with 16Mhz and we'll check how to optimize later. Main point here is to go with interrupts so that the program can do other stuffs while it still paints the screen in the background. We could wire the buttons, the sound and even make games (everybody catches the irony of such a convoluted solution just to avoid writing a Gameboy game?)... so we'll go with a simple &quot;read the RTC&quot; as a start. We'll need also to generate the image in memory and store it there.<br />
+Let's work with interrupts: clock, hsync, vsync. What crystal speed required? We saw earlier it needs 1.5 Mhz min, so let's go with 16Mhz and we'll check how to optimize later. Main point here is to go with interrupts so that the program can do other stuffs while it still paints the screen in the background. We could wire the buttons, the sound and even make games (everybody catches the irony of such a convoluted solution just to avoid writing a Gameboy game?)... so we'll go with a simple "read the RTC" as a start. We'll need also to generate the image in memory and store it there.<br />
 <br />
 [After theory now experimentation]<br />
 ... and that's where things go south. You saw it coming? Not me, though I should have had since I had the same problem with my <a class="wiki_link" href="Around%20a%20SNES.html">SNES cabinet</a> when I emulated the controllers: I don't have enough cycles! <br />
-We need to spit pixels at 1.5 MHz, let's say 2 for the calculation. CPU runs at 16 MHz so means I have a luxurious 8 cycle per pixel... FYI just going IN and OUT of an interrupt if 4 cycles, leaving 4 cycles per pixel... that's very short. I tried a hybrid version that is an interrupt for the line start and after is just timed as fast as possible, I get an image but &quot;stretched&quot; horizontally. Of course, I can't keep up so the screen reads many time the same data on the D0/D1 lines.<br />
+We need to spit pixels at 1.5 MHz, let's say 2 for the calculation. CPU runs at 16 MHz so means I have a luxurious 8 cycle per pixel... FYI just going IN and OUT of an interrupt if 4 cycles, leaving 4 cycles per pixel... that's very short. I tried a hybrid version that is an interrupt for the line start and after is just timed as fast as possible, I get an image but "stretched" horizontally. Of course, I can't keep up so the screen reads many time the same data on the D0/D1 lines.<br />
 Not 100% dead end, but a big bump though. <br />
 <br />
 <br />
 TODO code on google code<br />
 <br />
-<h1 id="toc12"><a name="x[Option 2] Making my own game"></a> [Option 2] Making my own game </h1>
-<em>See dedicated project : <a class="wiki_link" href="Gameboy%20homebrew%20cartridge.html">Gameboy homebrew cartridge</a>.</em><br />
-<br />
-<h1 id="toc13"><a name="Links"></a> Links </h1>
+
+
+      
+      
+      
+      <H1>Misc pointers</H1>
 <h2 id="toc14"><a name="Links-Internal"></a> Internal </h2>
 <ul><li><a class="wiki_link" href="Gameboy%20screen.html">Gameboy screen</a> has details about the technicalities around the gameboy screen (hardware wise)</li><li><a class="wiki_link" href="Gameboy%20guts%20and%20programming.html">Gameboy guts and programming</a> in case I change my mind and just make a custom cartridge.</li></ul><h2 id="toc15"><a name="Links-External"></a> External </h2>
 <ul><li><strong>Gameboy Pandocs <a class="wiki_link_ext" href="http://problemkaputt.de/pandocs.htm" rel="nofollow">http://problemkaputt.de/pandocs.htm</a></strong></li></ul>Hackaday :<br />
 <ul><li><a class="wiki_link_ext" href="http://dhole.github.io/post/gameboy_cartridge_emu_1/" rel="nofollow">http://dhole.github.io/post/gameboy_cartridge_emu_1/</a></li><li>Hackaday category <a class="wiki_link_ext" href="http://hackaday.com/category/nintendo-gameboy-hacks" rel="nofollow">http://hackaday.com/category/nintendo-gameboy-hacks</a></li><li><a class="wiki_link_ext" href="https://www.insidegadgets.com/2011/04/23/emulating-the-nintendo-logo-on-the-gameboy/" rel="nofollow">https://www.insidegadgets.com/2011/04/23/emulating-the-nintendo-logo-on-the-gameboy/</a></li></ul>
     </div>
-  </body>
-</html>

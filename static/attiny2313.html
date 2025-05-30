@@ -1,10 +1,17 @@
 <h1 id="toc0"><a name="ATtiny 2313"></a> ATtiny 2313 </h1>
 <h2 id="toc1"><a name="ATtiny 2313-Memo fact sheet"></a> Memo fact sheet </h2>
-<ul><li><strong>Code</strong> : 2048 Bytes / <strong>EEPROM</strong> : 128 Bytes / <strong>RAM</strong> : 128 Bytes</li><li>It has <strong>no</strong> Analog to Digital Converter, but the AIN1/AIN0 pair is an analog comparator</li><li>Homepage <a class="wiki_link_ext" href="http://www.atmel.com/dyn/Products/Product_card.asp?part_id=3229" rel="nofollow">http://www.atmel.com/dyn/Products/Product_card.asp?part_id=3229</a></li></ul><h2 id="toc2"><a name="ATtiny 2313-Projects using Attiny2313"></a> Projects using Attiny2313</h2>
-[[RapideUSBII| RapideUSB II]], <a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a>, <a class="wiki_link" href="Home%20Presence%20Detector.html">Home Presence Detector</a>, <a class="wiki_link" href="Guitar%20Rod%20of%20Command.html">Guitar Rod of Command</a>, ...<br />
-<h2 id="toc3"><a name="ATtiny 2313-Pin Layout"></a> Pin Layout </h2>
-<img src="files/pinout2313.png" alt="pinout2313.png" title="pinout2313.png" align="right" /><br />
+<ul>
+  <li><strong>Code</strong> : 2048 Bytes / <strong>EEPROM</strong> : 128 Bytes / <strong>RAM</strong> : 128 Bytes</li>
+  <li>It has <strong>no</strong> Analog to Digital Converter, but the AIN1/AIN0 pair is an analog comparator</li>
+  <li>Homepage [[https://www.microchip.com/en-us/product/ATtiny2313A#]]</li>
+</ul>
 
+<h2 id="toc2"><a name="ATtiny 2313-Projects using Attiny2313"></a> Projects using Attiny2313</h2>
+
+[[RapideUSBII| RapideUSB II]], <a class="wiki_link" href="Clapclap%202313.html">Clapclap 2313</a>, <a class="wiki_link" href="Home%20Presence%20Detector.html">Home Presence Detector</a>, <a class="wiki_link" href="Guitar%20Rod%20of%20Command.html">Guitar Rod of Command</a>, ...<br />
+
+<h2 id="toc3"><a name="ATtiny 2313-Pin Layout"></a> Pin Layout </h2><br />
+<img src="/files/pinout2313.png" alt="pinout2313.png" title="pinout2313.png" />
 <pre >
 ATMEL ATTINY2313
                        +-\/-+
@@ -24,7 +31,7 @@ ATMEL ATTINY2313
 <br />
 <h2 id="toc4"><a name="ATtiny 2313-Pin configuration"></a> Pin configuration </h2>
 Taken from Atmel Attiny 2313 pdf page 48 - Switching between input and output<br />
-<img src="files/attiny2313-pinconfig.png" alt="attiny2313-pinconfig.png" title="attiny2313-pinconfig.png" /><br />
+<img src="/files/attiny2313-pinconfig.png" alt="attiny2313-pinconfig.png" title="attiny2313-pinconfig.png" /><br />
 <br />
 <h2 id="toc5"><a name="ATtiny 2313-Alternate development tool : WinAVR"></a> Alternate development tool : WinAVR </h2>
 Means, you get bored of trying to make that 2313 work with Arduino software, or you get desperate that the "blink" program once buit is 790 bytes%20 (while max is 2048)!! Ok, then you have to turn to assembler, not big deal. FYI the same program is archieved in 100 bytes%20, means roughly a factor 7 in size ... wow.<br />

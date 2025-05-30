@@ -8,13 +8,13 @@
     <div class="wiki" id="content_view" style="display: block;">
 <strong>Foreword about prices</strong><br />
 <em>If you are lucky and live in Japan like me, just buy your RTC 8564 at Akizukidenshi.<br />
-The RTC module (on a small IC) %20 a coin battery %20 coin battery holder is 650 ¥ so say 7 USD (buy separately, crystal is already in the chip).<br />
-The Sparkfun (forgive me for pointing that for I really love your job guys) is 20 USD (%20 port for the guys in Japan like me). Price difference is a factor 3, and since the 2 modules have nearly the same functions that worth being said (in fact the 8564 is much more powerful with integrated alarm that can work on weekdays, possible to have extra clock output at select frequence...)</em><br />
+The RTC module (on a small IC) + a coin battery + coin battery holder is 650 ¥ so say 7 USD (buy separately, crystal is already in the chip).<br />
+The Sparkfun (forgive me for pointing that for I really love your job guys) is 20 USD (+ port for the guys in Japan like me). Price difference is a factor 3, and since the 2 modules have nearly the same functions that worth being said (in fact the 8564 is much more powerful with integrated alarm that can work on weekdays, possible to have extra clock output at select frequence...)</em><br />
 <br />
 <hr />
 <br />
 <h1 id="toc0"><a name="DS3232 (Maxim)"></a>DS3232 (Maxim)</h1>
-A fantastic temperature compensated RTC ! %20/- 2 minutes drift over a year, a dream. Comes with its inbuilt oscillator, so just plug it on a battery, read it through I2C as usual, and there you go. You'll find in the here under zip file a RTCDS3232.h file that might save you some time (but it's really just the basic usual RTC stuff). I used it in the project <a class="wiki_link" href="ardReveil%20v3.html">ardReveil v3</a>.<br />
+A fantastic temperature compensated RTC ! +/- 2 minutes drift over a year, a dream. Comes with its inbuilt oscillator, so just plug it on a battery, read it through I2C as usual, and there you go. You'll find in the here under zip file a RTCDS3232.h file that might save you some time (but it's really just the basic usual RTC stuff). I used it in the project <a class="wiki_link" href="/ardReveil v3.html">ardReveil v3</a>.<br />
 <A  href="files/ARD_Reveil_v3.zip.html">ARD_Reveil_v3.zip</a><br />
 <img src="files/ds3232wiring.png" alt="ds3232wiring.png" title="ds3232wiring.png" /><br />
 <br />
@@ -42,7 +42,7 @@ Same as DS3232 BUT with SPI interface<br />
  <h2 id="toc8"><a name="RTC1307 (Maxim)-Schema"></a>Schema</h2>
  <img src="files/RTCSchema.png" alt="RTCSchema.png" title="RTCSchema.png" /><br />
 <strong>Nota bene:</strong><br />
-<ol><li>It uses 5v, not 3.3v (at least my model DS1307)</li><li>Do <strong>NOT</strong> plug the GND of the DS1307 to the GND. You can read fine but update of time stops (at least in what you read)<ol><li>I should proofread the doc but I think that then the copy of the work registers to the temps registers stops</li></ol></li><li>Plug only 3 wires : Vcc, SDA &amp; SDL using the pullups</li><li>Pullups &gt;= 1kOhm shall be very fine</li><li>SQW does not need to be plugged</li></ol><br />
+<ol><li>It uses 5v, not 3.3v (at least my model DS1307)</li><li>Do <strong>NOT</strong> plug the GND of the DS1307 to the GND. You can read fine but update of time stops (at least in what you read)<ol><li>I should proofread the doc but I think that then the copy of the work registers to the temps registers stops</li></ol></li><li>Plug only 3 wires : Vcc, SDA & SDL using the pullups</li><li>Pullups >= 1kOhm shall be very fine</li><li>SQW does not need to be plugged</li></ol><br />
 <br />
 <h2 id="toc9"><a name="RTC1307 (Maxim)-Documentation"></a>Documentation</h2>
  <ul><li>In depth explanation <a class="wiki_link_ext" href="http://www.ermicro.com/blog/?p=950" rel="nofollow">http://www.ermicro.com/blog/?p=950</a></li><li>Explanation and excellent sample code <a class="wiki_link_ext" href="http://combustory.com/wiki/index.php/RTC1307_-_Real_Time_Clock" rel="nofollow">http://combustory.com/wiki/index.php/RTC1307_-_Real_Time_Clock</a></li><li>Dallas Semiconductor DS1307 doc <A  href="files/DS1307.pdf.html">DS1307.pdf</a></li><li>Founder Maxim <a class="wiki_link_ext" href="http://www.maxim-ic.com/quick_view2.cfm/qv_pk/2688" rel="nofollow">http://www.maxim-ic.com/quick_view2.cfm/qv_pk/2688</a></li></ul><br />
@@ -90,86 +90,86 @@ Same as DS3232 BUT with SPI interface<br />
 
 -->
 </style><pre class="c"><span class="co2">#define DS1307_I2C_ADDRESS 0x68  // This is the I2C address</span>
-&nbsp;
+ 
 ...
-&nbsp;
+ 
 <span class="co1">// Convert normal decimal numbers to binary coded decimal</span>
-byte decToBcd<span class="br0">&#40;</span>byte val<span class="br0">&#41;</span>
-<span class="br0">&#123;</span>
-  <span class="kw1">return</span> <span class="br0">&#40;</span> <span class="br0">&#40;</span>val<span class="sy0">/</span><span class="nu0">10</span><span class="sy0">*</span><span class="nu0">16</span><span class="br0">&#41;</span> <span class="sy0">%20</span> <span class="br0">&#40;</span>val<span class="sy0">%</span><span class="nu19">10</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="br0">&#125;</span>
-&nbsp;
+byte decToBcd<span class="br0">(</span>byte val<span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="kw1">return</span> <span class="br0">(</span> <span class="br0">(</span>val<span class="sy0">/</span><span class="nu0">10</span><span class="sy0">*</span><span class="nu0">16</span><span class="br0">)</span> <span class="sy0">+</span> <span class="br0">(</span>val<span class="sy0">%</span><span class="nu19">10</span><span class="br0">)</span> <span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+ 
 <span class="co1">// Convert binary coded decimal to normal decimal numbers</span>
-byte bcdToDec<span class="br0">&#40;</span>byte val<span class="br0">&#41;</span>
-<span class="br0">&#123;</span>
-  <span class="kw1">return</span> <span class="br0">&#40;</span> <span class="br0">&#40;</span>val<span class="sy0">/</span><span class="nu0">16</span><span class="sy0">*</span><span class="nu0">10</span><span class="br0">&#41;</span> <span class="sy0">%20</span> <span class="br0">&#40;</span>val<span class="sy0">%</span><span class="nu19">16</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="br0">&#125;</span>
-&nbsp;
+byte bcdToDec<span class="br0">(</span>byte val<span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="kw1">return</span> <span class="br0">(</span> <span class="br0">(</span>val<span class="sy0">/</span><span class="nu0">16</span><span class="sy0">*</span><span class="nu0">10</span><span class="br0">)</span> <span class="sy0">+</span> <span class="br0">(</span>val<span class="sy0">%</span><span class="nu19">16</span><span class="br0">)</span> <span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+ 
 <span class="co1">// 1) Sets the date and time on the ds1307</span>
 <span class="co1">// 2) Starts the clock</span>
 <span class="co1">// 3) Sets hour mode to 24 hour clock</span>
 <span class="co1">// Assumes you're passing in valid numbers, Probably need to put in checks for valid numbers.</span>
-&nbsp;
-<span class="kw4">void</span> setDateDs1307<span class="br0">&#40;</span><span class="br0">&#41;</span>
-<span class="br0">&#123;</span>
-&nbsp;
-   second <span class="sy0">=</span> <span class="br0">&#40;</span>byte<span class="br0">&#41;</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span> <span class="sy0">*</span> <span class="nu0">10</span> <span class="sy0">%20</span> <span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Use of (byte) type casting and ascii math to achieve result.</span>
-   minute <span class="sy0">=</span> <span class="br0">&#40;</span>byte<span class="br0">&#41;</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">%20</span>  <span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   hour  <span class="sy0">=</span> <span class="br0">&#40;</span>byte<span class="br0">&#41;</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">%20</span>  <span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   dayOfWeek <span class="sy0">=</span> <span class="br0">&#40;</span>byte<span class="br0">&#41;</span> <span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   dayOfMonth <span class="sy0">=</span> <span class="br0">&#40;</span>byte<span class="br0">&#41;</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">%20</span>  <span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   month <span class="sy0">=</span> <span class="br0">&#40;</span>byte<span class="br0">&#41;</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">%20</span>  <span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   year<span class="sy0">=</span> <span class="br0">&#40;</span>byte<span class="br0">&#41;</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">%20</span>  <span class="br0">&#40;</span>Serial.<span class="me1">read</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">beginTransmission</span><span class="br0">&#40;</span>DS1307_I2C_ADDRESS<span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span><span class="nu12">0x00</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span>decToBcd<span class="br0">&#40;</span>second<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>    <span class="co1">// 0 to bit 7 starts the clock</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span>decToBcd<span class="br0">&#40;</span>minute<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span>decToBcd<span class="br0">&#40;</span>hour<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>      <span class="co1">// If you want 12 hour am/pm you need to set</span>
+ 
+<span class="kw4">void</span> setDateDs1307<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+ 
+   second <span class="sy0">=</span> <span class="br0">(</span>byte<span class="br0">)</span> <span class="br0">(</span><span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span> <span class="sy0">*</span> <span class="nu0">10</span> <span class="sy0">+</span> <span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Use of (byte) type casting and ascii math to achieve result.</span>
+   minute <span class="sy0">=</span> <span class="br0">(</span>byte<span class="br0">)</span> <span class="br0">(</span><span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">+</span>  <span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   hour  <span class="sy0">=</span> <span class="br0">(</span>byte<span class="br0">)</span> <span class="br0">(</span><span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">+</span>  <span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   dayOfWeek <span class="sy0">=</span> <span class="br0">(</span>byte<span class="br0">)</span> <span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span><span class="sy0">;</span>
+   dayOfMonth <span class="sy0">=</span> <span class="br0">(</span>byte<span class="br0">)</span> <span class="br0">(</span><span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">+</span>  <span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   month <span class="sy0">=</span> <span class="br0">(</span>byte<span class="br0">)</span> <span class="br0">(</span><span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">+</span>  <span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   year<span class="sy0">=</span> <span class="br0">(</span>byte<span class="br0">)</span> <span class="br0">(</span><span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span> <span class="sy0">*</span><span class="nu0">10</span> <span class="sy0">+</span>  <span class="br0">(</span>Serial.<span class="me1">read</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">-</span> <span class="nu0">48</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">beginTransmission</span><span class="br0">(</span>DS1307_I2C_ADDRESS<span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">send</span><span class="br0">(</span><span class="nu12">0x00</span><span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">send</span><span class="br0">(</span>decToBcd<span class="br0">(</span>second<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>    <span class="co1">// 0 to bit 7 starts the clock</span>
+   Wire.<span class="me1">send</span><span class="br0">(</span>decToBcd<span class="br0">(</span>minute<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">send</span><span class="br0">(</span>decToBcd<span class="br0">(</span>hour<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>      <span class="co1">// If you want 12 hour am/pm you need to set</span>
                                    <span class="co1">// bit 6 (also need to change readDateDs1307)</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span>decToBcd<span class="br0">&#40;</span>dayOfWeek<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span>decToBcd<span class="br0">&#40;</span>dayOfMonth<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span>decToBcd<span class="br0">&#40;</span>month<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">send</span><span class="br0">&#40;</span>decToBcd<span class="br0">&#40;</span>year<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-   Wire.<span class="me1">endTransmission</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="br0">&#125;</span>
-&nbsp;
+   Wire.<span class="me1">send</span><span class="br0">(</span>decToBcd<span class="br0">(</span>dayOfWeek<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">send</span><span class="br0">(</span>decToBcd<span class="br0">(</span>dayOfMonth<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">send</span><span class="br0">(</span>decToBcd<span class="br0">(</span>month<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">send</span><span class="br0">(</span>decToBcd<span class="br0">(</span>year<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+   Wire.<span class="me1">endTransmission</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+ 
 <span class="co1">// Gets the date and time from the ds1307 and prints result</span>
-<span class="kw4">void</span> getDateDs1307<span class="br0">&#40;</span><span class="br0">&#41;</span>
-<span class="br0">&#123;</span>
+<span class="kw4">void</span> getDateDs1307<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
   <span class="co1">// Reset the register pointer</span>
-  Wire.<span class="me1">beginTransmission</span><span class="br0">&#40;</span>DS1307_I2C_ADDRESS<span class="br0">&#41;</span><span class="sy0">;</span>
-  Wire.<span class="me1">send</span><span class="br0">&#40;</span><span class="nu12">0x00</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  Wire.<span class="me1">endTransmission</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-&nbsp;
-  Wire.<span class="me1">requestFrom</span><span class="br0">&#40;</span>DS1307_I2C_ADDRESS<span class="sy0">,</span> <span class="nu0">7</span><span class="br0">&#41;</span><span class="sy0">;</span>
-&nbsp;
+  Wire.<span class="me1">beginTransmission</span><span class="br0">(</span>DS1307_I2C_ADDRESS<span class="br0">)</span><span class="sy0">;</span>
+  Wire.<span class="me1">send</span><span class="br0">(</span><span class="nu12">0x00</span><span class="br0">)</span><span class="sy0">;</span>
+  Wire.<span class="me1">endTransmission</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+  Wire.<span class="me1">requestFrom</span><span class="br0">(</span>DS1307_I2C_ADDRESS<span class="sy0">,</span> <span class="nu0">7</span><span class="br0">)</span><span class="sy0">;</span>
+ 
   <span class="co1">// A few of these need masks because certain bits are control bits</span>
-  second     <span class="sy0">=</span> bcdToDec<span class="br0">&#40;</span>Wire.<span class="me1">receive</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">&amp;</span> <span class="nu12">0x7f</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  minute     <span class="sy0">=</span> bcdToDec<span class="br0">&#40;</span>Wire.<span class="me1">receive</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  hour       <span class="sy0">=</span> bcdToDec<span class="br0">&#40;</span>Wire.<span class="me1">receive</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">&amp;</span> <span class="nu12">0x3f</span><span class="br0">&#41;</span><span class="sy0">;</span>  <span class="co1">// Need to change this if 12 hour am/pm</span>
-  dayOfWeek  <span class="sy0">=</span> bcdToDec<span class="br0">&#40;</span>Wire.<span class="me1">receive</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  dayOfMonth <span class="sy0">=</span> bcdToDec<span class="br0">&#40;</span>Wire.<span class="me1">receive</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  month      <span class="sy0">=</span> bcdToDec<span class="br0">&#40;</span>Wire.<span class="me1">receive</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  year       <span class="sy0">=</span> bcdToDec<span class="br0">&#40;</span>Wire.<span class="me1">receive</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-&nbsp;
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span>hour<span class="sy0">,</span> DEC<span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span>minute<span class="sy0">,</span> DEC<span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span>second<span class="sy0">,</span> DEC<span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;  &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span>month<span class="sy0">,</span> DEC<span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;/&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span>dayOfMonth<span class="sy0">,</span> DEC<span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;/&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-  Serial.<span class="me1">print</span><span class="br0">&#40;</span>year<span class="sy0">,</span> DEC<span class="br0">&#41;</span><span class="sy0">;</span>
-&nbsp;
-<span class="br0">&#125;</span>
-&nbsp;</pre>
+  second     <span class="sy0">=</span> bcdToDec<span class="br0">(</span>Wire.<span class="me1">receive</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">&</span> <span class="nu12">0x7f</span><span class="br0">)</span><span class="sy0">;</span>
+  minute     <span class="sy0">=</span> bcdToDec<span class="br0">(</span>Wire.<span class="me1">receive</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+  hour       <span class="sy0">=</span> bcdToDec<span class="br0">(</span>Wire.<span class="me1">receive</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">&</span> <span class="nu12">0x3f</span><span class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Need to change this if 12 hour am/pm</span>
+  dayOfWeek  <span class="sy0">=</span> bcdToDec<span class="br0">(</span>Wire.<span class="me1">receive</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+  dayOfMonth <span class="sy0">=</span> bcdToDec<span class="br0">(</span>Wire.<span class="me1">receive</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+  month      <span class="sy0">=</span> bcdToDec<span class="br0">(</span>Wire.<span class="me1">receive</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+  year       <span class="sy0">=</span> bcdToDec<span class="br0">(</span>Wire.<span class="me1">receive</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+  Serial.<span class="me1">print</span><span class="br0">(</span>hour<span class="sy0">,</span> DEC<span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span><span class="st0">":"</span><span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span>minute<span class="sy0">,</span> DEC<span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span><span class="st0">":"</span><span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span>second<span class="sy0">,</span> DEC<span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span><span class="st0">"  "</span><span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span>month<span class="sy0">,</span> DEC<span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span>dayOfMonth<span class="sy0">,</span> DEC<span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
+  Serial.<span class="me1">print</span><span class="br0">(</span>year<span class="sy0">,</span> DEC<span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="br0">}</span>
+ </pre>
 
 <br />
 <h1 id="toc12"><a name="DS1302"></a> DS1302 </h1>
-Another Maxim timekeeper, a bit cheaper (no temperature compensation, a serial communication bus only,...) but has the merit to be cheap (&lt; 3USD board with delivery from eBay).<br />
+Another Maxim timekeeper, a bit cheaper (no temperature compensation, a serial communication bus only,...) but has the merit to be cheap (< 3USD board with delivery from eBay).<br />
 <ul><li>Sample <a class="wiki_link_ext" href="http://playground.arduino.cc/Main/DS1302" rel="nofollow">http://playground.arduino.cc/Main/DS1302</a></li><li>Maxim doc <a class="wiki_link_ext" href="http://www.maximintegrated.com/datasheet/index.mvp/id/2685" rel="nofollow">http://www.maximintegrated.com/datasheet/index.mvp/id/2685</a></li></ul>
     </div>
   </body>
