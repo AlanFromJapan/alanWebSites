@@ -1,7 +1,14 @@
 FROM python:3.13-alpine
 
 #get git to clone the repository
-RUN apk update && apk add git
+RUN apk update && apk add git tzdata
+
+# Set the timezone to Japan
+ENV TZ=Asia/Tokyo
+
+# Set the locale to UTF-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 RUN mkdir -p /app
 
