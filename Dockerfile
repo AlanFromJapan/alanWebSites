@@ -34,7 +34,8 @@ RUN git checkout master
 RUN git pull origin master
 
 #copy the UPDATED config file
-COPY config.py /app/config.py
+#Mount the config file from the host machine to the container with the -v option at run "-v /path/to/config.py:/app/config.py"
+#COPY config.py /app/config.py
 
 #install the requirements
 RUN pip install -r requirements.txt
