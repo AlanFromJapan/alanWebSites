@@ -26,8 +26,11 @@ March 2023: move to python3. Pretty sure I did that all years ago an never relea
 ## Prepare
 1. Get the code and pages `git clone https://github.com/AlanFromJapan/alanWebSites.git .`
 1. `cp config.sample.py config.py` and edit to your needs
-    - BEWARE: change  **ROOTDIR** to `/app/static`
-1. Build `docker build -t electrogeek .`
+    - <u>BEWARE:</u> you **must** change  `ROOTDIR` to `/app/static`
+1. Create a Github PAT (Personal Access Token) for the instance you will run (NOT a build once-deploy many approach, sorry. simpler to solve at build time)
+    - The PAT is necessary to PUSH the pages back to github repo. If you aim at readonly, you can put something dummy.
+    - If no PAT is provided then the build will fail: you **must** provide build argument `GITHUB_PAT` 
+1. Build `docker build --build-arg GITHUB_PAT=<your PAT for that server> -t electrogeek .`
 1. Setup your Nginx to deliver port 1234 (or whichever you decided to share)
 1. Run `docker run -p 1234:1234 -v /server/path/to/config.py:/app/config.py -d --restart unless-stopped --name electrogeek-container electrogeek > /tmp/electrogeek.log 2>&1`
 

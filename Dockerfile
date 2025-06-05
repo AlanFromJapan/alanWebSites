@@ -1,5 +1,12 @@
 FROM python:3.13-alpine
 
+#at build time you can't set env variable, but you should pass it as a build argument
+ARG GITHUB_PAT
+#Set the environment variable for the GitHub Personal Access Token
+ENV ENV_GITHUB_PAT=${GITHUB_PAT}
+#if argument is not set, the build will fail
+RUN [ "${GITHUB_PAT}" ] || { echo "GITHUB_PAT build arg is not set. Build aborted (RTFM)."; exit 1; }
+
 #get git to clone the repository
 RUN apk update && apk add git tzdata
 
@@ -21,11 +28,15 @@ RUN adduser --disabled-password --gecos ''  webuser
 #allow the user to write to the /app directory
 RUN chown -R webuser:webuser /app
 
-#Swith to non-root user
+#Switch to non-root user
 USER webuser
 
-#Clone the repository
-RUN git clone https://github.com/AlanFromJapan/alanWebSites.git /app
+#Clone the repository (the PAT is used to authenticate and stored for later push)
+RUN git clone https://$ENV_GITHUB_PAT@github.com/AlanFromJapan/alanWebSites.git /app
+
+#register a script to push changes to the repository daily (at 2:22am)
+#NOPE. Docker does not support multiple processes, so we can't run cron jobs inside the container. Will be called from the host machine.
+#RUN echo "22 2 * * * /app/autocommit.sh" | crontab -
 
 #Branch is called master, comes from a time the young people didn't know about main (or cared how it's called)
 #git change the branch
