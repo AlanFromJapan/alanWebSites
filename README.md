@@ -30,10 +30,17 @@ March 2023: move to python3. Pretty sure I did that all years ago an never relea
 1. Create a Github PAT (Personal Access Token) for the instance you will run (NOT a build once-deploy many approach, sorry. simpler to solve at build time)
     - The PAT is necessary to PUSH the pages back to github repo. If you aim at readonly, you can put something dummy.
     - If no PAT is provided then the build will fail: you **must** provide build argument `GITHUB_PAT` 
-1. Build `docker build --build-arg GITHUB_PAT=<your PAT for that server> -t electrogeek .`
+1. Build `docker build --build-arg GITHUB_PAT=<your PAT for that server>  --build-arg GITHUB_EMAIL=<your email> -t electrogeek .`
+    - `GITHUB_PAT` is your Personal Access Token above [Mandatory]
+    - `GITHUB_EMAIL` is your Github registered email (so you can push from the container) [Mandatory]
 1. Setup your Nginx to deliver port 1234 (or whichever you decided to share)
 1. Run `docker run -p 1234:1234 -v /server/path/to/config.py:/app/config.py -d --restart unless-stopped --name electrogeek-container electrogeek > /tmp/electrogeek.log 2>&1`
 
+## Commit of code
+
+Docker doesn't like multiple process in a container, so internet wisdom advises to mix cron and whatever your app is (python in this case).
+
+Simplest option is to cron from the outside (host server) and execute command in the running container with: `docker exec -it electrogeek-container /app/autocommit.sh`
 
 # Install on a Vm
 

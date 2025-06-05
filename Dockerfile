@@ -2,10 +2,17 @@ FROM python:3.13-alpine
 
 #at build time you can't set env variable, but you should pass it as a build argument
 ARG GITHUB_PAT
+ARG GITHUB_USER=AlanFromJapan
+ARG GITHUB_EMAIL
+
 #Set the environment variable for the GitHub Personal Access Token
 ENV ENV_GITHUB_PAT=${GITHUB_PAT}
+ENV ENV_GITHUB_USER=${GITHUB_USER}
+ENV ENV_GITHUB_EMAIL=${GITHUB_EMAIL}
+
 #if argument is not set, the build will fail
 RUN [ "${GITHUB_PAT}" ] || { echo "GITHUB_PAT build arg is not set. Build aborted (RTFM)."; exit 1; }
+RUN [ "${GITHUB_EMAIL}" ] || { echo "GITHUB_EMAIL build arg is not set. Build aborted (RTFM)."; exit 1; }
 
 #get git to clone the repository
 RUN apk update && apk add git tzdata
@@ -33,6 +40,10 @@ USER webuser
 
 #Clone the repository (the PAT is used to authenticate and stored for later push)
 RUN git clone https://$ENV_GITHUB_PAT@github.com/AlanFromJapan/alanWebSites.git /app
+
+#Set the mail and user for git
+RUN git config user.email "$ENV_GITHUB_EMAIL"
+RUN git config user.name "$ENV_GITHUB_USER"
 
 #register a script to push changes to the repository daily (at 2:22am)
 #NOPE. Docker does not support multiple processes, so we can't run cron jobs inside the container. Will be called from the host machine.
