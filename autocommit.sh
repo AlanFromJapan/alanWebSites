@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #Schedule me with cron
 #52 13 * * * /path/to/electrogeek.PROD/autocommit.sh >> /tmp/autocommit.log 2>&1
