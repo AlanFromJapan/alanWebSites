@@ -19,6 +19,6 @@ CommitMessage="Autocommit from $HOSTNAME - $X"
 git commit -m "$CommitMessage"
 
 #3 push
-git push origin main
+git push origin master
 
 
