@@ -34,7 +34,7 @@ March 2023: move to python3. Pretty sure I did that all years ago an never relea
     - `GITHUB_PAT` is your Personal Access Token above [Mandatory]
     - `GITHUB_EMAIL` is your Github registered email (so you can push from the container) [Mandatory]
 1. Setup your Nginx to deliver port 1234 (or whichever you decided to share)
-1. Run `docker run -p 1234:1234 -v /server/path/to/config.py:/app/config.py -d --restart unless-stopped --name electrogeek-container electrogeek > /tmp/electrogeek.log 2>&1`
+1. Run `docker run -p 1234:1234 -v /server/path/to/config.py:/app/config.py:ro -d --cap-drop all --security-opt=no-new-privileges --restart unless-stopped --name electrogeek-container electrogeek > /tmp/electrogeek.log 2>&1`
 
 ## Commit of code
 
