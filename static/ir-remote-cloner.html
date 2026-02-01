@@ -6,9 +6,12 @@ I always wanted to backup my old IR remotes. I have old (25+ years) air conditio
 * Generate the arduino code automatically to clone your remote
 * Make your own remote clone
 <h2>Points of interrest</h2>
+* Parts should be quite interchangeable. Aim at 940nm for the IR Led for remote usual range.
+* Use a transistor (NPN - sink side) to drive the IR LED for max out the power. Choose the resistors as per your LED spec.
+
 <h2>Points of frustration</h2>
 * It's using an arduino (or just an ATmega) because it uses the IRremote arduino library. It's a complete waste of power to use such a big chip for that. One day maybe I'll rewrite it with an ATtiny...
-
+* The IR Receiver model I use (PL-IRM2121-A538 that I bought a decade or more ago) marked "10T6327" is a greedy m*********er and needs 50mA to work (100ohm resistor R1) though the datasheet says "max 2.5 mA". If you put R1 = 1k then it will receive but can't decode and the program interprets it as garbage. So my protoboard has some artistic pigibacking (but it's their charm, isn't it?)
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <h2>Schematics</h2>
@@ -17,7 +20,7 @@ I always wanted to backup my old IR remotes. I have old (25+ years) air conditio
   <img src="/files/20260128_223753.jpg" /><br/>
 Original handwritten<br/>
 
-<img src="/files/Screenshot_from_2026-01-26_20-51-27.png" /><br/>
+<img src="/files/ir-remote-cloner-basic.png" /><br/>
 Kicad version
 <h2>Source code</h2>
 👉 [[https://github.com/AlanFromJapan/ir-remote-cloner|Source code (arduino and python) on my repo]]
