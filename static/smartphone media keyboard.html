@@ -24,9 +24,10 @@ My goal is to have a board directly plugged in the phone, no cable (USB-C OTG ca
 <table>
   <tr>
     <td>
-      👇This WORKS　😍👇<br/>
+      👇This **WORKS**　💗😍👇<br/>
       You want an OTG cable that **sinks current** (the smartphone will provide power to my mini keyboard).<br/>
-      Found in [[https://www.ti.com/lit/wp/slly017/slly017.pdf|this link]] and [[https://somanytech.com/usb-c-otg-wiring-diagram-detail-internal-connections/|this one]], and [[https://electronics.stackexchange.com/questions/446528/why-would-a-usb-c-adapter-have-a-pull-up-resistor|that one]].
+      Found in [[https://www.ti.com/lit/wp/slly017/slly017.pdf|this link]] and [[https://somanytech.com/usb-c-otg-wiring-diagram-detail-internal-connections/|this one]], and [[https://electronics.stackexchange.com/questions/446528/why-would-a-usb-c-adapter-have-a-pull-up-resistor|that one]].<br/>
+<img src="/files/usb-c_sink_wiring.jpg" width="300" />      
     </td>
     <td>
 To make a USB-C OTG male cable, from a male USB-C connector:
@@ -42,8 +43,8 @@ To make a USB-C OTG male cable, from a male USB-C connector:
   
   <tr>
     <td>
-      👇This DOESN'T WORK ❌🙅👇<br/> 
-      <img src="/files/usb-c-otg-diy.png" />
+      👇This <span style="color:red;">DOESN'T</span> WORK ❌🙅👇<br/> 
+      <img src="/files/usb-c-otg-diy.png" width="300"/>
     </td>
     <td>
       As an OTG cable to sink current this doesn't work, with a 56k ohm pull-**up** you end with an USB cable that will **source** current to your smartphone. At least that is what it means from the USB-C definition, and that is NOT what I plan to do now. It however explains why the cable I bought on Aliexpress didn't work (in my use case).<br/>
@@ -52,6 +53,8 @@ To make a USB-C OTG male cable, from a male USB-C connector:
   </tr>
 </table>
 <h1>Pictures</h1>
+<img src="/files/usb-c_sink_wiring.jpg" /><br/>
+The wiring that worked out for me, not OTG but being declared as "sink device" seems to do the trick.<br/>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
 * Apparently one can be OTG slave AND provide power if FIRST it connects the power wires only AND THEN connects the data wires? [[https://www.instructables.com/id/DIY-Cable-to-Use-OTG-and-Simultaneously-Charge-the/|link]]
