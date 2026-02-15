@@ -1,4 +1,5 @@
 <script>hljs.initHighlightingOnLoad();</script>
+<img src="/files/usbmediaboard_top.jpg" align="right" width="300" />
 
 Need to press Play/Pause quickly on your cellphone while listening to music and charging at the same time.
 
@@ -10,13 +11,17 @@ A small USB **Consumer device** (not a keyboard!) you'd plug on your cellphone a
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 <h2>Schematics</h2>
+See the Kicad schematics here [[https://github.com/AlanFromJapan/pcb-design/tree/master/SmartphoneMediaKeyboard]]
 <h2>Source code</h2>
+All source code here [[https://github.com/AlanFromJapan/alanarduinotools/tree/master/Attiny2313/UsbMiniMediaKeyboard]]<br/>
+
 <pre><code class="c">
 #define VOL_UP		0xe9
 #define VOL_DOWN	0xea
 #define VOL_MUTE	0xe2
+//used the below 2 only
 #define PLAY_PAUSE 	0xcd
-#define NEXT            0x??
+#define NEXT        0xb5
 </code></pre>
 <h2>Going USB-C</h2>
 Smartphones generations passed since I had this idea and left it on the shelf. Now the standard for smartphones is USB-C, and there is little resources on how to do your own USB-C OTG cable. Managed to find this one, after buying some on the Alibay space, that I couldn't make work.<br/>
@@ -53,6 +58,11 @@ To make a USB-C OTG male cable, from a male USB-C connector:
   </tr>
 </table>
 <h1>Pictures</h1>
+<img src="/files/usbmediaboard_top.jpg" />
+<img src="/files/usbmediaboard_bottom.jpg" /><br/>
+The board assembled and working, with a home made touch you can't deny. Only Next and Pause but you can add as many buttons as you have free pins, go crazy!<br/>
+<br/>
+
 <img src="/files/usb-c_sink_wiring.jpg" /><br/>
 The wiring that worked out for me, not OTG but being declared as "sink device" seems to do the trick.<br/>
 <h1>Links</h1>
