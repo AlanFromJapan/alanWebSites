@@ -18,6 +18,11 @@ Ok there are better and safer ways, just let me be.
 #store my credentials in a clear text file (hum hum) in my home folder/.git-credentials
 git config --global credential.helper store
 </pre>
+<h2>Initial commit date of a file</h2>
+When was that you committed that file for the //first time// ?
+<pre>
+git log --diff-filter=A --reverse --pretty=format:"%ad" --date=format:'%Y-%m-%d' <FILENAME>
+</pre>
 <h1>HOWTOs</h1>
 <h2>Migrate a folder with its history to another repository</h2>
 I had to do that because I put everything (C#, python, microcontroller, eagle,...) files in one repository which obviously became too big and kind a messy. So I decided to move out some chuncks of it outside to a dedicated smaller repo (ie: eagle files in May2020). This is how I did it.<br/>
