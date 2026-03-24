@@ -34,6 +34,7 @@ Do your design normally, but follow the below rules.
 * **Signal**: make them fat at **1mm** minimum
 * DRC Rules - Clearance: set to **25mil** for all the **Different signals (all the wire only)**
 * DRC Rules - Sizes: set minimum width at **0.6mm**. It's fat but that is a minimum to ensure the wire is still here post etching.
+* Add a **bottom plane to save copper etchant**: make a "Filled zone" on the Bottom layer (B.Cu), Clearance & min width =1mm, Fill type= Solid fill. Press hotkey [B] to have Kicad calculate it (or Edit > Fill All Zones).
 
 <br/>
 <h3>PART 3 : PCB design transfer</h3>
