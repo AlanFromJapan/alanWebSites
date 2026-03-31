@@ -3,10 +3,22 @@ This is a new Template for **ardReveil v7** nicknamed **Morning Classic 7** beca
 <h1>Presentation</h1>
 <h2>Principle</h2>
 <h2>Points of interrest</h2>
+<h3>Distance sensor rather than button</h3>
+<h3>Load it with your country days off</h3>
+<h3>No sound but fat vibrations</h3>
+<h2>What MCU to use?</h2>
+<h3>ATtiny2313</h3>
+If I go Tiny2313, I will do something like that:
+* 1-3 pins free
+* No ADC so use comparator for sensor to make it digital ("close/far", no distance measurement)
+* No I2C free (hard on used by ISP programmer) so use logic I2C for RTC 
+<img src="/files/reveil7-uc-2313.jpg" width="500"/><br/>
 <h1>Implementation</h1>
 <h2>Bill of materials</h2>
 * TM1637 to drive the common anode 7 segment
-* a 7segment x4 ([[https://akizukidenshi.com/catalog/g/g104422/|this one if you care]])
+* 7segment x4 ([[https://akizukidenshi.com/catalog/g/g104422/|this one if you care]])
+* RTC DS3231 because no need of the RAM and precise +/- 1 minute per year (and in my collection) 
+* Vibration motor recycled from a PS3 controller
 <h2>Schematics</h2>
 On GitHub [[https://github.com/AlanFromJapan/pcb-design/tree/master/avrReveil7|here]].
 <h2>Source code</h2>
