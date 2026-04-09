@@ -21,6 +21,9 @@
 <!-- ===================================================================== -->
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
+
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2026-04-09 - Reveil v7 II</span><br />      
+  While still [[ardReveil v7|making another clock]], I erred on the vague hope I would power it with an ATtiny of some sort, but after reviewing my pins requirements and components need (need a TWI/I2C for the DS3231 RTC, another software pseudo-I2C for the TM1637, at least 256bytes of EEPROM to store Japan vacation for coming ~5 years,...), and even asking AI's opinion, the verdict fell: I need to fallback to a good old ATmegaxxx (not 8 because no TWI but 88/168 or 328) at the minimum. So there we are, I'm going to swallow my pride, use an m328 and program it with Arduino IDE, like we're in 2010...
   
 <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2026-03-29 - Reveil v7 (continued)</span><br />      
   While [[ardReveil v7|making another clock]], I am going toward a ATtiny861 because I need some pins and some space for the USB stack ... which since after reflection I will not need (V-USB) because I will use for fun a CH340G instead so ... now that I read these lines, why did I do that?<br/>
