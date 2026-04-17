@@ -22,6 +22,11 @@
 <!-- =========================== Start of news =========================== -->
 <!-- ===================================================================== -->
 
+<span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2026-04-17 - Wallwart nearly killed me</span><br />      
+  I unplugged the wallwart of the front camera to hard reset it, and ended with the wallwart body in my hand and the AC connect prongs ready to shock me still in the wall! Luckily it ended well: [[Repair - Wallwart power supply]]<br/>
+  <img src="/files/20260416_135342.jpg" /><br/>
+  <br/>
+  
 <span class="alannews2"><img src="/files/news-avatar.200120.png" alt="news-avatar.200120.png" title="news-avatar.200120.png" style="width: 80px;" /> 2026-04-09 - Reveil v7 II</span><br />      
   While still [[ardReveil v7|making another clock]], I erred on the vague hope I would power it with an ATtiny of some sort, but after reviewing my pins requirements and components need (need a TWI/I2C for the DS3231 RTC, another software pseudo-I2C for the TM1637, at least 256bytes of EEPROM to store Japan vacation for coming ~5 years,...), and even asking AI's opinion, the verdict fell: I need to fallback to a good old ATmegaxxx (not 8 because no TWI but 88/168 or 328) at the minimum. So there we are, I'm going to swallow my pride, use an m328 and program it with Arduino IDE, like we're in 2010...
   
