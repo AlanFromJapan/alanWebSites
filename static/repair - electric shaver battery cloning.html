@@ -19,7 +19,12 @@ There must be some circuitry in the battery hidden behind the power pins, becaus
 <img src="/files/shaver_pulse3.jpg" />
 
 <h1>Implementation</h1>
-<h2>Solution</h2>
+<h2>Solution 1: cell replacement</h2>
+Just replace the Li-Ion cell in the battery. Regular 18650 3.7v 1200mA. But where's the fun in that?
+Btw I will do that after I complete solution 3, but I don't want to risk killing the last barely-working battery I have at hand: I need it for the tests.
+<h2>Solution 2: direct motor drive</h2>
+Yeah, just measure how much amps go in the motor and drive it? Motor is a [[https://wtlmotors.com/products/ff-337pa/|Weilong FF-337PA]], DC 3.7v at max 0.8A at full load for 6800 RPM (as per datasheet). But let's call this "last resort" solution in case I blow up the whole thing.
+<h2>Solution 3: battery emulation</h2>
 Emulate the genuine battery! <br/>
 Assuming we will make it a wired version, USB 5V:
 * Sense the 1.2v (do that with an opamp to reach interrupt level of 3v+?)
