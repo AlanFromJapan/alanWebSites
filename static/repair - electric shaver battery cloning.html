@@ -32,7 +32,13 @@ Assuming we will make it a wired version, USB 5V:
 * After FALLING edge, wait 20us, send 300us pulse = need to generate 1.2v pulse and send that on IN+
 * Avoid brownout when the motor starts (sharp voltage drop on the scope)
 <h2>Schematics</h2>
+<h3>WORKING circuit to detect signal with LM311</h3>
+2 evenings discovering Comparators after noticing that it wouldn't work with LM358 (OpAmp) and it worked. Pretty happy to have discovered that puppy at the bottom of my "opamps & comparators" drawer, and happy first experience with comparator. And Mr. Dave Jones puts it as [[https://www.youtube.com/watch?v=c5M8P6oe9xY|the first of the Jelly Beans comparators]]!<br/>
+<img src="/files/hatteker-battery-signal-lm311.png" />
 <h2>Source code</h2>
+PCB and schematics:
+* [[https://github.com/AlanFromJapan/pcb-design/tree/master/hatteker-battery-faker]]
+
 <h1>Pictures</h1>
 <h1>Links</h1>
 <h2>Helpful sources</h2>
