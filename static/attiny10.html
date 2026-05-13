@@ -1,22 +1,40 @@
-<html>
-  <head>
-    <title>kalshagar - ATtiny10</title>
-    <link rel="stylesheet" href="static/style.css" type="text/css" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
-<img src="files/pinout10large.png" alt="pinout10large.png" title="pinout10large.png" /><br />
-<h2 id="toc0"><a name="x-Memo fact sheet"></a> Memo fact sheet <img src="files/I-04575.JPG" alt="I-04575.JPG" title="I-04575.JPG" style="width: 300px;" align="right" /></h2>
+<img src="/files/pinout10large.png" alt="pinout10large.png" title="pinout10large.png" /><br />
+<h2 id="toc0"><a name="x-Memo fact sheet"></a> Memo fact sheet <img src="/files/I-04575.JPG" alt="I-04575.JPG" title="I-04575.JPG" style="width: 300px;" align="right" /></h2>
 <br />
 <ul><li><strong>Code</strong> : 1024 Bytes / <strong>EEPROM</strong> : <span style="color: red;">0 bytes</span> / <strong>RAM</strong> : 32 Bytes</li><li><strong>Size</strong>: about 3mm x 3mm legs included !! (0。0)</li><li>2 PWM on PB0 and PB1</li><li>Default speed : internal oscillator 8 MHz</li><li>Homepage <a class="wiki_link_ext" href="http://www.atmel.com/devices/ATTINY10.aspx" rel="nofollow">http://www.atmel.com/devices/ATTINY10.aspx</a></li></ul><br />
 <br />
 <h1 id="toc1"><a name="Usage"></a> Usage </h1>
+<h2>Building code</h2>
+I do ASM only for these small MCU because wheter it's ultra time sensitive (so count your cycles), or space tight (so manage by myself), or very simple (no need of C). Plus it's good hygiene to do some ASM every few years.<br/>
+<br/>
+To build use **avra** ([[https://github.com/Ro5bert/avra|source]]) to install with simple <code>sudo apt install avra</code>.<br/>
+<br/>
+Build with:
+<pre>
+avra -I /usr/share/avra Blink_tiny10.asm
+</pre>
+
 <h2 id="toc2"><a name="Usage-Programming"></a> Programming </h2>
 The chip is so small it cannot use a SPI interface but uses instead the TPI (Tiny Programming Interface). For the AVR mkII programmer, explanation is <a class="wiki_link_ext" href="http://www.atmel.com/webdoc/avrispmkii/avrispmkii.section.phf_vsd_lc.html" rel="nofollow" target="_blank">here</a>.<br />
-<img src="files/tpi_connector.png" alt="tpi_connector.png" title="tpi_connector.png" /><br />
+<img src="/files/tpi_connector.png" alt="tpi_connector.png" title="tpi_connector.png" /><br />
 <em>Top view of the connector on the circuit board - Pin 1 = red wire </em><br />
 <br />
+<pre>
+AVRISP      Target    ATtiny
+connector   pins      pin #
+1 (MISO)    TPIDATA   1
+2 (VTref)   Vcc       5
+3 (SCK)     TPICLK    3
+4 (MOSI)		
+5 (RESET)   /RESET    6
+6 (GND)     GND       2
+</pre>
+(source [[https://www.nongnu.org/avrdude/user-manual/avrdude_20.html]])<br/>
+<br/>
+Command line:
+<pre>
+avrdude -p t10 -cavrispmkII  -U flash:w:Blink_tiny10.hex:i -B12 -v
+</pre>
 <strong>REMINDER:</strong> once you program it, the program will not start running (!). You have to unplug the /RESET wire (connecting the Tiny10 to the AVR programmer) <em>and</em> you have to unplug the AVR ISP mkII from the USB (!!) Why? Maybe the /RESET line stays forced low. I tried to add a pullup but to no avail. This stays a mystery so far but the article here under in the links mentions the same problem...<br />
 <br />
 <h1 id="toc3"><a name="Links"></a> Links </h1>
@@ -175,8 +193,3 @@ WDT_off<span class="sy1">:</span>
     sei
     <span class="co1">;reti because it's an interrupt</span>
     reti</pre>
-
-
-    </div>
-  </body>
-</html>
