@@ -5,7 +5,11 @@ A small minor [[http://otonanokagaku.net/japanino/|Japanese board]], clone of Ar
 <h2>Points of interrest</h2>
 Well it's a rare Arduino clone, with a [[atmega168]] and a 8MHz crystal, and a [[https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers|CP210x USB to UART Bridge]].
 <h1>Implementation</h1>
-<h2>Integration in Arduino IDE</h2>
+<h2>Integration with recent Arduino IDE 2.3+</h2>
+* Pick the "Arduino NG or older"
+* BEWARE: the Arduino runs at 16MHz but Japanino is 8Mhz so 2x slower
+
+<h2>Integration in legacy Arduino IDE</h2>
 Edit the <code>\arduino-1.6.13\hardware\arduino\avr\boards.txt</code>:
 <pre>
 ##############################################################
