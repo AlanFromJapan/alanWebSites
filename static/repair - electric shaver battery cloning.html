@@ -35,6 +35,10 @@ Assuming we will make it a wired version, USB 5V:
 <h3>WORKING circuit to detect signal with LM311</h3>
 2 evenings discovering Comparators after noticing that it wouldn't work with LM358 (OpAmp) and it worked. Pretty happy to have discovered that puppy at the bottom of my "opamps & comparators" drawer, and happy first experience with comparator. And Mr. Dave Jones puts it as [[https://www.youtube.com/watch?v=c5M8P6oe9xY|the first of the Jelly Beans comparators]]!<br/>
 <img src="/files/hatteker-battery-signal-lm311.png" />
+<h3>Driving the 1.2v from MCU</h3>
+Use a 1.2v voltage reference (ICL8069) and drive it with a npn-transistor (or mosfet) should work: [[https://www.falstad.com/circuit/circuitjs.html?ctz=DwYwlgTgBAZgvAIgIwKgFwM6IAwDpsEECsqYIiSeATAVQOx0DM2AHFQGwCcndqIARoiLZUAB0EJhqAG4QhqALaYhAUwC0SFAD4AUFCjBpUAB44ojIlSjYoLEbByoA7vAT2FAQ2PT5Ael36wE4mZnZQmlZ2qK4i-noGaCHISFZUROxQVFQALJnp0Y5QogB2FKj8KhQEigD2iAAmKjAeAK4ANmgyFYga+JrZOXTZjCzsRKMsjF3kbrhILEgjaZwjDCssnAhxgdCmyZE2EeF07AVuqHLIhLEBBhhJR0gn4Sl5pw7nRWXbBruIWbkwgDMtl7DELohmDd4kEksD6KkcuZLGdoYFgntgRYrDZsaitrdDElspwMjkbCSMk93q4kO8XIVPN4KLgqASYRjEJSQRTSci2R80QZOQhudjMki8YL2ei4UiwtyotKfrC9oreVSTviVaI4XRUqDzOwWDyzlMoApKp8MDN7BArZRrtUVSLGMaeVAxSjlYSRfDDQjTT6YX8EIHyRLclLwVBLsJCOzgL5wBBdEA|simulation on falstad.com]].<br/>
+<br/>
+<img src="/files/hatteker-falstad-switch.png" />
 <h2>Source code</h2>
 PCB and schematics:
 * [[https://github.com/AlanFromJapan/pcb-design/tree/master/hatteker-battery-faker]]
