@@ -1,0 +1,30 @@
+<img src="/files/casio-ctk-800.jpg" width="300" align="right" />We have an old second **[[http://arch.casio-intl.com/asia-mea/en/emi/past/standard/ctk800.html|Casio CTK-800]]** synthesizer I bought for 1 JPY + delivery maybe 1 years ago. Still working even if the screen is working only when it feels like (maybe repair one day). The annoying point is the power: the barrel I have is a bit lose, I didn't have a 9V 1A power supply so I made one from a 12V source and a LM7809 which means it gets HOT and it's inefficient!<br/>
+But in 2026 we have USB C, Power Delivery and AliExpress breakout board that can negotiate "any" voltage you want from you USB wallwart. So let's make this keyboard USB powered!
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+* AliExpress USB C voltage breakout board get the USB and negotiate 9v delivery over PD (Power Delivery). Need ~900mA, any 20W+ PD-enabled wallwart can do 2A easily so no problem here
+* Find out where the 9v is feed normally in the keyboard, careful with polarity
+* Find a please to fix the board that you can plug USB from the outside
+* Drill, dremel, soldering iron, epoxy glue
+* Done in 1-2h
+
+<h2>Points of interrest</h2>
+Nothing much, really a basic project that may just help someone with similar issue in the future. Maybe simplicity is its point of interest in the end.<br/>
+Ah yes one thing maybe: beware the barrel is **CENTER-NEGATIVE** (a rarity). Nowadays everything is CENTER-POSITIVE, except this puppy.
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* AliExpress PD/QC USB C "Trigger" or "Decoy" board (~= 1 USD per board)
+<h2>Schematics</h2>
+Nope
+<h2>Source code</h2>
+N/A
+<h1>Pictures</h1>
+<img src="/files/casio-ctk-800-repair1.jpg" /><br/>
+Found a place to stick the board. Beware the barrel is CENTER-NEGATIVE (a rarity).<br/>
+<br/>
+<img src="/files/casio-ctk-800-repair2.jpg" /><br/>
+View from the outside.
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
