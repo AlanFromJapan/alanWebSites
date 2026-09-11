@@ -1,0 +1,24 @@
+<img src="/files/anker-soundcore-1.png" align="right" width="350"/>Got an Anker Soundcore for 1000JPY (~5USD) delivered. I like their performance (I have a Soundcore 2) and I needed a cheap Bluetooth speaker, so an obvious choice. BUT the USB connector (micro or mini? hard to tell) had an encounter with a gorilla or some similar beast. It worked, battery was still dandy but no way to charge it. Overall an easy fix, but with a catch ... 
+
+<h1>Presentation</h1>
+<h2>Principle</h2>
+Anker Soundcore USB connector was utterly destroyed. I don't know who did that, but they went all-in on it. Seriously check the picture, I'm not even sure if it was a micro or mini USB connector.<br/>
+Original plan was just to add an USB-C breakout board on the side, 2 wires and done. I tried injecting 5V around one of the main power coupling capacitor, but the *charging* circuit behaved as if shorted. After maybe 15 mins of trial and errors, it dawned to me: they ARE shorted! The USB connector must have been so mangled that VCC and GND must be shorted in it.<br/>
+Rosin, hot gun, 1 minute and the connector was out (plus a small cap that I had to put back). And yes, short is gone, now behaving as expected. The rest is just drilling holes for the USB-C connector breakout, wires and reassembly, nothing worth much details.
+<h2>Points of interrest</h2>
+* The charging circuit was shorted because of the physically destroyed USB connector
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* USB-C breakout board ... maybe 50JPY?
+<h1>Pictures</h1>
+<img src="/files/anker-soundcore-2.png" /><br/>
+//Look at what they did to my poor Santino...//<br/>
+<img src="/files/anker-soundcore-3.jpg" /><br/>
+//He's gone, Jim.// ... no but seriously how did they do that?<br/>
+<img src="/files/anker-soundcore-4.jpg" /><br/>
+USB connector removed, wired to the charge regulator USB-+ input and decoupling cap GND<br/>
+<img src="/files/anker-soundcore-5.jpg" /><br/>
+Thing of beauty, joy forever. It sure is ugly but it works.
+<h1>Links</h1>
+<h2>Helpful sources</h2>
+<h2>Inspiration</h2>
