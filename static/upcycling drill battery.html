@@ -1,0 +1,32 @@
+I bought a Kimo drill (one of the cheapest on Amz), very happy with it and she served me well for about 5 years. The li-ion battery then died: no way to charge it, the charger refuses to. So ♪what do we do with the dead battery?♬ We reusing her of course.<br/>
+<img src="/files/kimobattery.png" />
+
+<h1>Presentation</h1>
+<h2>Case 1 : Kimo 5 cell "20v" battery 🍀</h2>
+Dead Li-ion battery pack, you usually have 2 usual suspects:
+* The charger circuit : IC is dead or a fuse blown?
+* A dead cell in the bunch
+The later is the easiest to check, and yes, one of the cell was measured at 2.5V.<br/>
+<br/>
+Then 2 options: replace the cell or reuse the remaining 4. I decided to do the later. I put a 4 cells battery charger from Aliexpress, wired it, and there we are:
+* Output 14.8V on the P+/P- pins
+* Charge by applying 16.8V on the same P+/P- (charger+ → P+ / charger- → P-)
+<img src="/files/kimobattery3.jpg" /><br/>
+<br/>
+Charging is a bit annoying, if have to use my Kikusui PSU to generate the 16.8V. <br/>
+I'm toying with the idea of sticking a USB-C with PD (Power Delivery) and those "decoy" fancy chips that let you set the voltage/amperage you want from the charger... maybe later.
+
+<h2>Case 2 : Bosch 5 cell 18V "Power for all" batter ⛔</h2>
+Same story, my old Bosch drill battery is dead. Unfortunately, tested the cells inside, they all read 2.6V, beyond the discharge protection of most circuits (hence why it wouldn't charge anymore).<br/>
+Farewell, you served me well, now you will meet the recycling services of the city 😢
+<h2>Points of interrest</h2>
+* Stick a buck converter and a USB port, and there you have a nice portable battery!
+<h1>Implementation</h1>
+<h2>Bill of materials</h2>
+* [[https://ja.aliexpress.com/item/1005010339601740.html]] or any clone of a "4S 18650 Li-ion battery charger"
+<h2>Schematics</h2>
+<img src="/files/kimobattery2.png" />
+<h1>Pictures</h1>
+<h1>Links</h1>
+<h2>Inspiration</h2>
+* [[drill battery from laptop battery]]
